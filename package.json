@@ -17,7 +17,8 @@
     "netlify-lambda": "^1.6.3",
     "next": "^9.1.2",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "express": "^4.17.1",
