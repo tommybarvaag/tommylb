@@ -1,0 +1,6 @@
+# netlify.toml 
+
+[build]
+  command = "yarn deploy"
+  publish = "out"
+  functions = ".netlify"
