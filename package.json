@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "export": "next export",
-    "deploy": "yarn build && yarn export"
+    "deploy": "yarn build && yarn export && yarn netlify-lambda build functions"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
