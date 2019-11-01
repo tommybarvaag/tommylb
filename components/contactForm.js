@@ -1,14 +1,71 @@
+import { Button, Container, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import React from "react";
 
+const useStyles = makeStyles(theme => ({
+  title: {
+    width: "100%",
+    paddingTop: "80px",
+    textAlign: "center",
+    margin: theme.spacing(0, 0, 2)
+  },
+  description: {
+    color: "rgb(78, 78, 80)",
+    textAlign: "center"
+  },
+  contactForm: {
+    margin: "0 auto"
+  },
+  textField: {
+    width: "100%"
+  },
+  button: {
+    textTransform: "none",
+    margin: theme.spacing(2, 0, 0)
+  }
+}));
+
 export default function ContactForm() {
+  const classes = useStyles();
+
   const [submitting, setSubmitting] = React.useState(false);
+
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [text, setText] = React.useState("");
 
-  const onFormSubmit = e => {
-    if (name && email && text) {
-      e.preventDefault();
+  const [nameValid, setNameValid] = React.useState(true);
+  const [emailValid, setEmailValid] = React.useState(true);
+  const [textValid, setTextValid] = React.useState(true);
+
+  const validateString = (input, setFunc) => {
+    const result = input !== null && input !== undefined && input !== "";
+
+    if (setFunc) {
+      setFunc(result);
+    }
+
+    return result;
+  };
+
+  const validateEmail = (input, setFunc) => {
+    const result = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.exec(
+      input
+    );
+
+    if (setFunc) {
+      setFunc(result);
+    }
+
+    return result;
+  };
+
+  const onFormSubmit = () => {
+    const nameValidationResult = validateString(name, setNameValid);
+    const emailValidationResult = validateEmail(email, setEmailValid);
+    const textValidationResult = validateString(text, setTextValid);
+
+    if (nameValidationResult && emailValidationResult && textValidationResult) {
       setSubmitting(true);
       fetch(".netlify/functions/sendMail", {
         method: "POST",
@@ -31,124 +88,76 @@ export default function ContactForm() {
     if (submitting) {
       return (
         <>
-          <h2 className="title">Thank you!</h2>
-          <p className="description">You'll hear from me soon.</p>
-          <style jsx>{`
-            .title {
-              margin: 0;
-              width: 100%;
-              padding-top: 80px;
-              font-size: 3.6rem;
-            }
-
-            .description {
-              font-size: 2.2rem;
-              color: rgb(78, 78, 80);
-            }
-          `}</style>
+          <Typography variant="h2" className={classes.title}>
+            Thank you!
+          </Typography>
+          <Typography className={classes.description} paragraph>
+            You'll hear from me soon.
+          </Typography>
         </>
       );
     }
 
     return (
       <>
-        <h2 className="title">Let’s have a chat</h2>
-        <p className="description">
-          I’m always happy to talk about working together, new opportunities or just catching up. If you’d like to get in touch, just shoot me an email with the
-          link below.
-        </p>
+        <Typography variant="h2" className={classes.title}>
+          Let’s have a chat
+        </Typography>
+        <Typography className={classes.description} paragraph>
+          I’m always happy to talk about working together, new opportunities or just a friendly hello.
+        </Typography>
         <form>
-          <input name="name" type="text" className="contact-form-input" placeholder="Full name" onChange={event => setName(event.target.value)} required />
-          <input
-            name="email"
+          <TextField
+            label="Full name"
+            error={!nameValid}
+            type="text"
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            onChange={event => {
+              setName(event.target.value);
+              validateString(event.target.value, setNameValid);
+            }}
+            required
+          />
+          <TextField
+            label="Email address"
+            error={!emailValid}
             type="email"
-            className="contact-form-input"
-            placeholder="Email address"
-            onChange={event => setEmail(event.target.value)}
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            onChange={event => {
+              setEmail(event.target.value);
+              validateEmail(event.target.value, setEmailValid);
+            }}
             required
           />
-          <textarea
-            name="text"
-            className="contact-form-input contact-form-text-area"
+          <TextField
+            label="Text"
+            error={!textValid}
             placeholder="Hey Tommy, I'm interested in chatting about a role we have available..."
-            onChange={event => setText(event.target.value)}
+            multiline
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
             required
+            onChange={event => {
+              setText(event.target.value);
+              validateString(text, setTextValid);
+            }}
           />
-          <input className="contact-form-submit-button" type="submit" value="Send message" onClick={onFormSubmit} />
+          <Button variant="contained" color="secondary" className={classes.button} onClick={onFormSubmit}>
+            Send message
+          </Button>
         </form>
-        <style jsx>{`
-          .contact-form {
-            max-width: 78.4rem;
-            margin: 0 auto;
-            text-align: center;
-          }
-
-          .title {
-            margin: 0;
-            width: 100%;
-            padding-top: 80px;
-            font-size: 3.6rem;
-          }
-
-          .description {
-            font-size: 2.2rem;
-            color: rgb(78, 78, 80);
-          }
-
-          .contact-form-input {
-            font-weight: 500;
-            font-size: 1.6rem;
-            border-radius: 4px;
-            border: 1px solid #000000;
-            transition: all 0.3s;
-            padding: 13px;
-            margin-bottom: 16px;
-            width: 100%;
-            box-sizing: border-box;
-            outline: 0;
-          }
-
-          .contact-form-input:focus {
-            border: 1px solid #000000;
-          }
-
-          .contact-form-text-area {
-            height: 150px;
-            resize: vertical;
-            font-family: Arial, Helvetica, sans-serif;
-          }
-
-          .contact-form-submit-button {
-            width: auto;
-            background: #000000;
-            border: 1px solid #000000;
-            border-radius: 4px;
-            cursor: pointer;
-            color: white;
-            font-size: 1.6rem;
-            transition: all 0.3s;
-            padding: 1em 1.5em 1.05em;
-            min-width: 7rem;
-          }
-
-          .contact-form-submit-button:hover {
-            background: #333333;
-          }
-        `}</style>
       </>
     );
   };
 
   return (
-    <div className="contact-form">
+    <Container maxWidth="sm" className={classes.contactForm}>
       {renderContactFormContent()}
-      <style jsx>{`
-        .contact-form {
-          max-width: 78.4rem;
-          margin: 0 auto;
-          text-align: center;
-        }
-      `}</style>
-    </div>
+    </Container>
   );
 }
