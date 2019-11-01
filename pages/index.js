@@ -9,10 +9,7 @@ import Nav from "../components/nav";
 
 const useStyles = makeStyles(theme => ({
   main: {
-    zIndex: 1,
-    minHeight: "100vh",
-    position: "relative",
-    margin: theme.spacing(1)
+    position: "relative"
   }
 }));
 
