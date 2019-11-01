@@ -1,4 +1,4 @@
-import { Container, Slide } from "@material-ui/core";
+import { Container, Fade } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Head from "next/head";
 import React from "react";
@@ -8,7 +8,12 @@ import Hero from "../components/hero";
 import Nav from "../components/nav";
 
 const useStyles = makeStyles(theme => ({
-  main: {}
+  main: {
+    zIndex: 1,
+    minHeight: "100vh",
+    position: "relative",
+    margin: theme.spacing(1)
+  }
 }));
 
 export default function Home() {
@@ -62,13 +67,13 @@ export default function Home() {
             "sameAs": ["https://www.facebook.com/tommybarvaag","https://www.linkedin.com/in/tommybarvaag/"]`}</script>
       </Head>
       <Nav />
-      <Slide direction="up" in={show} mountOnEnter unmountOnExit>
+      <Fade in={show}>
         <Container className={classes.main} component="main">
           <Hero />
           <ContactForm />
           <Footer />
         </Container>
-      </Slide>
+      </Fade>
     </>
   );
 }
