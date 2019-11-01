@@ -1,96 +1,74 @@
+import { Container, Slide } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import Head from "next/head";
 import React from "react";
-import { CSSTransition } from "react-transition-group";
 import ContactForm from "../components/contactForm";
 import Footer from "../components/footer";
+import Hero from "../components/hero";
 import Nav from "../components/nav";
 
+const useStyles = makeStyles(theme => ({
+  main: {}
+}));
+
 export default function Home() {
-  const [showButton, setShowButton] = React.useState(false);
+  const classes = useStyles();
+
+  const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
-    setShowButton(true);
+    setShow(true);
   });
 
   return (
-    <div>
+    <>
       <Head>
-        <title>Hi, I'm Tommy Lunde Barvåg 👋</title>
+        <title lang="en">Hi, I'm Tommy Lunde Barvåg 👋</title>
+        <meta
+          name="description"
+          content="Hi, I'm Tommy Lunde Barvåg 👋 I’m a full stack developer. I’ve spent the last six years creating web solutions for great companies."
+        ></meta>
+        <link rel="canonical" href="/no/"></link>
+        <meta property="og:title" content=">Hi, I'm Tommy Lunde Barvåg 👋"></meta>
+        <meta
+          property="og:description"
+          content="Hi, I'm Tommy Lunde Barvåg 👋 I’m a full stack developer. I’ve spent the last six years creating web solutions for great companies."
+        ></meta>
+        <meta property="og:url" content="/"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:image" content="https://tommylb.com/logo.jpg"></meta>
+        <meta property="og:locale" content="en_US"></meta>
+        <meta property="og:site_name" content="tommylb.com"></meta>
+        <script type="application/ld+json">{`"@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Tommy Lunde Barvåg",
+            "legalName": "Tommy Lunde Barvåg",
+            "url": "https://tommylb.com/",
+            "logo": "https://tommylb.com/logo.jpg",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Holtavegen 32",
+                "addressLocality": "Rådal",
+                "addressRegion": "Bergen",
+                "postalCode": "5239",
+                "addressCountry": "Norway"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Sales and support",
+                "telephone": "+47 97 77 79 07",
+                "email": "tommy@barvaag.com"
+            },
+            "sameAs": ["https://www.facebook.com/tommybarvaag","https://www.linkedin.com/in/tommybarvaag/"]`}</script>
       </Head>
       <Nav />
-      <CSSTransition in={showButton} timeout={300} classNames="fade" unmountOnExit onEnter={() => setShowButton(false)} onExited={() => setShowButton(true)}>
-        <main>
-          <div className="hero">
-            <h1 className="title">Hi, I'm Tommy Lunde Barvåg 👋</h1>
-            <p className="description">I’m a full stack developer. I’ve spent the last six years creating web solutions for great companies.</p>
-          </div>
-
+      <Slide direction="up" in={show} mountOnEnter unmountOnExit>
+        <Container className={classes.main} component="main">
+          <Hero />
           <ContactForm />
-        </main>
-      </CSSTransition>
-      <Footer />
-      <style jsx>{`
-        :global(:root) {
-          font-size: 62.5%;
-        }
-
-        :global(body) {
-          margin: 0;
-          font: 400 1.6rem / 1.6 Arial, Helvetica, sans-serif;
-        }
-
-        .fade-enter {
-          opacity: 0;
-          transform: scale(0.9);
-        }
-        .fade-enter-active {
-          opacity: 1;
-          transform: translateX(0);
-          transition: opacity 300ms, transform 300ms;
-        }
-        .fade-exit {
-          opacity: 1;
-        }
-        .fade-exit-active {
-          opacity: 0;
-          transform: scale(0.9);
-          transition: opacity 300ms, transform 300ms;
-        }
-
-        .hero {
-          width: 100%;
-          max-width: 78.4rem;
-          margin: 0 auto;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .title {
-          margin: 0;
-          width: 100%;
-          padding-top: 80px;
-          font-size: 4.8rem;
-        }
-
-        .description {
-          font-size: 2.8rem;
-          color: rgb(78, 78, 80);
-        }
-
-        @keyframes slide-up {
-          from {
-            transform: translateY(0);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(-200px);
-            opacity: 1;
-          }
-        }
-      `}</style>
-    </div>
+          <Footer />
+        </Container>
+      </Slide>
+    </>
   );
 }

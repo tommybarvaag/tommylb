@@ -1,37 +1,26 @@
-import Link from "next/link";
+import { AppBar, Toolbar } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import React from "react";
+import Link from "./link";
 
-const Nav = () => (
-  <nav>
-    <ul>
-      <li>
-        <Link href="/">
-          <a>Tommy Lunde Barvåg</a>
+const useStyles = makeStyles(theme => ({
+  appBar: {
+    boxShadow: "none"
+  },
+  toolbar: {},
+  link: {}
+}));
+
+export default function Nav() {
+  const classes = useStyles();
+
+  return (
+    <AppBar className={classes.appBar} position="relative" color="inherit">
+      <Toolbar className={classes.toolbar}>
+        <Link className={classes.link} href="/" underline="none">
+          Tommy Lunde Barvåg
         </Link>
-      </li>
-    </ul>
-
-    <style jsx>{`
-      nav {
-        text-align: center;
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-      nav > ul {
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
-      }
-      a {
-        text-decoration: none;
-        font-size: 1.6rem;
-      }
-    `}</style>
-  </nav>
-);
-
-export default Nav;
+      </Toolbar>
+    </AppBar>
+  );
+}
