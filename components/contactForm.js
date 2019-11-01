@@ -108,6 +108,7 @@ export default function ContactForm() {
         </Typography>
         <form>
           <TextField
+            id="full-name"
             label="Full name"
             error={!nameValid}
             type="text"
@@ -121,6 +122,7 @@ export default function ContactForm() {
             required
           />
           <TextField
+            id="email-address"
             label="Email address"
             error={!emailValid}
             type="email"
@@ -134,6 +136,7 @@ export default function ContactForm() {
             required
           />
           <TextField
+            id="text"
             label="Text"
             error={!textValid}
             placeholder="Hey Tommy, I'm interested in chatting about a role we have available..."
