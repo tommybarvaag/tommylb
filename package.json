@@ -12,15 +12,15 @@
     "deploy": "yarn build && yarn export && yarn netlify-lambda build functions"
   },
   "dependencies": {
-    "@material-ui/core": "^4.5.2",
+    "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
-    "@sendgrid/mail": "^6.4.0",
+    "@sendgrid/mail": "^6.5.0",
     "clsx": "^1.0.4",
     "cross-env": "^6.0.3",
     "netlify-lambda": "^1.6.3",
-    "next": "^9.1.2",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "next": "^9.2.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "devDependencies": {
     "express": "^4.17.1",
