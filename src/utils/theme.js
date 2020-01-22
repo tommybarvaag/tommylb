@@ -1,4 +1,3 @@
-import { red } from "@material-ui/core/colors";
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 
 // Create a theme instance.
@@ -24,16 +23,19 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: "#000"
+      light: "#000000",
+      main: "#000000",
+      dark: "#000000",
+      contrastText: "#ffffff"
     },
     secondary: {
-      main: "#27242c"
-    },
-    error: {
-      main: red["A400"]
+      light: "#27242c",
+      main: "#27242c",
+      dark: "#27242c",
+      contrastText: "#ffffff"
     },
     background: {
-      default: "#fff"
+      default: "#ffffff"
     }
   }
 });

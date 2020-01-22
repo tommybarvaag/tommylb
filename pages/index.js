@@ -2,10 +2,10 @@ import { Container, Fade } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Head from "next/head";
 import React from "react";
-import ContactForm from "../components/contactForm";
-import Footer from "../components/footer";
-import Hero from "../components/hero";
-import Nav from "../components/nav";
+import ContactForm from "../src/components/contactForm";
+import Footer from "../src/components/footer";
+import Hero from "../src/components/hero";
+import Nav from "../src/components/nav";
 
 const useStyles = makeStyles(theme => ({
   main: {
