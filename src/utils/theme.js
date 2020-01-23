@@ -22,12 +22,24 @@ const theme = createMuiTheme({
     }
   },
   palette: {
-    common: { black: "rgba(38, 50, 56, 1)", white: "rgba(236, 239, 241, 1)" },
-    background: { paper: "rgba(38, 50, 56, 1)", default: "rgba(38, 50, 56, 1)" },
-    primary: { light: "rgba(207, 216, 220, 1)", main: "rgba(96, 125, 139, 1)", dark: "rgba(38, 50, 56, 1)", contrastText: "#fff" },
-    secondary: { light: "rgba(209, 196, 233, 1)", main: "rgba(103, 58, 183, 1)", dark: "rgba(49, 27, 146, 1)", contrastText: "#fff" },
-    error: { light: "#e57373", main: "#f44336", dark: "#d32f2f", contrastText: "#fff" },
-    text: { primary: "rgba(236, 239, 241, 1)", secondary: "rgba(0, 0, 0, 0.54)" }
+    common: { black: "rgb(38, 50, 56)", white: "rgb(236, 239, 241)" },
+    background: { paper: "rgb(38, 50, 56)", default: "rgb(38, 50, 56)" },
+    primary: { light: "rgb(207, 216, 220)", main: "rgb(96, 125, 139)", dark: "rgb(55, 71, 79)", contrastText: "rgb(255, 255, 255)" },
+    secondary: { light: "rgb(209, 196, 233)", main: "rgb(103, 58, 183)", dark: "rgb(49, 27, 146)", contrastText: "rgb(255, 255, 255)" },
+    error: { light: "rgb(229, 115, 115)", main: "rgb(244, 67, 54)", dark: "rgb(211, 47, 47)", contrastText: "rgb(255, 255, 255)" },
+    text: { primary: "rgb(236, 239, 241)", secondary: "rgb(144, 164, 174)" }
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        color: "rgb(236, 239, 241)"
+      }
+    },
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: "rgb(236, 239, 241)"
+      }
+    }
   }
 });
 
