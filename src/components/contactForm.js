@@ -150,7 +150,7 @@ export default function ContactForm() {
               validateString(text, setTextValid);
             }}
           />
-          <Button variant="contained" color="secondary" className={classes.button} onClick={onFormSubmit}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={onFormSubmit}>
             Send message
           </Button>
         </form>

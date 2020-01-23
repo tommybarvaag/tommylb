@@ -22,21 +22,12 @@ const theme = createMuiTheme({
     }
   },
   palette: {
-    primary: {
-      light: "#000000",
-      main: "#000000",
-      dark: "#000000",
-      contrastText: "#ffffff"
-    },
-    secondary: {
-      light: "#27242c",
-      main: "#27242c",
-      dark: "#27242c",
-      contrastText: "#ffffff"
-    },
-    background: {
-      default: "#ffffff"
-    }
+    common: { black: "rgba(38, 50, 56, 1)", white: "rgba(236, 239, 241, 1)" },
+    background: { paper: "rgba(38, 50, 56, 1)", default: "rgba(38, 50, 56, 1)" },
+    primary: { light: "rgba(207, 216, 220, 1)", main: "rgba(96, 125, 139, 1)", dark: "rgba(38, 50, 56, 1)", contrastText: "#fff" },
+    secondary: { light: "rgba(209, 196, 233, 1)", main: "rgba(103, 58, 183, 1)", dark: "rgba(49, 27, 146, 1)", contrastText: "#fff" },
+    error: { light: "#e57373", main: "#f44336", dark: "#d32f2f", contrastText: "#fff" },
+    text: { primary: "rgba(236, 239, 241, 1)", secondary: "rgba(0, 0, 0, 0.54)" }
   }
 });
 
