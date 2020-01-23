@@ -1,4 +1,4 @@
-import { AppBar, Toolbar } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import Link from "./link";
@@ -18,7 +18,9 @@ export default function Nav() {
     <AppBar className={classes.appBar} position="relative" color="inherit">
       <Toolbar className={classes.toolbar}>
         <Link className={classes.link} href="/" underline="none">
-          Tommy Lunde Barvåg
+          <Typography variant="body2" color="textSecondary" align="center">
+            Tommy Lunde Barvåg
+          </Typography>
         </Link>
       </Toolbar>
     </AppBar>
