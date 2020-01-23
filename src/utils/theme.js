@@ -22,20 +22,23 @@ const theme = createMuiTheme({
     }
   },
   palette: {
-    primary: {
-      light: "#000000",
-      main: "#000000",
-      dark: "#000000",
-      contrastText: "#ffffff"
+    common: { black: "rgb(38, 50, 56)", white: "rgb(236, 239, 241)" },
+    background: { paper: "rgb(38, 50, 56)", default: "rgb(38, 50, 56)" },
+    primary: { light: "rgb(207, 216, 220)", main: "rgb(96, 125, 139)", dark: "rgb(55, 71, 79)", contrastText: "rgb(255, 255, 255)" },
+    secondary: { light: "rgb(209, 196, 233)", main: "rgb(103, 58, 183)", dark: "rgb(49, 27, 146)", contrastText: "rgb(255, 255, 255)" },
+    error: { light: "rgb(229, 115, 115)", main: "rgb(244, 67, 54)", dark: "rgb(211, 47, 47)", contrastText: "rgb(255, 255, 255)" },
+    text: { primary: "rgb(236, 239, 241)", secondary: "rgb(144, 164, 174)" }
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        color: "rgb(236, 239, 241)"
+      }
     },
-    secondary: {
-      light: "#27242c",
-      main: "#27242c",
-      dark: "#27242c",
-      contrastText: "#ffffff"
-    },
-    background: {
-      default: "#ffffff"
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: "rgb(236, 239, 241)"
+      }
     }
   }
 });

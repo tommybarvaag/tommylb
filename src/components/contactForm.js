@@ -10,7 +10,6 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(0, 0, 2)
   },
   description: {
-    color: "rgb(78, 78, 80)",
     textAlign: "center"
   },
   contactForm: {
@@ -150,7 +149,7 @@ export default function ContactForm() {
               validateString(text, setTextValid);
             }}
           />
-          <Button variant="contained" color="secondary" className={classes.button} onClick={onFormSubmit}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={onFormSubmit}>
             Send message
           </Button>
         </form>
