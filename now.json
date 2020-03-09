@@ -1,0 +1,5 @@
+{
+  "env": {
+    "SEND_GRID_SEND_MAIL_API_KEY": "@send-grid-api-key"
+  }
+}

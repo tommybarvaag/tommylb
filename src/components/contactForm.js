@@ -66,7 +66,7 @@ export default function ContactForm() {
 
     if (nameValidationResult && emailValidationResult && textValidationResult) {
       setSubmitting(true);
-      fetch(".netlify/functions/sendMail", {
+      fetch("/api/sendMail", {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
