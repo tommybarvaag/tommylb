@@ -16,7 +16,7 @@ export default function Post({ post, morePosts, preview }) {
     <>
       <Nav />
       <Container component="main">
-        <div>{post.title}</div>
+        <div>{post?.title}</div>
         <Footer />
       </Container>
     </>
