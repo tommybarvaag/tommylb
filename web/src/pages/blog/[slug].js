@@ -18,7 +18,7 @@ export default function Post({ post, morePosts, preview }) {
       <Nav />
       <Container component="main">
         <div>{post?.title}</div>
-        <Image alt={post?.mainImage?.alt} url={post?.mainImage.asset} />
+        <Image alt={post?.mainImage?.alt} url={post?.mainImage?.asset} />
         <Footer />
       </Container>
     </>
