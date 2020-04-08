@@ -24,7 +24,13 @@ NextComposed.propTypes = {
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
 function Link(props) {
-  const { activeClassName = "active", className: classNameProps, innerRef, naked, ...other } = props;
+  const {
+    activeClassName = "active",
+    className: classNameProps,
+    innerRef,
+    naked,
+    ...other
+  } = props;
   const router = useRouter();
 
   const className = clsx(classNameProps, {

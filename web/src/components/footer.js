@@ -4,7 +4,11 @@ import React from "react";
 import Copyright from "./copyright";
 
 const useStyles = makeStyles(theme => ({
-  footer: { backgroundColor: theme.palette.background.paper, marginTop: theme.spacing(8), padding: theme.spacing(6, 0) }
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    marginTop: theme.spacing(8),
+    padding: theme.spacing(6, 0)
+  }
 }));
 
 export default function Footer() {
