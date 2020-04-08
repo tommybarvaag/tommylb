@@ -103,7 +103,8 @@ export default function ContactForm() {
           Let’s have a chat
         </Typography>
         <Typography className={classes.description} paragraph>
-          I’m always happy to talk about working together, new opportunities or just a friendly hello.
+          I’m always happy to talk about working together, new opportunities or just a friendly
+          hello.
         </Typography>
         <form>
           <TextField
@@ -149,7 +150,12 @@ export default function ContactForm() {
               validateString(text, setTextValid);
             }}
           />
-          <Button variant="contained" color="primary" className={classes.button} onClick={onFormSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={onFormSubmit}
+          >
             Send message
           </Button>
         </form>
