@@ -11,7 +11,7 @@ export default function Blog({ posts }) {
       <Container component="main">
         {posts?.length > 0 &&
           posts.map(post => (
-            <Link key={post.slug} href={`blog/${post.slug}`} underline="none">
+            <Link key={post.slug} href={`/blog/${post.slug}`} underline="none">
               <Typography variant="body2" color="textSecondary" align="center">
                 {post.slug}
               </Typography>
