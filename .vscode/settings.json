@@ -3,8 +3,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "editor.wordWrapColumn": 160,
-  "prettier.printWidth": 160,
-  "scssFormatter.printWidth": 160,
-  "vetur.format.options.tabSize": 2
+  "editor.wordWrapColumn": 100
 }

@@ -24,7 +24,8 @@ export default function Hero() {
         Hi, I'm Tommy Lunde Barvåg 👋
       </Typography>
       <Typography className={classes.description} paragraph>
-        I’m a full stack developer. I’ve spent the last six years creating web solutions for great companies.
+        I’m a full stack developer. I’ve spent the last six years creating web solutions for great
+        companies.
       </Typography>
     </Container>
   );

@@ -1,6 +1,6 @@
 import App from "next/app";
 import React from "react";
-import withMuiThemeProvider from "../src/withMuiThemeProvider";
+import withMuiThemeProvider from "../withMuiThemeProvider";
 
 class MyApp extends App {
   render() {
