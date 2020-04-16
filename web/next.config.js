@@ -2,7 +2,7 @@ require("dotenv").config();
 
 module.exports = {
   env: {
-    SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
-    SEND_GRID_SEND_MAIL_API_KEY: process.env.SEND_GRID_SEND_MAIL_API_KEY
+    TLB_SANITY_PROJECT_ID: process.env.TLB_SANITY_PROJECT_ID,
+    TLB_SEND_GRID_SEND_MAIL_API_KEY: process.env.TLB_SEND_GRID_SEND_MAIL_API_KEY
   }
 };
