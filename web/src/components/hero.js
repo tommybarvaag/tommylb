@@ -1,6 +1,7 @@
-import { Container, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
+import Container from "./container";
 
 const useStyles = makeStyles(theme => ({
   hero: { width: "100%", margin: "0 auto" },
