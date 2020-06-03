@@ -1,4 +1,4 @@
-import { Container, Fade } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Head from "next/head";
 import React from "react";
@@ -6,6 +6,7 @@ import ContactForm from "../components/contactForm";
 import Footer from "../components/footer";
 import Hero from "../components/hero";
 import Nav from "../components/nav";
+import { Animated, bounce } from "../utils/styles";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -64,13 +65,12 @@ export default function Home() {
             "sameAs": ["https://www.facebook.com/tommybarvaag","https://www.linkedin.com/in/tommybarvaag/"]`}</script>
       </Head>
       <Nav />
-      <Fade in={show}>
-        <Container className={classes.main} component="main">
-          <Hero />
-          <ContactForm />
-          <Footer />
-        </Container>
-      </Fade>
+      <Container className={classes.main} component="main">
+        <Animated animation={bounce}>Let's bounce.</Animated>
+        <Hero />
+        <ContactForm />
+        <Footer />
+      </Container>
     </>
   );
 }
