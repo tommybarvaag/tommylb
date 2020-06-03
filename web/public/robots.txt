@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://tommylb.com/sitemap.xml
+User-Agent: Googlebot
+Allow: .js
+Allow: .css
+Disallow: /studio
