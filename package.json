@@ -3,9 +3,6 @@
   "name": "tommylb",
   "version": "1.0.0",
   "author": "Tommy Lunde Barvåg <tommybarvaag@gmail.com>",
-  "engines": {
-    "node": "13.x"
-  },
   "scripts": {
     "clean": "lerna clean",
     "deploy": "lerna run deploy",
@@ -22,7 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "lerna": "^3.14.1",
+    "lerna": "^3.22.1",
     "rimraf": "^3.0.2"
   }
 }
