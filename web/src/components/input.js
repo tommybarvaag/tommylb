@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import * as React from "react";
-import { Box } from "./Box";
+import { Box } from "./box";
 import { Typography } from "./typography";
 
 const StyledFormGroup = styled(Box)`
