@@ -1,25 +1,22 @@
-import { Container, Typography } from "@material-ui/core";
+import { Container } from "../components/container";
 import Footer from "../components/footer";
 import Link from "../components/link";
-import Nav from "../components/nav";
+import { Typography } from "../components/typography";
 import { getAllPostsWithSlug } from "../lib/sanity/api";
 
 export default function Blog({ posts }) {
   return (
-    <>
-      <Nav />
-      <Container component="main">
-        {posts?.length > 0 &&
-          posts.map(post => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} underline="none">
-              <Typography variant="body2" color="textSecondary" align="center">
-                {post.slug}
-              </Typography>
-            </Link>
-          ))}
-        <Footer />
-      </Container>
-    </>
+    <Container>
+      {posts?.length > 0 &&
+        posts.map(post => (
+          <Link key={post.slug} href={`/blog/${post.slug}`} underline="none">
+            <Typography variant="body2" color="textSecondary" align="center">
+              {post.slug}
+            </Typography>
+          </Link>
+        ))}
+      <Footer />
+    </Container>
   );
 }
 

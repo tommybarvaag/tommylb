@@ -1,9 +1,7 @@
-import { Container } from "@material-ui/core";
 import ErrorPage from "next/error";
 import { useRouter } from "next/router";
-import Footer from "../../components/footer";
+import { Container } from "../../components/container";
 import Image from "../../components/image";
-import Nav from "../../components/nav";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../../lib/sanity/api";
 
 export default function Post({ post, morePosts, preview }) {
@@ -14,14 +12,10 @@ export default function Post({ post, morePosts, preview }) {
   }
 
   return (
-    <>
-      <Nav />
-      <Container component="main">
-        <div>{post?.title}</div>
-        <Image alt={post?.mainImage?.alt} url={post?.mainImage?.asset} />
-        <Footer />
-      </Container>
-    </>
+    <Container>
+      <div>{post?.title}</div>
+      <Image alt={post?.mainImage?.alt} url={post?.mainImage?.asset} />
+    </Container>
   );
 }
 
