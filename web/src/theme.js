@@ -5,28 +5,23 @@ const breakpoints = ["376px", "608px", "1024px", "1504px"];
 // breakpoints.m = breakpoints[2];
 // breakpoints.l = breakpoints[3];
 
-// https://noeldelgado.github.io/shadowlord/#1e90ff
+// https://noeldelgado.github.io/shadowlord/#000000
 
 const colors = {
-  bg100: "#0f4880",
-  bg200: "#0c3a66",
-  bg300: "#092b4d",
-  bg400: "#061d33",
-  bg500: "#030e19",
-  bg600: "#000000",
-  text100: "#78bcff",
-  text200: "#62b1ff",
-  text300: "#4ba6ff",
-  text400: "#349bff",
-  text500: "#1e90ff",
-  text600: "#1b82e6",
-  text700: "#1873cc",
-  text800: "#1565b3",
-  text900: "#125699",
+  bg100: "#666666",
+  bg200: "#4d4d4d",
+  bg300: "#333333",
+  bg400: "#191919",
+  bg500: "#000000",
+  text100: "#999999",
+  text200: "#b3b3b3",
+  text300: "#cccccc",
+  text400: "#e6e6e6",
+  text500: "#ffffff",
 
-  main: "#1e90ff",
+  main: "#ffffff",
   link: "#1e90ff",
-  text: "#1e90ff",
+  text: "#ffffff",
   borders: {
     default: "rgba(255, 255, 255, 0.8)"
   }
