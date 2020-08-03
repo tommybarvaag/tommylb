@@ -11,7 +11,7 @@ export default function Nav() {
       <Flex height="full">
         <FlexItem justifyContent="center" alignItems="center">
           <Link href="/">
-            <Typography>Tommy Lunde Barvåg</Typography>
+            <Typography fontWeight="lighter">Tommy Lunde Barvåg</Typography>
           </Link>
         </FlexItem>
       </Flex>

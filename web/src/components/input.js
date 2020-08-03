@@ -6,7 +6,7 @@ import { Typography } from "./typography";
 const StyledFormGroup = styled(Box)`
   position: relative;
   padding: 1.5rem 0 0;
-  margin-top: 1rem;
+  margin-top: 2rem;
 `;
 
 const StyledInput = styled(Box)`

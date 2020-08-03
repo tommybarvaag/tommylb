@@ -88,7 +88,7 @@ export const theme = {
     "9.6rem",
     "12rem"
   ],
-  fontWeights: [200, 400, 700],
+  fontWeights: ["lighter", "normal", "bold"],
   lineHeights: [
     "2rem",
     "2.4rem",
