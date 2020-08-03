@@ -1,32 +1,12 @@
-import { Button, Container, TextField, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import React from "react";
-
-const useStyles = makeStyles(theme => ({
-  title: {
-    width: "100%",
-    paddingTop: "80px",
-    textAlign: "center",
-    margin: theme.spacing(0, 0, 2)
-  },
-  description: {
-    textAlign: "center"
-  },
-  contactForm: {
-    margin: "0 auto"
-  },
-  textField: {
-    width: "100%"
-  },
-  button: {
-    textTransform: "none",
-    margin: theme.spacing(2, 0, 0)
-  }
-}));
+import Button from "./button";
+import { Container } from "./container";
+import { Heading } from "./heading";
+import Input from "./input";
+import { Paragraph } from "./paragraph";
+import { Typography } from "./typography";
 
 export default function ContactForm() {
-  const classes = useStyles();
-
   const [submitting, setSubmitting] = React.useState(false);
 
   const [name, setName] = React.useState("");
@@ -87,10 +67,10 @@ export default function ContactForm() {
     if (submitting) {
       return (
         <>
-          <Typography variant="h2" className={classes.title}>
+          <Typography as="h2" textAlign="center">
             Thank you!
           </Typography>
-          <Typography className={classes.description} paragraph>
+          <Typography paragraph textAlign="center">
             You'll hear from me soon.
           </Typography>
         </>
@@ -99,63 +79,52 @@ export default function ContactForm() {
 
     return (
       <>
-        <Typography variant="h2" className={classes.title}>
+        <Heading as="h2" textAlign="center">
           Let’s have a chat
-        </Typography>
-        <Typography className={classes.description} paragraph>
+        </Heading>
+        <Paragraph textAlign="center">
           I’m always happy to talk about working together, new opportunities or just a friendly
           hello.
-        </Typography>
+        </Paragraph>
         <form>
-          <TextField
+          <Input
             id="full-name"
-            label="Full name"
+            placeholder="Full name"
             error={!nameValid}
+            errorText="Du må fylle inn ditt navn"
             type="text"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={event => {
-              setName(event.target.value);
-              validateString(event.target.value, setNameValid);
+            onChange={value => {
+              setName(value);
+              validateString(value, setNameValid);
             }}
-            required
+            onBlur={value => validateString(value, setNameValid)}
           />
-          <TextField
+          <Input
             id="email-address"
-            label="Email address"
+            placeholder="Email address"
             error={!emailValid}
+            errorText="Du må fylle inn din e-postadresse"
             type="email"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={event => {
-              setEmail(event.target.value);
-              validateEmail(event.target.value, setEmailValid);
+            onChange={value => {
+              setEmail(value);
+              validateEmail(value, setEmailValid);
             }}
-            required
+            onBlur={value => validateEmail(value, setEmailValid)}
           />
-          <TextField
+          <Input
             id="text"
             label="Text"
             error={!textValid}
+            errorText="Du må skrive en tekst"
             placeholder="Hey Tommy, I'm interested in chatting about a role we have available..."
             multiline
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            required
-            onChange={event => {
-              setText(event.target.value);
-              validateString(text, setTextValid);
+            onChange={value => {
+              setText(value);
+              validateString(value, setTextValid);
             }}
+            onBlur={value => validateString(value, setTextValid)}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={onFormSubmit}
-          >
+          <Button onClick={onFormSubmit} mt={5} maxWidth="20rem">
             Send message
           </Button>
         </form>
@@ -164,7 +133,7 @@ export default function ContactForm() {
   };
 
   return (
-    <Container maxWidth="sm" className={classes.contactForm}>
+    <Container centerSection maxWidth="56rem">
       {renderContactFormContent()}
     </Container>
   );

@@ -1,32 +1,18 @@
-import { Container, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import React from "react";
-
-const useStyles = makeStyles(theme => ({
-  hero: { width: "100%", margin: "0 auto" },
-  title: {
-    width: "100%",
-    paddingTop: "80px",
-    textAlign: "center",
-    margin: theme.spacing(0, 0, 2)
-  },
-  description: {
-    textAlign: "center"
-  }
-}));
+import { Container } from "./container";
+import { Heading } from "./heading";
+import { Paragraph } from "./paragraph";
 
 export default function Hero() {
-  const classes = useStyles();
-
   return (
-    <Container maxWidth="md" className={classes.hero}>
-      <Typography variant="h1" className={classes.title} gutterBottom>
+    <Container centerSection maxWidth="96rem">
+      <Heading as="h1" textAlign="center">
         Hi, I'm Tommy Lunde Barvåg 👋
-      </Typography>
-      <Typography className={classes.description} paragraph>
+      </Heading>
+      <Paragraph m="0 auto" maxWidth="72rem" textAlign="center">
         I’m a full stack developer. I’ve spent the last six years creating web solutions for great
         companies.
-      </Typography>
+      </Paragraph>
     </Container>
   );
 }

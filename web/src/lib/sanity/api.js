@@ -27,6 +27,12 @@ const getClient = preview => (preview ? previewClient : client);
 
 export const imageBuilder = sanityImage(client);
 
+export const getSocialMediaImageUrl = asset => {
+  const image = imageBuilder.image(asset);
+
+  return image.width(1200).height(630).quality(90).fit("max").format("png").url();
+};
+
 export async function getPreviewPostBySlug(slug) {
   const data = await getClient(true).fetch(
     `*[_type == "post" && slug.current == $slug] | order(publishedAt desc){
