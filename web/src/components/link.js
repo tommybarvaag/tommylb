@@ -7,10 +7,12 @@ const StyledLink = styled(ThemeUiLink)`
   text-decoration: none;
 `;
 
-export default function Link({ children, href, as, color = "link" }) {
+export default function Link({ children, href, as, ...other }) {
   return (
     <NextLink href={href} as={as} passHref>
-      <StyledLink as="a">{children}</StyledLink>
+      <StyledLink as="a" {...other}>
+        {children}
+      </StyledLink>
     </NextLink>
   );
 }

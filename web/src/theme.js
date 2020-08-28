@@ -19,14 +19,16 @@ export default {
   colors: {
     text: "#000",
     background: "#fff",
-    primary: "#07c",
+    primary: "#000",
     secondary: "#30c",
     muted: "#f6f6f6",
     modes: {
       dark: {
         text: "#fff",
         background: "#000",
-        primary: "#0cf"
+        primary: "#fff",
+        secondary: "#30c",
+        muted: "#f6f6f6"
       }
     }
   },
@@ -124,14 +126,42 @@ export default {
       maxWidth: "100%"
     }
   },
+  layout: {
+    container: {},
+    nav: {
+      display: "flex",
+      height: 100,
+      alignItems: "center",
+      justifyContent: "space-between"
+    },
+    main: {
+      width: "100%",
+      flex: "1 1 auto",
+      px: 4
+    },
+    footer: {
+      display: "flex",
+      height: 100,
+      alignItems: "center",
+      justifyContent: "space-between"
+    },
+    contactForm: {
+      variant: "layout.container",
+      maxWidth: 500,
+      mt: 5
+    }
+  },
   buttons: {
+    primary: {
+      cursor: "pointer",
+      color: "background"
+    },
     secondary: {
-      fontWeight: "bold",
-      color: "white",
-      bg: "primary",
-      "&:hover": {
-        bg: "dark"
-      }
+      variant: "buttons.primary",
+      fontWeight: "bold"
+    },
+    icon: {
+      cursor: "pointer"
     }
   },
   text: {
@@ -156,6 +186,15 @@ export default {
       padding: 2,
       borderRadius: 4,
       boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.5)"
+    }
+  },
+  forms: {
+    label: {
+      mt: 2,
+      mb: 1
+    },
+    textarea: {
+      fontFamily: "body"
     }
   }
 };

@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
-import { getSocialMediaImageFromPage } from "../logic/imageLogic";
 
 const defaultTitle = "Hi 👋";
 const defaultDescription =
@@ -13,7 +12,7 @@ export default function Seo({ page, info }) {
   const title = `${page?.openGraph?.title ?? page?.title ?? defaultTitle} | Tommy Lunde Barvåg`;
   const description = page?.openGraph?.description ?? defaultDescription;
   const name = info?.name ?? "Tommy Lunde Barvåg";
-  const image = getSocialMediaImageFromPage(page);
+  const image = "";
 
   return (
     <Head>

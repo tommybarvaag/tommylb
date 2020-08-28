@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Container, Heading, Input, Label, Text, Textarea } from "theme-ui";
 
-export default function ContactForm() {
+export default function ContactForm({ ...other }) {
   const [submitting, setSubmitting] = React.useState(false);
 
   const [name, setName] = React.useState("");
@@ -62,26 +62,20 @@ export default function ContactForm() {
     if (submitting) {
       return (
         <>
-          <Heading as="h2" textAlign="center">
-            Thank you!
-          </Heading>
-          <Text paragraph textAlign="center">
-            You'll hear from me soon.
-          </Text>
+          <Heading as="h2">Thank you!</Heading>
+          <Text paragraph>You'll hear from me soon.</Text>
         </>
       );
     }
 
     return (
       <>
-        <Heading as="h2" textAlign="center">
-          Let’s have a chat
-        </Heading>
-        <Text textAlign="center">
+        <Heading as="h2">Let’s have a chat</Heading>
+        <Text>
           I’m always happy to talk about working together, new opportunities or just a friendly
           hello.
         </Text>
-        <Box as="form" onSubmit={e => e.preventDefault()}>
+        <Box as="form" mt={4} onSubmit={e => e.preventDefault()}>
           <Label htmlFor="full-name">Username</Label>
           <Input
             id="full-name"
@@ -116,8 +110,9 @@ export default function ContactForm() {
               validateString(e.target.value, setTextValid);
             }}
             onBlur={e => validateString(e.target.value, setTextValid)}
+            required
           />
-          <Button onClick={() => onFormSubmit()} mt={5} maxWidth="20rem">
+          <Button onClick={() => onFormSubmit()} mt={4}>
             Send message
           </Button>
         </Box>
@@ -126,7 +121,7 @@ export default function ContactForm() {
   };
 
   return (
-    <Container centerSection maxWidth="56rem">
+    <Container variant="contactForm" {...other}>
       {renderContactFormContent()}
     </Container>
   );
