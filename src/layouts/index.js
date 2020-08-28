@@ -29,6 +29,8 @@ export default function Layout({ children, ...other }) {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                width="24"
+                height="24"
               >
                 <path
                   strokeLinecap="round"
@@ -43,6 +45,8 @@ export default function Layout({ children, ...other }) {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                width="24"
+                height="24"
               >
                 <path
                   strokeLinecap="round"

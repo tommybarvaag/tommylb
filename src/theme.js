@@ -163,7 +163,8 @@ export default {
       fontWeight: "bold"
     },
     icon: {
-      cursor: "pointer"
+      cursor: "pointer",
+      color: "primary"
     }
   },
   text: {
