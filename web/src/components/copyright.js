@@ -1,12 +1,12 @@
 import React from "react";
-import { Typography } from "./typography";
+import { Text } from "theme-ui";
 
 export default function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Text variant="body2" color="textSecondary" align="center">
       {"Copyright © Tommy Lunde Barvåg "}
       {new Date().getFullYear()}
       {"."}
-    </Typography>
+    </Text>
   );
 }

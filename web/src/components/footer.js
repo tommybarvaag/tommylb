@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "./container";
+import { Container } from "theme-ui";
 import Copyright from "./copyright";
 
 export default function Footer() {

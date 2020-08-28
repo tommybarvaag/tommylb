@@ -1,13 +1,20 @@
 import React from "react";
+import { Container } from "theme-ui";
 import ContactForm from "../components/contactForm";
-import { Container } from "../components/container";
 import Hero from "../components/hero";
+import Layout from "../layouts";
 
 export default function Home() {
   return (
-    <Container center>
-      <Hero />
-      <ContactForm />
-    </Container>
+    <Layout>
+      <Container center>
+        <Hero
+          title="Hi, I'm Tommy Lunde Barvåg"
+          text="I’m a full stack developer. I’ve spent the last six years creating web solutions for great
+        companies."
+        />
+        <ContactForm />
+      </Container>
+    </Layout>
   );
 }

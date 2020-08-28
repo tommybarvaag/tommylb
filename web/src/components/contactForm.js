@@ -1,10 +1,5 @@
 import React from "react";
-import Button from "./button";
-import { Container } from "./container";
-import { Heading } from "./heading";
-import Input from "./input";
-import { Paragraph } from "./paragraph";
-import { Typography } from "./typography";
+import { Box, Button, Container, Heading, Input, Label, Text, Textarea } from "theme-ui";
 
 export default function ContactForm() {
   const [submitting, setSubmitting] = React.useState(false);
@@ -67,12 +62,12 @@ export default function ContactForm() {
     if (submitting) {
       return (
         <>
-          <Typography as="h2" textAlign="center">
+          <Heading as="h2" textAlign="center">
             Thank you!
-          </Typography>
-          <Typography paragraph textAlign="center">
+          </Heading>
+          <Text paragraph textAlign="center">
             You'll hear from me soon.
-          </Typography>
+          </Text>
         </>
       );
     }
@@ -82,52 +77,50 @@ export default function ContactForm() {
         <Heading as="h2" textAlign="center">
           Let’s have a chat
         </Heading>
-        <Paragraph textAlign="center">
+        <Text textAlign="center">
           I’m always happy to talk about working together, new opportunities or just a friendly
           hello.
-        </Paragraph>
-        <form>
+        </Text>
+        <Box as="form" onSubmit={e => e.preventDefault()}>
+          <Label htmlFor="full-name">Username</Label>
           <Input
             id="full-name"
             placeholder="Full name"
-            error={!nameValid}
-            errorText="Du må fylle inn ditt navn"
             type="text"
-            onChange={value => {
-              setName(value);
-              validateString(value, setNameValid);
+            onChange={e => {
+              setName(e.target.value);
+              validateString(e.target.value, setNameValid);
             }}
-            onBlur={value => validateString(value, setNameValid)}
+            onBlur={e => validateString(e.target.value, setNameValid)}
+            required
           />
+          <Label htmlFor="email-address">Email address</Label>
           <Input
             id="email-address"
-            placeholder="Email address"
-            error={!emailValid}
-            errorText="Du må fylle inn din e-postadresse"
+            placeholder="your@email.com"
             type="email"
-            onChange={value => {
-              setEmail(value);
-              validateEmail(value, setEmailValid);
+            onChange={e => {
+              setEmail(e.target.value);
+              validateEmail(e.target.value, setEmailValid);
             }}
-            onBlur={value => validateEmail(value, setEmailValid)}
+            onBlur={e => validateEmail(e.target.value, setEmailValid)}
+            required
           />
-          <Input
+          <Label htmlFor="email-address">Text</Label>
+          <Textarea
             id="text"
-            label="Text"
-            error={!textValid}
-            errorText="Du må skrive en tekst"
             placeholder="Hey Tommy, I'm interested in chatting about a role we have available..."
-            multiline
-            onChange={value => {
-              setText(value);
-              validateString(value, setTextValid);
+            rows="6"
+            onChange={e => {
+              setText(e.target.value);
+              validateString(e.target.value, setTextValid);
             }}
-            onBlur={value => validateString(value, setTextValid)}
+            onBlur={e => validateString(e.target.value, setTextValid)}
           />
-          <Button onClick={onFormSubmit} mt={5} maxWidth="20rem">
+          <Button onClick={() => onFormSubmit()} mt={5} maxWidth="20rem">
             Send message
           </Button>
-        </form>
+        </Box>
       </>
     );
   };

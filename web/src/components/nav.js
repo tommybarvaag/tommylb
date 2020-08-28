@@ -1,19 +1,26 @@
 import React from "react";
-import { Container } from "./container";
-import { Flex } from "./flex";
-import { FlexItem } from "./flexItem";
+import { Box, Button, Container, Flex, Text, useColorMode } from "theme-ui";
 import Link from "./link";
-import { Typography } from "./typography";
 
 export default function Nav() {
+  const [colorMode, setColorMode] = useColorMode();
   return (
-    <Container as="nav" height={24} px={4}>
-      <Flex height="full">
-        <FlexItem justifyContent="center" alignItems="center">
+    <Container as="nav" px={4}>
+      <Flex>
+        <Box variant="secondary">
           <Link href="/">
-            <Typography fontWeight="lighter">Tommy Lunde Barvåg</Typography>
+            <Text fontWeight={0}>Tommy Lunde Barvåg</Text>
           </Link>
-        </FlexItem>
+        </Box>
+        <Box>
+          <Button
+            onClick={e => {
+              setColorMode(colorMode === "default" ? "dark" : "default");
+            }}
+          >
+            Toggle {colorMode === "default" ? "Dark" : "Light"}
+          </Button>
+        </Box>
       </Flex>
     </Container>
   );

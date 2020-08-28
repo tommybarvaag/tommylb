@@ -1,113 +1,161 @@
-const breakpoints = ["376px", "608px", "1024px", "1504px"];
-
-// breakpoints.xs = breakpoints[0];
-// breakpoints.s = breakpoints[1];
-// breakpoints.m = breakpoints[2];
-// breakpoints.l = breakpoints[3];
-
-// https://noeldelgado.github.io/shadowlord/#000000
-
-const colors = {
-  bg100: "#666666",
-  bg200: "#4d4d4d",
-  bg300: "#333333",
-  bg400: "#191919",
-  bg500: "#000000",
-  text100: "#999999",
-  text200: "#b3b3b3",
-  text300: "#cccccc",
-  text400: "#e6e6e6",
-  text500: "#ffffff",
-
-  main: "#ffffff",
-  link: "#1e90ff",
-  text: "#ffffff",
-  borders: {
-    default: "rgba(255, 255, 255, 0.8)"
-  }
-};
-
-export const theme = {
-  breakpoints,
-  colors,
-  sizes: {
-    0: 0,
-    1: "0.25rem",
-    2: "0.5rem",
-    3: "0.75rem",
-    4: "1rem",
-    5: "1.25rem",
-    6: "1.5rem",
-    8: "2rem",
-    10: "2.5rem",
-    12: "3rem",
-    16: "4rem",
-    20: "5rem",
-    24: "6rem",
-    32: "8rem",
-    40: "10rem",
-    48: "12rem",
-    56: "14rem",
-    64: "16rem",
-    auto: "auto",
-    px: "0.01rem",
-    full: "100%",
-    screen: "100vh"
-  },
-  space: [
-    0,
-    "0.8rem",
-    "1.6rem",
-    "2.4rem",
-    "3.2rem",
-    "4rem",
-    "4.8rem",
-    "5.6rem",
-    "6.4rem",
-    "7.2rem",
-    "8rem",
-    "9.6rem",
-    "12rem",
-    "14rem",
-    "18rem",
-    "20rem",
-    "30rem"
-  ],
-  fontSizes: [
-    "1.2rem",
-    "1.4rem",
-    "1.6rem",
-    "1.8rem",
-    "2rem",
-    "2.4rem",
-    "3.2rem",
-    "4.8rem",
-    "5.6rem",
-    "6.4rem",
-    "7.2rem",
-    "9.6rem",
-    "12rem"
-  ],
-  fontWeights: ["lighter", "normal", "bold"],
-  lineHeights: [
-    "2rem",
-    "2.4rem",
-    "2.8rem",
-    "3.2rem",
-    "4rem",
-    "6rem",
-    "7.2rem",
-    "8rem",
-    "10rem",
-    "12rem"
-  ],
-  fonts: {
-    default: `-apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Arial", sans-serif`
-  },
-  borders: [0, `1px solid ${colors.main}`],
-  radii: ["0.4rem", "0.8rem", "1.6rem", "3.2rem", "50%"]
-};
-
 export default {
-  breakpoints
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  fonts: {
+    body:
+      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    heading: "inherit",
+    monospace: "Menlo, monospace"
+  },
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125
+  },
+  colors: {
+    text: "#000",
+    background: "#fff",
+    primary: "#07c",
+    secondary: "#30c",
+    muted: "#f6f6f6",
+    modes: {
+      dark: {
+        text: "#fff",
+        background: "#000",
+        primary: "#0cf"
+      }
+    }
+  },
+  sizes: {
+    container: 700
+  },
+  styles: {
+    root: {
+      fontFamily: "body",
+      lineHeight: "body",
+      fontWeight: "body"
+    },
+    h1: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 5
+    },
+    h2: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 4
+    },
+    h3: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 3
+    },
+    h4: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 2
+    },
+    h5: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 1
+    },
+    h6: {
+      color: "text",
+      fontFamily: "heading",
+      lineHeight: "heading",
+      fontWeight: "heading",
+      fontSize: 0
+    },
+    p: {
+      color: "text",
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body"
+    },
+    textarea: {
+      color: "text",
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body"
+    },
+    a: {
+      color: "primary"
+    },
+    pre: {
+      fontFamily: "monospace",
+      overflowX: "auto",
+      code: {
+        color: "inherit"
+      }
+    },
+    code: {
+      fontFamily: "monospace",
+      fontSize: "inherit"
+    },
+    table: {
+      width: "100%",
+      borderCollapse: "separate",
+      borderSpacing: 0
+    },
+    th: {
+      textAlign: "left",
+      borderBottomStyle: "solid"
+    },
+    td: {
+      textAlign: "left",
+      borderBottomStyle: "solid"
+    },
+    img: {
+      maxWidth: "100%"
+    }
+  },
+  buttons: {
+    secondary: {
+      fontWeight: "bold",
+      color: "white",
+      bg: "primary",
+      "&:hover": {
+        bg: "dark"
+      }
+    }
+  },
+  text: {
+    caps: {
+      textTransform: "uppercase",
+      letterSpacing: ".2em"
+    },
+    heading: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading"
+    },
+    display: {
+      // extends the text.heading styles
+      variant: "text.heading",
+      fontSize: [6, 7, 8],
+      fontWeight: "display"
+    }
+  },
+  cards: {
+    primary: {
+      padding: 2,
+      borderRadius: 4,
+      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.5)"
+    }
+  }
 };

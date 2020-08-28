@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import NextLink from "next/link";
 import * as React from "react";
-import { Box } from "./box";
+import { Link as ThemeUiLink } from "theme-ui";
 
-const StyledLink = styled(Box)`
+const StyledLink = styled(ThemeUiLink)`
   text-decoration: none;
 `;
 
