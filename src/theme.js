@@ -132,7 +132,8 @@ export default {
       display: "flex",
       height: 100,
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      px: 4
     },
     main: {
       width: "100%",
@@ -143,7 +144,8 @@ export default {
       display: "flex",
       height: 100,
       alignItems: "center",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      px: 4
     },
     contactForm: {
       variant: "layout.container",
