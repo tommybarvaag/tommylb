@@ -14,7 +14,7 @@ module.exports = withMdxEnhanced({
   ],
   extendFrontMatter: {
     process: mdxContent => ({
-      wordCount: mdxContent.split(/\s+/gu).length ?? 0,
+      wordCount: mdxContent.split(/\s+/gu).length,
       readingTime: readingTime(mdxContent)
     })
   }
