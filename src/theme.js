@@ -35,6 +35,88 @@ export default {
   sizes: {
     container: 700
   },
+
+  layout: {
+    container: {
+      mt: 4,
+      mb: 4
+    },
+    nav: {
+      display: "flex",
+      height: 100,
+      alignItems: "center",
+      justifyContent: "space-between",
+      px: 4
+    },
+    main: {
+      width: "100%",
+      flex: "1 1 auto",
+      px: 4
+    },
+    footer: {
+      display: "flex",
+      height: 100,
+      alignItems: "center",
+      justifyContent: "space-between",
+      px: 4
+    },
+    contactForm: {
+      variant: "layout.container",
+      maxWidth: 500
+    }
+  },
+  buttons: {
+    primary: {
+      cursor: "pointer",
+      color: "background"
+    },
+    secondary: {
+      variant: "buttons.primary",
+      fontWeight: "bold"
+    },
+    icon: {
+      cursor: "pointer",
+      color: "primary"
+    }
+  },
+  text: {
+    caps: {
+      textTransform: "uppercase",
+      letterSpacing: ".2em"
+    },
+    heading: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+      m: 0,
+      mb: 2
+    },
+    display: {
+      // extends the text.heading styles
+      variant: "text.heading",
+      fontSize: [6, 7, 8],
+      fontWeight: "display"
+    }
+  },
+  cards: {
+    primary: {
+      display: "block",
+      padding: 3,
+      borderRadius: 4,
+      border: "1px solid",
+      borderColor: "primary",
+      mb: 3
+    }
+  },
+  forms: {
+    label: {
+      mt: 2,
+      mb: 1
+    },
+    textarea: {
+      fontFamily: "body"
+    }
+  },
   styles: {
     root: {
       fontFamily: "body",
@@ -42,46 +124,40 @@ export default {
       fontWeight: "body"
     },
     h1: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
-      fontSize: 5
+      fontSize: [5, 5, 6]
     },
     h2: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
-      fontSize: 4
+      fontSize: [4, 4, 5]
     },
     h3: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
       fontSize: 3
     },
     h4: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
       fontSize: 2
     },
     h5: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
       fontSize: 1
     },
     h6: {
+      variant: "text.heading",
       color: "text",
-      fontFamily: "heading",
-      lineHeight: "heading",
-      fontWeight: "heading",
       fontSize: 0
+    },
+    subtitle: {
+      variant: "text.heading",
+      color: "text",
+      fontSize: 1,
+      mb: 0
     },
     p: {
       color: "text",
@@ -124,80 +200,9 @@ export default {
     },
     img: {
       maxWidth: "100%"
-    }
-  },
-  layout: {
-    container: {},
-    nav: {
-      display: "flex",
-      height: 100,
-      alignItems: "center",
-      justifyContent: "space-between",
-      px: 4
     },
-    main: {
-      width: "100%",
-      flex: "1 1 auto",
-      px: 4
-    },
-    footer: {
-      display: "flex",
-      height: 100,
-      alignItems: "center",
-      justifyContent: "space-between",
-      px: 4
-    },
-    contactForm: {
-      variant: "layout.container",
-      maxWidth: 500,
-      mt: 5
-    }
-  },
-  buttons: {
-    primary: {
-      cursor: "pointer",
-      color: "background"
-    },
-    secondary: {
-      variant: "buttons.primary",
-      fontWeight: "bold"
-    },
-    icon: {
-      cursor: "pointer",
+    hr: {
       color: "primary"
-    }
-  },
-  text: {
-    caps: {
-      textTransform: "uppercase",
-      letterSpacing: ".2em"
-    },
-    heading: {
-      fontFamily: "heading",
-      fontWeight: "heading",
-      lineHeight: "heading"
-    },
-    display: {
-      // extends the text.heading styles
-      variant: "text.heading",
-      fontSize: [6, 7, 8],
-      fontWeight: "display"
-    }
-  },
-  cards: {
-    primary: {
-      padding: 2,
-      borderRadius: 4,
-      boxShadow: "0 0 4px 1px rgba(0, 0, 0, 0.5)"
-    }
-  },
-  forms: {
-    label: {
-      mt: 2,
-      mb: 1
-    },
-    textarea: {
-      fontFamily: "body"
     }
   }
 };

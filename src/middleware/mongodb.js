@@ -1,22 +1,15 @@
-import { MongoClient } from "mongodb";
 import nextConnect from "next-connect";
-
-const client = new MongoClient(process.env.TLB_MONGODB_STRAVA_CONNECTION_STRING, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-async function database(req, res, next) {
-  if (!client.isConnected()) {
-    await client.connect();
-  }
-
-  req.mongodbClient = client;
-  req.mongodb = client.db("tommylb");
-  return next();
-}
+import { getClient, getTommylMongoDB } from "../lib/mongodb/dbConnection";
 
 const middleware = nextConnect();
+
+export async function database(req, res, next) {
+  const client = await getClient();
+  const tommylbMongoDB = await getTommylMongoDB();
+  req.mongodbClient = client;
+  req.mongodb = tommylbMongoDB;
+  return next();
+}
 
 middleware.use(database);
 

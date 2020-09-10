@@ -7,29 +7,18 @@ const handler = nextConnect()
   .use(strava)
   .get(async (req, res) => {
     const VERIFY_TOKEN = "STRAVA";
-    // Parses the query params
     let mode = req.query["hub.mode"];
     let token = req.query["hub.verify_token"];
     let challenge = req.query["hub.challenge"];
-    // Checks if a token and mode is in the query string of the request
-    if (mode && token) {
-      // Verifies that the mode and token sent are valid
-      if (mode === "subscribe" && token === VERIFY_TOKEN) {
-        // Responds with the challenge token from the request
-        console.log("WEBHOOK_VERIFIED");
-        res.json({ "hub.challenge": challenge });
-      } else {
-        // Responds with '403 Forbidden' if verify tokens do not match
-        res.status(403).end("Verify tokens do not match");
-      }
+
+    if (mode === "subscribe" && token === VERIFY_TOKEN) {
+      res.json({ "hub.challenge": challenge });
     } else {
-      // Responds with '403 Forbidden' if verify tokens do not match
-      res.status(403).end("No mode or verify token present");
+      res.status(403).end("Verify tokens do not match");
     }
   })
   .post(async (req, res) => {
     const { body } = req;
-    console.log(JSON.stringify(body));
 
     if (!body || body.object_type !== "activity") {
       res.status(200).end();
