@@ -89,7 +89,7 @@ export default {
       fontWeight: "heading",
       lineHeight: "heading",
       m: 0,
-      mb: 2
+      mb: 3
     },
     display: {
       // extends the text.heading styles
