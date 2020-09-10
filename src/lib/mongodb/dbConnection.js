@@ -29,6 +29,8 @@ export async function getAllStravaActivities() {
       moving_time: true,
       type: true,
       id: true,
+      calories: true,
+      total_elevation_gain: true,
       start_date: true,
       start_date_local: true,
       location_country: true,

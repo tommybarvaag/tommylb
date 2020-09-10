@@ -14,6 +14,8 @@ const createActivity = activity => {
     movingTime: activity.moving_time,
     type: activity.type,
     id: activity.id,
+    calories: activity.calories,
+    totalElevationGain: activity.total_elevation_gain,
     startDate: activity.start_date,
     startDateLocal: activity.start_date_local,
     locationCountry: activity.location_country,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, Card, Divider, Flex, Heading } from "theme-ui";
 import { getFormattedLongDate } from "../../utils/dateUtils";
-import { Calendar, Fire } from "../icons";
+import { Fire } from "../icons";
 import Link from "../link";
 import StravaStat from "./stravaStats";
 
@@ -13,7 +13,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
           <>
             <StravaStat title="Time" value={activity.formattedMovingTime} />
             <StravaStat title="Distance" value={activity.distanceInKilometers} />
-            <StravaStat title="Heart rate " value={activity.averageHeartRate} />
+            <StravaStat title="Heart rate" value={activity.averageHeartRate} />
             <StravaStat title="Minutes per kilometer" value={activity.minutesPerKilometer} />
             <StravaStat title="Kilometers per hour" value={activity.kilometersPerSecond} />
           </>
@@ -23,6 +23,8 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
           <>
             <StravaStat title="Distance" value={activity.distanceInKilometers} />
             <StravaStat title="Time" value={activity.formattedMovingTime} />
+            <StravaStat title="Heart rate " value={activity.averageHeartRate} />
+            <StravaStat title="Elevation gain" value={activity.totalElevationGain} />
           </>
         );
     }
@@ -41,11 +43,10 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
 
   return (
     <Box {...boxProps} {...other}>
-      <Heading as="h3">{activity.type}</Heading>
-      <Flex sx={{ alignItems: "center" }}>
-        <Calendar width={16} height={16} sx={{ mr: 2 }} />
-        <Heading as="h5" sx={{ mb: 0 }}>
-          {getFormattedLongDate(activity.startDateLocal)}
+      <Flex>
+        <Heading as="h3">{activity.type}</Heading>
+        <Heading as="h3" sx={{ fontWeight: "body" }}>
+          &nbsp;-&nbsp;{getFormattedLongDate(activity.startDateLocal)}
         </Heading>
       </Flex>
       {activity.personalBests.map(personalBest => (

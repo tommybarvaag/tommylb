@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Container, Grid } from "theme-ui";
+import { Container } from "theme-ui";
 import ContainerHeading from "../containerHeading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
@@ -15,10 +15,10 @@ export default function LastStravaActivity({ preloadedActivities = [], ...other 
     }
 
     return (
-      <Grid gap={[0, 0, 2]} columns={[1, 1, 2]}>
+      <>
         <StravaActivity activity={lastActivity} linkToStravaPage />
         <StravaActivity activity={lastRunActivity} linkToStravaPage />
-      </Grid>
+      </>
     );
   };
 
