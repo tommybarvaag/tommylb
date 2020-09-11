@@ -1,9 +1,22 @@
+import { flat, min, sum } from "../utils/commonUtils";
+import { getDateYear, parseDateISO } from "../utils/dateUtils";
 import {
   convertKilometersPerSecondToMinutesPerKilometer,
   convertMetersPerSecondToKilometersPerSecond,
   convertMetersToKilometers,
   convertSecondsToHoursAndMinutes
 } from "../utils/unitOfMeasurementUtils";
+
+const getPersonalBest = (bestEfforts, name) => ({
+  name,
+  value: convertSecondsToHoursAndMinutes(
+    min(
+      bestEfforts
+        .filter(bestEffort => bestEffort.pr_rank === 1 && bestEffort.name === name)
+        .map(bestEffort => bestEffort.moving_time)
+    )
+  )
+});
 
 const createActivity = activity => {
   const kilometersPerSecond = convertMetersPerSecondToKilometersPerSecond(activity.average_speed);
@@ -43,7 +56,89 @@ const createActivity = activity => {
 
 const createActivities = (activities = []) => activities.map(activity => createActivity(activity));
 
+const createStats = (activities = []) => {
+  const allActivities = activities.map(activity => {
+    const startDate = parseDateISO(activity.start_date);
+    return {
+      ...activity,
+      startDate,
+      startDateYear: getDateYear(startDate)
+    };
+  });
+
+  const allRunningActivities = allActivities.filter(activity => activity.type === "Run");
+
+  const now = new Date();
+  const thisYear = now.getFullYear();
+  const lastYear = thisYear - 1;
+
+  const allActivitiesThisYear = allActivities.filter(
+    activity => activity.startDateYear === thisYear
+  );
+
+  const allRunningActivitiesThisYear = allActivitiesThisYear.filter(
+    activity => activity.type === "Run"
+  );
+
+  const allActivitiesLastYear = allActivities.filter(
+    activity => activity.startDateYear === lastYear
+  );
+
+  const allRunningActivitiesLastYear = allActivitiesLastYear.filter(
+    activity => activity.type === "Run"
+  );
+
+  const allBestEfforts = flat(
+    allActivities
+      .filter(activity => activity.best_efforts?.length > 0)
+      .map(activity => activity.best_efforts)
+  );
+
+  return {
+    personalBests: [
+      getPersonalBest(allBestEfforts, "400m"),
+      getPersonalBest(allBestEfforts, "1/2 mile"),
+      getPersonalBest(allBestEfforts, "1k"),
+      getPersonalBest(allBestEfforts, "1 mile"),
+      getPersonalBest(allBestEfforts, "2 mile"),
+      getPersonalBest(allBestEfforts, "5k"),
+      getPersonalBest(allBestEfforts, "10k")
+    ],
+    allTime: {
+      activityCount: allActivities.length,
+      activityRunningCount: allRunningActivities.length,
+      totalDistanceCovered: convertMetersToKilometers(
+        sum(allActivities.map(activity => activity.distance))
+      ),
+      totalRunningDistanceCovered: convertMetersToKilometers(
+        sum(allRunningActivities.map(activity => activity.distance))
+      )
+    },
+    thisYear: {
+      activityCount: allActivitiesThisYear.length,
+      activityRunningCount: allRunningActivitiesThisYear.length,
+      totalDistanceCovered: convertMetersToKilometers(
+        sum(allActivitiesThisYear.map(activity => activity.distance))
+      ),
+      totalRunningDistanceCovered: convertMetersToKilometers(
+        sum(allRunningActivitiesThisYear.map(activity => activity.distance))
+      )
+    },
+    lastYear: {
+      activityCount: allActivitiesLastYear.length,
+      activityRunningCount: allRunningActivitiesLastYear.length,
+      totalDistanceCovered: convertMetersToKilometers(
+        sum(allActivitiesLastYear.map(activity => activity.distance))
+      ),
+      totalRunningDistanceCovered: convertMetersToKilometers(
+        sum(allRunningActivitiesLastYear.map(activity => activity.distance))
+      )
+    }
+  };
+};
+
 export default {
   createActivity,
-  createActivities
+  createActivities,
+  createStats
 };

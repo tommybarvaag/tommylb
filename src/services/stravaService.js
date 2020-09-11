@@ -1,7 +1,7 @@
 import stravaFactory from "../factories/stravaFactory";
 import { getTommylMongoDB } from "../lib/mongodb/dbConnection";
 
-const getAllStravaActivities = async () => {
+const get = async () => {
   let cursor = (await getTommylMongoDB())
     .collection("strava")
     .find({})
@@ -34,12 +34,25 @@ const getAllStravaActivities = async () => {
 
     const { _id, ...activityToPush } = activity;
 
-    activities.push(stravaFactory.createActivity({ ...activityToPush, mongoId: _id }));
+    activities.push({ ...activityToPush, mongoId: _id });
   }
 
   return activities;
 };
 
+const getAllStravaActivities = async () => {
+  const activities = await get();
+
+  return stravaFactory.createActivities(activities);
+};
+
+const getAllStravaStats = async () => {
+  const activities = await get();
+
+  return stravaFactory.createStats(activities);
+};
+
 export default {
-  getAllStravaActivities
+  getAllStravaActivities,
+  getAllStravaStats
 };
