@@ -12,19 +12,19 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
         return (
           <>
             <StravaStat title="Time" value={activity.formattedMovingTime} />
-            <StravaStat title="Distance" value={activity.distanceInKilometers} />
-            <StravaStat title="Heart rate" value={activity.averageHeartRate} />
-            <StravaStat title="Minutes per kilometer" value={activity.minutesPerKilometer} />
-            <StravaStat title="Kilometers per hour" value={activity.kilometersPerSecond} />
+            <StravaStat title="Distance" value={`${activity.distanceInKilometers} km`} />
+            <StravaStat title="Heart rate" value={`${activity.averageHeartRate} bpm`} />
+            <StravaStat title="Pace" value={`${activity.minutesPerKilometer} mpk`} />
+            <StravaStat title="Speed" value={`${activity.kilometersPerSecond} kph`} />
           </>
         );
       default:
         return (
           <>
-            <StravaStat title="Distance" value={activity.distanceInKilometers} />
+            <StravaStat title="Distance" value={`${activity.distanceInKilometers} km`} />
             <StravaStat title="Time" value={activity.formattedMovingTime} />
-            <StravaStat title="Heart rate " value={activity.averageHeartRate} />
-            <StravaStat title="Elevation gain" value={activity.totalElevationGain} />
+            <StravaStat title="Heart rate " value={`${activity.averageHeartRate} bpm`} />
+            <StravaStat title="Elevation gain" value={`${activity.totalElevationGain} m`} />
           </>
         );
     }
@@ -49,8 +49,8 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
           &nbsp;-&nbsp;{getFormattedLongDate(activity.startDateLocal)}
         </Heading>
       </Flex>
-      {activity.personalBests.map(personalBest => (
-        <Flex sx={{ alignItems: "center" }}>
+      {activity.personalBests.map((personalBest, index) => (
+        <Flex key={`strava-personal-best-${activity.id}-${index}`} sx={{ alignItems: "center" }}>
           <Fire width={16} height={16} sx={{ mr: 2 }} />
           <Heading as="h5" sx={{ mb: 0 }}>
             {`Personal best ${personalBest.name} (${personalBest.formattedMovingTime})`}

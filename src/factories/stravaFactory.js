@@ -41,6 +41,9 @@ const createActivity = activity => {
   };
 };
 
+const createActivities = (activities = []) => activities.map(activity => createActivity(activity));
+
 export default {
-  createActivity
+  createActivity,
+  createActivities
 };

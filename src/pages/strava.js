@@ -3,7 +3,7 @@ import { Text } from "theme-ui";
 import PageHeading from "../components/pageHeading";
 import { StravaActivities } from "../components/strava";
 import Layout from "../layouts";
-import { getAllStravaActivities } from "../lib/mongodb/dbConnection";
+import stravaService from "../services/stravaService";
 
 export default function Strava({ preloadedActivities }) {
   return (
@@ -16,6 +16,6 @@ export default function Strava({ preloadedActivities }) {
 }
 
 export async function getStaticProps() {
-  const activities = await getAllStravaActivities();
-  return { props: { preloadedActivities: activities.map(({ _id, ...activity }) => activity) } };
+  const activities = await stravaService.getAllStravaActivities();
+  return { props: { preloadedActivities: activities } };
 }

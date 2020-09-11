@@ -1,23 +1,7 @@
-import { MongoClient } from "mongodb";
+import stravaFactory from "../factories/stravaFactory";
+import { getTommylMongoDB } from "../lib/mongodb/dbConnection";
 
-const client = new MongoClient(process.env.TLB_MONGODB_STRAVA_CONNECTION_STRING, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-export async function getClient() {
-  if (!client.isConnected()) {
-    await client.connect();
-  }
-
-  return client;
-}
-
-export async function getTommylMongoDB() {
-  return (await getClient()).db("tommylb");
-}
-
-export async function getAllStravaActivities() {
+const getAllStravaActivities = async () => {
   let cursor = (await getTommylMongoDB())
     .collection("strava")
     .find({})
@@ -50,8 +34,12 @@ export async function getAllStravaActivities() {
 
     const { _id, ...activityToPush } = activity;
 
-    activities.push({ ...activityToPush, mongoId: _id });
+    activities.push(stravaFactory.createActivity({ ...activityToPush, mongoId: _id }));
   }
 
   return activities;
-}
+};
+
+export default {
+  getAllStravaActivities
+};

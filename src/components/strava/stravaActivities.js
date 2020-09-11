@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Container, Heading } from "theme-ui";
+import { Container } from "theme-ui";
+import ContainerHeading from "../containerHeading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
-import ContainerHeading from "../containerHeading";
 
 export default function StravaActivities({ preloadedActivities = [], ...other }) {
   const { activities } = useStravaActivities({
