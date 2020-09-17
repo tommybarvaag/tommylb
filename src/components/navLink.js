@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 import NextLink from "next/link";
 import * as React from "react";
-import { Link as ThemeUiLink } from "theme-ui";
+import { NavLink as ThemeUiNavLink } from "theme-ui";
 
-const StyledLink = styled(ThemeUiLink)``;
+const StyledLink = styled(ThemeUiNavLink)``;
 
-export default function Link({ children, href, as, ...other }) {
+export default function NavLink({ children, href, as, ...other }) {
   return (
     <NextLink href={href} as={as} passHref>
       <StyledLink as="a" {...other}>

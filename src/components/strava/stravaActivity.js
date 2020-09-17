@@ -2,8 +2,8 @@ import * as React from "react";
 import { Box, Card, Divider, Flex, Heading } from "theme-ui";
 import { getFormattedLongDate } from "../../utils/dateUtils";
 import { Fire } from "../icons";
-import Link from "../link";
-import StravaStat from "./stravaStats";
+import NavLink from "../navLink";
+import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
 
 export default function StravaActivity({ activity, linkToStravaPage = false, ...other }) {
   const renderStravaStats = () => {
@@ -11,20 +11,35 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
       case "Run":
         return (
           <>
-            <StravaStat title="Time" value={activity.formattedMovingTime} />
-            <StravaStat title="Distance" value={`${activity.distanceInKilometers} km`} />
-            <StravaStat title="Heart rate" value={`${activity.averageHeartRate} bpm`} />
-            <StravaStat title="Pace" value={`${activity.minutesPerKilometer} mpk`} />
-            <StravaStat title="Speed" value={`${activity.kilometersPerSecond} kph`} />
+            <StravaUnitOfMeasurement title="Time" value={activity.formattedMovingTime} />
+            <StravaUnitOfMeasurement
+              title="Distance"
+              value={`${activity.distanceInKilometers} km`}
+            />
+            <StravaUnitOfMeasurement
+              title="Heart rate"
+              value={`${activity.averageHeartRate} bpm`}
+            />
+            <StravaUnitOfMeasurement title="Pace" value={`${activity.minutesPerKilometer} mpk`} />
+            <StravaUnitOfMeasurement title="Speed" value={`${activity.kilometersPerSecond} kph`} />
           </>
         );
       default:
         return (
           <>
-            <StravaStat title="Distance" value={`${activity.distanceInKilometers} km`} />
-            <StravaStat title="Time" value={activity.formattedMovingTime} />
-            <StravaStat title="Heart rate " value={`${activity.averageHeartRate} bpm`} />
-            <StravaStat title="Elevation gain" value={`${activity.totalElevationGain} m`} />
+            <StravaUnitOfMeasurement
+              title="Distance"
+              value={`${activity.distanceInKilometers} km`}
+            />
+            <StravaUnitOfMeasurement title="Time" value={activity.formattedMovingTime} />
+            <StravaUnitOfMeasurement
+              title="Heart rate "
+              value={`${activity.averageHeartRate} bpm`}
+            />
+            <StravaUnitOfMeasurement
+              title="Elevation gain"
+              value={`${activity.totalElevationGain} m`}
+            />
           </>
         );
     }
@@ -32,7 +47,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
 
   const boxProps = linkToStravaPage
     ? {
-        as: Link,
+        as: NavLink,
         variant: "cards.primary",
         href: "/strava"
       }

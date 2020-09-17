@@ -11,7 +11,7 @@ handler.get(async (req, res) => {
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify({ stravaStats }));
+  res.end(JSON.stringify({ ...stravaStats }));
 });
 
 export default handler;

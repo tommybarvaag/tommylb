@@ -95,6 +95,11 @@ const createStats = (activities = []) => {
   );
 
   return {
+    goals: [
+      { name: "5k", value: convertSecondsToHoursAndMinutes(1230) },
+      { name: "10k", value: convertSecondsToHoursAndMinutes(2580) },
+      { name: "Half-Marathon", value: convertSecondsToHoursAndMinutes(6600) }
+    ],
     personalBests: [
       getPersonalBest(allBestEfforts, "400m"),
       getPersonalBest(allBestEfforts, "1/2 mile"),
@@ -108,30 +113,36 @@ const createStats = (activities = []) => {
       activityCount: allActivities.length,
       activityRunningCount: allRunningActivities.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivities.map(activity => activity.distance))
+        sum(allActivities.map(activity => activity.distance)),
+        0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivities.map(activity => activity.distance))
+        sum(allRunningActivities.map(activity => activity.distance)),
+        0
       )
     },
     thisYear: {
       activityCount: allActivitiesThisYear.length,
       activityRunningCount: allRunningActivitiesThisYear.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivitiesThisYear.map(activity => activity.distance))
+        sum(allActivitiesThisYear.map(activity => activity.distance)),
+        0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivitiesThisYear.map(activity => activity.distance))
+        sum(allRunningActivitiesThisYear.map(activity => activity.distance)),
+        0
       )
     },
     lastYear: {
       activityCount: allActivitiesLastYear.length,
       activityRunningCount: allRunningActivitiesLastYear.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivitiesLastYear.map(activity => activity.distance))
+        sum(allActivitiesLastYear.map(activity => activity.distance)),
+        0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivitiesLastYear.map(activity => activity.distance))
+        sum(allRunningActivitiesLastYear.map(activity => activity.distance)),
+        0
       )
     }
   };

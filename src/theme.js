@@ -22,6 +22,7 @@ export default {
     primary: "#000",
     secondary: "#30c",
     muted: "#f6f6f6",
+    link: "#0178df",
     modes: {
       dark: {
         text: "#fff",
@@ -80,6 +81,9 @@ export default {
     }
   },
   text: {
+    p: {
+      my: 3
+    },
     caps: {
       textTransform: "uppercase",
       letterSpacing: ".2em"
@@ -91,6 +95,7 @@ export default {
       m: 0,
       mb: 3
     },
+
     display: {
       // extends the text.heading styles
       variant: "text.heading",

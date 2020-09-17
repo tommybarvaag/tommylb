@@ -1,6 +1,6 @@
 import LastStravaActivity from "./lastStravaActivity";
 import StravaActivities from "./stravaActivities";
 import StravaActivity from "./stravaActivity";
-import StravaStats from "./stravaStats";
+import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
 
-export { LastStravaActivity, StravaActivities, StravaActivity, StravaStats };
+export { LastStravaActivity, StravaActivities, StravaActivity, StravaUnitOfMeasurement };

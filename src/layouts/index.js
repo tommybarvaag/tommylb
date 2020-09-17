@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Box, Container, IconButton, Text, useColorMode } from "theme-ui";
+import { Box, Container, IconButton, NavLink, Text, useColorMode } from "theme-ui";
 import Copyright from "../components/copyright";
 import GlobalStyles from "../components/globalStyles";
 import { Moon, Sun } from "../components/icons";
-import Link from "../components/link";
 import Seo from "../components/seo";
 
 export default function Layout({ children, ...other }) {
@@ -14,9 +13,9 @@ export default function Layout({ children, ...other }) {
       <Seo />
       <Container as="nav" variant="nav">
         <Box variant="secondary">
-          <Link href="/">
+          <NavLink href="/">
             <Text fontWeight={0}>Tommy Lunde Barvåg</Text>
-          </Link>
+          </NavLink>
         </Box>
         <Box>
           <IconButton
