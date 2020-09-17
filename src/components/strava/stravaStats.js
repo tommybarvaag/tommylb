@@ -1,50 +1,9 @@
 import * as React from "react";
-import { Container, Flex, Grid, Heading, Text } from "theme-ui";
+import { Container, Grid, Heading } from "theme-ui";
 import useStravaStats from "./hooks/useStravaStats";
-
-function StravaNameAndValue({ name, value }) {
-  return (
-    <Flex>
-      <Text sx={{ flexGrow: 1, mr: 3 }}>{name}</Text>
-      <Text sx={{ fontWeight: "bold" }}>{value}</Text>
-    </Flex>
-  );
-}
-
-function StravaHeadingAndValues({ title, nameAndValues = [] }) {
-  if (nameAndValues?.length <= 0) {
-    return null;
-  }
-
-  return (
-    <Container>
-      <Heading>{title}</Heading>
-      {nameAndValues.map((nameAndValue, index) => (
-        <StravaNameAndValue
-          key={`${title}-name-and-value-${index}`}
-          name={nameAndValue.name}
-          value={nameAndValue.value}
-        />
-      ))}
-    </Container>
-  );
-}
-
-function StravaPersonalBests({ title, personalBests = [] }) {
-  if (personalBests?.length <= 0) {
-    return null;
-  }
-
-  return <StravaHeadingAndValues title={title ?? "Personal bests"} nameAndValues={personalBests} />;
-}
-
-function StravaRunningGoals({ title, goals = [] }) {
-  if (goals?.length <= 0) {
-    return null;
-  }
-
-  return <StravaHeadingAndValues title={title ?? "Goals"} nameAndValues={goals} />;
-}
+import StravaNameAndValue from "./stravaNameAndValue";
+import StravaPersonalBests from "./stravaPersonalBests";
+import StravaRunningGoals from "./stravaRunningGoals";
 
 function StravaActivityCountAndDistanceOverview({ title, activityCountAndDistanceOverview }) {
   return (

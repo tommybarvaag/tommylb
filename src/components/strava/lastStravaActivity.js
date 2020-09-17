@@ -10,6 +10,10 @@ export default function LastStravaActivity({ preloadedActivities = [], ...other 
   });
 
   const renderLastStravaActivity = () => {
+    if (!lastActivity) {
+      return null;
+    }
+
     if (lastActivity.type === "Run") {
       return <StravaActivity activity={lastActivity} linkToStravaPage />;
     }
