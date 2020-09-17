@@ -1,9 +1,8 @@
 import nextConnect from "next-connect";
-import mongodb from "../../../middleware/mongodb";
+import stravaRepository from "../../../lib/mongodb/stravaRepository";
 import strava from "../../../middleware/strava";
 
 const handler = nextConnect()
-  .use(mongodb)
   .use(strava)
   .get(async (req, res) => {
     const VERIFY_TOKEN = "STRAVA";
@@ -29,13 +28,13 @@ const handler = nextConnect()
         id: body.object_id
       });
 
-      await req.mongodb.collection("strava").insertOne(activity);
+      await stravaRepository.insertOne(activity);
 
       res.status(200).end();
     }
 
     if (body.aspect_type === "update") {
-      await req.mongodb.collection("strava").findOneAndUpdate(
+      await stravaRepository.findOneAndUpdate(
         { id: body.object_id },
         {
           $set:
@@ -49,7 +48,7 @@ const handler = nextConnect()
     }
 
     if (body.aspect_type === "delete") {
-      await req.mongodb.collection("strava").deleteOne({ id: body.object_id });
+      await stravaRepository.deleteOne({ id: body.object_id });
 
       res.status(200).end();
     }

@@ -5,12 +5,6 @@ export const getFormattedDate = (date, dateFormat, options = {}) =>
 
 export const parseDateISO = date => parseISO(date);
 
-export const getDateUTC = date => {
-  const now = date ?? Date.now();
-  console.log(now);
-  return new Date();
-};
-
 export const getDateISO = date => (isDate(date) ? date : parseDateISO(date));
 
 export const getDateYear = date => getYear(getDateISO(date));

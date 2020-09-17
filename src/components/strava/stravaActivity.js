@@ -6,6 +6,12 @@ import NavLink from "../navLink";
 import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
 
 export default function StravaActivity({ activity, linkToStravaPage = false, ...other }) {
+  const renderHeartRate = () => {
+    return activity.hasHeartRate ? (
+      <StravaUnitOfMeasurement title="Heart rate " value={`${activity.averageHeartRate} bpm`} />
+    ) : null;
+  };
+
   const renderStravaStats = () => {
     switch (activity.type) {
       case "Run":
@@ -16,10 +22,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
               title="Distance"
               value={`${activity.distanceInKilometers} km`}
             />
-            <StravaUnitOfMeasurement
-              title="Heart rate"
-              value={`${activity.averageHeartRate} bpm`}
-            />
+            {renderHeartRate()}
             <StravaUnitOfMeasurement title="Pace" value={`${activity.minutesPerKilometer} mpk`} />
             <StravaUnitOfMeasurement title="Speed" value={`${activity.kilometersPerSecond} kph`} />
           </>
@@ -32,10 +35,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
               value={`${activity.distanceInKilometers} km`}
             />
             <StravaUnitOfMeasurement title="Time" value={activity.formattedMovingTime} />
-            <StravaUnitOfMeasurement
-              title="Heart rate "
-              value={`${activity.averageHeartRate} bpm`}
-            />
+            {renderHeartRate()}
             <StravaUnitOfMeasurement
               title="Elevation gain"
               value={`${activity.totalElevationGain} m`}
@@ -59,8 +59,10 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
   return (
     <Box {...boxProps} {...other}>
       <Flex>
-        <Heading as="h3">{activity.type}</Heading>
-        <Heading as="h3" sx={{ fontWeight: "body" }}>
+        <Heading as="h3" variant="no-margin">
+          {activity.type}
+        </Heading>
+        <Heading as="h3" variant="no-margin" sx={{ fontWeight: "body" }}>
           &nbsp;-&nbsp;{getFormattedLongDate(activity.startDateLocal)}
         </Heading>
       </Flex>

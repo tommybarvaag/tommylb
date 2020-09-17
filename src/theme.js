@@ -95,7 +95,10 @@ export default {
       m: 0,
       mb: 3
     },
-
+    "no-margin": {
+      mx: 0,
+      my: 0
+    },
     display: {
       // extends the text.heading styles
       variant: "text.heading",
@@ -120,6 +123,11 @@ export default {
     },
     textarea: {
       fontFamily: "body"
+    }
+  },
+  images: {
+    blog: {
+      mb: 3
     }
   },
   styles: {

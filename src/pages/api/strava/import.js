@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import mongodb from "../../../middleware/mongodb";
+import stravaRepository from "../../../lib/mongodb/stravaRepository";
 import strava from "../../../middleware/strava";
 
 const sleep = ms => {
@@ -8,7 +8,6 @@ const sleep = ms => {
 
 const handler = nextConnect();
 
-handler.use(mongodb);
 handler.use(strava);
 
 handler.get(async (req, res) => {
@@ -56,10 +55,10 @@ handler.get(async (req, res) => {
   console.log("Finished fetching detailed activity info.");
 
   // Deletes all entries in collection
-  await req.mongodb.collection("strava").deleteMany({});
+  await stravaRepository.deleteMany();
 
   // Insert all activities to collection
-  await req.mongodb.collection("strava").insertMany(detailedActivities);
+  await stravaRepository.insertMany(detailedActivities);
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
