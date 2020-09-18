@@ -64,6 +64,11 @@ export default {
     contactForm: {
       variant: "layout.container",
       maxWidth: 500
+    },
+    center: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
     }
   },
   buttons: {
