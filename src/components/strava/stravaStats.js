@@ -45,7 +45,7 @@ export default function StravaStats({ preloadedStats, ...other }) {
         <Container m={0}>
           <StravaRunningGoals goals={stats?.goals ?? []} />
           <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
-          <StravaGear />
+          <StravaGear gear={stats?.gear ?? []} />
         </Container>
         <Container m={0}>
           <StravaActivityCountAndDistanceOverview
