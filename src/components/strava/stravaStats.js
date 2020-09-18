@@ -41,7 +41,7 @@ export default function StravaStats({ preloadedStats, ...other }) {
 
   return (
     <Container {...other}>
-      <Grid columns={[1, 2, 2]} gap={5}>
+      <Grid columns={[1, 2, 2]} gap={[0, 5, 5]}>
         <Container m={0}>
           <StravaRunningGoals goals={stats?.goals ?? []} />
           <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
