@@ -29,5 +29,9 @@ export default function Strava({ preloadedStats, preloadedActivities }) {
 export async function getStaticProps() {
   const stats = await stravaService.getAllStravaStats();
   const activities = await stravaService.getAllStravaActivities();
-  return { props: { preloadedStats: stats, preloadedActivities: activities } };
+
+  return {
+    props: { preloadedStats: stats, preloadedActivities: activities },
+    revalidate: 1
+  };
 }
