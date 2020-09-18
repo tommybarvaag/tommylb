@@ -7,19 +7,24 @@ image:
 author: "Tommy L. Barvåg"
 categories: ["Random"]
 keywords: ["Random"]
-featured: true
+featured: false
 published: true
 unlisted: false
 ---
+
+import Image from "../../components/image";
+import ContactForm from "../../components/contactForm";
 
 # Initial commit
 
 Will this stick?
 
-![Typing](/images/blog/initial-commit/typing.jpg)
-
-import ContactForm from "../../components/contactForm";
+<Image
+  variant="blog"
+  jpg="/images/blog/initial-commit/typing.jpg"
+  webp="/images/blog/initial-commit/typing.webp"
+  alt="Typing"
+  loading="eager"
+/>
 
 <ContactForm />
-
-Look ahead.
