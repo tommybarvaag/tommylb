@@ -22,5 +22,9 @@ export default function Home({ preloadedActivities }) {
 
 export async function getStaticProps() {
   const activities = await stravaService.getAllStravaActivities();
-  return { props: { preloadedActivities: activities } };
+
+  return {
+    props: { preloadedActivities: activities },
+    revalidate: 1
+  };
 }
