@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Container, Grid, Heading } from "theme-ui";
 import useStravaStats from "./hooks/useStravaStats";
+import StravaGear from "./stravaGear";
 import StravaNameAndValue from "./stravaNameAndValue";
 import StravaPersonalBests from "./stravaPersonalBests";
 import StravaRunningGoals from "./stravaRunningGoals";
@@ -44,6 +45,7 @@ export default function StravaStats({ preloadedStats, ...other }) {
         <Container m={0}>
           <StravaRunningGoals goals={stats?.goals ?? []} />
           <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
+          <StravaGear />
         </Container>
         <Container m={0}>
           <StravaActivityCountAndDistanceOverview

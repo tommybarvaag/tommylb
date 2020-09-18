@@ -1,4 +1,4 @@
-import { flat, min, sum } from "../utils/commonUtils";
+import { flat, groupBy, maxBy, min, sum } from "../utils/commonUtils";
 import { getDateYear, parseDateISO } from "../utils/dateUtils";
 import {
   convertKilometersPerSecondToMinutesPerKilometer,
@@ -17,6 +17,32 @@ const getPersonalBest = (bestEfforts, name) => ({
     )
   )
 });
+
+const getGear = activities =>
+  Object.entries(
+    groupBy(
+      activities
+        .filter(x => x.gear && x.gear.name)
+        .map(activity => ({
+          name: activity.gear.name,
+          primary: activity.gear.primary,
+          distance: activity.gear.distance
+        })),
+      "name"
+    )
+  )
+    .reduce((result, [key, value]) => {
+      const uniqueGearWithMaxDistance = maxBy(value, "distance");
+      return [
+        ...result,
+        {
+          ...uniqueGearWithMaxDistance,
+          name: key,
+          distance: convertMetersToKilometers(uniqueGearWithMaxDistance.distance, 0)
+        }
+      ];
+    }, [])
+    .sort((a, b) => b.primary - a.primary);
 
 const createActivity = activity => {
   const kilometersPerSecond = convertMetersPerSecondToKilometersPerSecond(activity.average_speed);
@@ -109,6 +135,7 @@ const createStats = (activities = []) => {
       getPersonalBest(allBestEfforts, "5k"),
       getPersonalBest(allBestEfforts, "10k")
     ],
+    gear: getGear(allActivities),
     allTime: {
       activityCount: allActivities.length,
       activityRunningCount: allRunningActivities.length,

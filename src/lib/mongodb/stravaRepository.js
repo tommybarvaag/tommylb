@@ -21,7 +21,8 @@ const get = async (query = {}, sort = { start_date_local: -1 }) => {
     average_heartrate: true,
     max_heartrate: true,
     suffer_score: true,
-    best_efforts: true
+    best_efforts: true,
+    gear: true
   });
 
   let activities = [];
