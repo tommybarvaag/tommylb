@@ -119,6 +119,10 @@ export default {
       border: "1px solid",
       borderColor: "primary",
       mb: 3
+    },
+    small: {
+      variant: "cards.primary",
+      maxWidth: 300
     }
   },
   forms: {

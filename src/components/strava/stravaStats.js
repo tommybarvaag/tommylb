@@ -5,9 +5,13 @@ import StravaNameAndValue from "./stravaNameAndValue";
 import StravaPersonalBests from "./stravaPersonalBests";
 import StravaRunningGoals from "./stravaRunningGoals";
 
-function StravaActivityCountAndDistanceOverview({ title, activityCountAndDistanceOverview }) {
+function StravaActivityCountAndDistanceOverview({
+  title,
+  activityCountAndDistanceOverview,
+  ...other
+}) {
   return (
-    <Container>
+    <Container mt={0} {...other}>
       <Heading>{title}</Heading>
       <StravaNameAndValue
         name="Activities"
