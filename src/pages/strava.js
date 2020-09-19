@@ -4,7 +4,7 @@ import Link from "../components/link";
 import PageHeading from "../components/pageHeading";
 import { StravaActivities } from "../components/strava";
 import StravaStats from "../components/strava/stravaStats";
-import Layout from "../layouts";
+import { Layout } from "../layouts";
 import stravaService from "../services/stravaService";
 
 export default function Strava({ preloadedStats, preloadedActivities }) {
