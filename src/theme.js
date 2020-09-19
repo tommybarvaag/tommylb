@@ -21,7 +21,7 @@ export default {
     background: "#fff",
     primary: "#000",
     secondary: "#30c",
-    muted: "#f6f6f6",
+    muted: "#777",
     link: "#0178df",
     modes: {
       dark: {
@@ -39,6 +39,8 @@ export default {
 
   layout: {
     container: {
+      display: "flex",
+      flexDirection: "column",
       mt: 4,
       mb: 4
     },
@@ -123,6 +125,12 @@ export default {
     small: {
       variant: "cards.primary",
       maxWidth: 300
+    }
+  },
+  links: {
+    "no-underline": {
+      color: "primary",
+      textDecoration: "none"
     }
   },
   forms: {

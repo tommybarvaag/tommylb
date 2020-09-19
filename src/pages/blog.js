@@ -1,18 +1,22 @@
-import { Box, Grid, Heading, Text } from "theme-ui";
+import { Text } from "theme-ui";
+import { BlogPosts } from "../components/blog";
+import useBlogPosts from "../components/blog/hooks";
+import PageHeading from "../components/pageHeading";
 import Layout from "../layouts";
-import { frontMatter as blogPosts } from "./blog/**/*.mdx";
 
 export default function Blog() {
+  const { blogPosts } = useBlogPosts();
   return (
     <Layout>
-      <Grid width={[128, 128, 192]}>
-        {blogPosts.map(blogPost => (
-          <Box>
-            <Heading>{blogPost.title}</Heading>
-            <Text>{blogPost.summary}</Text>
-          </Box>
-        ))}
-      </Grid>
+      <PageHeading>Blog</PageHeading>
+      <Text variant="p">
+        Late august 2020 I told myself that I should try to write more about what I do. Mainly in
+        code but also day to day life. Since then I've written
+        <Text as="strong"> {blogPosts.length} </Text>
+        articles on this site. Let's see if it sticks.
+      </Text>
+      <BlogPosts featured />
+      <BlogPosts />
     </Layout>
   );
 }

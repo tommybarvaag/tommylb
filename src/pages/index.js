@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Text } from "theme-ui";
+import { BlogPosts } from "../components/blog";
 import ContactForm from "../components/contactForm";
 import PageHeading from "../components/pageHeading";
 import { LastStravaActivity } from "../components/strava";
@@ -14,6 +15,7 @@ export default function Home({ preloadedActivities }) {
         I’m a full stack developer. I’ve spent the last six years creating web solutions for great
         companies.
       </Text>
+      <BlogPosts featured />
       <LastStravaActivity preloadedActivities={preloadedActivities} />
       <ContactForm />
     </Layout>
