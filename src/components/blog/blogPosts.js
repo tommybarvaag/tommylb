@@ -18,7 +18,7 @@ export default function BlogPosts({ title, featured, ...other }) {
           title={blogPost.title}
           summary={blogPost.summary}
           href={`/${blogPost.__resourcePath?.replace(".mdx", "")}`}
-          publishedAt={blogPost.publishedAt}
+          publishedAt={blogPost.publishedAtDateFormatted}
         />
       ))}
     </Container>

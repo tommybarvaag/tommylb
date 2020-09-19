@@ -1,6 +1,7 @@
 import * as React from "react";
 import useSwr from "swr";
 import { frontMatter } from "../../../pages/blog/**/*.mdx";
+import { getFormattedBlogDate, parseDate } from "../../../utils/dateUtils";
 
 export default function useBlogPosts() {
   const { data } = useSwr("/api/blog-posts", async () => {}, {
@@ -16,7 +17,15 @@ export default function useBlogPosts() {
     () =>
       data
         .filter(blogPost => blogPost.published)
-        .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))),
+        .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)))
+        .map(blogPost => {
+          const publishedAtDate = parseDate(blogPost.publishedAt, "yyyy-mm-dd");
+          return {
+            ...blogPost,
+            publishedAtDate,
+            publishedAtDateFormatted: getFormattedBlogDate(publishedAtDate)
+          };
+        }),
     [data]
   );
 
