@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Container, Heading, Input, Label, Text, Textarea } from "theme-ui";
+import ContainerHeading from "./containerHeading";
 
 export default function ContactForm({ ...other }) {
   const [submitting, setSubmitting] = React.useState(false);
@@ -62,7 +63,7 @@ export default function ContactForm({ ...other }) {
     if (submitting) {
       return (
         <>
-          <Heading as="h2">Thank you!</Heading>
+          <ContainerHeading>Thank you!</ContainerHeading>
           <Text paragraph>You'll hear from me soon.</Text>
         </>
       );
@@ -70,7 +71,7 @@ export default function ContactForm({ ...other }) {
 
     return (
       <>
-        <Heading as="h2">Let’s have a chat</Heading>
+        <ContainerHeading>Let’s have a chat</ContainerHeading>
         <Text>
           I’m always happy to talk about working together, new opportunities or just a friendly
           hello.

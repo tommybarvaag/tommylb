@@ -5,6 +5,9 @@ export default function GlobalStyles() {
   return (
     <Global
       styles={theme => ({
+        html: {
+          scrollBehavior: "smooth"
+        },
         "#__next": {
           display: "flex",
           flexDirection: "column",
