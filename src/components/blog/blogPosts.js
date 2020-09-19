@@ -1,6 +1,6 @@
 import { Container } from "theme-ui";
 import ContainerHeading from "../containerHeading";
-import BlogPost from "./BlogPost";
+import BlogPost from "./blogPost";
 import useBlogPosts from "./hooks";
 
 export default function BlogPosts({ title, featured, ...other }) {
