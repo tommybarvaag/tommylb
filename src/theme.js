@@ -111,6 +111,9 @@ export default {
       variant: "text.heading",
       fontSize: [6, 7, 8],
       fontWeight: "display"
+    },
+    small: {
+      fontSize: 1
     }
   },
   cards: {

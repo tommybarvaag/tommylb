@@ -2,7 +2,7 @@ import { Text } from "theme-ui";
 import { BlogPosts } from "../components/blog";
 import useBlogPosts from "../components/blog/hooks";
 import PageHeading from "../components/pageHeading";
-import Layout from "../layouts";
+import { Layout } from "../layouts";
 
 export default function Blog() {
   const { blogPosts } = useBlogPosts();

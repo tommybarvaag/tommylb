@@ -4,7 +4,7 @@ import { BlogPosts } from "../components/blog";
 import ContactForm from "../components/contactForm";
 import PageHeading from "../components/pageHeading";
 import { LastStravaActivity } from "../components/strava";
-import Layout from "../layouts";
+import { Layout } from "../layouts";
 import stravaService from "../services/stravaService";
 
 export default function Home({ preloadedActivities }) {

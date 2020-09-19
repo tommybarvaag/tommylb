@@ -4,7 +4,7 @@ import Link from "../components/link";
 import PageHeading from "../components/pageHeading";
 import { StravaActivities } from "../components/strava";
 import StravaStats from "../components/strava/stravaStats";
-import Layout from "../layouts";
+import { Layout } from "../layouts";
 import stravaService from "../services/stravaService";
 
 export default function Strava({ preloadedStats, preloadedActivities }) {
@@ -14,7 +14,7 @@ export default function Strava({ preloadedStats, preloadedActivities }) {
       <Text variant="p">
         I like to keep moving. After years and years of football in my youth I've taken a liking of
         running with the occasional hike. To motivate myself I've set some running goals for the
-        future and I hope I'll be able to reach them soon.
+        future and I hope I'll be able to reach them soon.{" "}
         <Link href="blog/why-i-run">Read more about why I run</Link>.
       </Text>
       <Text variant="p">
