@@ -47,7 +47,7 @@ const deleteOne = async query => {
 
   const client = await getClient();
 
-  client.db("tommylb").collection("strava").deleteOne(query);
+  await client.db("tommylb").collection("strava").deleteOne(query);
 
   await client.close();
 };
@@ -55,7 +55,7 @@ const deleteOne = async query => {
 const deleteMany = async (query = {}) => {
   const client = await getClient();
 
-  client.db("tommylb").collection("strava").deleteMany(query);
+  await client.db("tommylb").collection("strava").deleteMany(query);
 
   await client.close();
 };
@@ -67,7 +67,7 @@ const insertOne = async document => {
 
   const client = await getClient();
 
-  client.db("tommylb").collection("strava").insertOne(document);
+  await client.db("tommylb").collection("strava").insertOne(document);
 
   await client.close();
 };
@@ -79,7 +79,7 @@ const insertMany = async documents => {
 
   const client = await getClient();
 
-  client.db("tommylb").collection("strava").insertMany(documents);
+  await client.db("tommylb").collection("strava").insertMany(documents);
 
   await client.close();
 };
@@ -91,7 +91,7 @@ const findOneAndUpdate = async (query, update) => {
 
   const client = await getClient();
 
-  client.db("tommylb").collection("strava").findOneAndUpdate(query, update);
+  await client.db("tommylb").collection("strava").findOneAndUpdate(query, update);
 
   await client.close();
 };
