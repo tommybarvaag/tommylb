@@ -9,7 +9,7 @@ export default function Nav({ ...other }) {
     <Container as="nav" variant="nav" {...other}>
       <Box variant="secondary">
         <NavLink href="/">
-          <Text fontWeight={0}>Tommy Lunde Barvåg!</Text>
+          <Text fontWeight={0}>Tommy Lunde Barvåg</Text>
         </NavLink>
       </Box>
       <Box>
