@@ -134,6 +134,10 @@ export default {
     "no-underline": {
       color: "primary",
       textDecoration: "none"
+    },
+    "icon-link-button": {
+      variant: "links.no-underline",
+      p: 2
     }
   },
   forms: {
