@@ -5,9 +5,9 @@ import { Link as ThemeUiLink } from "theme-ui";
 
 const StyledLink = styled(ThemeUiLink)``;
 
-export default function Link({ children, href, as, ...other }) {
+export default function Link({ children, href, NextLinkProps = {}, ...other }) {
   return (
-    <NextLink href={href} as={as} passHref>
+    <NextLink href={href} passHref {...NextLinkProps}>
       <StyledLink as="a" {...other}>
         {children}
       </StyledLink>
