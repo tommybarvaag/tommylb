@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Container } from "theme-ui";
-import Link from "../components/link";
+import { Container, Link } from "theme-ui";
 import { GitHub, LinkedIn, Mail } from "./icons";
 
 export default function Footer({ ...other }) {

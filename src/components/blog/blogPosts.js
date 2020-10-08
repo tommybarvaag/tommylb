@@ -17,7 +17,7 @@ export default function BlogPosts({ title, featured, ...other }) {
           key={blogPost.__resourcePath}
           title={blogPost.title}
           summary={blogPost.summary}
-          href={`/${blogPost.__resourcePath?.replace(".mdx", "")}`}
+          href={`${blogPost.__resourcePath?.replace(".mdx", "")}`}
           publishedAt={blogPost.publishedAtDateFormatted}
         />
       ))}
