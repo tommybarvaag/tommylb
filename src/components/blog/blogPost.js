@@ -9,7 +9,8 @@ export default function BlogPost({ title, summary, href, publishedAt, ...other }
       href={href}
       sx={{
         display: "block",
-        mb: 3
+        mb: 3,
+        cursor: "pointer"
       }}
       {...other}
     >
