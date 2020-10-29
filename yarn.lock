@@ -1242,7 +1242,7 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.1.0.tgz#6c9eafc78c1529248f8f4d92b0799a712b6052c6"
   integrity sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
 
-"@mdx-js/loader@^1.6.16":
+"@mdx-js/loader@^1.6.19":
   version "1.6.19"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.19.tgz#2b90dee54b6f959539f310776f18fe24e1f15cc5"
   integrity sha512-sUOVonSzd6w821p8jCL2ET5KK24cu1w3igGwcXG/T+ZTl81EjUR9Tbv4Q50jxWS9umtmk5GcdAZndnDmpRHZXQ==
@@ -2334,14 +2334,14 @@ camelcase@5.3.1:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 camelcase@^6.0.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.1.0.tgz#27dc176173725fb0adf8a48b647f4d7871944d78"
-  integrity sha512-WCMml9ivU60+8rEJgELlFp1gxFcEGxwYleE3bziHEDeqsqAWGHdimB7beBFGjLzVNgPGyDsfgXLQEYMpmIFnVQ==
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
+  integrity sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
 
 caniuse-lite@^1.0.30001093, caniuse-lite@^1.0.30001113, caniuse-lite@^1.0.30001135:
-  version "1.0.30001151"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001151.tgz#1ddfde5e6fff02aad7940b4edb7d3ac76b0cb00b"
-  integrity sha512-Zh3sHqskX6mHNrqUerh+fkf0N72cMxrmflzje/JyVImfpknscMnkeJrlFGJcqTmaa0iszdYptGpWMJCRQDkBVw==
+  version "1.0.30001153"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001153.tgz#9a0942fe777cd7178fb084693b79415ff747ecd9"
+  integrity sha512-qv14w7kWwm2IW7DBvAKWlCqGTmV2XxNtSejJBVplwRjhkohHuhRUpeSlPjtu9erru0+A12zCDUiSmvx/AcqVRA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -2865,7 +2865,7 @@ date-fns@^2.16.1:
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
 
-debug@4, debug@^4.1.0, debug@^4.1.1:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
   integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
@@ -4825,14 +4825,14 @@ next-connect@^0.9.1:
   dependencies:
     trouter "^3.1.0"
 
-next-mdx-enhanced@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/next-mdx-enhanced/-/next-mdx-enhanced-4.0.0.tgz#aafd8c1c351dccd8198150d6e82fdea60b4aab0f"
-  integrity sha512-mHhSR8tDgCLF3Qyo2sVNZijA2Ibr+RCsYtiEtkQOzoD+ExrSxDQ1yDpFxVgWpfZit/bMz1qZ3FmvH5ECsIuXjg==
+next-mdx-enhanced@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/next-mdx-enhanced/-/next-mdx-enhanced-5.0.0.tgz#5cfe98fa4446b1ce0941a5427afbeab5a5a42a7e"
+  integrity sha512-ZeiJFV33V5ykRNW/w4UVnZzSwNsvQ1wz5qpJXrct4fkMSx+LXt5f6+IyxQbZXOdGqODEu7cZ6nEMPMohIldKaA==
   dependencies:
     "@babel/core" "7.x"
-    "@mdx-js/loader" "^1.6.16"
-    debug "^4.1.1"
+    "@mdx-js/loader" "^1.6.19"
+    debug "^4.2.0"
     fs-extra "^9.0.1"
     glob "^7.1.6"
     gray-matter "^4.0.2"
@@ -4941,9 +4941,9 @@ node-fetch@2.6.1:
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-html-parser@^1.2.19:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.4.2.tgz#391f5a9a13fa152b67bab6dc951327adc5965e30"
-  integrity sha512-Vpau3BwNoJZFBshIUbceT1SYPYAxlPOawbn2xXneMjQd4G+Qu4BQ2+gFiENQ4Dr2fI/j2iCC45P//qBtfkdZGg==
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-1.4.3.tgz#61369850da89cfe8248c2c10cac5fdd0e315d314"
+  integrity sha512-GXiLAg4ecY8CItLXXd2I8BqScBcIewhxO1erTEJ0A9K+r5HORAUkROZLxDokestkJYxt06t/IK84WaP0+6GyHA==
   dependencies:
     he "1.2.0"
 
@@ -6641,10 +6641,10 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-swr@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.6.tgz#b1d59439e5114fdf95bb408e1c628ff48f967aac"
-  integrity sha512-LHbX9vVQSW8Kgyr86zz2fVVKmmT13qxB61uXuUAg6NT4cGu6afzAzT2SVCGEh8pJAD2o8NTZMgclIUxIAbvk7Q==
+swr@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-0.3.7.tgz#331c704b135fd0f320f48a7355e11e624efb5cd0"
+  integrity sha512-/w7ZFBRpyWZJTOfl1OPsf93goeBPnfBXgJ7BBqqRGNidynqTO2sqinlLbXBbTNcNdoJwNJLVEjn2aDHJh5p1Kw==
   dependencies:
     dequal "2.0.2"
 
