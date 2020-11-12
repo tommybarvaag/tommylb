@@ -8,12 +8,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.3.0",
+    "@sendgrid/mail": "^7.4.0",
     "babel-plugin-import-glob-array": "^0.2.0",
     "cross-env": "^7.0.1",
     "date-fns": "^2.16.1",
-    "mongodb": "^3.6.2",
-    "next": "^10.0.0",
+    "mongodb": "^3.6.3",
+    "next": "^10.0.1",
     "next-connect": "^0.9.1",
     "next-mdx-enhanced": "^5.0.0",
     "react": "^17.0.1",
@@ -25,8 +25,8 @@
     "remark-slug": "^6.0.0",
     "strava-v3": "^2.0.9",
     "styled-system": "^5.1.5",
-    "swr": "^0.3.7",
-    "theme-ui": "0.3.1"
+    "swr": "^0.3.8",
+    "theme-ui": "0.3.3"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",

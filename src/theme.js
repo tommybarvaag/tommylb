@@ -236,7 +236,8 @@ export default {
       borderBottomStyle: "solid"
     },
     img: {
-      maxWidth: "100%"
+      maxWidth: "100%",
+      objectFit: "contain"
     },
     hr: {
       color: "primary"
