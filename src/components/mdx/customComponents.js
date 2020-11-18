@@ -13,7 +13,13 @@ const customComponents = {
 
     return (
       <Container>
-        <Image width={imageWidth} height={imageHeight} layout="responsive" {...props} />
+        <Image
+          width={imageWidth}
+          height={imageHeight}
+          layout="responsive"
+          objectFit="contain"
+          {...props}
+        />
       </Container>
     );
   }
