@@ -1,4 +1,5 @@
 import * as React from "react";
+import StravaGoalsSkeleton from "../skeleton/stravaGoalsSkeleton";
 import useStravaStats from "./hooks/useStravaStats";
 import StravaHeadingAndValues from "./stravaHeadingAndValues";
 
@@ -7,13 +8,17 @@ export default function StravaRunningGoals({ title, goals = [], center, ...other
 
   const nameAndValues = goals.length > 0 ? goals : stats?.goals;
 
-  return nameAndValues ? (
-    center ? (
-      <div className="flex justify-center items-center w-full">
-        <StravaHeadingAndValues title={title ?? "Goals"} nameAndValues={nameAndValues} {...other} />
-      </div>
-    ) : (
+  const renderStravaHeadingAndValues = () => {
+    return nameAndValues ? (
       <StravaHeadingAndValues title={title ?? "Goals"} nameAndValues={nameAndValues} {...other} />
-    )
-  ) : null;
+    ) : (
+      <StravaGoalsSkeleton />
+    );
+  };
+
+  return center ? (
+    <div className="flex min-w-1/2 mt-8 mx-auto items-start">{renderStravaHeadingAndValues()}</div>
+  ) : (
+    renderStravaHeadingAndValues()
+  );
 }

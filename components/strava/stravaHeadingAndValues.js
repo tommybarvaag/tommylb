@@ -14,7 +14,5 @@ export default function StravaHeadingAndValues({ title, nameAndValues = [], ...o
         />
       ))}
     </div>
-  ) : (
-    <div className="w-full h-20 mb-12"></div>
-  );
+  ) : null;
 }
