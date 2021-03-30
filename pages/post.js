@@ -1,28 +1,27 @@
 import Heading from "../components/heading";
 import { Posts } from "../components/post";
-import { usePosts } from "../components/post/hooks";
+import Text from "../components/text";
 import { Layout } from "../layouts";
 import { getAllFilesFrontMatter } from "../lib/fileSystem";
 
-export default function Post({ initialPosts }) {
-  const { posts } = usePosts({ initialData: initialPosts });
+export default function Post({ post }) {
   return (
     <Layout>
       <Heading as="pageHeading">Posts</Heading>
-      <p variant="p">
+      <Text>
         Late august 2020 I told myself that I should try to write more about what I do. Mainly in
         code but also day to day life. Since then I've written
-        <p as="strong"> {posts.length} </p>
+        <span className="font-bold"> {post?.all?.length} </span>
         articles on this site. Let's see if it sticks.
-      </p>
-      <Posts posts={posts} featured />
-      <Posts posts={posts} />
+      </Text>
+      <Posts post={post} featured />
+      <Posts post={post} />
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const initialPosts = await getAllFilesFrontMatter("post");
+  const post = await getAllFilesFrontMatter("post");
 
-  return { props: { initialPosts } };
+  return { props: { post: post } };
 }

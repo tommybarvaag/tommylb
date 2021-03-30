@@ -1,12 +1,9 @@
 import * as React from "react";
 import Heading from "../heading";
-import { usePosts } from "./hooks";
 import Post from "./post";
 
-export default function Posts({ title, featured, initialPosts, ...other }) {
-  const { posts, featuredPosts } = usePosts({ initialData: initialPosts });
-
-  const postsToRender = featured ? featuredPosts : posts;
+export default function Posts({ title, featured, post, ...other }) {
+  const postsToRender = featured ? post.featured ?? [] : post?.all ?? [];
   const heading = title ?? featured ? "Featured posts" : "All posts";
 
   return (
