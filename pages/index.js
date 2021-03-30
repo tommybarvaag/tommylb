@@ -1,16 +1,16 @@
 import * as React from "react";
-import { BlogPosts } from "../components/blog";
-import useBlogPosts from "../components/blog/hooks/useBlogPosts";
 import ContactForm from "../components/contactForm";
 import Heading from "../components/heading";
+import { Posts } from "../components/post";
+import { usePosts } from "../components/post/hooks";
 import { LastStravaActivity } from "../components/strava";
 import Text from "../components/text";
 import { Layout } from "../layouts";
 import { getAllFilesFrontMatter } from "../lib/fileSystem";
 import stravaService from "../services/stravaService";
 
-export default function Home({ preloadedActivities, posts }) {
-  const { blogPosts } = useBlogPosts({ initialData: posts });
+export default function Home({ initialActivities, initialPosts }) {
+  const { posts } = usePosts({ initialData: initialPosts });
 
   return (
     <Layout>
@@ -21,8 +21,8 @@ export default function Home({ preloadedActivities, posts }) {
           companies.
         </Text>
       </div>
-      <BlogPosts posts={blogPosts} featured />
-      <LastStravaActivity preloadedActivities={preloadedActivities} />
+      <Posts posts={posts} featured />
+      <LastStravaActivity initialActivities={initialActivities} />
       <ContactForm />
     </Layout>
   );
@@ -32,7 +32,7 @@ export async function getStaticProps() {
   const activities = await stravaService.getAllStravaActivities();
 
   return {
-    props: { preloadedActivities: activities, posts: await getAllFilesFrontMatter("blog") },
+    props: { initialActivities: activities, initialPosts: await getAllFilesFrontMatter("post") },
     revalidate: 1
   };
 }

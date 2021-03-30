@@ -3,9 +3,9 @@ import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
 
-export default function LastStravaActivity({ preloadedActivities = [], ...other }) {
+export default function LastStravaActivity({ initialActivities = [], ...other }) {
   const { lastActivity, lastRunActivity } = useStravaActivities({
-    initialData: preloadedActivities
+    initialData: initialActivities
   });
 
   const renderLastStravaActivity = () => {

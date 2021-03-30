@@ -5,13 +5,13 @@ import Main from "../components/main";
 import Nav from "../components/nav";
 import Seo from "../components/seo";
 import Text from "../components/text";
-import { getFormattedBlogDate, parseDate } from "../utils/dateUtils";
+import { getFormattedPostDate, parseDate } from "../utils/dateUtils";
 
-export default function BlogLayout({ children, frontMatter, ...other }) {
+export default function PostLayout({ children, frontMatter, ...other }) {
   const { title, publishedAt, readingTime } = frontMatter;
 
   const publishedAtDateFormatted = React.useMemo(() =>
-    getFormattedBlogDate(parseDate(publishedAt, "yyyy-mm-dd"))
+    getFormattedPostDate(parseDate(publishedAt, "yyyy-mm-dd"))
   );
 
   return (

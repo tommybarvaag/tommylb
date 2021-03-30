@@ -21,6 +21,7 @@ export default function Nav({ ...other }) {
           <Text>Tommy Lunde Barvåg</Text>
         </Link>
       </div>
+      <div></div>
       <div>
         <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
           {mounted ? theme === "light" ? <Moon /> : <Sun /> : null}

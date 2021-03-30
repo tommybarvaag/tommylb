@@ -16,7 +16,7 @@ export const getFormattedLongDate = date => getFormattedDate(getDateISO(date), "
 
 export const getFormattedMonth = date => getFormattedDate(getDateISO(date), "MMMM");
 
-export const getFormattedBlogDate = date => getFormattedDate(date, "MMMM d, yyyy");
+export const getFormattedPostDate = date => getFormattedDate(date, "MMMM d, yyyy");
 
 export const compareDatesAscending = (date1, date2) =>
   compareAsc(getDateISO(date1), getDateISO(date2));

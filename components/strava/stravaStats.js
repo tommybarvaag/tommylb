@@ -34,13 +34,13 @@ function StravaActivityCountAndDistanceOverview({
   );
 }
 
-export default function StravaStats({ preloadedStats, ...other }) {
+export default function StravaStats({ initialStats, ...other }) {
   const { stats } = useStravaStats({
-    initialData: preloadedStats
+    initialData: initialStats
   });
 
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 sm:gap-0 md:gap-12 my-12">
+    <div className="grid sm:grid-cols-1 md:grid-cols-2 sm:gap-0 md:gap-12 my-12" {...other}>
       <div>
         <StravaRunningGoals goals={stats?.goals ?? []} />
         <StravaPersonalBests personalBests={stats?.personalBests ?? []} />

@@ -2,7 +2,7 @@ import Heading from "../heading";
 import Link from "../link";
 import Text from "../text";
 
-export default function BlogPost({ title, summary, href, publishedAt, ...other }) {
+export default function Post({ title, summary, href, publishedAt, ...other }) {
   return (
     <Link
       href={href}

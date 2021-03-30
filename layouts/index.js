@@ -1,6 +1,6 @@
-import BlogLayout from "./blogLayout";
 import Layout from "./layout";
+import PostLayout from "./postLayout";
 
 export { Layout };
 
-export default BlogLayout;
+export default PostLayout;

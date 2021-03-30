@@ -4,10 +4,10 @@ import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
 
-export default function StravaActivities({ preloadedActivities = [], ...other }) {
+export default function StravaActivities({ initialActivities = [], ...other }) {
   const [activitiesToShow, setActivitiesToShow] = React.useState(10);
   const { activities } = useStravaActivities({
-    initialData: preloadedActivities
+    initialData: initialActivities
   });
 
   const renderShowAllActivitiesButton = () => {
