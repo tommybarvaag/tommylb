@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "../contactForm";
 import Heading from "../heading";
 import Link from "../link";
 import { LastStravaActivity, StravaRunningGoals } from "../strava";
@@ -38,7 +39,8 @@ const MDXComponents = {
   h5: props => <Heading as="h5" className="mt-4 mb-4" {...props} />,
   h6: props => <Heading as="h6" className="mt-4 mb-4" {...props} />,
   StravaRunningGoals,
-  LastStravaActivity
+  LastStravaActivity,
+  ContactForm
 };
 
 export default MDXComponents;
