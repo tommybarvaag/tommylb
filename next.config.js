@@ -1,25 +1,9 @@
-const readingTime = require("reading-time");
-const withMdxEnhanced = require("next-mdx-enhanced");
-
-module.exports = withMdxEnhanced({
-  layoutPath: "./src/layouts",
-  defaultLayout: true,
-  fileExtensions: ["mdx"],
-  usesSrc: true,
-  remarkPlugins: [
-    require("remark-autolink-headings"),
-    require("remark-slug"),
-    require("remark-code-titles"),
-    require("remark-capitalize")
-  ],
-  extendFrontMatter: {
-    process: mdxContent => ({
-      wordCount: mdxContent.split(/\s+/gu).length,
-      readingTime: readingTime(mdxContent)
-    })
-  }
-})({
+module.exports = {
+  future: {
+    webpack5: true,
+    strictPostcssConfiguration: true
+  },
   images: {
-    domains: ["images.unsplash.com"]
+    domains: ["i.scdn.co", "pbs.twimg.com"]
   }
-});
+};
