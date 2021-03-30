@@ -10,7 +10,7 @@ export default function BlogPost({ title, summary, href, publishedAt, ...other }
       {...other}
     >
       <div className="flex justify-between items-center mb-4">
-        <Heading as="h2" className="mb-0">
+        <Heading as="h4" className="mb-0">
           {title}
         </Heading>
         <Text>{publishedAt}</Text>
