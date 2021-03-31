@@ -52,7 +52,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
       {...other}
     >
       <div className="flex items-center">
-        <Heading as="h4" className="mb-0">
+        <Heading as="div" variant="h4" className="mb-0">
           {activity.type}
         </Heading>
         <Text className="mx-3 mb-0">-</Text>

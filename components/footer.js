@@ -10,6 +10,7 @@ export default function Footer({ ...other }) {
           href="https://github.com/tommybarvaag"
           target="_blank"
           rel="noopener"
+          aria-label="View my code at GitHub"
         >
           <GitHub />
         </a>
@@ -18,10 +19,15 @@ export default function Footer({ ...other }) {
           href="https://www.linkedin.com/in/tommybarvaag/"
           target="_blank"
           rel="noopener"
+          aria-label="View my profil at LinkedIn"
         >
           <LinkedIn />
         </a>
-        <a className="p-2 mx-2" href="mailto:tommy@barvaag.com">
+        <a
+          className="p-2 mx-2"
+          href="mailto:tommy@barvaag.com"
+          aria-label="Send me something at tommy@barvaag.com"
+        >
           <Mail />
         </a>
       </div>

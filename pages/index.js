@@ -7,16 +7,14 @@ import Text from "../components/text";
 import { Layout } from "../layouts";
 import { getAllFilesFrontMatter } from "../lib/fileSystem";
 import stravaService from "../services/stravaService";
+import { getDefaultSeoDescription } from "../utils/seoUtils";
 
 export default function Home({ initialActivities, post }) {
   return (
     <Layout>
       <div className="w-full mb-12">
         <Heading as="pageHeading">Hi, I'm Tommy Lunde Barvåg</Heading>
-        <Text>
-          I’m a full stack developer. I’ve spent the last six years creating web solutions for great
-          companies.
-        </Text>
+        <Text>{getDefaultSeoDescription()}</Text>
       </div>
       <Posts post={post} featured />
       <LastStravaActivity initialActivities={initialActivities} />

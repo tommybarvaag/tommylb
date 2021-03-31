@@ -1,4 +1,16 @@
-import { compareAsc, compareDesc, format, getYear, isDate, parse, parseISO } from "date-fns";
+import {
+  compareAsc,
+  compareDesc,
+  differenceInYears,
+  format,
+  getYear,
+  isDate,
+  parse,
+  parseISO
+} from "date-fns";
+import { numberToWords, simplePluralize } from "./humanizeUtils";
+
+const RETIREMENT_YEAR = 67;
 
 export const getFormattedDate = (date, dateFormat, options = {}) =>
   format(date, dateFormat, options);
@@ -23,3 +35,12 @@ export const compareDatesAscending = (date1, date2) =>
 
 export const compareDatesDescending = (date1, date2) =>
   compareDesc(getDateISO(date1), getDateISO(date2));
+
+export const getActiveWorkYears = () => {
+  const activeWorkYears = Math.min(
+    differenceInYears(new Date(), new Date(2014, 0, 1)),
+    RETIREMENT_YEAR
+  );
+
+  return `${numberToWords(activeWorkYears)} ${simplePluralize("year", activeWorkYears)}`;
+};

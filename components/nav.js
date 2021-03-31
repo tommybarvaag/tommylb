@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import * as React from "react";
 import { Moon, Sun } from "./icons";
+import Terminal from "./icons/terminal";
 import Link from "./link";
 import Text from "./text";
 
@@ -17,13 +18,19 @@ export default function Nav({ ...other }) {
       {...other}
     >
       <div>
-        <Link href="/">
-          <Text>Tommy Lunde Barvåg</Text>
+        <Link className="block" href="/">
+          <Text className="flex justify-start items-center mb-0">
+            <Terminal className="mr-3" /> Tommy Lunde Barvåg
+          </Text>
         </Link>
       </div>
       <div></div>
       <div>
-        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+        <button
+          type="button"
+          aria-label="Toggle color mode"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
           {mounted ? theme === "light" ? <Moon /> : <Sun /> : null}
         </button>
       </div>
