@@ -5,7 +5,7 @@ import { StravaActivities } from "../components/strava";
 import StravaStats from "../components/strava/stravaStats";
 import Text from "../components/text";
 import { Layout } from "../layouts";
-import stravaService from "../services/stravaService";
+import strava from "../lib/strava";
 
 export default function Strava({ initialStats, initialActivities }) {
   return (
@@ -15,7 +15,7 @@ export default function Strava({ initialStats, initialActivities }) {
         I like to keep moving. After years and years of football in my youth I've taken a liking of
         running with the occasional hike. To motivate myself I've set some running goals for the
         future and I hope I'll be able to reach them soon.
-        <Link href="/post/why-i-run" className="inline text-gray-500">
+        <Link href="/post/why-i-run" className="inline text-gray-500 p-0 sm:p-0">
           {" "}
           Read more about why I run
         </Link>
@@ -29,8 +29,8 @@ export default function Strava({ initialStats, initialActivities }) {
 }
 
 export async function getStaticProps() {
-  const stats = await stravaService.getAllStravaStats();
-  const activities = await stravaService.getAllStravaActivities();
+  const stats = await strava.getStats();
+  const activities = await strava.get();
 
   return {
     props: { initialStats: stats, initialActivities: activities },

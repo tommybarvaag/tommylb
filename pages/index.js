@@ -6,7 +6,7 @@ import { LastStravaActivity } from "../components/strava";
 import Text from "../components/text";
 import { Layout } from "../layouts";
 import { getAllFilesFrontMatter } from "../lib/fileSystem";
-import stravaService from "../services/stravaService";
+import strava from "../lib/strava";
 import { getDefaultSeoDescription } from "../utils/seoUtils";
 
 export default function Home({ initialActivities, post }) {
@@ -24,7 +24,7 @@ export default function Home({ initialActivities, post }) {
 }
 
 export async function getStaticProps() {
-  const activities = await stravaService.getAllStravaActivities();
+  const activities = await strava.get();
 
   return {
     props: { initialActivities: activities, post: await getAllFilesFrontMatter("post") },

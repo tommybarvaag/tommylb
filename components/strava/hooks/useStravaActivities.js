@@ -6,7 +6,7 @@ import { isString } from "../../../utils/commonUtils";
 export const defaultConfig = { revalidateOnMount: true, refreshInterval: 3600000 };
 
 export default function useStravaActivities(config = defaultConfig) {
-  const { data: activities } = useSwr("/api/strava/activities", url => fetcher(url), {
+  const { data: activities } = useSwr("/api/strava", url => fetcher(url), {
     ...defaultConfig,
     ...config
   });
