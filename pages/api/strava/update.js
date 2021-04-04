@@ -18,12 +18,12 @@ export default async (req, res) => {
     const { body } = req;
 
     if (!body || body.object_type !== "activity") {
-      res.status(200).end();
+      return res.status(400).end();
     }
 
     if (body.aspect_type === "create") {
       await strava.getAndCreate(body.object_id);
-      res.status(200).end();
+      return res.status(200).end();
     }
 
     if (body.aspect_type === "update" && body?.updates?.title !== null) {
@@ -31,16 +31,16 @@ export default async (req, res) => {
         name: body.updates.title
       });
 
-      res.status(200).end();
+      return res.status(200).end();
     }
 
     if (body.aspect_type === "delete") {
       await strava.remove(body.object_id);
 
-      res.status(200).end();
+      return res.status(204).end();
     }
 
-    res.status(200).end();
+    return res.status(400).end();
   }
 
   return res.send("Method not allowed.");
