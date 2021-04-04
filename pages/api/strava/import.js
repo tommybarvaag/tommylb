@@ -1,3 +1,5 @@
+import strava from "../../../lib/strava";
+
 export default async (req, res) => {
   if (req.method === "GET") {
     await strava.importActivities();
