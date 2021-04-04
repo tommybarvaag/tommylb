@@ -1,10 +1,7 @@
-import nextConnect from "next-connect";
-import stravaRepository from "../../../lib/mongodb/stravaRepository";
-import strava from "../../../middleware/strava";
+import strava from "../../../lib/strava";
 
-const handler = nextConnect()
-  .use(strava)
-  .get(async (req, res) => {
+export default async (req, res) => {
+  if (req.method === "GET") {
     const VERIFY_TOKEN = "STRAVA";
     let mode = req.query["hub.mode"];
     let token = req.query["hub.verify_token"];
@@ -15,8 +12,9 @@ const handler = nextConnect()
     } else {
       res.status(403).end("Verify tokens do not match");
     }
-  })
-  .post(async (req, res) => {
+  }
+
+  if (req.method === "POST") {
     const { body } = req;
 
     if (!body || body.object_type !== "activity") {
@@ -24,36 +22,26 @@ const handler = nextConnect()
     }
 
     if (body.aspect_type === "create") {
-      const activity = await req.stravaClient.activities.get({
-        id: body.object_id
-      });
-
-      await stravaRepository.insertOne(activity);
-
+      await strava.getAndCreate(body.object_id);
       res.status(200).end();
     }
 
-    if (body.aspect_type === "update") {
-      await stravaRepository.findOneAndUpdate(
-        { id: body.object_id },
-        {
-          $set:
-            body.updates && body.updates.title
-              ? { ...body.updates, name: body.updates.title }
-              : { ...body.updates }
-        }
-      );
+    if (body.aspect_type === "update" && body?.updates?.title !== null) {
+      await strava.update(body.object_id, {
+        name: body.updates.title
+      });
 
       res.status(200).end();
     }
 
     if (body.aspect_type === "delete") {
-      await stravaRepository.deleteOne({ id: body.object_id });
+      await strava.remove(body.object_id);
 
       res.status(200).end();
     }
 
     res.status(200).end();
-  });
+  }
 
-export default handler;
+  return res.send("Method not allowed.");
+};
