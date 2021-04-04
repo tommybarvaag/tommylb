@@ -19,13 +19,12 @@ export default function Nav({ ...other }) {
     >
       <div>
         <Link className="block" href="/">
-          <Text className="flex justify-start items-center mb-0">
+          <Text className="flex justify-start items-center !mb-0">
             <Terminal className="mr-3" /> Tommy Lunde Barvåg
           </Text>
         </Link>
       </div>
-      <div></div>
-      <div>
+      <div className="flex items-center">
         <button
           type="button"
           aria-label="Toggle color mode"
