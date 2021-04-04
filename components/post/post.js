@@ -6,7 +6,7 @@ export default function Post({ title, summary, href, publishedAt, ...other }) {
   return (
     <Link
       href={href}
-      className="block w-full p-6 mb-12 border border-black dark:border-white rounded-xl divide-y divide-black dark:divide-white"
+      className="block w-full !p-6 mb-12 border border-black dark:border-white rounded-xl divide-y divide-black dark:divide-white"
       {...other}
     >
       <div className="flex justify-between items-center mb-4">
