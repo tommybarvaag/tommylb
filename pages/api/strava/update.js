@@ -1,4 +1,3 @@
-import redis from "../../../lib/redis";
 import strava from "../../../lib/strava";
 
 export default async (req, res) => {
@@ -36,7 +35,7 @@ export default async (req, res) => {
     }
 
     if (body.aspect_type === "delete") {
-      await redis.hdel("strava", body.object_id);
+      await strava.remove(body.object_id);
 
       res.status(200).end();
     }
