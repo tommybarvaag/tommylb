@@ -19,7 +19,7 @@ export default function Nav({ ...other }) {
     >
       <div>
         <Link className="block" href="/">
-          <Text className="flex justify-start items-center !mb-0">
+          <Text className="flex justify-start items-center" noMargin>
             <Terminal className="mr-3" /> Tommy Lunde Barvåg
           </Text>
         </Link>
