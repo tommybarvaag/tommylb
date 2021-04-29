@@ -43,14 +43,22 @@ function getVariantForHeading(variant) {
   }
 }
 
-export default function Heading({ children, as = "h2", variant, className, ...other }) {
+export default function Heading({
+  children,
+  as = "h2",
+  variant,
+  className,
+  noMargin = false,
+  ...other
+}) {
   const Component = getComponentForHeading(as);
   const headerVariant = getVariantForHeading(variant ?? as);
 
   return (
     <Component
       className={clsx(
-        "font-bold tracking-tight mb-8 text-gray-900 dark:text-gray-100",
+        "font-bold tracking-tight text-gray-900 dark:text-gray-100",
+        { "mb-8": !noMargin },
         { "text-4xl md:text-6xl": headerVariant === "pageHeading" },
         { "text-3xl md:text-5xl": headerVariant === "h1" },
         { "text-2xl md:text-4xl": headerVariant === "h2" },

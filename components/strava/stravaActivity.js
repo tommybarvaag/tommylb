@@ -52,11 +52,13 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
       {...other}
     >
       <div className="flex items-center">
-        <Heading as="div" variant="h4" className="mb-0">
+        <Heading as="div" variant="h4" noMargin>
           {activity.type}
         </Heading>
-        <Text className="mx-3 !mb-0">-</Text>
-        <Text className="!mb-0">{getFormattedLongDate(activity.startDateLocal)}</Text>
+        <Text className="mx-3" noMargin>
+          -
+        </Text>
+        <Text noMargin>{getFormattedLongDate(activity.startDateLocal)}</Text>
       </div>
       {activity.personalBests.map((personalBest, index) => (
         <div
@@ -64,7 +66,7 @@ export default function StravaActivity({ activity, linkToStravaPage = false, ...
           key={`strava-personal-best-${activity.id}-${index}`}
         >
           <Fire width={16} height={16} className="mr-3" />
-          <Heading as="div" variant="h6" className="mb-0">
+          <Heading as="div" variant="h6" noMargin>
             {`Personal best ${personalBest.name} (${personalBest.formattedMovingTime})`}
           </Heading>
         </div>
