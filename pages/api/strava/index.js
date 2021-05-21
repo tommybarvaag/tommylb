@@ -1,6 +1,6 @@
 import strava from "../../../lib/strava";
 
-export default async (req, res) => {
+export default async function Activities(req, res) {
   if (req.method === "GET") {
     const entries = await strava.get();
 
@@ -8,4 +8,4 @@ export default async (req, res) => {
   }
 
   return res.send("Method not allowed.");
-};
+}
