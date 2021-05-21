@@ -1,14 +1,13 @@
-import hydrate from "next-mdx-remote/hydrate";
-import MDXComponents from "../../components/mdx/customComponents";
+import { MDXRemote } from "next-mdx-remote";
 import PostLayout from "../../layouts";
 import { getFileBySlug, getFiles } from "../../lib/mdx";
 
 export default function Post({ mdxSource, frontMatter }) {
-  const content = hydrate(mdxSource, {
-    components: MDXComponents
-  });
-
-  return <PostLayout frontMatter={frontMatter}>{content}</PostLayout>;
+  return (
+    <PostLayout frontMatter={frontMatter}>
+      <MDXRemote {...mdxSource} />
+    </PostLayout>
+  );
 }
 
 export async function getStaticPaths() {
