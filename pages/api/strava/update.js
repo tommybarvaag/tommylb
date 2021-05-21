@@ -1,6 +1,6 @@
 import strava from "../../../lib/strava";
 
-export default async (req, res) => {
+export default async function Update(req, res) {
   if (req.method === "GET") {
     const VERIFY_TOKEN = "STRAVA";
     let mode = req.query["hub.mode"];
@@ -44,4 +44,4 @@ export default async (req, res) => {
   }
 
   return res.send("Method not allowed.");
-};
+}

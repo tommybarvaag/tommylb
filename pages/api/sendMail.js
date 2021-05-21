@@ -1,6 +1,6 @@
 const sendgridMail = require("@sendgrid/mail");
 
-export default async (req, res) => {
+export default async function sendMail(req, res) {
   if (req.method !== "POST") {
     res.statusCode = 404;
     res.end();
@@ -37,4 +37,4 @@ export default async (req, res) => {
     res.statusCode = 500;
     res.end();
   }
-};
+}
