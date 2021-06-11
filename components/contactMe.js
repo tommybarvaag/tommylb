@@ -39,9 +39,10 @@ function FormSubmitMessage({ text }) {
 
 function ContactMeForm({ location }) {
   const { handleSubmit, register, control } = useForm();
-  const { isSubmitSuccessful, errors } = useFormState({ control });
+  const { errors } = useFormState({ control });
 
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = React.useState(false);
   const [googleReCaptchaVerifyFailure, setGoogleReCaptchaVerifyFailure] = React.useState(false);
 
   async function onSubmit(values) {
@@ -61,7 +62,7 @@ function ContactMeForm({ location }) {
     const googleReCaptchaVerify = await response.json();
 
     if (googleReCaptchaVerify.success && googleReCaptchaVerify.score > 0.5) {
-      await fetch("/api/sendMail", {
+      const response = await fetch("/api/sendMail", {
         method: "POST",
         cache: "no-cache",
         headers: {
@@ -69,6 +70,8 @@ function ContactMeForm({ location }) {
         },
         body: JSON.stringify(values)
       });
+
+      setIsSubmitSuccessful(response.status === 202);
     } else {
       setGoogleReCaptchaVerifyFailure(true);
     }
