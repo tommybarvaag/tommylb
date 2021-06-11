@@ -3,7 +3,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm, useFormState } from "react-hook-form";
 import { validateEmail } from "../utils/formValidationUtils";
 import Button from "./button";
-import FormSubmitMessage from "./FormSubmitMessage";
+import FormSubmitMessage from "./formSubmitMessage";
 import Heading from "./heading";
 import { Check, ExclamationCircle, PaperAirplane } from "./icons";
 import Text from "./text";
