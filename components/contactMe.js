@@ -5,12 +5,14 @@ import { useForm, useFormState } from "react-hook-form";
 import { validateEmail } from "../utils/formValidationUtils";
 import Button from "./button";
 import Heading from "./heading";
-import { Fire } from "./icons";
+import { Check, ExclamationCircle } from "./icons";
 import Text from "./text";
 import TextArea from "./textArea";
 import TextField from "./textField";
 
-function FormSubmitMessage({ text }) {
+function FormSubmitMessage({ text, icon, iconProps = {} }) {
+  const Icon = icon;
+
   return (
     <AnimatePresence>
       <motion.div
@@ -23,9 +25,11 @@ function FormSubmitMessage({ text }) {
         status="success"
       >
         <div className="flex justify-center items-center p-4 space-x-4 border-gray-900 dark:border-gray-800 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-          <div className="flex-initial">
-            <Fire />
-          </div>
+          {icon ? (
+            <div className="flex-initial">
+              <Icon {...iconProps} />
+            </div>
+          ) : null}
           <div className="flex-initial">
             <Text className="text-sm" noMargin>
               {text}
@@ -129,12 +133,15 @@ function ContactMeForm({ location }) {
             apply.
           </Text>
           {isSubmitSuccessful ? (
-            <FormSubmitMessage text="I have recieved your inquiry and you'll hear from me soon." />
-          ) : null}
-          {googleReCaptchaVerifyFailure ? (
             <FormSubmitMessage
-              text="reCAPTCHA stopped the message from being sent. If this was an error then please
-          follow the link to my LinkedIn page in the footer or email me via the footer link."
+              text="I have recieved your inquiry and you'll hear from me soon."
+              icon={Check}
+            />
+          ) : null}
+          {true || googleReCaptchaVerifyFailure ? (
+            <FormSubmitMessage
+              text="reCAPTCHA stopped the message from being sent. If this was an error then please reach out to me via the links in my footer."
+              icon={ExclamationCircle}
             />
           ) : null}
         </div>

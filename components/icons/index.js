@@ -1,4 +1,6 @@
 import Calendar from "./calendar";
+import Check from "./check";
+import ExclamationCircle from "./exclamationCircle";
 import Fire from "./fire";
 import GitHub from "./gitHub";
 import LinkedIn from "./linkedIn";
@@ -7,4 +9,4 @@ import Moon from "./moon";
 import Sun from "./sun";
 import ThumbsUp from "./thumbsUp";
 
-export { Calendar, Fire, GitHub, LinkedIn, Mail, Moon, Sun, ThumbsUp };
+export { Calendar, Check, ExclamationCircle, Fire, GitHub, LinkedIn, Mail, Moon, Sun, ThumbsUp };
