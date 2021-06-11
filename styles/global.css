@@ -42,3 +42,7 @@ html {
     @apply bg-opacity-100;
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export default function Mail({ width = 24, height = 24, ...other }) {
+export default function PaperAirplane({ width = 24, height = 24, ...other }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,8 +15,12 @@ export default function Mail({ width = 24, height = 24, ...other }) {
       strokeLinejoin="round"
       {...other}
     >
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-      <polyline points="22,6 12,13 2,6"></polyline>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+      />
     </svg>
   );
 }

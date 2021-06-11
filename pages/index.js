@@ -1,5 +1,5 @@
+import ContactMe from "@/components/contactMe";
 import * as React from "react";
-import ContactForm from "../components/contactForm";
 import Heading from "../components/heading";
 import { Posts } from "../components/post";
 import { LastStravaActivity } from "../components/strava";
@@ -18,7 +18,7 @@ export default function Home({ initialActivities, post }) {
       </div>
       <Posts post={post} featured />
       <LastStravaActivity initialActivities={initialActivities} />
-      <ContactForm />
+      <ContactMe />
     </Layout>
   );
 }

@@ -13,7 +13,7 @@ export default function Post({ title, summary, href, publishedAt, ...other }) {
         <Heading as="div" variant="h4" noMargin>
           {title}
         </Heading>
-        <Text>{publishedAt}</Text>
+        <Text noMargin>{publishedAt}</Text>
       </div>
       <Text className="pt-4">{summary}</Text>
     </Link>
