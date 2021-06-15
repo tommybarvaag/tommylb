@@ -17,27 +17,32 @@ const CustomLink = props => {
     );
   }
 
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
+  return <a target="_blank" rel="noreferrer" {...props} />;
 };
 
 const CustomImage = props => {
+  const { src, alt, ...other } = props;
   return (
     <div className="my-4">
-      <Image {...props} />
+      <Image src={src} alt={alt} {...other} />
     </div>
   );
 };
 
+const CustomParagraph = props => <Text className="mt-4 mb-4" {...props} />;
+const CustomH1 = props => <Heading as="h1" className="mt-4 mb-4" {...props} />;
+const CustomH2 = props => <Heading as="h2" className="mt-4 mb-4" {...props} />;
+const CustomH3 = props => <Heading as="h3" className="mt-4 mb-4" {...props} />;
+const CustomH4 = props => <Heading as="h4" className="mt-4 mb-4" {...props} />;
+
 const MDXComponents = {
   Image: CustomImage,
   a: CustomLink,
-  p: props => <Text className="mt-4 mb-4" {...props} />,
-  h1: props => <Heading as="h1" className="mt-4 mb-4" {...props} />,
-  h2: props => <Heading as="h2" className="mt-4 mb-4" {...props} />,
-  h3: props => <Heading as="h3" className="mt-4 mb-4" {...props} />,
-  h4: props => <Heading as="h4" className="mt-4 mb-4" {...props} />,
-  h5: props => <Heading as="h5" className="mt-4 mb-4" {...props} />,
-  h6: props => <Heading as="h6" className="mt-4 mb-4" {...props} />,
+  p: CustomParagraph,
+  h1: CustomH1,
+  h2: CustomH2,
+  h3: CustomH3,
+  h4: CustomH4,
   StravaRunningGoals,
   LastStravaActivity,
   ContactMe
