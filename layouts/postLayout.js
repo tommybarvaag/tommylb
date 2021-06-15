@@ -22,7 +22,7 @@ export default function PostLayout({ children, frontMatter, ...other }) {
         <Heading as="pageHeading">{title}</Heading>
         <div className="flex justify-between mb-4">
           <Text>Tommy Lunde Barvåg / {publishedAtDateFormatted}</Text>
-          <Text>{readingTime.text}</Text>
+          <Text className="ml-2">- {readingTime.text}</Text>
         </div>
         {children}
       </Main>

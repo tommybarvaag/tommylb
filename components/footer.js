@@ -9,7 +9,7 @@ export default function Footer({ ...other }) {
           className="p-2 mx-2"
           href="https://github.com/tommybarvaag"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
           aria-label="View my code at GitHub"
         >
           <GitHub />
@@ -18,7 +18,7 @@ export default function Footer({ ...other }) {
           className="p-2 mx-2"
           href="https://www.linkedin.com/in/tommybarvaag/"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
           aria-label="View my profil at LinkedIn"
         >
           <LinkedIn />
