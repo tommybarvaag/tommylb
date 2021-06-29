@@ -1,5 +1,5 @@
 {
-    "extends": "next",
+    "extends": ["next", "next/core-web-vitals"],
     "rules": {
       "react/prop-types": 0,
       "react/no-unescaped-entities": 0
