@@ -1,0 +1,12 @@
+name: Notifications
+on:
+  schedule:
+    - cron: '*/60 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call latest Next.js release notification API route
+        run: |
+          curl --request POST \
+          --url 'https://tommylb.com/api/notifications/next-js-release'
