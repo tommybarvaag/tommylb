@@ -44,6 +44,12 @@ const fetchLatestNonPrereleaseNextJsRelease = async () => {
 
 export default async function nextJsRelease(req, res) {
   if (req.method === "GET") {
+    const allNotifications = await planetscaleTableNotifications.get();
+
+    return res.status(200).json(allNotifications ?? []);
+  }
+
+  if (req.method === "POST") {
     const latestNonPrerelease = await fetchLatestNonPrereleaseNextJsRelease();
 
     const sentNotification = await planetscaleTableNotifications.getByTypeAndValue(
