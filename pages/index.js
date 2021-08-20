@@ -1,4 +1,5 @@
 import ContactMe from "@/components/contactMe";
+import { TimelineFromBirthUntilNow } from "@/components/timeline";
 import * as React from "react";
 import Heading from "../components/heading";
 import { Posts } from "../components/post";
@@ -19,6 +20,7 @@ export default function Home({ initialActivities, post }) {
       <Posts post={post} featured />
       <LastStravaActivity initialActivities={initialActivities} />
       <ContactMe />
+      <TimelineFromBirthUntilNow />
     </Layout>
   );
 }
