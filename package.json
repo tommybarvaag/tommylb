@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.22",
-    "@mdx-js/react": "^1.6.22",
     "@sendgrid/mail": "^7.4.6",
     "autoprefixer": "^10.3.1",
     "babel-plugin-import-glob-array": "^0.2.0",
@@ -19,9 +17,8 @@
     "framer-motion": "^4.1.17",
     "gray-matter": "^4.0.3",
     "ioredis": "^4.27.7",
-    "mdx-prism": "^0.3.4",
+    "mdx-bundler": "^6.0.1",
     "next": "^11.1.0",
-    "next-mdx-remote": "^3.0.4",
     "next-themes": "^0.0.15",
     "planetscale-node": "^0.1.0",
     "pluralize": "^8.0.0",
@@ -40,6 +37,7 @@
     "tailwindcss": "^2.2.7"
   },
   "devDependencies": {
+    "esbuild": "^0.12.21",
     "eslint": "^7.32.0",
     "eslint-config-next": "11.1.0",
     "prettier": "^2.3.2",

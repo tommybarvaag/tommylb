@@ -1,11 +1,18 @@
-import { MDXRemote } from "next-mdx-remote";
-import PostLayout from "../../layouts";
-import { getFileBySlug, getFiles } from "../../lib/mdx";
+import MDXComponents from "@/components/mdx/customComponents";
+import PostLayout from "@/layouts/postLayout";
+import { getFileBySlug, getFiles } from "@/lib/mdx";
+import { getMDXComponent } from "mdx-bundler/client";
+import * as React from "react";
 
-export default function Post({ mdxSource, frontMatter }) {
+export default function Post({ code, frontMatter }) {
+  const Component = React.useMemo(() => getMDXComponent(code), [code]);
   return (
     <PostLayout frontMatter={frontMatter}>
-      <MDXRemote {...mdxSource} />
+      <Component
+        components={{
+          ...MDXComponents
+        }}
+      />
     </PostLayout>
   );
 }
@@ -26,5 +33,5 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const post = await getFileBySlug("post", params.slug);
 
-  return { props: post };
+  return { props: { ...post } };
 }
