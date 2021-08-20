@@ -30,7 +30,6 @@
     "react-hook-form": "^7.12.2",
     "reading-time": "^1.4.0",
     "remark-autolink-headings": "^7.0.1",
-    "remark-code-titles": "^0.1.2",
     "remark-slug": "^7.0.0",
     "strava-v3": "^2.0.9",
     "swr": "^0.5.6",
