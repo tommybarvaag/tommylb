@@ -20,7 +20,7 @@ export default function Home({ initialActivities, post }) {
       <Posts post={post} featured />
       <LastStravaActivity initialActivities={initialActivities} />
       <ContactMe />
-      <TimelineFromBirthUntilNow />
+      <TimelineFromBirthUntilNow heading="Timeline" />
     </Layout>
   );
 }

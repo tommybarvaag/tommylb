@@ -7,11 +7,11 @@ import TimelineSection from "./timelineSection";
 import TimelineSectionHeading from "./timelineSectionHeading";
 import TimelineText from "./timelineText";
 
-export default function TimelineFromBirthUntilNow({ showAll = false }) {
+export default function TimelineFromBirthUntilNow({ showAll = false, heading }) {
   const [showingAll, setShowingAll] = React.useState(showAll);
 
   return (
-    <Timeline>
+    <Timeline heading={heading}>
       <TimelineSection>
         <TimelineSectionHeading>2021</TimelineSectionHeading>
         <TimelinePost>
