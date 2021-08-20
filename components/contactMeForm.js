@@ -51,7 +51,7 @@ export default function ContactMeForm({ location }) {
   }
 
   return (
-    <div className="max-w-md self-center">
+    <div className="max-w-md self-center mb-12">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Contact me</Heading>
         <TextField

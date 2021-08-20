@@ -1,3 +1,4 @@
+import ArrowNarrowRight from "./arrowNarrowRight";
 import Calendar from "./calendar";
 import Check from "./check";
 import ExclamationCircle from "./exclamationCircle";
@@ -11,6 +12,7 @@ import Sun from "./sun";
 import ThumbsUp from "./thumbsUp";
 
 export {
+  ArrowNarrowRight,
   Calendar,
   Check,
   ExclamationCircle,
