@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-growing-underline {
+    background-size: 100% 0.1rem;
+    background-position: 0 100%;
+    @apply bg-no-repeat transition-all duration-200;
+  }
+  .bg-growing-underline:hover {
+    background-size: 100% 100%;
+  }
+  .bg-growing-underline:focus {
+    background-size: 100% 100%;
+  }
+}
+
 @font-face {
   font-family: "Inter";
   font-style: normal;

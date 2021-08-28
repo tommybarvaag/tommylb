@@ -5,7 +5,7 @@ import StravaActivity from "./stravaActivity";
 
 export default function LastStravaActivity({ initialActivities = [], ...other }) {
   const { lastActivity, lastRunActivity } = useStravaActivities({
-    initialData: initialActivities
+    fallbackData: initialActivities
   });
 
   const renderLastStravaActivity = () => {

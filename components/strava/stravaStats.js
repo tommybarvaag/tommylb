@@ -36,7 +36,7 @@ function StravaActivityCountAndDistanceOverview({
 
 export default function StravaStats({ initialStats, ...other }) {
   const { stats } = useStravaStats({
-    initialData: initialStats
+    fallbackData: initialStats
   });
 
   return (
