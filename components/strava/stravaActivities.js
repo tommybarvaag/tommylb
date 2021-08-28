@@ -7,7 +7,7 @@ import StravaActivity from "./stravaActivity";
 export default function StravaActivities({ initialActivities = [], ...other }) {
   const [activitiesToShow, setActivitiesToShow] = React.useState(10);
   const { activities } = useStravaActivities({
-    initialData: initialActivities
+    fallbackData: initialActivities
   });
 
   const renderShowAllActivitiesButton = () => {

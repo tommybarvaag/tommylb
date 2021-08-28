@@ -6,6 +6,9 @@ export default function ContactMe({ location = "frontpage" }) {
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={process.env.NEXT_PUBLIC_TOMMYLB_GOOGLE_RECAPTCHA_V3_SITE_KEY}
+      scriptProps={{
+        defer: true
+      }}
     >
       <ContactMeForm location={location} />
     </GoogleReCaptchaProvider>

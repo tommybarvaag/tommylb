@@ -1,7 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import ContactMe from "../contactMe";
 import Heading from "../heading";
-import Link from "../link";
 import { LastStravaActivity, StravaRunningGoals } from "../strava";
 import Text from "../text";
 
@@ -11,13 +11,23 @@ const CustomLink = props => {
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
-        <a {...props} />
+      <Link
+        className="bg-gradient-to-r dark:from-green-600 dark:to-green-600 bg-growing-underline"
+        href={href}
+      >
+        <a {...props}>{props.children}</a>
       </Link>
     );
   }
 
-  return <a target="_blank" rel="noreferrer" {...props} />;
+  return (
+    <a
+      className="bg-gradient-to-r from-green-500 to-green-500 dark:from-green-600 dark:to-green-600 bg-growing-underline"
+      target="_blank"
+      rel="noreferrer"
+      {...props}
+    />
+  );
 };
 
 const CustomImage = props => {
