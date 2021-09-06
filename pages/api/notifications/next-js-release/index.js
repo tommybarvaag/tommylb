@@ -13,23 +13,24 @@ export default async function nextJsRelease(req, res) {
 
   if (req.method === "POST") {
     const latestNonPrerelease = await fetchLatestNonPrereleaseNextJsRelease();
+    const latestNonPrereleaseVersion = latestNonPrerelease?.tag_name ?? latestNonPrerelease?.name;
 
     const sentNotification = await planetscaleTableNotifications.getByTypeAndValue(
       NOTIFICATION_TYPE,
-      latestNonPrerelease.name
+      latestNonPrereleaseVersion
     );
 
     // If notification for type and value is already sent
     // skip further action and return latest release
     if (
       sentNotification?.type === NOTIFICATION_TYPE &&
-      sentNotification?.value === latestNonPrerelease.name
+      sentNotification?.value === latestNonPrereleaseVersion
     ) {
       console.info("Notification is already sent.");
 
       return res.status(200).json({
         type: NOTIFICATION_TYPE,
-        value: latestNonPrerelease.name
+        value: latestNonPrereleaseVersion
       });
     }
 
@@ -37,9 +38,9 @@ export default async function nextJsRelease(req, res) {
     const sendMailResponse = await sendgridMail.send({
       to: "tommy@barvaag.com",
       from: "post@tommylb.com",
-      subject: `New Next.js release ${latestNonPrerelease.name}`,
+      subject: `New Next.js release ${latestNonPrereleaseVersion}`,
       html: `<div>
-            <h3>New Next.js release ${latestNonPrerelease.name}</h3>
+            <h3>New Next.js release ${latestNonPrereleaseVersion}</h3>
             <div><a href="${latestNonPrerelease.html_url}">Click</a> to view release.</div>
           </div>`
     });
@@ -47,12 +48,12 @@ export default async function nextJsRelease(req, res) {
     // Log notification sent
     if (sendMailResponse?.[0].statusCode === 202) {
       console.info("Notification sent");
-      await planetscaleTableNotifications.insert(NOTIFICATION_TYPE, latestNonPrerelease.name);
+      await planetscaleTableNotifications.insert(NOTIFICATION_TYPE, latestNonPrereleaseVersion);
     }
 
     return res.status(200).json({
       type: NOTIFICATION_TYPE,
-      value: latestNonPrerelease.name
+      value: latestNonPrereleaseVersion
     });
   }
 
