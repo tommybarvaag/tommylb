@@ -10,8 +10,9 @@ import { getFormattedPostDate, parseDate } from "../utils/dateUtils";
 export default function PostLayout({ children, frontMatter, ...other }) {
   const { title, publishedAt, readingTime } = frontMatter;
 
-  const publishedAtDateFormatted = React.useMemo(() =>
-    getFormattedPostDate(parseDate(publishedAt, "yyyy-mm-dd"))
+  const publishedAtDateFormatted = React.useMemo(
+    () => getFormattedPostDate(parseDate(publishedAt, "yyyy-mm-dd")),
+    [publishedAt]
   );
 
   return (
