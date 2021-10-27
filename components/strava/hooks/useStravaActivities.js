@@ -11,9 +11,10 @@ export default function useStravaActivities(config = defaultConfig) {
     ...config
   });
 
-  const lastActivity = React.useMemo(() => activities?.find(activity => isString(activity.type)), [
-    activities
-  ]);
+  const lastActivity = React.useMemo(
+    () => activities?.find(activity => isString(activity.type)),
+    [activities]
+  );
 
   const lastRunActivity = React.useMemo(
     () => activities?.find(activity => activity.type === "Run"),

@@ -1,6 +1,7 @@
 import ContactMe from "@/components/contactMe";
 import { TimelineFromBirthUntilNow } from "@/components/timeline";
 import * as React from "react";
+import { isString } from "utils/commonUtils";
 import Heading from "../components/heading";
 import { Posts } from "../components/post";
 import { LastStravaActivity } from "../components/strava";
@@ -28,8 +29,29 @@ export default function Home({ initialActivities, post }) {
 export async function getStaticProps() {
   const activities = await strava.get();
 
+  const lastStravaActivities = [];
+
+  const lastActivity = activities?.find(activity => isString(activity.type));
+
+  if (lastActivity) {
+    lastStravaActivities.push(lastActivity);
+  }
+
+  const lastRunActivity = activities?.find(activity => activity.type === "Run");
+
+  if (lastRunActivity) {
+    lastStravaActivities.push(lastRunActivity);
+  }
+
+  const allPosts = await getAllFilesFrontMatter("post");
+
   return {
-    props: { initialActivities: activities, post: await getAllFilesFrontMatter("post") },
+    props: {
+      initialActivities: lastStravaActivities,
+      post: {
+        featured: allPosts.featured
+      }
+    },
     revalidate: 1
   };
 }

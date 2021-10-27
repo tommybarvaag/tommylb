@@ -36,7 +36,7 @@ export default async function nextJsRelease(req, res) {
 
     // Send notification
     const sendMailResponse = await sendgridMail.send({
-      to: "tommy@barvaag.com",
+      to: ["tommy@barvaag.com", "erlend.rommetveit@gmail.com"],
       from: "post@tommylb.com",
       subject: `New Next.js release ${latestNonPrereleaseVersion}`,
       html: `<div>

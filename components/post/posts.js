@@ -3,10 +3,10 @@ import Heading from "../heading";
 import Post from "./post";
 
 export default function Posts({ title, featured, post, ...other }) {
-  const postsToRender = featured ? post.featured ?? [] : post?.all ?? [];
+  const postsToRender = featured ? post?.featured ?? [] : post?.all ?? [];
   const heading = title ?? featured ? "Featured posts" : "All posts";
 
-  return (
+  return postsToRender?.length > 0 ? (
     <div className="w-full" {...other}>
       <Heading>{heading}</Heading>
       {postsToRender.map((post, index) => (
@@ -19,5 +19,5 @@ export default function Posts({ title, featured, post, ...other }) {
         />
       ))}
     </div>
-  );
+  ) : null;
 }
