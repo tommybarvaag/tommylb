@@ -33,7 +33,7 @@ export async function getStaticProps() {
   const activities = await strava.get();
 
   return {
-    props: { initialStats: stats, initialActivities: activities.slice(0, 10) },
+    props: { initialStats: stats, initialActivities: activities?.slice(0, 10) ?? [] },
     revalidate: 1
   };
 }
