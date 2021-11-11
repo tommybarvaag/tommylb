@@ -7,7 +7,6 @@ const NOTIFICATION_TYPE = "next-js-release";
 export default async function nextJsRelease(req, res) {
   if (req.method === "GET") {
     const allNotifications = await prisma.notification_log.findMany({});
-    console.log(allNotifications);
     return res.status(200).json(allNotifications ?? []);
   }
 
