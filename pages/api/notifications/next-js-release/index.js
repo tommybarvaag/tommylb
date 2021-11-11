@@ -1,13 +1,12 @@
 import { fetchLatestNonPrereleaseNextJsRelease } from "@/lib/github";
-import planetscaleTableNotifications from "@/lib/planetscale/repositories/notifications";
+import prisma from "@/lib/prisma";
 import sendgridMail from "@/lib/sendgridMail";
 
 const NOTIFICATION_TYPE = "next-js-release";
 
 export default async function nextJsRelease(req, res) {
   if (req.method === "GET") {
-    const allNotifications = await planetscaleTableNotifications.get();
-
+    const allNotifications = await prisma.notification_log.findMany({});
     return res.status(200).json(allNotifications ?? []);
   }
 
@@ -15,10 +14,12 @@ export default async function nextJsRelease(req, res) {
     const latestNonPrerelease = await fetchLatestNonPrereleaseNextJsRelease();
     const latestNonPrereleaseVersion = latestNonPrerelease?.tag_name ?? latestNonPrerelease?.name;
 
-    const sentNotification = await planetscaleTableNotifications.getByTypeAndValue(
-      NOTIFICATION_TYPE,
-      latestNonPrereleaseVersion
-    );
+    const sentNotification = await prisma.notification_log.findFirst({
+      where: {
+        type: NOTIFICATION_TYPE,
+        value: latestNonPrereleaseVersion
+      }
+    });
 
     // If notification for type and value is already sent
     // skip further action and return latest release
@@ -48,7 +49,12 @@ export default async function nextJsRelease(req, res) {
     // Log notification sent
     if (sendMailResponse?.[0].statusCode === 202) {
       console.info("Notification sent");
-      await planetscaleTableNotifications.insert(NOTIFICATION_TYPE, latestNonPrereleaseVersion);
+      await prisma.notification_log.create({
+        data: {
+          type: NOTIFICATION_TYPE,
+          value: latestNonPrereleaseVersion
+        }
+      });
     }
 
     return res.status(200).json({
