@@ -11,6 +11,7 @@
   "dependencies": {
     "@prisma/client": "3.6.0",
     "@sendgrid/mail": "^7.6.0",
+    "@types/ioredis": "^4.28.2",
     "clsx": "^1.1.1",
     "date-fns": "^2.27.0",
     "framer-motion": "^5.3.3",
