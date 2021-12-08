@@ -1,5 +1,11 @@
 import stravaApi from "strava-v3";
-import { StravaActivity, StravaGearSimple, StravaPersonalBest, StravaStats } from "types";
+import {
+  StravaActivity,
+  StravaGearSimple,
+  StravaPersonalBest,
+  StravaPersonalBestSimple,
+  StravaStats
+} from "types";
 import { flat, groupBy, maxBy, min, sum } from "../utils/commonUtils";
 import { getDateYear, parseDateISO } from "../utils/dateUtils";
 import {
@@ -35,7 +41,10 @@ const client = async () => {
   return new stravaApi.client(refreshTokenResponse.access_token);
 };
 
-const getPersonalBest = (bestEfforts: StravaPersonalBest[], name: string) => ({
+const getPersonalBest = (
+  bestEfforts: StravaPersonalBest[],
+  name: string
+): StravaPersonalBestSimple => ({
   name,
   value: convertSecondsToHoursAndMinutes(
     min(

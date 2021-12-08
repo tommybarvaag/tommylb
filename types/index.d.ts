@@ -32,6 +32,12 @@ export type StravaPersonalBest = {
   distanceInKilometers: number;
   movingTime: number;
   formattedMovingTime: string;
+  value: string;
+};
+
+export type StravaPersonalBestSimple = {
+  name: string;
+  value: string;
 };
 
 export type StravaGear = StravaGearSimple & {
@@ -44,7 +50,7 @@ export type StravaGear = StravaGearSimple & {
 
 export type StravaStats = {
   goals: StravaGoal[];
-  personalBests: StravaGoal[];
+  personalBests: StravaPersonalBestSimple[];
   gear: StravaGearSimple[];
   allTime: StravaStatsSummary;
   thisYear: StravaStatsSummary;
@@ -136,6 +142,14 @@ export type FrontMatterData = {
   featured?: boolean;
   published?: boolean;
   unlisted?: boolean;
+  readingTime?: FrontMatterReadingTime;
+};
+
+export type FrontMatterReadingTime = {
+  text: string;
+  minutes: number;
+  time: number;
+  words: number;
 };
 
 export type FileSystemPost = FrontMatterData & {
