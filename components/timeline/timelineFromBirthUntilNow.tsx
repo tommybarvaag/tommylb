@@ -178,12 +178,6 @@ export default function TimelineFromBirthUntilNow({
                 interest.
               </TimelineText>
             </TimelinePost>
-            <TimelinePost>
-              <TimelineHeading>Took high school IT class</TimelineHeading>
-              <TimelineText>
-                We learned Access Databases, Photoshop, and Flash with some minor coding.
-              </TimelineText>
-            </TimelinePost>
           </TimelineSection>
           <TimelineSection>
             <TimelineSectionHeading>1990</TimelineSectionHeading>
