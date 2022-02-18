@@ -1,15 +1,7 @@
+/** @type {import('next').NextConfig} */
 module.exports = {
-  future: {
-    strictPostcssConfiguration: true
-  },
+  swcMinify: true,
   reactStrictMode: true,
-  experimental: {
-    turboMode: true,
-    eslint: true
-  },
-  images: {
-    domains: ["i.scdn.co", "pbs.twimg.com"]
-  },
   async redirects() {
     return [
       {
