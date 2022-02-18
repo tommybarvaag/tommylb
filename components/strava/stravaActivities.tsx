@@ -1,12 +1,12 @@
+import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import * as React from "react";
-import { StravaActivity as StravaActivityType } from "types";
 import Button from "../button";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
 
 type StravaActivitiesProps = {
-  initialActivities: StravaActivityType[];
+  initialActivities: StravaActivityWithGearAndPersonalBests[];
 };
 
 export default function StravaActivities({

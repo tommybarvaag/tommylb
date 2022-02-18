@@ -1,6 +1,6 @@
 /// <reference types="react" />
 
-export type StravaActivity = {
+export type StravaApiActivity = {
   name: string;
   distance: number;
   movingTime: number;
@@ -23,7 +23,7 @@ export type StravaActivity = {
   kilometersPerSecond: number;
   minutesPerKilometer: number;
   personalBests: StravaPersonalBest[];
-  gear: StravaGear;
+  gear?: StravaGear;
 };
 
 export type StravaPersonalBest = {

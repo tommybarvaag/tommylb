@@ -7,7 +7,7 @@ const NOTIFICATION_TYPE = "next-js-release";
 
 export default async function nextJsRelease(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
-    const allNotifications = await prisma.notification_log.findMany({});
+    const allNotifications = await prisma.notificationLog.findMany({});
     return res.status(200).json(allNotifications ?? []);
   }
 
@@ -15,7 +15,7 @@ export default async function nextJsRelease(req: NextApiRequest, res: NextApiRes
     const latestNonPrerelease = await fetchLatestNonPrereleaseNextJsRelease();
     const latestNonPrereleaseVersion = latestNonPrerelease?.tag_name ?? latestNonPrerelease?.name;
 
-    const sentNotification = await prisma.notification_log.findFirst({
+    const sentNotification = await prisma.notificationLog.findFirst({
       where: {
         type: NOTIFICATION_TYPE,
         value: latestNonPrereleaseVersion
@@ -50,7 +50,7 @@ export default async function nextJsRelease(req: NextApiRequest, res: NextApiRes
     // Log notification sent
     if (sendMailResponse?.[0].statusCode === 202) {
       console.info("Notification sent");
-      await prisma.notification_log.create({
+      await prisma.notificationLog.create({
         data: {
           type: NOTIFICATION_TYPE,
           value: latestNonPrereleaseVersion

@@ -1,5 +1,5 @@
+import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import * as React from "react";
-import { StravaActivity as StravaActivityType } from "types";
 import { getFormattedLongDate } from "../../utils/dateUtils";
 import Heading from "../heading";
 import { Fire } from "../icons";
@@ -7,7 +7,7 @@ import Text from "../text";
 import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
 
 type StravaActivitiesProps = {
-  activity: StravaActivityType;
+  activity: StravaActivityWithGearAndPersonalBests;
   linkToStravaPage?: boolean;
 };
 
@@ -34,7 +34,7 @@ export default function StravaActivity({
             />
             {renderHeartRate()}
             <StravaUnitOfMeasurement title="Pace" value={`${activity.minutesPerKilometer} mpk`} />
-            <StravaUnitOfMeasurement title="Speed" value={`${activity.kilometersPerSecond} kph`} />
+            <StravaUnitOfMeasurement title="Speed" value={`${activity.kilometersPerHour} kph`} />
           </>
         );
       default:
@@ -68,7 +68,7 @@ export default function StravaActivity({
         <Text className="mx-3" noMargin>
           -
         </Text>
-        <Text noMargin>{getFormattedLongDate(activity.startDateLocal)}</Text>
+        <Text noMargin>{getFormattedLongDate(new Date(activity.startDateLocal))}</Text>
       </div>
       {activity.personalBests.map((personalBest, index) => (
         <div

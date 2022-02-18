@@ -2,7 +2,7 @@ import strava from "@/lib/strava";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function Activity(req: NextApiRequest, res: NextApiResponse) {
-  const id: string = req.query?.id as string;
+  const id: number = +req.query?.id;
 
   const activity = await strava.getById(id);
 
