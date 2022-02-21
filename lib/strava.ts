@@ -1,6 +1,7 @@
+import { Prisma } from "@prisma/client";
 import stravaApi from "strava-v3";
 import {
-  StravaActivity,
+  StravaApiActivity,
   StravaGearSimple,
   StravaPersonalBest,
   StravaPersonalBestSimple,
@@ -14,9 +15,13 @@ import {
   convertMetersToKilometers,
   convertSecondsToHoursAndMinutes
 } from "../utils/unitOfMeasurementUtils";
-import redis from "./redis";
+import prisma from "./prisma";
 
-const DATABASE_NAME = "strava";
+export type StravaActivityWithGearAndPersonalBests = Prisma.PromiseReturnType<typeof getById>;
+export type StravaActivityWithGearAndPersonalBestsAndStartDateYear = Omit<
+  StravaActivityWithGearAndPersonalBests,
+  "startDate"
+> & { startDate: Date; startDateYear: number };
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -55,7 +60,9 @@ const getPersonalBest = (
   )
 });
 
-const getGear = (activities: StravaActivity[]): StravaGearSimple[] =>
+const getGear = (
+  activities: StravaActivityWithGearAndPersonalBestsAndStartDateYear[]
+): StravaGearSimple[] =>
   Object.entries(
     groupBy(
       activities
@@ -75,13 +82,13 @@ const getGear = (activities: StravaActivity[]): StravaGearSimple[] =>
         {
           ...uniqueGearWithMaxDistance,
           name: key,
-          distance: convertMetersToKilometers(uniqueGearWithMaxDistance.distance, 0)
+          distance: convertMetersToKilometers(+uniqueGearWithMaxDistance.distance, 0)
         }
       ];
     }, [])
     .sort((a, b) => b.primary - a.primary);
 
-const createActivity = (activity: any): StravaActivity => {
+const createActivity = (activity: any): StravaApiActivity => {
   const kilometersPerSecond = convertMetersPerSecondToKilometersPerSecond(activity.average_speed);
 
   return {
@@ -116,19 +123,32 @@ const createActivity = (activity: any): StravaActivity => {
           movingTime: personalBest.moving_time,
           formattedMovingTime: convertSecondsToHoursAndMinutes(personalBest.moving_time)
         })) ?? [],
-    gear: activity.gear
+    gear: activity?.gear?.id
+      ? {
+          id: activity.gear.id,
+          name: activity.gear.name,
+          primary: activity.gear.primary,
+          distance: activity.gear.distance,
+          retired: activity.gear.retired,
+          resource_state: activity.gear.resource_state,
+          converted_distance: activity.gear.converted_distance,
+          nickname: activity.gear.nickname
+        }
+      : undefined
   };
 };
 
-const createStats = (activities = []): StravaStats => {
-  const allActivities = activities.map(activity => {
-    const startDate = parseDateISO(activity.startDate);
-    return {
-      ...activity,
-      startDate,
-      startDateYear: getDateYear(startDate)
-    };
-  });
+const createStats = (activities: StravaActivityWithGearAndPersonalBests[] = []): StravaStats => {
+  const allActivities: StravaActivityWithGearAndPersonalBestsAndStartDateYear[] = activities.map(
+    activity => {
+      const startDate = parseDateISO(activity.startDate);
+      return {
+        ...activity,
+        startDate,
+        startDateYear: getDateYear(startDate)
+      };
+    }
+  );
 
   const allRunningActivities = allActivities.filter(activity => activity.type === "Run");
 
@@ -179,11 +199,11 @@ const createStats = (activities = []): StravaStats => {
       activityCount: allActivities.length,
       activityRunningCount: allRunningActivities.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivities.map(activity => activity.distance)),
+        sum(allActivities.map(activity => +activity.distance)),
         0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivities.map(activity => activity.distance)),
+        sum(allRunningActivities.map(activity => +activity.distance)),
         0
       )
     },
@@ -191,11 +211,11 @@ const createStats = (activities = []): StravaStats => {
       activityCount: allActivitiesThisYear.length,
       activityRunningCount: allRunningActivitiesThisYear.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivitiesThisYear.map(activity => activity.distance)),
+        sum(allActivitiesThisYear.map(activity => +activity.distance)),
         0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivitiesThisYear.map(activity => activity.distance)),
+        sum(allRunningActivitiesThisYear.map(activity => +activity.distance)),
         0
       )
     },
@@ -203,78 +223,249 @@ const createStats = (activities = []): StravaStats => {
       activityCount: allActivitiesLastYear.length,
       activityRunningCount: allRunningActivitiesLastYear.length,
       totalDistanceCovered: convertMetersToKilometers(
-        sum(allActivitiesLastYear.map(activity => activity.distance)),
+        sum(allActivitiesLastYear.map(activity => +activity.distance)),
         0
       ),
       totalRunningDistanceCovered: convertMetersToKilometers(
-        sum(allRunningActivitiesLastYear.map(activity => activity.distance)),
+        sum(allRunningActivitiesLastYear.map(activity => +activity.distance)),
         0
       )
     }
   };
 };
 
-const getById = async (id: string): Promise<StravaActivity> => {
-  const activity = await redis.hget(DATABASE_NAME, id);
+const getById = async (id: number) => {
+  const activity = await prisma.stravaActivity.findUnique({
+    where: { id },
+    include: {
+      personalBests: true,
+      gear: true
+    }
+  });
 
-  if (!activity) {
-    return null;
-  }
-
-  return JSON.parse(activity) as StravaActivity;
+  return {
+    ...activity,
+    distance: +activity.distance,
+    distanceInKilometers: +activity.distanceInKilometers,
+    kilometersPerHour: +activity.kilometersPerHour,
+    minutesPerKilometer: +activity.minutesPerKilometer,
+    totalElevationGain: +activity.totalElevationGain,
+    averageSpeed: +activity.averageSpeed,
+    maxSpeed: +activity.maxSpeed,
+    averageHeartRate: activity.averageHeartRate ? +activity.averageHeartRate : null,
+    maxHeartRate: activity.maxHeartRate ? +activity.maxHeartRate : null,
+    sufferScore: activity.sufferScore ? +activity.sufferScore : null,
+    calories: +activity.calories,
+    startDate: activity.startDate.toISOString(),
+    startDateLocal: activity.startDateLocal.toISOString(),
+    createdAt: activity.createdAt.toISOString(),
+    updatedAt: activity.updatedAt.toISOString(),
+    gear: activity?.gear?.id
+      ? {
+          ...activity.gear,
+          distance: +activity.gear.distance
+        }
+      : null,
+    personalBests: activity.personalBests?.map(personalBest => ({
+      ...personalBest,
+      distance: +personalBest.distance,
+      distanceInKilometers: +personalBest.distanceInKilometers
+    }))
+  };
 };
 
-const create = async (id: string, entity: any): Promise<void> => {
-  await redis.hset(DATABASE_NAME, id, JSON.stringify(createActivity(entity)));
+const getByStravaId = async (stravaId: string) => {
+  return await prisma.stravaActivity.findUnique({
+    where: { stravaId: stravaId.toString() },
+    include: {
+      personalBests: true,
+      gear: true
+    }
+  });
 };
 
-const getAll = async (): Promise<StravaActivity[]> => {
-  return (await redis.hvals(DATABASE_NAME))
-    .map<StravaActivity>((entry: string) => {
-      return JSON.parse(entry) as StravaActivity;
+const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise<void> => {
+  await prisma.stravaActivity.upsert({
+    where: { stravaId: id },
+    create: {
+      name: stravaApiActivity.name,
+      type: stravaApiActivity.type,
+      distance: stravaApiActivity.distance,
+      movingTime: stravaApiActivity.movingTime,
+      hasHeartRate: stravaApiActivity.hasHeartRate,
+      averageHeartRate: stravaApiActivity.averageHeartRate,
+      averageSpeed: stravaApiActivity.averageSpeed,
+      maxSpeed: stravaApiActivity.maxSpeed,
+      sufferScore: stravaApiActivity.sufferScore,
+      distanceInKilometers: stravaApiActivity.distanceInKilometers,
+      formattedMovingTime: stravaApiActivity.formattedMovingTime,
+      kilometersPerHour: stravaApiActivity.kilometersPerSecond,
+      minutesPerKilometer: stravaApiActivity.minutesPerKilometer ?? 0,
+      calories: stravaApiActivity.calories,
+      kudosCount: stravaApiActivity.kudosCount,
+      locationCountry: stravaApiActivity.locationCountry,
+      maxHeartRate: stravaApiActivity.maxHeartRate,
+      totalElevationGain: stravaApiActivity.totalElevationGain,
+      startDate: stravaApiActivity.startDate,
+      startDateLocal: stravaApiActivity.startDateLocal,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+      stravaId: stravaApiActivity.id.toString(),
+      gear: stravaApiActivity?.gear?.id
+        ? {
+            connectOrCreate: {
+              where: {
+                stravaGearId: stravaApiActivity.gear.id
+              },
+              create: {
+                name: stravaApiActivity.gear.name,
+                stravaGearId: stravaApiActivity.gear.id,
+                resourceState: stravaApiActivity.gear.resource_state,
+                distance: stravaApiActivity.gear.distance,
+                primary: stravaApiActivity.gear.primary ?? false,
+                retired: stravaApiActivity.gear.retired ?? false
+              }
+            }
+          }
+        : undefined,
+      personalBests: {
+        createMany: {
+          data:
+            stravaApiActivity.personalBests.map(personalBest => ({
+              name: personalBest.name,
+              distance: personalBest.distance,
+              distanceInKilometers: personalBest.distanceInKilometers,
+              movingTime: personalBest.movingTime,
+              formattedMovingTime: personalBest.formattedMovingTime
+            })) ?? []
+        }
+      }
+    },
+    update: {
+      name: stravaApiActivity.name,
+      type: stravaApiActivity.type,
+      distance: stravaApiActivity.distance,
+      movingTime: stravaApiActivity.movingTime,
+      hasHeartRate: stravaApiActivity.hasHeartRate,
+      averageHeartRate: stravaApiActivity.averageHeartRate,
+      averageSpeed: stravaApiActivity.averageSpeed,
+      maxSpeed: stravaApiActivity.maxSpeed,
+      sufferScore: stravaApiActivity.sufferScore,
+      distanceInKilometers: stravaApiActivity.distanceInKilometers,
+      formattedMovingTime: stravaApiActivity.formattedMovingTime,
+      kilometersPerHour: stravaApiActivity.kilometersPerSecond,
+      minutesPerKilometer: stravaApiActivity.minutesPerKilometer ?? 0,
+      calories: stravaApiActivity.calories,
+      kudosCount: stravaApiActivity.kudosCount,
+      locationCountry: stravaApiActivity.locationCountry,
+      maxHeartRate: stravaApiActivity.maxHeartRate,
+      totalElevationGain: stravaApiActivity.totalElevationGain,
+      startDate: stravaApiActivity.startDate,
+      startDateLocal: stravaApiActivity.startDateLocal,
+      updatedAt: new Date(),
+      stravaId: stravaApiActivity.id.toString(),
+      gear: stravaApiActivity?.gear?.id
+        ? {
+            connectOrCreate: {
+              where: {
+                stravaGearId: stravaApiActivity.gear.id
+              },
+              create: {
+                name: stravaApiActivity.gear.name,
+                stravaGearId: stravaApiActivity.gear.id,
+                resourceState: stravaApiActivity.gear.resource_state,
+                distance: stravaApiActivity.gear.distance,
+                primary: stravaApiActivity.gear.primary ?? false,
+                retired: stravaApiActivity.gear.retired ?? false
+              }
+            }
+          }
+        : undefined,
+      personalBests: {
+        createMany: {
+          data:
+            stravaApiActivity.personalBests.map(personalBest => ({
+              name: personalBest.name,
+              distance: personalBest.distance,
+              distanceInKilometers: personalBest.distanceInKilometers,
+              movingTime: personalBest.movingTime,
+              formattedMovingTime: personalBest.formattedMovingTime
+            })) ?? []
+        }
+      }
+    }
+  });
+};
+
+const getAll = async (): Promise<StravaActivityWithGearAndPersonalBests[]> => {
+  return (
+    await prisma.stravaActivity.findMany({
+      include: {
+        personalBests: true,
+        gear: true
+      }
     })
-    .sort(
-      (a: StravaActivity, b: StravaActivity) =>
-        new Date(b.startDateLocal).getTime() - new Date(a.startDateLocal).getTime()
-    );
-};
-
-const getAllById = async (id: string, reCheck = false): Promise<StravaActivity> => {
-  if (reCheck) {
-    return (await client()).activities.get({
-      id: id
-    });
-  }
-
-  const activity: string = await redis.hget(DATABASE_NAME, id);
-
-  if (!activity) {
-    return null;
-  }
-
-  return JSON.parse(await redis.hget(DATABASE_NAME, id)) as StravaActivity;
-};
-
-const update = async (
-  id: string,
-  entity: StravaActivity | Partial<StravaActivity>
-): Promise<void> => {
-  const activity = await getAllById(id);
-
-  await redis.hset(
-    DATABASE_NAME,
-    id,
-    JSON.stringify({
+  )
+    .sort((a, b) => new Date(b.startDateLocal).getTime() - new Date(a.startDateLocal).getTime())
+    .map(activity => ({
       ...activity,
-      ...entity,
-      updatedAt: Date.now()
+      distance: +activity.distance,
+      distanceInKilometers: +activity.distanceInKilometers,
+      kilometersPerHour: +activity.kilometersPerHour,
+      minutesPerKilometer: +activity.minutesPerKilometer,
+      totalElevationGain: +activity.totalElevationGain,
+      averageSpeed: +activity.averageSpeed,
+      maxSpeed: +activity.maxSpeed,
+      averageHeartRate: activity.averageHeartRate ? +activity.averageHeartRate : null,
+      maxHeartRate: activity.maxHeartRate ? +activity.maxHeartRate : null,
+      sufferScore: activity.sufferScore ? +activity.sufferScore : null,
+      calories: +activity.calories,
+      startDate: activity.startDate.toISOString(),
+      startDateLocal: activity.startDateLocal.toISOString(),
+      createdAt: activity.createdAt.toISOString(),
+      updatedAt: activity.updatedAt.toISOString(),
+      gear: activity?.gear?.id
+        ? {
+            ...activity.gear,
+            distance: +activity.gear.distance
+          }
+        : null,
+      personalBests: activity.personalBests?.map(personalBest => ({
+        ...personalBest,
+        distance: +personalBest.distance,
+        distanceInKilometers: +personalBest.distanceInKilometers
+      }))
+    }));
+};
+
+const getActivityFromStravaApi = async (id: string) => {
+  return createActivity(
+    await (
+      await client()
+    ).activities.get({
+      id: id
     })
   );
 };
 
+const update = async (
+  id: string,
+  entity: StravaApiActivity | Partial<StravaApiActivity>
+): Promise<void> => {
+  await prisma.stravaActivity.update({
+    where: { stravaId: id },
+    data: {
+      name: entity.name
+    }
+  });
+};
+
 const getAndCreate = async (id: string): Promise<void> => {
-  const activity = await getAllById(id, true);
-  await create(id, activity);
+  const activity = await getActivityFromStravaApi(id);
+  await create(id, {
+    ...activity,
+    name: "Evening Activity"
+  });
 };
 
 const get = async () => await getAll();
@@ -283,12 +474,14 @@ const getStats = async (): Promise<StravaStats> => {
   return createStats(await getAll());
 };
 
-const remove = async (id: string): Promise<void> => {
-  await redis.hdel(DATABASE_NAME, id);
+const remove = async (id: number): Promise<void> => {
+  await prisma.stravaActivity.delete({
+    where: { id: id }
+  });
 };
 
 const removeAll = async (): Promise<void> => {
-  await redis.del(DATABASE_NAME);
+  await prisma.stravaActivity.deleteMany();
 };
 
 const importActivities = async (): Promise<void> => {
@@ -314,16 +507,18 @@ const importActivities = async (): Promise<void> => {
     }
   }
 
-  let detailedActivities = [];
+  let detailedActivities: StravaApiActivity[] = [];
 
   const importedActivities = await getAll();
 
   for (const activity of activities.filter(
     activity => !importedActivities.some(importedActivity => importedActivity.id === activity.id)
   )) {
-    const detailedActivity = await stravaClient.activities.get({
-      id: activity.id
-    });
+    const detailedActivity = createActivity(
+      await stravaClient.activities.get({
+        id: activity.id
+      })
+    );
 
     if (stravaClient.rateLimiting.exceeded()) {
       const sixteenMinutesInFutureDate = new Date(new Date().getTime() + 16 * 60000);
@@ -338,14 +533,11 @@ const importActivities = async (): Promise<void> => {
 
   for (const detailedActivity of detailedActivities) {
     const { id, ...rest } = detailedActivity;
-    const now = Date.now();
 
     console.info(`Import activity with ID ${id}`);
 
-    await create(detailedActivity.id, {
+    await create(detailedActivity.id.toString(), {
       id,
-      createdAt: now,
-      updatedAt: now,
       ...rest
     });
   }
