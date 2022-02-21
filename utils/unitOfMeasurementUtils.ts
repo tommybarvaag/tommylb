@@ -25,4 +25,4 @@ export const convertMetersPerSecondToKilometersPerSecond = (
 export const convertKilometersPerSecondToMinutesPerKilometer = (
   value: number,
   decimals: number = 2
-): number => round(60 / value, decimals);
+): number => (value > 0 ? round(60 / value, decimals) : 0);

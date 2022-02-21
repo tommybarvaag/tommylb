@@ -123,7 +123,7 @@ const createActivity = (activity: any): StravaApiActivity => {
           movingTime: personalBest.moving_time,
           formattedMovingTime: convertSecondsToHoursAndMinutes(personalBest.moving_time)
         })) ?? [],
-    gear: activity.gear.id
+    gear: activity?.gear?.id
       ? {
           id: activity.gear.id,
           name: activity.gear.name,
@@ -440,7 +440,9 @@ const getAll = async (): Promise<StravaActivityWithGearAndPersonalBests[]> => {
 
 const getActivityFromStravaApi = async (id: string) => {
   return createActivity(
-    (await client()).activities.get({
+    await (
+      await client()
+    ).activities.get({
       id: id
     })
   );
@@ -460,7 +462,10 @@ const update = async (
 
 const getAndCreate = async (id: string): Promise<void> => {
   const activity = await getActivityFromStravaApi(id);
-  await create(id, activity);
+  await create(id, {
+    ...activity,
+    name: "Evening Activity"
+  });
 };
 
 const get = async () => await getAll();
