@@ -274,9 +274,9 @@ const getById = async (id: number) => {
   };
 };
 
-const getByStravaId = async (stravaId: string) => {
+const getByStravaId = async (id: string) => {
   return await prisma.stravaActivity.findUnique({
-    where: { stravaId: stravaId.toString() },
+    where: { stravaId: id },
     include: {
       personalBests: true,
       gear: true
@@ -474,9 +474,9 @@ const getStats = async (): Promise<StravaStats> => {
   return createStats(await getAll());
 };
 
-const remove = async (id: number): Promise<void> => {
+const remove = async (id: string): Promise<void> => {
   await prisma.stravaActivity.delete({
-    where: { id: id }
+    where: { stravaId: id }
   });
 };
 

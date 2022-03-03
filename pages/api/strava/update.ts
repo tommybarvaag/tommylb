@@ -1,7 +1,18 @@
 import strava from "@/lib/strava";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function Update(req: NextApiRequest, res: NextApiResponse) {
+interface StravaNextApiRequest extends NextApiRequest {
+  body: {
+    object_id: number;
+    object_type: string;
+    aspect_type: string;
+    updates: {
+      title: string;
+    };
+  };
+}
+
+export default async function Update(req: StravaNextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const VERIFY_TOKEN = "STRAVA";
     let mode = req.query["hub.mode"];
@@ -17,18 +28,19 @@ export default async function Update(req: NextApiRequest, res: NextApiResponse) 
 
   if (req.method === "POST") {
     const { body } = req;
+    const stravaId = body.object_id?.toString();
 
     if (!body || body.object_type !== "activity") {
       return res.status(400).end();
     }
 
     if (body.aspect_type === "create") {
-      await strava.getAndCreate(body.object_id);
+      await strava.getAndCreate(stravaId);
       return res.status(200).end();
     }
 
     if (body.aspect_type === "update" && body?.updates?.title !== null) {
-      await strava.update(body.object_id, {
+      await strava.update(stravaId, {
         name: body.updates.title
       });
 
@@ -36,7 +48,7 @@ export default async function Update(req: NextApiRequest, res: NextApiResponse) 
     }
 
     if (body.aspect_type === "delete") {
-      await strava.remove(body.object_id);
+      await strava.remove(stravaId);
 
       return res.status(204).end();
     }
