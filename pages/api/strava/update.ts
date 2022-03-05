@@ -12,6 +12,16 @@ interface StravaNextApiRequest extends NextApiRequest {
   };
 }
 
+const revalidatePagesWithStravaData = async (res: NextApiResponse) => {
+  try {
+    await res.unstable_revalidate("/");
+    await res.unstable_revalidate("/strava");
+  } catch (err) {
+    // If there was an error, Next.js will continue
+    // to show the last successfully generated page
+  }
+};
+
 export default async function Update(req: StravaNextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     const VERIFY_TOKEN = "STRAVA";
@@ -36,6 +46,8 @@ export default async function Update(req: StravaNextApiRequest, res: NextApiResp
 
     if (body.aspect_type === "create") {
       await strava.getAndCreate(stravaId);
+      await revalidatePagesWithStravaData(res);
+
       return res.status(200).end();
     }
 
@@ -43,12 +55,14 @@ export default async function Update(req: StravaNextApiRequest, res: NextApiResp
       await strava.update(stravaId, {
         name: body.updates.title
       });
+      await revalidatePagesWithStravaData(res);
 
       return res.status(200).end();
     }
 
     if (body.aspect_type === "delete") {
       await strava.remove(stravaId);
+      await revalidatePagesWithStravaData(res);
 
       return res.status(204).end();
     }
