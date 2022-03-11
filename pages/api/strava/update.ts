@@ -61,7 +61,7 @@ export default async function Update(req: StravaNextApiRequest, res: NextApiResp
     }
 
     if (body.aspect_type === "delete") {
-      await strava.remove(stravaId);
+      await strava.removeByStravaId(stravaId);
       await revalidatePagesWithStravaData(res);
 
       return res.status(204).end();

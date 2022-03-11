@@ -15,7 +15,7 @@ export default async function Activity(req: NextApiRequest, res: NextApiResponse
   }
 
   if (req.method === "DELETE") {
-    await strava.remove(id);
+    await strava.removeById(id);
     return res.status(204).json({});
   }
 

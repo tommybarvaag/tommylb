@@ -474,7 +474,13 @@ const getStats = async (): Promise<StravaStats> => {
   return createStats(await getAll());
 };
 
-const remove = async (id: string): Promise<void> => {
+const removeById = async (id: number): Promise<void> => {
+  await prisma.stravaActivity.delete({
+    where: { id }
+  });
+};
+
+const removeByStravaId = async (id: string): Promise<void> => {
   await prisma.stravaActivity.delete({
     where: { stravaId: id }
   });
@@ -550,7 +556,8 @@ const strava = {
   getAndCreate,
   get,
   getStats,
-  remove,
+  removeByStravaId,
+  removeById,
   removeAll,
   importActivities
 };
