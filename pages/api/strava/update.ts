@@ -14,8 +14,8 @@ interface StravaNextApiRequest extends NextApiRequest {
 
 const revalidatePagesWithStravaData = async (res: NextApiResponse) => {
   try {
-    await res.unstable_revalidate("/");
-    await res.unstable_revalidate("/strava");
+    await res.revalidate("/");
+    await res.revalidate("/strava");
   } catch (err) {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
