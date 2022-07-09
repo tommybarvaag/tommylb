@@ -64,7 +64,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
           type="text"
           label="Name"
           placeholder="Your name"
-          error={errors.name}
+          error={!!errors.name}
           {...register("name", {
             required: true
           })}
@@ -75,9 +75,11 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
           type="email"
           label="Email"
           placeholder="your@domain.com"
-          error={errors.email}
+          error={!!errors.email}
           helperText={
-            errors.email && errors.email.type === "email" ? errors.email.message : "Required"
+            !!errors.email && errors.email.type?.toString() === "email"
+              ? errors.email?.message?.toString()
+              : "Required"
           }
           {...register("email", {
             required: true,
@@ -91,7 +93,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
           name="message"
           label="Message"
           placeholder="My wishes..."
-          error={errors.message}
+          error={!!errors.message}
           {...register("message", {
             required: true
           })}
