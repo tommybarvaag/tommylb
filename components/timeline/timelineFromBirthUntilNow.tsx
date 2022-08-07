@@ -162,7 +162,7 @@ export default function TimelineFromBirthUntilNow({
             <TimelinePost>
               <TimelineHeading>Took high school IT class</TimelineHeading>
               <TimelineText>
-                We learned Access Databases, Photoshop and Flask with some minor coding.
+                We learned Access Databases, Photoshop and Flash with some minor coding.
               </TimelineText>
             </TimelinePost>
           </TimelineSection>
