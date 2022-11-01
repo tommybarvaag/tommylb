@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+
 import { StravaGearSimple } from "types";
 import useStravaStats from "./hooks/useStravaStats";
 import StravaHeadingAndValues from "./stravaHeadingAndValues";

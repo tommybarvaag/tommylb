@@ -1,5 +1,4 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import * as React from "react";
 import { getFormattedLongDate } from "../../utils/dateUtils";
 import Heading from "../heading";
 import { Fire } from "../icons";
@@ -57,7 +56,7 @@ export default function StravaActivity({
 
   return (
     <a
-      className="block w-full p-6 mb-12 border border-black dark:border-white rounded-xl divide-y divide-black dark:divide-white"
+      className="mb-12 block w-full divide-y divide-white"
       href={linkToStravaPage ? "/strava" : "#"}
       {...other}
     >
@@ -72,7 +71,7 @@ export default function StravaActivity({
       </div>
       {activity.personalBests.map((personalBest, index) => (
         <div
-          className="flex items-center mt-4 pt-4"
+          className="mt-4 flex items-center pt-4"
           key={`strava-personal-best-${activity.id}-${index}`}
         >
           <Fire width={16} height={16} className="mr-3" />
@@ -81,7 +80,7 @@ export default function StravaActivity({
           </Heading>
         </div>
       ))}
-      <div className="flex flex-wrap mt-4 pt-4">{renderStravaStats()}</div>
+      <div className="mt-4 flex flex-wrap pt-4">{renderStravaStats()}</div>
     </a>
   );
 }

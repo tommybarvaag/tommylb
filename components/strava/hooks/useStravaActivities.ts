@@ -1,5 +1,5 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import * as React from "react";
+import { useMemo } from "react";
 import useSwr, { SWRConfiguration } from "swr";
 import fetcher from "../../../lib/fetcher";
 import { isString } from "../../../utils/commonUtils";
@@ -16,12 +16,12 @@ export default function useStravaActivities(config: SWRConfiguration = defaultCo
     }
   );
 
-  const lastActivity = React.useMemo(
+  const lastActivity = useMemo(
     () => activities?.find(activity => isString(activity.type)),
     [activities]
   );
 
-  const lastRunActivity = React.useMemo(
+  const lastRunActivity = useMemo(
     () => activities?.find(activity => activity.type === "Run"),
     [activities]
   );

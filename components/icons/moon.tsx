@@ -1,4 +1,3 @@
-import * as React from "react";
 import { IconType } from ".";
 
 export default function Moon({ width = 24, height = 24, ...other }: IconType) {
@@ -10,7 +9,7 @@ export default function Moon({ width = 24, height = 24, ...other }: IconType) {
       stroke="currentColor"
       width={width}
       height={height}
-      className="h-4 w-4 text-gray-800 dark:text-gray-200"
+      className="h-4 w-4 text-gray-200"
       {...other}
     >
       <path

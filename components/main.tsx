@@ -2,12 +2,12 @@ import * as React from "react";
 
 type MainProps = {
   children: React.ReactNode;
-}
+};
 
 export default function Main({ children, ...other }: MainProps) {
   return (
     <main
-      className="flex flex-col flex-grow justify-start bg-white dark:bg-black px-8 items-start max-w-2xl mx-auto mb-16"
+      className="mx-auto mb-16 flex w-full max-w-2xl flex-grow flex-col items-start justify-start bg-black px-8"
       {...other}
     >
       {children}

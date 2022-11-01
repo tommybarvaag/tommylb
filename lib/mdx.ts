@@ -1,62 +1,142 @@
-import { getFormattedPostDate, parseDate } from "@/utils/dateUtils";
-import { readdirSync, readFileSync } from "fs";
-import matter from "gray-matter";
-import { bundleMDX } from "mdx-bundler";
-import { join } from "path";
-import readingTime from "reading-time";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeSlug from "rehype-slug";
-import type { FileSystemPost, FrontMatterData } from "types";
+import glob from "fast-glob"
+import { promises as fs } from "fs"
+import hasha from "hasha"
+import {
+  MDXRemoteSerializeResult, SerializeOptions
+} from "next-mdx-remote/dist/types"
+import { serialize } from "next-mdx-remote/serialize"
+import NodeCache from "node-cache"
+import path from "path"
+import * as z from "zod"
 
-export async function getFiles(type) {
-  return readdirSync(join(process.cwd(), "data", type));
+const mdxCache = new NodeCache()
+
+export interface Source<T> {
+  contentPath: string
+  basePath: string
+  sortBy?: string
+  sortOrder?: "asc" | "desc"
+  frontMatter: T
 }
 
-export async function getFileBySlug(type, slug) {
-  const source = slug
-    ? readFileSync(join(process.cwd(), "data", type, `${slug}.mdx`), "utf8")
-    : readFileSync(join(process.cwd(), "data", `${type}.mdx`), "utf8");
+interface MdxFile {
+  filepath: string
+  slug: string
+  url: string
+}
 
-  const { code, frontmatter } = await bundleMDX({
-    source,
-    mdxOptions(options) {
-      options.rehypePlugins = [
-        ...(options?.rehypePlugins ?? []),
-        rehypeSlug,
-        rehypeAutolinkHeadings
-      ];
-      return options;
+export interface MdxFileData<TFrontmatter> {
+  raw: string
+  hash: string
+  frontMatter: TFrontmatter
+  mdx: MDXRemoteSerializeResult
+}
+
+export function createSource<T extends z.ZodType>(source: Source<T>) {
+  const { contentPath, basePath, sortBy, sortOrder } = source
+
+  async function getMdxFiles() {
+    const files = await glob(`${contentPath}/**/*.{md,mdx}`)
+
+    if (!files.length) return []
+
+    return files.map((filepath) => {
+      let slug = filepath
+        .replace(contentPath, "")
+        .replace(/^\/+/, "")
+        .replace(new RegExp(path.extname(filepath) + "$"), "")
+
+      slug = slug.replace(/\/?index$/, "")
+
+      return {
+        filepath,
+        slug,
+        url: `${basePath?.replace(/\/$/, "")}/${slug}`,
+      }
+    })
+  }
+
+  async function getFileData(
+    file: MdxFile,
+    mdxOptions?: SerializeOptions
+  ): Promise<MdxFileData<z.infer<T>>> {
+    const raw = await fs.readFile(file.filepath, "utf-8")
+    const hash = hasha(raw.toString())
+
+    const cachedContent = mdxCache.get<MdxFileData<z.infer<T>>>(hash)
+    if (cachedContent?.hash === hash) {
+      return cachedContent
     }
-  });
+
+    const mdx = await serialize(raw, {
+      parseFrontmatter: true,
+      ...mdxOptions,
+    })
+    const frontMatter = mdx.frontmatter
+      ? (source.frontMatter.parse(mdx.frontmatter) as z.infer<T>)
+      : null
+
+    const fileData = {
+      raw,
+      frontMatter,
+      hash,
+      mdx,
+    }
+
+    mdxCache.set(hash, fileData)
+
+    return fileData
+  }
+
+  async function getMdxNode(
+    slug: string | string[],
+    mdxOptions?: SerializeOptions
+  ) {
+    const _slug = Array.isArray(slug) ? slug.join("/") : slug
+
+    const files = await getMdxFiles()
+
+    if (!files?.length) return null
+
+    const [file] = files.filter((file) => file.slug === _slug)
+
+    if (!file) return null
+
+    const data = await getFileData(file, mdxOptions)
+
+    return {
+      ...file,
+      ...data,
+    }
+  }
+
+  async function getAllMdxNodes() {
+    const files = await getMdxFiles()
+
+    if (!files.length) return []
+
+    const nodes = await Promise.all(
+      files.map(async (file) => {
+        return await getMdxNode(file.slug)
+      })
+    )
+
+    const adjust = sortOrder === "desc" ? -1 : 1
+    return nodes.sort((a, b) => {
+      if (a.frontMatter[sortBy] < b.frontMatter[sortBy]) {
+        return -1 * adjust
+      }
+      if (a.frontMatter[sortBy] > b.frontMatter[sortBy]) {
+        return 1 * adjust
+      }
+      return 0
+    })
+  }
 
   return {
-    code,
-    frontMatter: {
-      wordCount: source.split(/\s+/gu).length,
-      readingTime: readingTime(source),
-      slug: slug || null,
-      ...frontmatter
-    }
-  };
-}
-
-export async function getAllFilesFrontMatter(type: string): Promise<FileSystemPost[]> {
-  const files: string[] = readdirSync(join(process.cwd(), "data", type));
-
-  return files.reduce<FileSystemPost[]>((allPosts: FileSystemPost[], postSlug: string) => {
-    const source = readFileSync(join(process.cwd(), "data", type, postSlug), "utf8");
-    const frontMatter = matter(source);
-    const data: FrontMatterData = frontMatter.data as FrontMatterData;
-
-    const publishedAtDate = parseDate(data.publishedAt, "yyyy-mm-dd");
-
-    return [
-      {
-        ...data,
-        slug: postSlug.replace(".mdx", ""),
-        publishedAtDateFormatted: getFormattedPostDate(publishedAtDate)
-      },
-      ...allPosts
-    ];
-  }, []);
+    getMdxFiles,
+    getFileData,
+    getMdxNode,
+    getAllMdxNodes,
+  }
 }

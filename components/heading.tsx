@@ -65,15 +65,15 @@ export default function Heading({
   return (
     <Component
       className={clsx(
-        "font-bold tracking-tight text-gray-900 dark:text-gray-100",
+        "font-bold tracking-tight text-gray-100",
         { "mb-8": !noMargin },
-        { "text-4xl md:text-6xl": headerVariant === "pageHeading" },
-        { "text-3xl md:text-5xl": headerVariant === "h1" },
-        { "text-2xl md:text-4xl": headerVariant === "h2" },
-        { "text-xl md:text-3xl": headerVariant === "h3" },
-        { "text-lg md:text-2xl": headerVariant === "h4" },
-        { "text-base md:text-xl": headerVariant === "h5" },
-        { "text-sm md:text-lg": headerVariant === "h6" },
+        { "text-base": headerVariant === "pageHeading" },
+        { "text-base": headerVariant === "h1" },
+        { "text-base": headerVariant === "h2" },
+        { "text-base": headerVariant === "h3" },
+        { "text-base": headerVariant === "h4" },
+        { "text-base": headerVariant === "h5" },
+        { "text-base": headerVariant === "h6" },
         className
       )}
       {...other}

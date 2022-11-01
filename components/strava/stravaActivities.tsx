@@ -1,5 +1,7 @@
+"use client";
+
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import * as React from "react";
+import { useState } from "react";
 import Button from "../button";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
@@ -13,7 +15,7 @@ export default function StravaActivities({
   initialActivities = [],
   ...other
 }: StravaActivitiesProps) {
-  const [activitiesToShow, setActivitiesToShow] = React.useState<number>(10);
+  const [activitiesToShow, setActivitiesToShow] = useState<number>(10);
   const { activities } = useStravaActivities({
     fallbackData: initialActivities
   });

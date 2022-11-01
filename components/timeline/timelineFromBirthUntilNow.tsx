@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useState } from "react";
 import Button from "../button";
 import Timeline from "./timeline";
 import TimelineHeading from "./timelineHeading";
@@ -16,11 +18,19 @@ export default function TimelineFromBirthUntilNow({
   showAll = false,
   heading
 }: TimelineFromBirthUntilNowProps) {
-  const [showingAll, setShowingAll] = React.useState<boolean>(showAll);
+  const [showingAll, setShowingAll] = useState<boolean>(showAll);
 
   return (
     <Timeline heading={heading}>
       <TimelineSection>
+        <TimelineSectionHeading>2022</TimelineSectionHeading>
+        <TimelinePost>
+          <TimelineHeading>Became a dad of two 👨‍👩‍👧‍👦</TimelineHeading>
+          <TimelineText>
+            My partner and I welcomed our second child, a boy, into the world. Our soon to be
+            3-year-old also earned a new title: big sister!
+          </TimelineText>
+        </TimelinePost>
         <TimelineSectionHeading>2021</TimelineSectionHeading>
         <TimelinePost>
           <TimelineHeading>Became a team lead</TimelineHeading>
@@ -36,7 +46,7 @@ export default function TimelineFromBirthUntilNow({
           <TimelineHeading>Covid-19 stole all other headline for a while</TimelineHeading>
           <TimelineText>
             Covid-19 is terrible, but for me and my partner that recently became parents it was also
-            like a blessing. Work shut down and home office was suddenly the new standard. I felt
+            a stroke of luck. Work shut down and home office was suddenly the new standard. I felt
             sincerely lucky to get to spend all my breaks, lunches and stretches with my partner and
             little baby girl.
           </TimelineText>

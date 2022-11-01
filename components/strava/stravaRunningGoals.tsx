@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+
 import { StravaGoal } from "types";
 import StravaGoalsSkeleton from "../skeleton/stravaGoalsSkeleton";
 import useStravaStats from "./hooks/useStravaStats";

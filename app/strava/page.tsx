@@ -3,14 +3,20 @@ import Link from "@/components/link";
 import { StravaActivities } from "@/components/strava";
 import StravaStats from "@/components/strava/stravaStats";
 import Text from "@/components/text";
-import Layout from "@/layouts/layout";
 import strava from "@/lib/strava";
-import { GetStaticProps } from "next";
-import * as React from "react";
 
-export default function Strava({ initialStats, initialActivities }) {
+async function getStravaData() {
+  const stats = await strava.getStats();
+  const activities = await strava.get();
+
+  return { stats, activities };
+}
+
+export default async function Strava() {
+  const { stats, activities } = await getStravaData();
+
   return (
-    <Layout>
+    <>
       <Heading as="pageHeading">Strava activity</Heading>
       <Text>
         I like to keep moving. After years and years of football in my youth I've taken a liking of
@@ -23,18 +29,8 @@ export default function Strava({ initialStats, initialActivities }) {
         .
       </Text>
       <Text>Scroll down to view my goals, personal bests and struggles along the way.</Text>
-      <StravaStats initialStats={initialStats} />
-      <StravaActivities initialActivities={initialActivities} />
-    </Layout>
+      <StravaStats initialStats={stats} />
+      <StravaActivities initialActivities={activities} />
+    </>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const stats = await strava.getStats();
-  const activities = await strava.get();
-
-  return {
-    props: { initialStats: stats, initialActivities: activities?.slice(0, 10) ?? [] },
-    revalidate: 1
-  };
-};

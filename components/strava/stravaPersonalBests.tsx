@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useMemo } from "react";
 import { StravaPersonalBestSimple } from "types";
 import useStravaStats from "./hooks/useStravaStats";
 import StravaHeadingAndValues from "./stravaHeadingAndValues";
@@ -15,7 +17,7 @@ export default function StravaPersonalBests({
 }: StravaPersonalBestsProps) {
   const { stats } = useStravaStats();
 
-  const nameAndValues = React.useMemo(
+  const nameAndValues = useMemo(
     () =>
       (personalBests.length > 0 ? personalBests : stats?.personalBests).map<{
         name: string;

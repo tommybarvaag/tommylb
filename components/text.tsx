@@ -25,7 +25,7 @@ const Text = <T extends React.ElementType = typeof TextDefaultElement>({
   const Component: React.ElementType = as || TextDefaultElement;
   return (
     <Component
-      className={clsx("leading-5 text-gray-700 dark:text-gray-300", className, {
+      className={clsx("text-gray-300", className, {
         "mb-4": !noMargin
       })}
       {...other}

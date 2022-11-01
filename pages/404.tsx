@@ -1,12 +1,19 @@
 import Heading from "@/components/heading";
 import LinkButton from "@/components/linkButton";
+import Main from "@/components/main";
+import Nav from "@/components/nav";
 import Text from "@/components/text";
-import Layout from "@/layouts/layout";
+import Head from "next/head";
+import "styles/global.css";
 
 export default function NotFound() {
   return (
-    <Layout>
-      <div>
+    <>
+      <Head>
+        <title>404 - Tommy Lunde Barvåg</title>
+      </Head>
+      <Nav />
+      <Main>
         <Heading as="pageHeading">404 – Not Found</Heading>
         <Heading as="h4" className="mb-2">
           It looks like you're lost...
@@ -15,7 +22,7 @@ export default function NotFound() {
         <div>
           <LinkButton href="/">Return home</LinkButton>
         </div>
-      </div>
-    </Layout>
+      </Main>
+    </>
   );
 }

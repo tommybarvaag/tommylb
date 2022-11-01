@@ -1,4 +1,3 @@
-import * as React from "react";
 import Text from "../text";
 
 type StravaUnitOfMeasurementProps = {
@@ -12,9 +11,9 @@ export default function StravaUnitOfMeasurement({
   ...other
 }: StravaUnitOfMeasurementProps) {
   return (
-    <div className="flex flex-col justify-center align-center mr-6" {...other}>
+    <div className="align-center mr-6 flex flex-col justify-center" {...other}>
       <Text className="text-sm">{title}</Text>
-      <Text className="text-lg font-bold">{value}</Text>
+      <Text className="text-base font-bold">{value}</Text>
     </div>
   );
 }

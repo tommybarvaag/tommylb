@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+
 import { StravaStats as StravaStatsType } from "types";
 import Heading from "../heading";
 import useStravaStats from "./hooks/useStravaStats";

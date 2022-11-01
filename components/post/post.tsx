@@ -11,12 +11,8 @@ type PostProps = {
 
 export default function Post({ title, summary, href, publishedAt, ...other }: PostProps) {
   return (
-    <Link
-      href={href}
-      className="block w-full !p-6 mb-12 border border-black dark:border-white rounded-xl divide-y divide-black dark:divide-white"
-      {...other}
-    >
-      <div className="flex justify-between items-center mb-4">
+    <Link href={href} className="mb-12 block w-full divide-y divide-white" {...other}>
+      <div className="mb-4 flex items-center justify-between">
         <Heading as="div" variant="h4" noMargin>
           {title}
         </Heading>

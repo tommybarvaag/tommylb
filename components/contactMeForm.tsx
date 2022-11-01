@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm, useFormState } from "react-hook-form";
 import { validateEmail } from "../utils/formValidationUtils";
@@ -19,8 +21,8 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
   const { errors } = useFormState({ control });
 
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const [isSubmitSuccessful, setIsSubmitSuccessful] = React.useState(false);
-  const [googleReCaptchaVerifyFailure, setGoogleReCaptchaVerifyFailure] = React.useState(false);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+  const [googleReCaptchaVerifyFailure, setGoogleReCaptchaVerifyFailure] = useState(false);
 
   async function onSubmit(values) {
     const result = await executeRecaptcha(location);
