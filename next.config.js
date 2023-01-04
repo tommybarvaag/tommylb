@@ -3,12 +3,6 @@ const { withContentlayer } = require("next-contentlayer");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-    newNextLinkBehavior: true,
-    serverComponentsExternalPackages: ["@prisma/client"],
-    fontLoaders: [{ loader: "@next/font/google", options: { subsets: ["latin"] } }]
-  },
   images: {
     domains: ["images.unsplash.com", "avatars.githubusercontent.com"]
   },
@@ -25,6 +19,12 @@ const nextConfig = {
         permanent: true
       }
     ];
+  },
+  experimental: {
+    appDir: true,
+    newNextLinkBehavior: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
+    fontLoaders: [{ loader: "@next/font/google", options: { subsets: ["latin"] } }]
   }
 };
 

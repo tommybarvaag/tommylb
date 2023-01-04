@@ -1,7 +1,7 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { getFormattedLongDate } from "../../utils/dateUtils";
 import Heading from "../heading";
-import { Fire } from "../icons";
+import { Icons } from "../icons";
 import Text from "../text";
 import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
 
@@ -74,7 +74,7 @@ export default function StravaActivity({
           className="mt-4 flex items-center pt-4"
           key={`strava-personal-best-${activity.id}-${index}`}
         >
-          <Fire width={16} height={16} className="mr-3" />
+          <Icons.Fire className="mr-3" />
           <Heading as="div" variant="h6" noMargin>
             {`Personal best ${personalBest.name} (${personalBest.formattedMovingTime})`}
           </Heading>

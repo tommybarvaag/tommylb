@@ -37,12 +37,12 @@ export default async function PostPage({ params }: PostPageProps) {
   }, []);
 
   return (
-    <article className="container relative max-w-3xl py-6 lg:py-10">
+    <article className="container relative max-w-3xl py-6 lg:py-12">
       <Link
         href="/post"
         className="absolute top-14 -left-[200px] hidden items-center justify-center text-sm font-medium text-slate-300 hover:text-slate-100 xl:inline-flex"
       >
-        <Icons.chevronLeft className="mr-2 h-4 w-4" />
+        <Icons.ChevronLeft className="mr-2 h-4 w-4" />
         See all posts
       </Link>
       <div>
@@ -94,7 +94,7 @@ export default async function PostPage({ params }: PostPageProps) {
           href="/post"
           className="inline-flex items-center justify-center text-sm font-medium text-slate-300 hover:text-slate-100"
         >
-          <Icons.chevronLeft className="mr-2 h-4 w-4" />
+          <Icons.ChevronLeft className="mr-2 h-4 w-4" />
           See all posts
         </Link>
       </div>
