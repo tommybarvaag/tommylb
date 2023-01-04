@@ -1,9 +1,9 @@
 import Main from "@/components/main";
-import Nav from "@/components/nav";
 import { getDefaultSeoDescription, getDefaultSeoTitle } from "@/utils/seoUtils";
 import Script from "next/script";
 import "styles/global.css";
 
+import Footer from "@/components/footer";
 import { Inter } from "@next/font/google";
 
 const interFont = Inter();
@@ -45,8 +45,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="twitter:image" content={image} />
       </head>
       <body className="bg-black text-gray-100">
-        <Nav />
-        <Main>{children}</Main>
+        <Main className="pt-14 sm:pt-32">{children}</Main>
+        <Footer />
       </body>
       <Script id="json-ld-data" type="application/ld+json">
         {JSON.stringify({
