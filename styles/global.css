@@ -36,6 +36,13 @@ html {
   scroll-behavior: smooth;
 }
 
+body,
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 #__next {
   display: flex;
   flex-direction: column;
@@ -59,4 +66,40 @@ html {
 
 .grecaptcha-badge {
   visibility: hidden;
+}
+
+@-webkit-keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes enter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-animate] {
+  --stagger: 0;
+  --delay: 120ms;
+  --start: 0ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-animate] {
+    -webkit-animation: enter 1s both;
+    animation: enter 1s both;
+    -webkit-animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
+    animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
+  }
 }

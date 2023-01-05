@@ -1,6 +1,6 @@
 import { getActiveWorkYears } from "./dateUtils";
 
-const defaultSeoTitle: string = "Senior full stack developer";
+const defaultSeoTitle: string = "Senior consultant";
 
 export const getDefaultSeoTitle = (title: string = defaultSeoTitle): string =>
   title === "Tommy Lunde Barvåg" ? title : `${title} | Tommy Lunde Barvåg`;
@@ -8,4 +8,4 @@ export const getDefaultSeoTitle = (title: string = defaultSeoTitle): string =>
 export const getDefaultSeoDescription = (withIntro: boolean = false): string =>
   `${
     withIntro ? "Hi, I'm Tommy Lunde Barvåg. " : ""
-  }I’m a senior full stack developer. I’ve spent the last ${getActiveWorkYears()} creating web solutions for great companies.`;
+  }I've spent the last ${getActiveWorkYears()} creating web solutions for great companies. Experimenting with new technologies and learning new things is what I love the most. I'm currently working as a senior consultant at @knowit.`;

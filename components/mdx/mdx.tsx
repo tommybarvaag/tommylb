@@ -5,6 +5,8 @@ import * as React from "react";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
 import { cn } from "@/lib/utils";
+import Link from "../link";
+import Text from "../text";
 
 const components = {
   h1: ({ className, ...props }) => (
@@ -46,14 +48,14 @@ const components = {
       {...props}
     />
   ),
-  a: ({ className, ...props }) => (
-    <a
+  a: ({ className, ...props }: { children: React.ReactNode; className?: string; href: string }) => (
+    <Link
       className={cn("font-medium text-slate-100 underline underline-offset-4", className)}
       {...props}
     />
   ),
   p: ({ className, ...props }) => (
-    <p className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
+    <Text className={cn("leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
@@ -125,15 +127,16 @@ const components = {
   Card
 };
 
-interface MdxProps {
+type MdxProps = React.ComponentPropsWithoutRef<"div"> & {
   code: string;
-}
+  className?: string;
+};
 
-export function Mdx({ code }: MdxProps) {
+export function Mdx({ code, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className="mdx">
+    <div className={cn("mdx", className)} {...other}>
       <Component components={components} />
     </div>
   );

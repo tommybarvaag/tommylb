@@ -13,7 +13,7 @@ export default function NotFound() {
       </Head>
       <Main>
         <Heading as="pageHeading">404 – Not Found</Heading>
-        <Heading as="h4" className="mb-2">
+        <Heading as="h3" className="mb-2">
           It looks like you're lost...
         </Heading>
         <Text>The page you're looking for no longer exists.</Text>

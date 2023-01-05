@@ -44,7 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={image} />
       </head>
-      <body className="bg-black text-gray-100">
+      <body className="bg-zinc-900 text-gray-100">
         <Main className="pt-14 sm:pt-32">{children}</Main>
         <Footer />
       </body>

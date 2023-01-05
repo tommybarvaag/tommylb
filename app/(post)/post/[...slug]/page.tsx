@@ -1,12 +1,13 @@
-import { allAuthors, allPosts } from "@/contentlayer/generated";
-import { notFound } from "next/navigation";
-
+import Heading from "@/components/heading";
 import { Icons } from "@/components/icons";
+import Link from "@/components/link";
 import { Mdx } from "@/components/mdx/mdx";
+import Text from "@/components/text";
+import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { formatDate } from "@/lib/utils";
 import "@/styles/mdx.css";
 import Image from "next/image";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 
 interface PostPageProps {
   params: {
@@ -37,25 +38,49 @@ export default async function PostPage({ params }: PostPageProps) {
   }, []);
 
   return (
-    <article className="container relative max-w-3xl py-6 lg:py-12">
+    <article className="container relative max-w-3xl">
       <Link
         href="/post"
-        className="absolute top-14 -left-[200px] hidden items-center justify-center text-sm font-medium text-slate-300 hover:text-slate-100 xl:inline-flex"
+        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
+        underline={false}
+        data-animate
+        style={{
+          "--stagger": "10"
+        }}
       >
-        <Icons.ChevronLeft className="mr-2 h-4 w-4" />
+        <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         See all posts
       </Link>
       <div>
         {post.date && (
-          <time dateTime={post.date} className="block text-sm text-slate-300">
+          <time
+            dateTime={post.date}
+            className="block text-sm text-slate-300"
+            data-animate
+            style={{
+              "--stagger": "1"
+            }}
+          >
             Published on {formatDate(post.date)}
           </time>
         )}
-        <h1 className="mt-2 inline-block text-4xl font-extrabold leading-tight text-slate-100 lg:text-5xl">
+        <Heading
+          variant="pageHeading"
+          data-animate
+          style={{
+            "--stagger": "2"
+          }}
+        >
           {post.title}
-        </h1>
+        </Heading>
         {authors?.length ? (
-          <div className="mt-4 flex space-x-4">
+          <div
+            className="mt-4 flex space-x-4"
+            data-animate
+            style={{
+              "--stagger": "3"
+            }}
+          >
             {authors.map(author => (
               <Link
                 key={author._id}
@@ -70,8 +95,8 @@ export default async function PostPage({ params }: PostPageProps) {
                   className="rounded-full"
                 />
                 <div className="flex-1 text-left leading-tight">
-                  <p className="font-medium text-slate-100">{author.title}</p>
-                  <p className="text-[12px] text-slate-300">@{author.twitter}</p>
+                  <Text className="font-medium text-slate-100">{author.title}</Text>
+                  <Text className="text-[12px] text-slate-300">@{author.twitter}</Text>
                 </div>
               </Link>
             ))}
@@ -85,11 +110,33 @@ export default async function PostPage({ params }: PostPageProps) {
           width={840}
           height={450}
           className="my-8 rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900"
+          data-animate
+          style={{
+            "--stagger": "4"
+          }}
         />
       )}
-      <Mdx code={post.body.code} />
-      <hr className="my-4 border-slate-200" />
-      <div className="flex justify-center py-6 lg:py-10">
+      <Mdx
+        code={post.body.code}
+        data-animate
+        style={{
+          "--stagger": "5"
+        }}
+      />
+      <hr
+        className="my-4 border-slate-200"
+        data-animate
+        style={{
+          "--stagger": "6"
+        }}
+      />
+      <div
+        className="flex justify-center py-6 lg:py-10"
+        data-animate
+        style={{
+          "--stagger": "7"
+        }}
+      >
         <Link
           href="/post"
           className="inline-flex items-center justify-center text-sm font-medium text-slate-300 hover:text-slate-100"

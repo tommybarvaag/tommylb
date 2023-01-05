@@ -13,7 +13,7 @@ export default function Post({ title, summary, href, publishedAt, ...other }: Po
   return (
     <Link href={href} className="mb-12 block w-full divide-y divide-white" {...other}>
       <div className="mb-4 flex items-center justify-between">
-        <Heading as="div" variant="h4" noMargin>
+        <Heading as="div" variant="h3" noMargin>
           {title}
         </Heading>
         <Text noMargin>{publishedAt}</Text>

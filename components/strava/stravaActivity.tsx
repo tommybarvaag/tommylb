@@ -61,7 +61,7 @@ export default function StravaActivity({
       {...other}
     >
       <div className="flex items-center">
-        <Heading as="div" variant="h4" noMargin>
+        <Heading as="div" variant="h3" noMargin>
           {activity.type}
         </Heading>
         <Text className="mx-3" noMargin>
@@ -75,7 +75,7 @@ export default function StravaActivity({
           key={`strava-personal-best-${activity.id}-${index}`}
         >
           <Icons.Fire className="mr-3" />
-          <Heading as="div" variant="h6" noMargin>
+          <Heading as="div" variant="h3" noMargin>
             {`Personal best ${personalBest.name} (${personalBest.formattedMovingTime})`}
           </Heading>
         </div>

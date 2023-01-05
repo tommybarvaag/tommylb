@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as React from "react";
 import Text from "./text";
@@ -19,7 +19,7 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
 ) {
   return (
     <div
-      className={clsx("mb-6 flex flex-col", {
+      className={cn("mb-6 flex flex-col", {
         hidden: type === "hidden"
       })}
     >

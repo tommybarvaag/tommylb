@@ -3,7 +3,8 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "editor.wordWrapColumn": 100,
+  "editor.wordWrapColumn": 120,
   "typescript.tsdk": "node_modules/.pnpm/typescript@4.9.4/node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.suggest.autoImports": true
 }

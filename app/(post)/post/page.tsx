@@ -1,8 +1,10 @@
+import Heading from "@/components/heading";
+import { Icons } from "@/components/icons";
+import Link from "@/components/link";
+import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
-import { compareDesc } from "date-fns";
-import Link from "next/link";
-
 import { formatDate } from "@/lib/utils";
+import { compareDesc } from "date-fns";
 import Image from "next/image";
 
 export default async function BlogPage() {
@@ -13,20 +15,55 @@ export default async function BlogPage() {
     });
 
   return (
-    <div className="container max-w-4xl py-6 lg:py-10">
+    <div className="relative container max-w-4xl">
+      <Link
+        href="/"
+        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
+        underline={false}
+        data-animate
+        style={{
+          "--stagger": "10"
+        }}
+      >
+        <Icons.BackToHome className="mr-2 h-4 w-4" />
+        Home
+      </Link>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
-          <h1 className="inline-block text-4xl font-extrabold tracking-tight text-slate-100 lg:text-5xl">
+          <Heading
+            variant="pageHeading"
+            data-animate
+            style={{
+              "--stagger": "1"
+            }}
+          >
             Blog
-          </h1>
-          <p className="text-xl text-slate-300">
+          </Heading>
+          <Text
+            data-animate
+            style={{
+              "--stagger": "2"
+            }}
+          >
             A blog built using Contentlayer. Posts are written in MDX.
-          </p>
+          </Text>
         </div>
       </div>
-      <hr className="my-8 border-slate-200" />
+      <hr
+        className="my-8 border-slate-200"
+        data-animate
+        style={{
+          "--stagger": "3"
+        }}
+      />
       {posts?.length ? (
-        <div className="grid gap-10 sm:grid-cols-2">
+        <div
+          className="grid gap-10 sm:grid-cols-2"
+          data-animate
+          style={{
+            "--stagger": "4"
+          }}
+        >
           {posts.map(post => (
             <article key={post._id} className="group relative flex flex-col space-y-2">
               {post.image && (
@@ -39,8 +76,8 @@ export default async function BlogPage() {
                 />
               )}
               <h2 className="text-2xl font-extrabold">{post.title}</h2>
-              {post.description && <p className="text-slate-300">{post.description}</p>}
-              {post.date && <p className="text-sm text-slate-300">{formatDate(post.date)}</p>}
+              {post.description && <Text className="text-slate-300">{post.description}</Text>}
+              {post.date && <Text className="text-sm text-slate-300">{formatDate(post.date)}</Text>}
               <Link href={post.slug} className="absolute inset-0">
                 <span className="sr-only">View Article</span>
               </Link>
@@ -48,7 +85,7 @@ export default async function BlogPage() {
           ))}
         </div>
       ) : (
-        <p>No posts published.</p>
+        <Text>No posts published.</Text>
       )}
     </div>
   );

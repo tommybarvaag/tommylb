@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import * as React from "react";
 
 type ButtonProps = {
@@ -22,7 +22,7 @@ export default function Button({
   return (
     <button
       type={type}
-      className={clsx(
+      className={cn(
         "mb-6 inline-flex items-center justify-center rounded-md bg-white p-3 px-8 text-gray-900 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset",
         className
       )}

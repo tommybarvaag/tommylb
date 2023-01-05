@@ -1,13 +1,13 @@
 "use client";
 
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import { useState } from "react";
+import { ComponentPropsWithoutRef, useState } from "react";
 import Button from "../button";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";
 
-type StravaActivitiesProps = {
+type StravaActivitiesProps = ComponentPropsWithoutRef<"div"> & {
   initialActivities: StravaActivityWithGearAndPersonalBests[];
 };
 
@@ -31,7 +31,7 @@ export default function StravaActivities({
   };
 
   return (
-    <div className="w-full my-6">
+    <div className="w-full my-6" {...other}>
       <Heading as="h2">All Strava activities</Heading>
       {(activities ?? []).slice(0, activitiesToShow).map(activity => (
         <StravaActivity key={activity.id} activity={activity} />

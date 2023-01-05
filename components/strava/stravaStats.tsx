@@ -1,5 +1,6 @@
 "use client";
 
+import { ComponentPropsWithoutRef } from "react";
 import { StravaStats as StravaStatsType } from "types";
 import Heading from "../heading";
 import useStravaStats from "./hooks/useStravaStats";
@@ -46,7 +47,7 @@ function StravaActivityCountAndDistanceOverview({
   );
 }
 
-type StravaStatsProps = {
+type StravaStatsProps = ComponentPropsWithoutRef<"div"> & {
   initialStats: StravaStatsType;
 };
 
