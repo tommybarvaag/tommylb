@@ -103,3 +103,7 @@ html {
     animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
   }
 }
+
+.auto-link-heading {
+  @apply before:content-['#'] before:absolute before:-ml-[1em] before:text-zinc-100/0 group-hover:before:text-zinc-100/50 pl-[1em] -ml-[1em];
+}

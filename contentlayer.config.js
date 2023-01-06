@@ -107,7 +107,7 @@ export default makeSource({
         rehypeAutolinkHeadings,
         {
           properties: {
-            className: ["subheading-anchor"]
+            className: ["auto-link-heading "]
           }
         }
       ]
