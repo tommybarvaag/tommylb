@@ -1,5 +1,5 @@
 import { allDocuments } from "@/contentlayer/generated";
-import { absoluteUrl } from "@/lib/utils";
+import { getAbsoluteUrl } from "@/lib/utils";
 import { ogImageSchema } from "@/lib/validations/og";
 import * as z from "zod";
 
@@ -20,7 +20,7 @@ export default function MdxHead({ params, og }: MdxHeadProps) {
 
   const title = `${mdxDoc.title} - tommylb.com`;
 
-  const url = process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+  const url = getAbsoluteUrl();
   let ogUrl = new URL(`${url}/images/seo-banner.png`);
 
   const ogTitle = og?.heading || mdxDoc.title;
@@ -36,7 +36,7 @@ export default function MdxHead({ params, og }: MdxHeadProps) {
   return (
     <>
       <title>{title}</title>
-      <link rel="canonical" href={absoluteUrl(mdxDoc.slug)} />
+      <link rel="canonical" href={getAbsoluteUrl(mdxDoc.slug)} />
       <meta name="description" content={ogDescription} />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width" />

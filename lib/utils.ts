@@ -22,6 +22,13 @@ export function formatMonthDay(input: string): string {
   });
 }
 
-export function absoluteUrl(path: string) {
-  return `${process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL}${path}`;
+export function getAbsoluteUrl(path?: string) {
+  const base =
+    process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+
+  if (path) {
+    return `${base}${path}`;
+  }
+
+  return base;
 }

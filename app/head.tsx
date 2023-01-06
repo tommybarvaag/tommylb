@@ -1,7 +1,8 @@
+import { getAbsoluteUrl } from "@/lib/utils";
 import { getDefaultSeoDescription, getDefaultSeoTitle } from "@/utils/seoUtils";
 
 export default function Head({ params }) {
-  const url = process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+  const url = getAbsoluteUrl();
   const title = getDefaultSeoTitle();
   const description = getDefaultSeoDescription(true);
   const name = "Tommy Lunde Barvåg";
