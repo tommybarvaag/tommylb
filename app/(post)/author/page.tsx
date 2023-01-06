@@ -70,8 +70,8 @@ export default async function AuthorsPage() {
                 className="rounded-full"
               />
               <div className="flex-1 text-left leading-tight">
-                <Text className="font-medium text-slate-100">{author.title}</Text>
-                <Text className="text-[12px] text-slate-300">@{author.twitter}</Text>
+                <Text className="font-medium text-zinc-100">{author.title}</Text>
+                <Text className="text-[12px] text-zinc-300">@{author.twitter}</Text>
               </div>
             </Link>
           ))}

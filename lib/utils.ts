@@ -13,3 +13,15 @@ export function formatDate(input: string): string {
     year: "numeric"
   });
 }
+
+export function formatMonthDay(input: string): string {
+  const date = new Date(input);
+  return date.toLocaleDateString("sv-SE", {
+    month: "numeric",
+    day: "numeric"
+  });
+}
+
+export function absoluteUrl(path: string) {
+  return `${process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL}${path}`;
+}

@@ -26,7 +26,7 @@ const Text = <T extends React.ElementType = typeof TextDefaultElement>({
   return (
     <Component
       className={cn(
-        "text-gray-300 leading-7",
+        "text-zinc-200 leading-7",
         {
           "mb-4": !noMargin
         },

@@ -10,7 +10,7 @@ export function Callout({ children, icon, type = "default", ...props }: CalloutP
   return (
     <div
       className={cn("my-6 flex items-start rounded-md border border-l-4 p-4", {
-        "border-slate-900 bg-slate-800": type === "default",
+        "border-zinc-900 bg-zinc-800": type === "default",
         "border-red-900 bg-red-800": type === "danger",
         "border-yellow-900 bg-yellow-800": type === "warning"
       })}

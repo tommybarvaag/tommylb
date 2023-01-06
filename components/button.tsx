@@ -23,7 +23,7 @@ export default function Button({
     <button
       type={type}
       className={cn(
-        "mb-6 inline-flex items-center justify-center rounded-md bg-white p-3 px-8 text-gray-900 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-inset",
+        "mb-6 inline-flex items-center justify-center rounded-md bg-white p-3 px-8 text-zinc-900 hover:bg-zinc-600 focus:outline-none focus:ring-2 focus:ring-inset",
         className
       )}
       {...other}

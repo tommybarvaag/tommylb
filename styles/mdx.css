@@ -1,17 +1,17 @@
 :root {
-  --shiki-color-text: #fff;
+  --shiki-color-text: #fafafa;
   --shiki-color-background: transparent;
   --shiki-token-constant: #1976d2;
-  --shiki-token-string: #22863a;
+  --shiki-token-string: #a1a1aa;
   --shiki-token-comment: #aaa;
   --shiki-token-keyword: #d32f2f;
   --shiki-token-parameter: #ff9800;
   --shiki-token-function: #6f42c1;
-  --shiki-token-string-expression: #22863a;
+  --shiki-token-string-expression: #71717a;
   --shiki-token-punctuation: #212121;
-  --shiki-token-link: #22863a;
+  --shiki-token-link: #71717a;
   --nextra-shiki-deleted: #f00;
-  --nextra-shiki-inserted: #22863a;
+  --nextra-shiki-inserted: #71717a;
 }
 
 [data-rehype-pretty-code-fragment] code {
@@ -29,16 +29,16 @@
   width: 1rem;
   margin-right: 1rem;
   text-align: right;
-  @apply text-slate-50;
+  @apply text-zinc-50;
 }
 [data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-slate-800 bg-opacity-10;
+  @apply bg-zinc-800 bg-opacity-10;
 }
 [data-rehype-pretty-code-fragment] .line-highlighted span {
   @apply relative;
 }
 [data-rehype-pretty-code-fragment] .word--highlighted {
-  @apply rounded-md bg-slate-800 bg-opacity-10 p-1;
+  @apply rounded-md bg-zinc-800 bg-opacity-10 p-1;
 }
 [data-rehype-pretty-code-title] {
   @apply mt-4 py-2 px-4 text-sm font-medium;

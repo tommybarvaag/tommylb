@@ -33,7 +33,7 @@ export default function Link({ children, href, className, underline = true, ...o
       className={cn(
         "",
         {
-          "underline underline-offset-2 decoration-gray-500 hover:decoration-gray-300 transition-colors duration-200":
+          "underline underline-offset-2 decoration-zinc-500 hover:decoration-zinc-300 transition-colors duration-200":
             underline
         },
         { "inline-flex items-center gap-1": isHrefExternal },
@@ -45,7 +45,7 @@ export default function Link({ children, href, className, underline = true, ...o
     >
       {children}
       <Show when={isHrefExternal}>
-        <Icons.ArrowUpRight className="h-4 w-4 text-gray-500" />
+        <Icons.ArrowUpRight className="h-4 w-4 text-zinc-500" />
       </Show>
     </NextLink>
   );

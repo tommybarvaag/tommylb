@@ -23,9 +23,9 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
         hidden: type === "hidden"
       })}
     >
-      <label className="block text-sm text-gray-100">{label}</label>
+      <label className="block text-sm text-zinc-100">{label}</label>
       <input
-        className="mt-1 mb-2 block w-full rounded-md border  border-gray-800 bg-gray-900  px-4 py-2 text-gray-100 focus:border-blue-500 focus:ring-blue-500"
+        className="mt-1 mb-2 block w-full rounded-md border  border-zinc-700 bg-zinc-900  px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
         type={type}
         ref={ref}
         {...other}

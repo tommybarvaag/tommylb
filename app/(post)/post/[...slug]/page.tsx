@@ -7,6 +7,7 @@ import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { formatDate } from "@/lib/utils";
 import "@/styles/mdx.css";
 import Image from "next/image";
+import NextLink from "next/link";
 import { notFound } from "next/navigation";
 
 interface PostPageProps {
@@ -52,56 +53,58 @@ export default async function PostPage({ params }: PostPageProps) {
         See all posts
       </Link>
       <div>
-        {post.date && (
-          <time
-            dateTime={post.date}
-            className="block text-sm text-slate-300"
-            data-animate
-            style={{
-              "--stagger": "1"
-            }}
-          >
-            Published on {formatDate(post.date)}
-          </time>
-        )}
         <Heading
           variant="pageHeading"
           data-animate
           style={{
-            "--stagger": "2"
+            "--stagger": "1"
           }}
         >
           {post.title}
         </Heading>
-        {authors?.length ? (
-          <div
-            className="mt-4 flex space-x-4"
-            data-animate
-            style={{
-              "--stagger": "3"
-            }}
-          >
-            {authors.map(author => (
-              <Link
-                key={author._id}
-                href={`https://twitter.com/${author.twitter}`}
-                className="flex items-center space-x-2 text-sm"
-              >
-                <Image
-                  src={author.avatar}
-                  alt={author.title}
-                  width={42}
-                  height={42}
-                  className="rounded-full"
-                />
-                <div className="flex-1 text-left leading-tight">
-                  <Text className="font-medium text-slate-100">{author.title}</Text>
-                  <Text className="text-[12px] text-slate-300">@{author.twitter}</Text>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : null}
+        <div className="flex justify-between items-center">
+          {authors?.length ? (
+            <div
+              className="flex grow space-x-4"
+              data-animate
+              style={{
+                "--stagger": "3"
+              }}
+            >
+              {authors.map(author => (
+                <NextLink
+                  key={author._id}
+                  href={`https://twitter.com/${author.twitter}`}
+                  className="flex items-center space-x-2 text-sm"
+                >
+                  <Image
+                    src={author.avatar}
+                    alt={author.title}
+                    width={42}
+                    height={42}
+                    className="rounded-full"
+                  />
+                  <div className="flex-1 text-left leading-tight">
+                    <Text className="font-medium text-zinc-100 mb-0">{author.title}</Text>
+                    <Text className="text-[12px] text-zinc-300 mb-0">@{author.twitter}</Text>
+                  </div>
+                </NextLink>
+              ))}
+            </div>
+          ) : null}
+          {post.date && (
+            <time
+              dateTime={post.date}
+              className="block text-sm text-zinc-300 shrink max-w-[120px]"
+              data-animate
+              style={{
+                "--stagger": "2"
+              }}
+            >
+              Published on {formatDate(post.date)}
+            </time>
+          )}
+        </div>
       </div>
       {post.image && (
         <Image
@@ -109,7 +112,7 @@ export default async function PostPage({ params }: PostPageProps) {
           alt={post.title}
           width={840}
           height={450}
-          className="my-8 rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900"
+          className="my-8 rounded-md border border-zinc-200 bg-zinc-200 transition-colors group-hover:border-zinc-900"
           data-animate
           style={{
             "--stagger": "4"
@@ -124,7 +127,7 @@ export default async function PostPage({ params }: PostPageProps) {
         }}
       />
       <hr
-        className="my-4 border-slate-200"
+        className="my-12 border-zinc-700"
         data-animate
         style={{
           "--stagger": "6"
@@ -139,7 +142,7 @@ export default async function PostPage({ params }: PostPageProps) {
       >
         <Link
           href="/post"
-          className="inline-flex items-center justify-center text-sm font-medium text-slate-300 hover:text-slate-100"
+          className="inline-flex items-center justify-center text-zinc-300 hover:text-zinc-100"
         >
           <Icons.ChevronLeft className="mr-2 h-4 w-4" />
           See all posts

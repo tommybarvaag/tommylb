@@ -3,17 +3,23 @@ import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
-import { formatDate } from "@/lib/utils";
+import { formatMonthDay } from "@/lib/utils";
 import { compareDesc } from "date-fns";
-import Image from "next/image";
 
 export default async function BlogPage() {
-  const posts = allPosts
+  const yearPosts = allPosts
     .filter(post => post.published)
     .sort((a, b) => {
       return compareDesc(new Date(a.date), new Date(b.date));
-    });
-
+    })
+    .reduce((accumulator, post) => {
+      const year = `Year ${new Date(post.date).getFullYear()}`;
+      if (!accumulator[year]) {
+        accumulator[year] = [];
+      }
+      accumulator[year].push(post);
+      return accumulator;
+    }, {} as Record<string, typeof allPosts>);
   return (
     <div className="relative container max-w-4xl">
       <Link
@@ -37,7 +43,7 @@ export default async function BlogPage() {
               "--stagger": "1"
             }}
           >
-            Blog
+            Posts
           </Heading>
           <Text
             data-animate
@@ -45,43 +51,44 @@ export default async function BlogPage() {
               "--stagger": "2"
             }}
           >
-            A blog built using Contentlayer. Posts are written in MDX.
+            A page for posts built using Contentlayer. Posts are written in MDX.
           </Text>
         </div>
       </div>
       <hr
-        className="my-8 border-slate-200"
+        className="my-8 border-zinc-700"
         data-animate
         style={{
           "--stagger": "3"
         }}
       />
-      {posts?.length ? (
+      {Object.entries(yearPosts).length ? (
         <div
-          className="grid gap-10 sm:grid-cols-2"
+          className=""
           data-animate
           style={{
             "--stagger": "4"
           }}
         >
-          {posts.map(post => (
-            <article key={post._id} className="group relative flex flex-col space-y-2">
-              {post.image && (
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  width={840}
-                  height={450}
-                  className="rounded-md border border-slate-900 bg-slate-900 transition-colors group-hover:border-slate-500"
-                />
-              )}
-              <h2 className="text-2xl font-extrabold">{post.title}</h2>
-              {post.description && <Text className="text-slate-300">{post.description}</Text>}
-              {post.date && <Text className="text-sm text-slate-300">{formatDate(post.date)}</Text>}
-              <Link href={post.slug} className="absolute inset-0">
-                <span className="sr-only">View Article</span>
-              </Link>
-            </article>
+          {Object.entries(yearPosts).map(([year, posts]) => (
+            <div
+              key={year}
+              className="flex gap-8 justify-between mb-8 pb-8 border-b-zinc-700 [&:not(:last-child)]:border-b"
+            >
+              <Text className="mb-0 py-2">{year}</Text>
+              <ul className="grow items-center">
+                {posts.map(post => (
+                  <li className="[&:not(:last-child)]:border-b border-b-zinc-700 py-2">
+                    <Link href={post.slug} className="group flex gap-3 w-full" underline={false}>
+                      <>
+                        <Text className="grow mb-0 group-hover:underline">{post.title}</Text>
+                        <Text className="mb-0 text-zinc-500">{formatMonthDay(post.date)}</Text>
+                      </>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       ) : (

@@ -11,7 +11,7 @@ export default function NotFound() {
       <Head>
         <title>404 - Tommy Lunde Barvåg</title>
       </Head>
-      <Main>
+      <Main className="pt-14 sm:pt-32">
         <Heading as="pageHeading">404 – Not Found</Heading>
         <Heading as="h3" className="mb-2">
           It looks like you're lost...

@@ -11,14 +11,14 @@ export function Card({ href, className, children, disabled, ...props }: CardProp
   return (
     <div
       className={cn(
-        "group relative rounded-lg border border-slate-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg",
+        "group relative rounded-lg border border-zinc-200 bg-white p-6 shadow-md transition-shadow hover:shadow-lg",
         disabled && "cursor-not-allowed opacity-60",
         className
       )}
       {...props}
     >
       <div className="flex flex-col justify-between space-y-4">
-        <div className="space-y-2 [&>p]:text-slate-300 [&>h4]:!mt-0 [&>h3]:!mt-0">{children}</div>
+        <div className="space-y-2 [&>p]:text-zinc-300 [&>h4]:!mt-0 [&>h3]:!mt-0">{children}</div>
       </div>
       {href && (
         <Link href={disabled ? "#" : href} className="absolute inset-0">
