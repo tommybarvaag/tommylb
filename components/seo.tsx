@@ -1,7 +1,5 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Script from "next/script";
-import * as React from "react";
 import { getDefaultSeoDescription, getDefaultSeoTitle } from "../utils/seoUtils";
 
 type SeoProps = {};
@@ -9,8 +7,7 @@ type SeoProps = {};
 const defaultDescription = getDefaultSeoDescription(true);
 
 export default function Seo({}: SeoProps) {
-  const router = useRouter();
-  const url = router.asPath ?? router.pathname;
+  const url = "/";
   const title = getDefaultSeoTitle();
   const description = defaultDescription;
   const name = "Tommy Lunde Barvåg";

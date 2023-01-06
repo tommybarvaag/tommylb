@@ -1,5 +1,6 @@
+"use client";
+
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import * as React from "react";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./stravaActivity";

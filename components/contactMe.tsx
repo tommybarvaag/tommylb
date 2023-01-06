@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import ContactMeForm from "./contactMeForm";
 

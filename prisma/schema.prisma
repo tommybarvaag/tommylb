@@ -44,8 +44,6 @@ model StravaActivity {
   personalBests StravaPersonalBest[]
   gear          StravaGear?          @relation(fields: [stravaGearId], references: [id])
   stravaGearId  Int?
-
-
 }
 
 model StravaPersonalBest {

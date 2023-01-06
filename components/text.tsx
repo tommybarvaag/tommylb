@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import * as React from "react";
 import { PolymorphicPropsWithoutRef } from "types";
 
@@ -25,9 +25,13 @@ const Text = <T extends React.ElementType = typeof TextDefaultElement>({
   const Component: React.ElementType = as || TextDefaultElement;
   return (
     <Component
-      className={clsx("leading-5 text-gray-700 dark:text-gray-300", className, {
-        "mb-4": !noMargin
-      })}
+      className={cn(
+        "text-zinc-200 leading-7",
+        {
+          "mb-4": !noMargin
+        },
+        className
+      )}
       {...other}
     >
       {children}

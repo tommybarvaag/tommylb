@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as React from "react";
 import Text from "./text";
@@ -19,13 +19,13 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
 ) {
   return (
     <div
-      className={clsx("flex flex-col mb-6", {
+      className={cn("mb-6 flex flex-col", {
         hidden: type === "hidden"
       })}
     >
-      <label className="block text-sm text-gray-900 dark:text-gray-100">{label}</label>
+      <label className="block text-sm text-zinc-100">{label}</label>
       <input
-        className="px-4 py-2 mt-1 mb-2 focus:ring-blue-500 border focus:border-blue-500 block w-full border-gray-900 dark:border-gray-800 rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+        className="mt-1 mb-2 block w-full rounded-md border  border-zinc-700 bg-zinc-900  px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
         type={type}
         ref={ref}
         {...other}
@@ -45,7 +45,7 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
           ease: "easeOut"
         }}
       >
-        <Text className="text-sm !text-red-600 dark:!text-red-700" noMargin>
+        <Text className="text-sm !text-red-700" noMargin>
           {error ? helperText : <>&nbsp;</>}
         </Text>
       </motion.div>

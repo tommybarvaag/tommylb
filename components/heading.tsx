@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import * as React from "react";
 
 function getComponentForHeading(as) {
@@ -11,12 +11,6 @@ function getComponentForHeading(as) {
       return "h2";
     case "h3":
       return "h3";
-    case "h4":
-      return "h4";
-    case "h5":
-      return "h5";
-    case "h6":
-      return "h6";
     default:
       return as;
   }
@@ -32,29 +26,25 @@ function getVariantForHeading(variant) {
       return "h2";
     case "h3":
       return "h3";
-    case "h4":
-      return "h4";
-    case "h5":
-      return "h5";
-    case "h6":
-      return "h6";
     default:
       return "h2";
   }
 }
 
-type HeadingProps = {
+const DEFAULT_TAG = "h2";
+
+type HeadingProps = React.ComponentPropsWithoutRef<typeof DEFAULT_TAG> & {
   as?: string;
   className?: string;
   children?: React.ReactNode;
-  variant?: string;
+  variant?: "pageHeading" | "h1" | "h2" | "h3";
   noMargin?: boolean;
 };
 
 export default function Heading({
   children,
-  as = "h2",
-  variant,
+  as = DEFAULT_TAG,
+  variant = DEFAULT_TAG,
   className,
   noMargin = false,
   ...other
@@ -64,16 +54,14 @@ export default function Heading({
 
   return (
     <Component
-      className={clsx(
-        "font-bold tracking-tight text-gray-900 dark:text-gray-100",
-        { "mb-8": !noMargin },
-        { "text-4xl md:text-6xl": headerVariant === "pageHeading" },
-        { "text-3xl md:text-5xl": headerVariant === "h1" },
-        { "text-2xl md:text-4xl": headerVariant === "h2" },
-        { "text-xl md:text-3xl": headerVariant === "h3" },
-        { "text-lg md:text-2xl": headerVariant === "h4" },
-        { "text-base md:text-xl": headerVariant === "h5" },
-        { "text-sm md:text-lg": headerVariant === "h6" },
+      className={cn(
+        "font-normal leading-7 tracking-tight text-zinc-50 mb-8",
+        { "text-base": headerVariant === "pageHeading" },
+        { "text-base": headerVariant === "h1" },
+        { "text-base": headerVariant === "h2" },
+        { "text-base mb-4": headerVariant === "h3" },
+        { "mb-0": noMargin },
+
         className
       )}
       {...other}

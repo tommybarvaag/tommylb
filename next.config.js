@@ -1,6 +1,11 @@
+const { withContentlayer } = require("next-contentlayer");
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ["images.unsplash.com", "avatars.githubusercontent.com"]
+  },
   async redirects() {
     return [
       {
@@ -14,5 +19,15 @@ module.exports = {
         permanent: true
       }
     ];
+  },
+  experimental: {
+    appDir: true,
+    newNextLinkBehavior: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
+    fontLoaders: [{ loader: "@next/font/google", options: { subsets: ["latin"] } }]
   }
 };
+
+module.exports = withContentlayer({
+  ...nextConfig
+});

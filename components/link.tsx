@@ -1,20 +1,52 @@
-import clsx from "clsx";
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { cn } from "@/lib/utils";
+import NextLink from "next/link";
 import * as React from "react";
+import { Icons } from "./icons";
+import { Show } from "./show";
 
-type LinkProps = {
+type LinkProps = React.ComponentProps<typeof NextLink> & {
   href: string;
   children: React.ReactNode;
   className?: string;
-  NextLinkProps: NextLinkProps;
+  underline?: boolean;
 };
 
-export default function Link({ children, href, className, NextLinkProps = {}, ...other }) {
+export default function Link({ children, href, className, underline = true, ...other }: LinkProps) {
+  const isHrefExternal = React.useMemo(() => {
+    // server side rendering safe check for external links
+    return /^https?:\/\//.test(href);
+  }, [href]);
+
+  const externalLinkProps = React.useMemo(() => {
+    if (!isHrefExternal) {
+      return {};
+    }
+
+    return {
+      target: "_blank",
+      rel: "noopener noreferrer"
+    };
+  }, [isHrefExternal]);
+
   return (
-    <NextLink href={href} passHref {...NextLinkProps}>
-      <a className={clsx("text-gray-900 dark:text-gray-100", className)} {...other}>
-        {children}
-      </a>
+    <NextLink
+      className={cn(
+        "",
+        {
+          "underline underline-offset-2 decoration-zinc-500 hover:decoration-zinc-300 transition-colors duration-200":
+            underline
+        },
+        { "inline-flex items-center gap-1": isHrefExternal },
+        className
+      )}
+      href={href}
+      {...externalLinkProps}
+      {...other}
+    >
+      {children}
+      <Show when={isHrefExternal}>
+        <Icons.ArrowUpRight className="h-4 w-4 text-zinc-500" />
+      </Show>
     </NextLink>
   );
 }

@@ -1,11 +1,13 @@
-import * as React from "react";
+"use client";
+
+import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm, useFormState } from "react-hook-form";
 import { validateEmail } from "../utils/formValidationUtils";
 import Button from "./button";
 import FormSubmitMessage from "./formSubmitMessage";
 import Heading from "./heading";
-import { Check, ExclamationCircle, PaperAirplane } from "./icons";
+import { Icons } from "./icons";
 import Text from "./text";
 import TextArea from "./textArea";
 import TextField from "./textField";
@@ -19,8 +21,8 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
   const { errors } = useFormState({ control });
 
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const [isSubmitSuccessful, setIsSubmitSuccessful] = React.useState(false);
-  const [googleReCaptchaVerifyFailure, setGoogleReCaptchaVerifyFailure] = React.useState(false);
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+  const [googleReCaptchaVerifyFailure, setGoogleReCaptchaVerifyFailure] = useState(false);
 
   async function onSubmit(values) {
     const result = await executeRecaptcha(location);
@@ -107,7 +109,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
           {...register("location")}
         />
         <div>
-          <Button type="submit" rightIcon={<PaperAirplane className="h-5 w-5" />}>
+          <Button type="submit" rightIcon={<Icons.Send className="h-5 w-5" />}>
             Send
           </Button>
           <Text className="text-xs">
@@ -124,13 +126,13 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
           {isSubmitSuccessful ? (
             <FormSubmitMessage
               text="I have recieved your inquiry and you'll hear from me soon."
-              icon={<Check />}
+              icon={<Icons.Check />}
             />
           ) : null}
           {googleReCaptchaVerifyFailure ? (
             <FormSubmitMessage
               text="reCAPTCHA stopped the message from being sent. If this was an error then please reach out to me via the links in my footer."
-              icon={<ExclamationCircle />}
+              icon={<Icons.X />}
             />
           ) : null}
         </div>

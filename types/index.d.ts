@@ -1,5 +1,13 @@
 /// <reference types="react" />
 
+import "react";
+
+type AllowCSSVariables = { [key in `--${string}`]: string };
+
+declare module "react" {
+  export interface CSSProperties extends AllowCSSVariables {}
+}
+
 export type StravaApiActivity = {
   name: string;
   distance: number;
