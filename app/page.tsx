@@ -120,7 +120,7 @@ export default async function Home() {
           <ul>
             {lastStravaActivity.map(activity => (
               <li key={activity.id}>
-                <Link className="block mb-4" href="/strava">
+                <Link className="block mb-4" href={`/strava/${activity.id}`}>
                   <Heading variant="h3" noMargin>
                     {getFormattedPostDate(activity.startDateLocal)}
                   </Heading>
