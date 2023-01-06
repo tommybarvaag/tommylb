@@ -13,11 +13,21 @@ const components = {
   h1: ({ className, ...props }) => (
     <Heading variant="pageHeading" className="mt-8 text-xl" {...props} />
   ),
-  h2: ({ className, ...props }) => <Heading variant="h2" className="mt-8 text-lg" {...props} />,
-  h3: ({ className, ...props }) => <Heading variant="h3" className="mt-8" {...props} />,
-  h4: ({ className, ...props }) => <Heading variant="h3" className="mt-8" {...props} />,
-  h5: ({ className, ...props }) => <Heading variant="h3" className="mt-8" {...props} />,
-  h6: ({ className, ...props }) => <Heading variant="h3" className="mt-8" {...props} />,
+  h2: ({ className, ...props }) => (
+    <Heading variant="h2" className="subheading-anchor mt-8 text-lg" {...props} />
+  ),
+  h3: ({ className, ...props }) => (
+    <Heading variant="h3" className="subheading-anchor mt-8" {...props} />
+  ),
+  h4: ({ className, ...props }) => (
+    <Heading variant="h3" className="subheading-anchor mt-8" {...props} />
+  ),
+  h5: ({ className, ...props }) => (
+    <Heading variant="h3" className="subheading-anchor mt-8" {...props} />
+  ),
+  h6: ({ className, ...props }) => (
+    <Heading variant="h3" className="subheading-anchor mt-8" {...props} />
+  ),
   a: ({ className, ...props }: { children: React.ReactNode; className?: string; href: string }) => (
     <Link
       className={cn("font-medium text-zinc-100 underline underline-offset-4", className)}
