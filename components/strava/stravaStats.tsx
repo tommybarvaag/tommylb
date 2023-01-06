@@ -26,7 +26,7 @@ function StravaActivityCountAndDistanceOverview({
 }: StravaActivityCountAndDistanceOverviewProps) {
   return (
     <div className="mb-12" {...other}>
-      <Heading>{title}</Heading>
+      <Heading className="mb-3">{title}</Heading>
       <StravaNameAndValue
         name="Activities"
         value={activityCountAndDistanceOverview.activityCount}

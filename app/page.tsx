@@ -14,7 +14,16 @@ async function getLastStravaActivity() {
       id: "desc"
     },
     skip: 0,
-    take: 3
+    take: 3,
+    select: {
+      id: true,
+      name: true,
+      type: true,
+      sufferScore: true,
+      hasHeartRate: true,
+      averageHeartRate: true,
+      startDateLocal: true
+    }
   });
 
   return activity;
@@ -117,10 +126,9 @@ export default async function Home() {
                   </Heading>
                 </Link>
                 <Text className="text-sm">
-                  {`${activity.name} with a suffer score of ${
+                  {`${activity.type} with a suffering score of ${
                     activity.sufferScore
-                  } and average heart
-                  rate of ${activity.averageHeartRate?.toString()}.`}
+                  } and an average heart rate of ${activity.averageHeartRate?.toString()}.`}
                 </Text>
               </li>
             ))}

@@ -25,9 +25,13 @@ const Text = <T extends React.ElementType = typeof TextDefaultElement>({
   const Component: React.ElementType = as || TextDefaultElement;
   return (
     <Component
-      className={cn("text-gray-300 leading-7", className, {
-        "mb-4": !noMargin
-      })}
+      className={cn(
+        "text-gray-300 leading-7",
+        {
+          "mb-4": !noMargin
+        },
+        className
+      )}
       {...other}
     >
       {children}

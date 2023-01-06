@@ -1,4 +1,3 @@
-import * as React from "react";
 import Heading from "../heading";
 import StravaNameAndValue from "./stravaNameAndValue";
 
@@ -14,7 +13,9 @@ export default function StravaHeadingAndValues({
 }: StravaHeadingAndValuesProps) {
   return nameAndValues?.length > 0 ? (
     <div className="mb-12 w-full" {...other}>
-      <Heading as="h2">{title}</Heading>
+      <Heading as="h2" className="mb-3">
+        {title}
+      </Heading>
       {nameAndValues.map((nameAndValue, index) => (
         <StravaNameAndValue
           key={`${title}-name-and-value-${index}`}
