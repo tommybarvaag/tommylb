@@ -4,7 +4,7 @@ export default function Footer({ ...other }) {
   return (
     <footer className="py-4 px-6 border-zinc-700 border-t text-sm" {...other}>
       <div className="flex justify-between items-center max-w-xl mx-auto">
-        <div>Tommy Lunde Barvåg</div>
+        <Link href="/">Tommy Lunde Barvåg</Link>
         <div className="flex gap-2">
           <Link href="https://github.com/tommybarvaag" aria-label="View my code at GitHub">
             GitHub

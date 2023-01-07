@@ -11,7 +11,7 @@ export const revalidate = 60;
 async function getLastStravaActivity() {
   const activity = await prisma.stravaActivity.findMany({
     orderBy: {
-      id: "desc"
+      startDateLocal: "desc"
     },
     skip: 0,
     take: 3,

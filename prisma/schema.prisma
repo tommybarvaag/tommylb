@@ -3,67 +3,72 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model NotificationLog {
   id        Int      @id @default(autoincrement())
-  type      String   @db.VarChar(256)
-  value     String   @db.VarChar(500)
-  createdAt DateTime @default(now()) @db.Date()
-  updatedAt DateTime @default(now()) @db.Date()
+  type      String   @db.Text
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }
 
 model StravaActivity {
   id                   Int      @id @default(autoincrement())
-  stravaId             String   @unique @db.VarChar(256)
-  name                 String   @db.VarChar(256)
-  type                 String   @db.VarChar(256)
-  startDate            DateTime @db.Date()
-  startDateLocal       DateTime @db.Date()
+  stravaId             String   @unique
+  name                 String
+  type                 String
+  startDate            DateTime
+  startDateLocal       DateTime
   distance             Decimal  @db.Decimal(8, 2)
-  movingTime           Int      @db.Integer()
-  locationCountry      String?  @db.VarChar(256)
+  movingTime           Int
+  locationCountry      String?
   distanceInKilometers Decimal  @db.Decimal(8, 2)
-  formattedMovingTime  String   @db.VarChar(256)
+  formattedMovingTime  String
   kilometersPerHour    Decimal  @db.Decimal(8, 2)
   minutesPerKilometer  Decimal  @db.Decimal(8, 2)
   totalElevationGain   Decimal  @db.Decimal(8, 2)
-  kudosCount           Int      @db.Integer()
+  kudosCount           Int
   averageSpeed         Decimal  @db.Decimal(8, 2)
   maxSpeed             Decimal  @db.Decimal(8, 2)
-  hasHeartRate         Boolean  @db.Boolean
+  hasHeartRate         Boolean  @default(false)
   averageHeartRate     Decimal? @db.Decimal(8, 2)
   maxHeartRate         Decimal? @db.Decimal(8, 2)
   sufferScore          Decimal? @db.Decimal(8, 2)
   calories             Decimal  @db.Decimal(8, 2)
-  createdAt            DateTime @default(now()) @db.Date()
-  updatedAt            DateTime @default(now()) @db.Date()
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now())
 
   personalBests StravaPersonalBest[]
   gear          StravaGear?          @relation(fields: [stravaGearId], references: [id])
   stravaGearId  Int?
+
+  @@index([stravaGearId])
 }
 
 model StravaPersonalBest {
   id                   Int            @id @default(autoincrement())
-  name                 String         @db.VarChar(256)
+  name                 String
   distance             Decimal        @db.Decimal(8, 2)
   distanceInKilometers Decimal        @db.Decimal(8, 2)
-  movingTime           Int            @db.Integer()
-  formattedMovingTime  String         @db.VarChar(256)
+  movingTime           Int
+  formattedMovingTime  String
   stravaActivity       StravaActivity @relation(fields: [stravaActivityId], references: [id])
   stravaActivityId     Int
+
+  @@index([stravaActivityId])
 }
 
 model StravaGear {
   id             Int              @id @default(autoincrement())
-  stravaGearId   String           @unique @db.VarChar(256)
-  primary        Boolean          @db.Boolean
-  name           String           @db.VarChar(256)
-  resourceState  Int              @db.Integer()
-  retired        Boolean          @db.Boolean
+  stravaGearId   String           @unique
+  primary        Boolean          @default(false)
+  name           String
+  resourceState  Int
+  retired        Boolean          @default(false)
   distance       Decimal          @db.Decimal(8, 2)
   stravaActivity StravaActivity[]
 }
