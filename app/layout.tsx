@@ -2,6 +2,7 @@ import Main from "@/components/main";
 import Script from "next/script";
 import "styles/global.css";
 
+import { Analytics } from "@/components/analytics";
 import Footer from "@/components/footer";
 import { Inter } from "@next/font/google";
 
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-zinc-900 text-zinc-50">
         <Main className="pt-14 sm:pt-32">{children}</Main>
         <Footer />
+        <Analytics />
       </body>
       <Script id="json-ld-data" type="application/ld+json">
         {JSON.stringify({
