@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@next/font': ^13.1.1
+  '@planetscale/database': ^1.5.0
   '@prisma/client': 4.8.0
   '@sendgrid/mail': ^7.7.0
   '@types/node': ^18.11.9
@@ -45,6 +46,7 @@ specifiers:
 
 dependencies:
   '@next/font': 13.1.1
+  '@planetscale/database': 1.5.0
   '@prisma/client': 4.8.0_prisma@4.8.0
   '@sendgrid/mail': 7.7.0
   '@vercel/og': 0.0.21
@@ -797,6 +799,11 @@ packages:
       tiny-glob: 0.2.9
       tslib: 2.4.1
     dev: true
+
+  /@planetscale/database/1.5.0:
+    resolution: {integrity: sha512-Qwh7Or1W5dB5mZ9EQqDkgvkDKhBBmQe58KIVUy0SGocNtr5fP4JAWtvZ6EdLAV6C6hVpzNlCA2xIg9lKTswm1Q==}
+    engines: {node: '>=16'}
+    dev: false
 
   /@prisma/client/4.8.0_prisma@4.8.0:
     resolution: {integrity: sha512-Y1riB0p2W52kh3zgssP/YAhln3RjBFcJy3uwEiyjmU+TQYh6QTZDRFBo3JtBWuq2FyMOl1Rye8jxzUP+n0l5Cg==}
