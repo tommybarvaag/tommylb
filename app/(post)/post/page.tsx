@@ -37,7 +37,7 @@ export default async function BlogPage() {
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <Heading
-            variant="pageHeading"
+            as="pageHeading"
             data-animate
             style={{
               "--stagger": "1"

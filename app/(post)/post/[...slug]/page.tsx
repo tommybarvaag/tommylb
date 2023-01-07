@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
       </Link>
       <div>
         <Heading
-          variant="pageHeading"
+          as="pageHeading"
           data-animate
           style={{
             "--stagger": "1"
