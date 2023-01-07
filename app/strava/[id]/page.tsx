@@ -2,11 +2,15 @@ import Heading from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import prisma from "@/lib/prisma";
+import { planetScale } from "@/lib/planetscale";
 import "@/styles/mdx.css";
 import { getFormattedLongDate } from "@/utils/dateUtils";
-import { Prisma } from "@prisma/client";
+import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
+
+export const runtime = "edge";
+export const dynamic = "force-static";
+export const fetchCache = "force-cache";
 
 interface StravaActivityPageProps {
   params: {
@@ -14,33 +18,16 @@ interface StravaActivityPageProps {
   };
 }
 
-async function getStravaActivities() {
-  console.time("getStravaActivities");
-  const activity = await prisma.stravaActivity.findMany({
-    orderBy: {
-      id: "desc"
-    },
-    select: {
-      id: true
-    }
-  });
-  console.timeEnd("getStravaActivities");
-
-  return activity;
-}
-
 async function getStravaActivity(id: string) {
-  const activity = await prisma.stravaActivity.findUnique({
-    where: {
-      id: Number(id)
-    },
-    include: {
-      gear: true,
-      personalBests: true
-    }
-  });
+  const { rows } = await planetScale.execute("SELECT * FROM StravaActivity WHERE ID = ?", [id]);
 
-  return activity;
+  if (!rows?.length) {
+    return null;
+  }
+
+  const [stravaActivity] = rows;
+
+  return stravaActivity as StravaActivity;
 }
 
 const ActivityDescription = ({
@@ -61,20 +48,10 @@ const ActivityDescription = ({
         activity.maxHeartRate
       } beats per minute. My suffer score for this activity was ${
         activity.sufferScore
-      } and I burned a total of ${
-        activity.calories
-      } calories. No personal records were set during this workout.`}
+      } and I burned a total of ${activity.calories} calories.`}
     </Text>
   );
 };
-
-export async function generateStaticParams(): Promise<StravaActivityPageProps["params"][]> {
-  const allActivities = await getStravaActivities();
-
-  return allActivities.map(activity => ({
-    id: activity.id.toString()
-  }));
-}
 
 export default async function StravaActivityPage({ params }: StravaActivityPageProps) {
   const activity = await getStravaActivity(params.id);
