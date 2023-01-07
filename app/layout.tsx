@@ -1,10 +1,9 @@
+import Footer from "@/components/footer";
 import Main from "@/components/main";
+import { VercelAnalytics } from "@/components/vercel-analytics";
+import { Inter } from "@next/font/google";
 import Script from "next/script";
 import "styles/global.css";
-
-import { Analytics } from "@/components/analytics";
-import Footer from "@/components/footer";
-import { Inter } from "@next/font/google";
 
 const interFont = Inter();
 
@@ -16,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-zinc-900 text-zinc-50">
         <Main className="pt-14 sm:pt-32">{children}</Main>
         <Footer />
-        <Analytics />
+        <VercelAnalytics />
       </body>
       <Script id="json-ld-data" type="application/ld+json">
         {JSON.stringify({
