@@ -9,7 +9,6 @@ import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
 
 export const runtime = "edge";
-export const dynamic = "force-dynamic";
 
 interface StravaActivityPageProps {
   params: {
