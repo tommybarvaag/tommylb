@@ -3,7 +3,8 @@ import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
 export const config = {
-  runtime: "experimental-edge"
+  runtime: "edge",
+  regions: ["fra1"]
 };
 
 const interRegular = fetch(new URL("../../assets/fonts/Inter-Regular.ttf", import.meta.url)).then(
