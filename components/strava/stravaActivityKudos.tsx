@@ -1,10 +1,12 @@
 "use client";
 
 import { debounce } from "@/lib/debounce";
+import { cn } from "@/lib/utils";
 import { kudosSchema } from "@/lib/validations/strava/kudos";
 import type { StravaActivity } from "@prisma/client";
 import useLocalStorage from "hooks/use-local-storage";
-import { ComponentPropsWithoutRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ComponentPropsWithoutRef, useMemo, useState, useTransition } from "react";
 import type { infer as zodInfer } from "zod";
 import { Icons } from "../icons";
 import Text from "../text";
@@ -25,33 +27,53 @@ type StravaActivityKudosProps = ComponentPropsWithoutRef<"button"> & {
   kudosCount: StravaActivity["kudosCount"];
 };
 
-const StravaActivityKudos = ({
-  activityId,
-  kudosCount: initialKudosCount,
-  ...other
-}: StravaActivityKudosProps) => {
+const StravaActivityKudos = ({ activityId, kudosCount, ...other }: StravaActivityKudosProps) => {
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
+
+  const isMutating = useMemo(() => isFetching || isPending, [isFetching, isPending]);
   const [toggled, setToggled] = useLocalStorage(`strava-toggle-${activityId}`, false);
-  const [kudosCount, setKudosCount] = useState(initialKudosCount);
 
   const handleClick = async () => {
+    setIsFetching(true);
+
     const newKudosCount = toggled ? kudosCount - 1 : kudosCount + 1;
 
     setToggled(toggle => !toggle);
-    setKudosCount(() => newKudosCount);
 
     await debouncedPatchStravaActivityKudos("/api/strava/kudos", {
       activityId,
       kudosCount: newKudosCount
     });
+
+    setIsFetching(false);
+
+    startTransition(() => {
+      // Refresh the current route and fetch new data from the server without
+      // losing client-side browser or React state.
+      router.refresh();
+    });
   };
 
   return (
     <button
-      className="group cursor-pointer flex gap-2 items-center select-none border rounded-full px-4 hover:border-zinc-500 active:border-zinc-300"
+      className={cn(
+        "group cursor-pointer flex gap-2 min-w-[85px] justify-center items-center select-none bg-zinc-800 border rounded-full px-4 hover:border-zinc-500 active:border-zinc-300",
+        {
+          "before:flex before:items-center before:justify-center before:content-['Loading...'] before:absolute before:inset-0 before:bg-zinc-800 before:border-transparent before:rounded-full before:text-sm":
+            false
+        }
+      )}
       onClick={handleClick}
+      disabled={isMutating}
       {...other}
     >
-      <Icons.Fire className="h-5 w-5 group-hover:text-zinc-500 group-active:text-zinc-300" />
+      {isMutating ? (
+        <Icons.Spinner className="h-5 w-5" />
+      ) : (
+        <Icons.Fire className="h-5 w-5 group-hover:text-zinc-500 group-active:text-zinc-300" />
+      )}
       <Text className="mb-0 group-hover:text-zinc-500 group-active:text-zinc-300">
         {kudosCount}
       </Text>
