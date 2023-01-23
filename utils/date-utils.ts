@@ -8,7 +8,7 @@ import {
   parse,
   parseISO
 } from "date-fns";
-import { numberToWords, simplePluralize } from "./humanizeUtils";
+import { numberToWords, simplePluralize } from "./humanize-utils";
 
 const RETIREMENT_YEAR = 67;
 

@@ -1,5 +1,5 @@
 import Heading from "@/components/heading";
-import LinkButton from "@/components/linkButton";
+import LinkButton from "@/components/link-button";
 import Main from "@/components/main";
 import Text from "@/components/text";
 import Head from "next/head";

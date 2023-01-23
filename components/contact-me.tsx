@@ -1,7 +1,7 @@
 "use client";
 
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import ContactMeForm from "./contactMeForm";
+import ContactMeForm from "./contact-me-form";
 
 type ContactMeProps = {
   location?: string;

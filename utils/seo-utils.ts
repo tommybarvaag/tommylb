@@ -1,4 +1,4 @@
-import { getActiveWorkYears } from "./dateUtils";
+import { getActiveWorkYears } from "./date-utils";
 
 const defaultSeoTitle: string = "Senior consultant";
 

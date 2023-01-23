@@ -3,7 +3,7 @@ import Link from "@/components/link";
 import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
 import prisma from "@/lib/prisma";
-import { getFormattedPostDate } from "@/utils/dateUtils";
+import { getFormattedPostDate } from "@/utils/date-utils";
 import { compareDesc } from "date-fns";
 
 export const revalidate = 60;
@@ -72,7 +72,7 @@ export default async function Home() {
         </Text>
       </div>
       <div
-        className="grid sm:grid-cols-3 justify-between w-full gap-8 mb-12"
+        className="mb-12 grid w-full justify-between gap-8 sm:grid-cols-3"
         data-animate
         style={{
           "--stagger": "3"
@@ -120,7 +120,7 @@ export default async function Home() {
           <ul>
             {lastStravaActivity.map(activity => (
               <li key={activity.id}>
-                <Link className="block mb-4" href={`/strava/${activity.id}`}>
+                <Link className="mb-4 block" href={`/strava/${activity.id}`}>
                   <Heading variant="h3" noMargin>
                     {getFormattedPostDate(activity.startDateLocal)}
                   </Heading>
@@ -135,11 +135,11 @@ export default async function Home() {
           </ul>
         </div>
         <div>
-          <Heading className="text-zinc-400 text-base">Posts</Heading>
+          <Heading className="text-base text-zinc-400">Posts</Heading>
           <ul>
             {lastPosts.map(post => (
               <li key={post._id}>
-                <Link className="block mb-4" href={post.slug}>
+                <Link className="mb-4 block" href={post.slug}>
                   <Heading variant="h3" noMargin>
                     {post.title}
                   </Heading>

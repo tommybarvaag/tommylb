@@ -1,1 +1,1 @@
-export { default } from "./useStravaActivities";
+export { default } from "./use-strava-activities";

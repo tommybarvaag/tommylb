@@ -3,14 +3,14 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm, useFormState } from "react-hook-form";
-import { validateEmail } from "../utils/formValidationUtils";
+import { validateEmail } from "../utils/form-validation-utils";
 import Button from "./button";
-import FormSubmitMessage from "./formSubmitMessage";
+import FormSubmitMessage from "./form-submit-message";
 import Heading from "./heading";
 import { Icons } from "./icons";
 import Text from "./text";
-import TextArea from "./textArea";
-import TextField from "./textField";
+import TextArea from "./text-area";
+import TextField from "./text-field";
 
 type ContactMeFormProps = {
   location: string;
@@ -27,7 +27,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
   async function onSubmit(values) {
     const result = await executeRecaptcha(location);
 
-    const response = await fetch("/api/googleReCaptchaVerify", {
+    const response = await fetch("/api/recaptcha", {
       method: "POST",
       cache: "no-cache",
       headers: {
@@ -41,7 +41,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
     const googleReCaptchaVerify = await response.json();
 
     if (googleReCaptchaVerify.success && googleReCaptchaVerify.score > 0.5) {
-      const response = await fetch("/api/sendMail", {
+      const response = await fetch("/api/mail", {
         method: "POST",
         cache: "no-cache",
         headers: {

@@ -3,7 +3,7 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
-import StravaActivity from "./stravaActivity";
+import StravaActivity from "./strava-activity";
 
 type LastStravaActivityProps = {
   initialActivities: StravaActivityWithGearAndPersonalBests[];

@@ -1,4 +1,4 @@
-import { round } from "./commonUtils";
+import { round } from "./common-utils";
 
 const padZero = (value: number): string => ((value + "").length < 2 ? `0${value}` : `${value}`);
 

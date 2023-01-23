@@ -1,5 +1,5 @@
 import { getAbsoluteUrl } from "@/lib/utils";
-import { getDefaultSeoDescription, getDefaultSeoTitle } from "@/utils/seoUtils";
+import { getDefaultSeoDescription, getDefaultSeoTitle } from "@/utils/seo-utils";
 
 export default function Head({ params }) {
   const url = getAbsoluteUrl();

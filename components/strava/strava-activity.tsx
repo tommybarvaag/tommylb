@@ -1,9 +1,9 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import { getFormattedLongDate } from "../../utils/dateUtils";
+import { getFormattedLongDate } from "../../utils/date-utils";
 import Heading from "../heading";
 import { Icons } from "../icons";
 import Text from "../text";
-import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
+import StravaUnitOfMeasurement from "./strava-unit-of-measurement";
 
 type StravaActivitiesProps = {
   activity: StravaActivityWithGearAndPersonalBests;

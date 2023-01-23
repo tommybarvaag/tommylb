@@ -1,11 +1,11 @@
 import Heading from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
-import { StravaActivityKudos } from "@/components/strava/stravaActivityKudos";
+import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
 import Text from "@/components/text";
 import { planetScale } from "@/lib/planetscale";
 import "@/styles/mdx.css";
-import { getFormattedLongDate } from "@/utils/dateUtils";
+import { getFormattedLongDate } from "@/utils/date-utils";
 import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
 
@@ -75,7 +75,7 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
         >
           {activity.name}
         </Heading>
-        <div className="flex justify-between items-center mb-4">
+        <div className="mb-4 flex items-center justify-between">
           <StravaActivityKudos
             activityId={activity.id}
             kudosCount={activity.kudosCount}
@@ -85,7 +85,7 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
             }}
           />
           <div
-            className="text-zinc-500 text-sm"
+            className="text-sm text-zinc-500"
             data-animate
             style={{
               "--stagger": "3"

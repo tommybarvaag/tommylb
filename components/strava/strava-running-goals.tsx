@@ -1,9 +1,9 @@
 "use client";
 
 import { StravaGoal } from "types";
-import StravaGoalsSkeleton from "../skeleton/stravaGoalsSkeleton";
-import useStravaStats from "./hooks/useStravaStats";
-import StravaHeadingAndValues from "./stravaHeadingAndValues";
+import StravaGoalsSkeleton from "../skeleton/strava-goals-skeleton";
+import useStravaStats from "./hooks/use-strava-stats";
+import StravaHeadingAndValues from "./strava-heading-and-values";
 
 type StravaRunningGoalsProps = {
   title?: string;

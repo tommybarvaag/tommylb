@@ -1,8 +1,8 @@
 import Heading from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
-import StravaActivities from "@/components/strava/stravaActivities";
-import StravaStats from "@/components/strava/stravaStats";
+import StravaActivities from "@/components/strava/strava-activities";
+import StravaStats from "@/components/strava/strava-stats";
 import Text from "@/components/text";
 import strava from "@/lib/strava";
 
@@ -19,7 +19,7 @@ export default async function Strava() {
   const { stats, activities } = await getStravaData();
 
   return (
-    <div className="relative container max-w-4xl">
+    <div className="container relative max-w-4xl">
       <Link
         href="/"
         className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"

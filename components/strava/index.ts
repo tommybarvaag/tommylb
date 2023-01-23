@@ -1,12 +1,12 @@
-import LastStravaActivity from "./lastStravaActivity";
-import StravaActivities from "./stravaActivities";
-import StravaActivity from "./stravaActivity";
-import StravaGear from "./stravaGear";
-import StravaHeadingAndValues from "./stravaHeadingAndValues";
-import StravaNameAndValue from "./stravaNameAndValue";
-import StravaPersonalBests from "./stravaPersonalBests";
-import StravaRunningGoals from "./stravaRunningGoals";
-import StravaUnitOfMeasurement from "./stravaUnitOfMeasurement";
+import LastStravaActivity from "./last-strava-activity";
+import StravaActivities from "./strava-activities";
+import StravaActivity from "./strava-activity";
+import StravaGear from "./strava-gear";
+import StravaHeadingAndValues from "./strava-heading-and-values";
+import StravaNameAndValue from "./strava-name-and-value";
+import StravaPersonalBests from "./strava-personal-bests";
+import StravaRunningGoals from "./strava-running-goals";
+import StravaUnitOfMeasurement from "./strava-unit-of-measurement";
 
 export {
   LastStravaActivity,

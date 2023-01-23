@@ -1,5 +1,5 @@
 import Heading from "../heading";
-import StravaNameAndValue from "./stravaNameAndValue";
+import StravaNameAndValue from "./strava-name-and-value";
 
 type StravaHeadingAndValuesProps = {
   title: string;

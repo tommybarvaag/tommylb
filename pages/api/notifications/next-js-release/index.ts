@@ -1,6 +1,6 @@
 import { fetchLatestNonPrereleaseNextJsRelease } from "@/lib/github";
 import prisma from "@/lib/prisma";
-import sendgridMail from "@/lib/sendgridMail";
+import sendgridMail from "@/lib/sendgrid-mail";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const NOTIFICATION_TYPE = "next-js-release";

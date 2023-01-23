@@ -7,14 +7,14 @@ import {
   StravaPersonalBestSimple,
   StravaStats
 } from "types";
-import { flat, groupBy, maxBy, min, sum } from "../utils/commonUtils";
-import { getDateYear, parseDateISO } from "../utils/dateUtils";
+import { flat, groupBy, maxBy, min, sum } from "../utils/common-utils";
+import { getDateYear, parseDateISO } from "../utils/date-utils";
 import {
   convertKilometersPerSecondToMinutesPerKilometer,
   convertMetersPerSecondToKilometersPerSecond,
   convertMetersToKilometers,
   convertSecondsToHoursAndMinutes
-} from "../utils/unitOfMeasurementUtils";
+} from "../utils/unit-of-measurement-utils";
 import prisma from "./prisma";
 
 export type StravaActivityWithGearAndPersonalBests = Prisma.PromiseReturnType<typeof getById>;

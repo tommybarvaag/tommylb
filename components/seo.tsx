@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Script from "next/script";
-import { getDefaultSeoDescription, getDefaultSeoTitle } from "../utils/seoUtils";
+import { getDefaultSeoDescription, getDefaultSeoTitle } from "../utils/seo-utils";
 
 type SeoProps = {};
 

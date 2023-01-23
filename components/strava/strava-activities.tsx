@@ -5,7 +5,7 @@ import { ComponentPropsWithoutRef, useState } from "react";
 import Button from "../button";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
-import StravaActivity from "./stravaActivity";
+import StravaActivity from "./strava-activity";
 
 type StravaActivitiesProps = ComponentPropsWithoutRef<"div"> & {
   initialActivities: StravaActivityWithGearAndPersonalBests[];

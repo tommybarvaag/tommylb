@@ -3,11 +3,11 @@
 import { ComponentPropsWithoutRef } from "react";
 import { StravaStats as StravaStatsType } from "types";
 import Heading from "../heading";
-import useStravaStats from "./hooks/useStravaStats";
-import StravaGear from "./stravaGear";
-import StravaNameAndValue from "./stravaNameAndValue";
-import StravaPersonalBests from "./stravaPersonalBests";
-import StravaRunningGoals from "./stravaRunningGoals";
+import useStravaStats from "./hooks/use-strava-stats";
+import StravaGear from "./strava-gear";
+import StravaNameAndValue from "./strava-name-and-value";
+import StravaPersonalBests from "./strava-personal-bests";
+import StravaRunningGoals from "./strava-running-goals";
 
 type StravaActivityCountAndDistanceOverviewProps = {
   title: string;
