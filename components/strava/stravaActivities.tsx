@@ -31,12 +31,12 @@ export default function StravaActivities({
   };
 
   return (
-    <div className="w-full my-6" {...other}>
+    <div className="my-6 w-full" {...other}>
       <Heading as="h2">All Strava activities</Heading>
       {(activities ?? []).slice(0, activitiesToShow).map(activity => (
         <StravaActivity key={activity.id} activity={activity} />
       ))}
-      <div className="flex justify-center mt-6">{renderShowAllActivitiesButton()}</div>
+      <div className="mt-6 flex justify-center">{renderShowAllActivitiesButton()}</div>
     </div>
   );
 }

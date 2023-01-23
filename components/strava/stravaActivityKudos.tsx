@@ -59,9 +59,9 @@ const StravaActivityKudos = ({ activityId, kudosCount, ...other }: StravaActivit
   return (
     <button
       className={cn(
-        "group cursor-pointer flex gap-2 min-w-[85px] justify-center items-center select-none bg-zinc-800 border rounded-full px-4 hover:border-zinc-500 active:border-zinc-300",
+        "group flex min-w-[85px] cursor-pointer select-none items-center justify-center gap-2 rounded-full border bg-zinc-800 px-4 hover:border-zinc-500 active:border-zinc-300",
         {
-          "before:flex before:items-center before:justify-center before:content-['Loading...'] before:absolute before:inset-0 before:bg-zinc-800 before:border-transparent before:rounded-full before:text-sm":
+          "before:absolute before:inset-0 before:flex before:items-center before:justify-center before:rounded-full before:border-transparent before:bg-zinc-800 before:text-sm before:content-['Loading...']":
             false
         }
       )}

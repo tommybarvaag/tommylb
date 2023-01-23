@@ -12,7 +12,7 @@ import { notFound } from "next/navigation";
 export const runtime = "edge";
 export const dynamic = "force-static";
 export const fetchCache = "force-cache";
-export const preferredRegion = "fra1";
+export const preferredRegion = "edge";
 
 interface StravaActivityPageProps {
   params: {

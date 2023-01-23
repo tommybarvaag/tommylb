@@ -29,7 +29,7 @@ export default function StravaRunningGoals({
   };
 
   return center ? (
-    <div className="flex min-w-1/2 mt-8 mx-auto items-start">{renderStravaHeadingAndValues()}</div>
+    <div className="mx-auto mt-8 flex min-w-1/2 items-start">{renderStravaHeadingAndValues()}</div>
   ) : (
     renderStravaHeadingAndValues()
   );

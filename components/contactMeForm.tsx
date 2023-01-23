@@ -57,7 +57,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
   }
 
   return (
-    <div className="max-w-md self-center mb-12">
+    <div className="mb-12 max-w-md self-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Heading>Contact me</Heading>
         <TextField
@@ -113,7 +113,7 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
             Send
           </Button>
           <Text className="text-xs">
-            This page is protected with reCAPTCHA and Google's{" "}
+            This page is protected with reCAPTCHA and Google&apos;s{" "}
             <a className="underline" href="https://policies.google.com/privacy">
               privacy rules
             </a>

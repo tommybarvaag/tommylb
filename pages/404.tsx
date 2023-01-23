@@ -14,9 +14,9 @@ export default function NotFound() {
       <Main className="pt-14 sm:pt-32">
         <Heading as="pageHeading">404 – Not Found</Heading>
         <Heading as="h3" className="mb-2">
-          It looks like you're lost...
+          It looks like you&apos;re lost...
         </Heading>
-        <Text>The page you're looking for no longer exists.</Text>
+        <Text>The page you&apos;re looking for no longer exists.</Text>
         <div>
           <LinkButton href="/">Return home</LinkButton>
         </div>

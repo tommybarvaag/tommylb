@@ -11,7 +11,7 @@ export default function StravaUnitOfMeasurement({
   ...other
 }: StravaUnitOfMeasurementProps) {
   return (
-    <div className="align-center mr-6 flex flex-col justify-center" {...other}>
+    <div className="mr-6 flex flex-col items-center justify-center" {...other}>
       <Text className="text-sm">{title}</Text>
       <Text className="text-base font-bold">{value}</Text>
     </div>

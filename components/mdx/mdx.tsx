@@ -27,7 +27,7 @@ const components = {
     />
   ),
   p: ({ className, ...props }) => (
-    <Text className={cn("leading-7 [&:not(:first-child)]:mt-6 mb-0", className)} {...props} />
+    <Text className={cn("mb-0 leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
@@ -105,7 +105,7 @@ export function Mdx({ code, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   return (
-    <div className={cn("mdx", className)} {...other}>
+    <div {...other}>
       <Component components={components} />
     </div>
   );

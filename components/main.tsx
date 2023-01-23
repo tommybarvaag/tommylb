@@ -10,7 +10,7 @@ export default function Main({ children, className, ...other }: MainProps) {
   return (
     <main
       className={cn(
-        "mx-auto mb-16 flex w-full max-w-2xl flex-grow flex-col items-start justify-start bg-zinc-900 px-8",
+        "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-zinc-900 px-8",
         className
       )}
       {...other}

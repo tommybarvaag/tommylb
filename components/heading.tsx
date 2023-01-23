@@ -55,11 +55,11 @@ export default function Heading({
   return (
     <Component
       className={cn(
-        "font-normal leading-7 tracking-tight text-zinc-50 mb-8",
+        "mb-8 font-normal leading-7 tracking-tight text-zinc-50",
         { "text-base": headerVariant === "pageHeading" },
         { "text-base": headerVariant === "h1" },
         { "text-base": headerVariant === "h2" },
-        { "text-base mb-4": headerVariant === "h3" },
+        { "mb-4 text-base": headerVariant === "h3" },
         { "mb-0": noMargin },
 
         className

@@ -55,8 +55,8 @@ export default function TimelineFromBirthUntilNow({
           <TimelineHeading>Became a dad 👨‍👩‍👧</TimelineHeading>
           <TimelineText>
             Hard to describe with words what it feels to become a parent. Filled with immense amount
-            of pride for my partner that delivered our baby girl and "life turned upside down in a
-            matter of seconds" full of love for our new family member.
+            of pride for my partner that delivered our baby girl and &quot;life turned upside down
+            in a matter of seconds&quot; full of love for our new family member.
           </TimelineText>
         </TimelinePost>
         <TimelinePost>
@@ -70,8 +70,8 @@ export default function TimelineFromBirthUntilNow({
         <TimelinePost>
           <TimelineHeading>Became a Tech Lead 👨🏻‍💻</TimelineHeading>
           <TimelineText>
-            I applied for Knowit's tech lead course in 2019 and got accepted. Through coursing in
-            2019 and 2020 with lectures from Dr. Venkat Subramaniam, Simon Brown, Sam Newman, and
+            I applied for Knowit&apos;s tech lead course in 2019 and got accepted. Through coursing
+            in 2019 and 2020 with lectures from Dr. Venkat Subramaniam, Simon Brown, Sam Newman, and
             several others. I got my diploma as a tech lead.
           </TimelineText>
         </TimelinePost>
@@ -83,7 +83,7 @@ export default function TimelineFromBirthUntilNow({
             <TimelinePost>
               <TimelineHeading>Bought a townhouse</TimelineHeading>
               <TimelineText>
-                It didn't take long before my partner sold her apartment and we went townhouse
+                It didn&apos;t take long before my partner sold her apartment and we went townhouse
                 shopping. The reason for that lies further in the future!
               </TimelineText>
             </TimelinePost>
@@ -138,9 +138,9 @@ export default function TimelineFromBirthUntilNow({
             <TimelinePost>
               <TimelineHeading>Wanted to leave University</TimelineHeading>
               <TimelineText>
-                I struggled with programming in the intro courses. It didn't help that we learned
-                obscure things like how to print a Christmas tree or star with a for-loop to start
-                it all — but I'm glad I stuck with it.
+                I struggled with programming in the intro courses. It didn&apos;t help that we
+                learned obscure things like how to print a Christmas tree or star with a for-loop to
+                start it all — but I&apos;m glad I stuck with it.
               </TimelineText>
             </TimelinePost>
             <TimelinePost>
@@ -163,10 +163,10 @@ export default function TimelineFromBirthUntilNow({
             <TimelinePost>
               <TimelineHeading>Met with my high school counselor</TimelineHeading>
               <TimelineText>
-                I didn't know what I wanted to do after high school and was contemplating a year
-                off. The simple question "what do you do in your spare time?" from my high school
-                counselor prompted me to answer, "I sit at my computer", and it made me realize that
-                a degree in computer engineering was the way to go forward.
+                I didn&apos;t know what I wanted to do after high school and was contemplating a
+                year off. The simple question &quot;what do you do in your spare time?&quot; from my
+                high school counselor prompted me to answer, &quot;I sit at my computer&quot;, and
+                it made me realize that a degree in computer engineering was the way to go forward.
               </TimelineText>
             </TimelinePost>
             <TimelinePost>
@@ -182,10 +182,10 @@ export default function TimelineFromBirthUntilNow({
               <TimelineHeading>First meeting with scripting</TimelineHeading>
               <TimelineText>
                 A friend introduced me to Diablo II: Lord of Destruction, a game by Blizzard. The
-                game was fun, but it was riddled with bots, and it didn't take long before I joined
-                in and ran bots myself. The most common bots were written in Lua scripts, and you
-                needed to tinker within the script files to make the bot work well. It sparked an
-                interest.
+                game was fun, but it was riddled with bots, and it didn&apos;t take long before I
+                joined in and ran bots myself. The most common bots were written in Lua scripts, and
+                you needed to tinker within the script files to make the bot work well. It sparked
+                an interest.
               </TimelineText>
             </TimelinePost>
           </TimelineSection>

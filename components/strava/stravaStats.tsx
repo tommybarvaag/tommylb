@@ -57,7 +57,7 @@ export default function StravaStats({ initialStats, ...other }: StravaStatsProps
   });
 
   return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 sm:gap-0 md:gap-12 my-12" {...other}>
+    <div className="my-12 grid sm:grid-cols-1 sm:gap-0 md:grid-cols-2 md:gap-12" {...other}>
       <div>
         <StravaRunningGoals goals={stats?.goals ?? []} />
         <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
