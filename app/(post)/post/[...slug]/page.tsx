@@ -134,15 +134,14 @@ export default async function PostPage({ params }: PostPageProps) {
           "--stagger": "6"
         }}
       />
-      <div
+      <PostViewCount
         className="flex justify-end"
+        slug={post.slugAsParams}
         data-animate
         style={{
           "--stagger": "7"
         }}
-      >
-        <PostViewCount slug={post.slugAsParams} />
-      </div>
+      />
     </article>
   );
 }
