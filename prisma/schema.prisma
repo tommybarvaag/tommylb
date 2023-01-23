@@ -72,3 +72,8 @@ model StravaGear {
   distance       Decimal          @db.Decimal(8, 2)
   stravaActivity StravaActivity[]
 }
+
+model Post {
+  slug  String @id @db.VarChar(255)
+  views Int    @default(1)
+}

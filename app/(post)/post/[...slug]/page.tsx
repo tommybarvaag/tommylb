@@ -2,6 +2,7 @@ import Heading from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import { Mdx } from "@/components/mdx/mdx";
+import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
 import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { formatDate } from "@/lib/utils";
@@ -62,7 +63,7 @@ export default async function PostPage({ params }: PostPageProps) {
         >
           {post.title}
         </Heading>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           {authors?.length ? (
             <div
               className="flex grow space-x-4"
@@ -85,8 +86,8 @@ export default async function PostPage({ params }: PostPageProps) {
                     className="rounded-full"
                   />
                   <div className="flex-1 text-left leading-tight">
-                    <Text className="font-medium text-zinc-100 mb-0">{author.title}</Text>
-                    <Text className="text-[12px] text-zinc-300 mb-0">@{author.twitter}</Text>
+                    <Text className="mb-0 font-medium text-zinc-100">{author.title}</Text>
+                    <Text className="mb-0 text-[12px] text-zinc-300">@{author.twitter}</Text>
                   </div>
                 </NextLink>
               ))}
@@ -95,7 +96,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.date && (
             <time
               dateTime={post.date}
-              className="block text-sm text-zinc-300 shrink max-w-[120px]"
+              className="block max-w-[120px] shrink text-sm text-zinc-300"
               data-animate
               style={{
                 "--stagger": "2"
@@ -127,26 +128,20 @@ export default async function PostPage({ params }: PostPageProps) {
         }}
       />
       <hr
-        className="my-12 border-zinc-700"
+        className="my-6 border-zinc-700"
         data-animate
         style={{
           "--stagger": "6"
         }}
       />
       <div
-        className="flex justify-center py-6 lg:py-10"
+        className="flex justify-end"
         data-animate
         style={{
           "--stagger": "7"
         }}
       >
-        <Link
-          href="/post"
-          className="inline-flex items-center justify-center text-zinc-300 hover:text-zinc-100"
-        >
-          <Icons.ChevronLeft className="mr-2 h-4 w-4" />
-          See all posts
-        </Link>
+        <PostViewCount slug={post.slugAsParams} />
       </div>
     </article>
   );

@@ -1,5 +1,6 @@
 /// <reference types="react" />
 
+import { Prisma } from "@prisma/client";
 import "react";
 
 type AllowCSSVariables = { [key in `--${string}`]: string };
@@ -213,3 +214,10 @@ export type PolymorphicLazyExoticComponent<P, T extends React.ElementType> = Mer
   React.LazyExoticComponent<React.ComponentType<any>>,
   PolymorphicExoticComponent<P, T>
 >;
+
+export type Post = Prisma.PostGetPayload<{
+  select: {
+    slug: true;
+    views: true;
+  };
+}>;
