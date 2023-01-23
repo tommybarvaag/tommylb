@@ -27,6 +27,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       return res.status(200).json(post);
     } catch (error) {
+      console.error(error);
       if (error instanceof z.ZodError) {
         return res.status(422).json(error.issues);
       }
