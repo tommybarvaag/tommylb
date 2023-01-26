@@ -135,11 +135,23 @@ async function getStravaActivityAveragesByType(id: number) {
   return stats;
 }
 
-export async function ActivityTypeTrend({ id }: { id: StravaActivity["id"] }) {
+export async function ActivityTypeTrend({
+  id,
+  stagger = "1"
+}: {
+  id: StravaActivity["id"];
+  stagger?: string;
+}) {
   const stats = await getStravaActivityAveragesByType(id);
 
   return (
-    <div className="my-8">
+    <div
+      className="my-8"
+      data-animate
+      style={{
+        "--stagger": stagger
+      }}
+    >
       <Heading as="h3">Stats</Heading>
       <dl className="grid grid-cols-1 gap-x-8 overflow-hidden rounded-lg shadow md:grid-cols-2">
         {stats.map(item => (
