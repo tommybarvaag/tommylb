@@ -1,6 +1,5 @@
 import Heading from "@/components/heading";
-import { Icons } from "@/components/icons";
-import Link from "@/components/link";
+import { HistoryBackLink } from "@/components/history-back-link";
 import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
@@ -41,18 +40,15 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="container relative max-w-3xl">
-      <Link
+      <HistoryBackLink
         href="/post"
-        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
-        underline={false}
         data-animate
         style={{
           "--stagger": "10"
         }}
       >
-        <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         See all posts
-      </Link>
+      </HistoryBackLink>
       <div>
         <Heading
           as="pageHeading"

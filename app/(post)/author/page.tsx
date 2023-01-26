@@ -1,4 +1,5 @@
 import Heading from "@/components/heading";
+import { HistoryBackLink } from "@/components/history-back-link";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Text from "@/components/text";
@@ -7,11 +8,9 @@ import Image from "next/image";
 
 export default async function AuthorsPage() {
   return (
-    <div className="relative container max-w-4xl">
-      <Link
+    <div className="container relative max-w-4xl">
+      <HistoryBackLink
         href="/"
-        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
-        underline={false}
         data-animate
         style={{
           "--stagger": "10"
@@ -19,7 +18,7 @@ export default async function AuthorsPage() {
       >
         <Icons.BackToHome className="mr-2 h-4 w-4" />
         Home
-      </Link>
+      </HistoryBackLink>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <Heading

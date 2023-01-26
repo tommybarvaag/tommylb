@@ -1,11 +1,9 @@
 import Heading from "@/components/heading";
-import { Icons } from "@/components/icons";
 import Text from "@/components/text";
-
-import Link from "@/components/link";
 import { allAuthors } from "@/contentlayer/generated";
 import { notFound } from "next/navigation";
 
+import { HistoryBackLink } from "@/components/history-back-link";
 import "@/styles/mdx.css";
 
 interface PostPageProps {
@@ -30,19 +28,16 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="relative container  max-w-3xl">
-      <Link
+    <article className="container relative max-w-3xl">
+      <HistoryBackLink
         href="/author"
-        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
-        underline={false}
         data-animate
         style={{
           "--stagger": "10"
         }}
       >
-        <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         Authors
-      </Link>
+      </HistoryBackLink>
       <div>
         <Heading
           data-animate

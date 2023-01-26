@@ -1,6 +1,5 @@
 import Heading from "@/components/heading";
-import { Icons } from "@/components/icons";
-import Link from "@/components/link";
+import { HistoryBackLink } from "@/components/history-back-link";
 import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
 import Text from "@/components/text";
 import { planetScale } from "@/lib/planetscale";
@@ -54,18 +53,15 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
 
   return (
     <article className="container relative max-w-3xl">
-      <Link
+      <HistoryBackLink
         href="/strava"
-        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
-        underline={false}
         data-animate
         style={{
           "--stagger": "10"
         }}
       >
-        <Icons.ArrowLeft className="mr-2 h-4 w-4" />
         Strava activities
-      </Link>
+      </HistoryBackLink>
       <div>
         <Heading
           data-animate

@@ -1,6 +1,5 @@
 import Heading from "@/components/heading";
-import { Icons } from "@/components/icons";
-import Link from "@/components/link";
+import { HistoryBackLink } from "@/components/history-back-link";
 import StravaActivities from "@/components/strava/strava-activities";
 import StravaStats from "@/components/strava/strava-stats";
 import Text from "@/components/text";
@@ -20,18 +19,15 @@ export default async function Strava() {
 
   return (
     <div className="container relative max-w-4xl">
-      <Link
+      <HistoryBackLink
         href="/"
-        className="absolute -left-[200px] hidden items-center justify-center xl:inline-flex"
-        underline={false}
         data-animate
         style={{
           "--stagger": "10"
         }}
       >
-        <Icons.BackToHome className="mr-2 h-4 w-4" />
         Home
-      </Link>
+      </HistoryBackLink>
       <Heading
         as="pageHeading"
         data-animate
