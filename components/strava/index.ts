@@ -1,4 +1,3 @@
-import LastStravaActivity from "./last-strava-activity";
 import StravaActivities from "./strava-activities";
 import StravaActivity from "./strava-activity";
 import StravaGear from "./strava-gear";
@@ -9,7 +8,6 @@ import StravaRunningGoals from "./strava-running-goals";
 import StravaUnitOfMeasurement from "./strava-unit-of-measurement";
 
 export {
-  LastStravaActivity,
   StravaActivities,
   StravaActivity,
   StravaGear,

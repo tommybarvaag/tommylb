@@ -2,19 +2,15 @@ import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { getFormattedLongDate } from "../../utils/date-utils";
 import Heading from "../heading";
 import { Icons } from "../icons";
+import Link from "../link";
 import Text from "../text";
 import StravaUnitOfMeasurement from "./strava-unit-of-measurement";
 
 type StravaActivitiesProps = {
   activity: StravaActivityWithGearAndPersonalBests;
-  linkToStravaPage?: boolean;
 };
 
-export default function StravaActivity({
-  activity,
-  linkToStravaPage = false,
-  ...other
-}: StravaActivitiesProps) {
+export default function StravaActivity({ activity, ...other }: StravaActivitiesProps) {
   const renderHeartRate = () => {
     return activity.hasHeartRate ? (
       <StravaUnitOfMeasurement title="Heart rate " value={`${activity.averageHeartRate} bpm`} />
@@ -36,6 +32,13 @@ export default function StravaActivity({
             <StravaUnitOfMeasurement title="Speed" value={`${activity.kilometersPerHour} kph`} />
           </>
         );
+      case "Workout":
+        return (
+          <>
+            <StravaUnitOfMeasurement title="Time" value={activity.formattedMovingTime} />
+            {renderHeartRate()}
+          </>
+        );
       default:
         return (
           <>
@@ -55,9 +58,10 @@ export default function StravaActivity({
   };
 
   return (
-    <a
+    <Link
       className="mb-12 block w-full divide-y divide-white"
-      href={linkToStravaPage ? "/strava" : "#"}
+      href={`/strava/${activity.id}`}
+      underline={false}
       {...other}
     >
       <div className="flex items-center">
@@ -81,6 +85,6 @@ export default function StravaActivity({
         </div>
       ))}
       <div className="mt-4 flex flex-wrap pt-4">{renderStravaStats()}</div>
-    </a>
+    </Link>
   );
 }

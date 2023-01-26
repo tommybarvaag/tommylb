@@ -11,8 +11,8 @@ export default function StravaUnitOfMeasurement({
   ...other
 }: StravaUnitOfMeasurementProps) {
   return (
-    <div className="mr-6 flex flex-col items-center justify-center" {...other}>
-      <Text className="text-sm">{title}</Text>
+    <div className="mr-6" {...other}>
+      <Text className="mb-1 text-sm">{title}</Text>
       <Text className="text-base font-bold">{value}</Text>
     </div>
   );
