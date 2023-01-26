@@ -7,11 +7,10 @@ import "@/styles/mdx.css";
 import { getFormattedLongDate } from "@/utils/date-utils";
 import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { ActivityTypeTrend } from "./_components/activity-type-trend";
 
 export const runtime = "edge";
-export const dynamic = "force-static";
-export const fetchCache = "force-cache";
-export const preferredRegion = "edge";
 
 interface StravaActivityPageProps {
   params: {
@@ -97,6 +96,10 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
             "--stagger": "4"
           }}
         />
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* @ts-expect-error Async Server Component */}
+          <ActivityTypeTrend id={activity.id} />
+        </Suspense>
       </div>
     </article>
   );
