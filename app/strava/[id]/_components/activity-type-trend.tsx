@@ -153,7 +153,7 @@ export async function ActivityTypeTrend({
       }}
     >
       <Heading as="h3">Stats</Heading>
-      <dl className="grid grid-cols-1 gap-x-8 overflow-hidden rounded-lg shadow md:grid-cols-2">
+      <dl className="grid grid-cols-1 gap-x-8 overflow-hidden rounded-lg md:grid-cols-2">
         {stats.map(item => (
           <div key={item.name} className="py-5">
             <dt className="text-base font-normal">{item.name}</dt>
