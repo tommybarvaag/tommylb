@@ -81,7 +81,7 @@ export default async function Home() {
         <div>
           <Heading className="text-zinc-400">Building</Heading>
           <ul>
-            <li>
+            <li key="list-element-kxb-app">
               <Link className="mb-4" href="https://kxb.app/">
                 <Heading variant="h3" noMargin>
                   kxb.app
@@ -91,7 +91,7 @@ export default async function Home() {
                 A project for internal use @knowit. Estimating salary for consultants and more.
               </Text>
             </li>
-            <li>
+            <li key="list-element-calendar-app">
               <Link className="mb-4" href="https://github.com/tommybarvaag/norwegian-calendar">
                 <Heading variant="h3" noMargin>
                   calendar.app
@@ -102,7 +102,7 @@ export default async function Home() {
                 Built with Next.js. No monetization, no ads, no tracking.
               </Text>
             </li>
-            <li>
+            <li key="name-party-app">
               <Link className="mb-4" href="https://github.com/tommybarvaag/name-party">
                 <Heading variant="h3" noMargin>
                   name-party.app

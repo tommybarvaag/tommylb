@@ -6,7 +6,7 @@ import { allPosts } from "@/contentlayer/generated";
 import { formatMonthDay } from "@/lib/utils";
 import { compareDesc } from "date-fns";
 
-export default async function BlogPage() {
+export default async function PostPage() {
   const yearPosts = allPosts
     .filter(post => post.published)
     .sort((a, b) => {
@@ -75,7 +75,10 @@ export default async function BlogPage() {
               <Text className="mb-0 py-2">{year}</Text>
               <ul className="grow items-center">
                 {posts.map(post => (
-                  <li className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b">
+                  <li
+                    key={`post-page-${post._id}`}
+                    className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b"
+                  >
                     <Link href={post.slug} className="group flex w-full gap-3" underline={false}>
                       <>
                         <Text className="mb-0 grow group-hover:underline">{post.title}</Text>

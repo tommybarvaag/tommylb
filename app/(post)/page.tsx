@@ -1,9 +1,9 @@
 import Heading from "@/components/heading";
 
-export default async function Blog() {
+export default async function PostPage() {
   return (
     <>
-      <Heading>Blog</Heading>
+      <Heading>Post</Heading>
     </>
   );
 }
