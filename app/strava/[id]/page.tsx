@@ -96,7 +96,7 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
             "--stagger": "4"
           }}
         />
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div></div>}>
           {/* @ts-expect-error Async Server Component */}
           <ActivityTypeTrend id={activity.id} stagger="5" />
         </Suspense>
