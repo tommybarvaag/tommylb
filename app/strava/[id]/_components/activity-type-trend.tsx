@@ -36,13 +36,7 @@ async function getStravaActivity(id: number) {
   return stravaActivity as StravaActivity;
 }
 
-async function getStravaActivityAveragesByType(id: number) {
-  const activity = await getStravaActivity(id);
-
-  if (!activity) {
-    return null;
-  }
-
+async function getStravaActivityAveragesByType(activity: StravaActivity) {
   const { rows } = await planetScale.execute(
     "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ?",
     [activity.type]
@@ -136,13 +130,13 @@ async function getStravaActivityAveragesByType(id: number) {
 }
 
 export async function ActivityTypeTrend({
-  id,
+  activity,
   stagger = "1"
 }: {
-  id: StravaActivity["id"];
+  activity: StravaActivity;
   stagger?: string;
 }) {
-  const stats = await getStravaActivityAveragesByType(id);
+  const stats = await getStravaActivityAveragesByType(activity);
 
   return (
     <div
