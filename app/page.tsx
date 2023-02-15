@@ -94,12 +94,12 @@ export default async function Home() {
             <li key="list-element-calendar-app">
               <Link className="mb-4" href="https://github.com/tommybarvaag/norwegian-calendar">
                 <Heading variant="h3" noMargin>
-                  calendar.app
+                  dato.im
                 </Heading>
               </Link>
               <Text className="text-sm">
-                Hopefully a successor to <Link href="https://www.norskkalender.no/">nk.no</Link>{" "}
-                Built with Next.js. No monetization, no ads, no tracking.
+                Hopefully a successor to <Link href="https://dato.im">nk.no</Link> Built with
+                Next.js. No monetization, no ads, no tracking.
               </Text>
             </li>
             <li key="name-party-app">
