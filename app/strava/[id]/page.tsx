@@ -11,11 +11,14 @@ import { Suspense } from "react";
 import { ActivityTypeTrend } from "./_components/activity-type-trend";
 
 export const runtime = "edge";
+export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 interface StravaActivityPageProps {
   params: {
     id: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 async function getStravaActivity(id: string) {
@@ -43,7 +46,10 @@ const ActivityDescription = ({
   );
 };
 
-export default async function StravaActivityPage({ params }: StravaActivityPageProps) {
+export default async function StravaActivityPage({
+  params,
+  searchParams
+}: StravaActivityPageProps) {
   const activity = await getStravaActivity(params.id);
 
   if (!activity) {
@@ -98,7 +104,7 @@ export default async function StravaActivityPage({ params }: StravaActivityPageP
         />
         <Suspense fallback={<div></div>}>
           {/* @ts-expect-error Async Server Component */}
-          <ActivityTypeTrend activity={activity} stagger="5" />
+          <ActivityTypeTrend activity={activity} year={searchParams?.year} stagger="5" />
         </Suspense>
       </div>
     </article>

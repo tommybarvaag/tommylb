@@ -43,9 +43,9 @@ export default async function Strava() {
           "--stagger": "2"
         }}
       >
-        I like to keep moving. After years and years of football in my youth I've taken a liking of
-        running with the occasional hike. To motivate myself I've set some running goals for the
-        future and I hope I'll be able to reach them soon.
+        I like to keep moving. After years and years of football in my youth I&apos;ve taken a
+        liking of running with the occasional hike. To motivate myself I&apos;ve set some running
+        goals for the future and I hope I&apos;ll be able to reach them soon.
       </Text>
       <Text
         data-animate

@@ -25,5 +25,6 @@ module.exports = {
   },
   variants: {
     typography: ["dark"]
-  }
+  },
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/line-clamp")]
 };

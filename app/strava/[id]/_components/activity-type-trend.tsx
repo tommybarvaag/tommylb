@@ -3,6 +3,8 @@ import { Icons } from "@/components/icons";
 import { planetScale } from "@/lib/planetscale";
 import { cn } from "@/lib/utils";
 import { StravaActivity } from "@prisma/client";
+import { Suspense } from "react";
+import { ActivityYearSelect, ActivityYearSelectSkeleton } from "./activity-year-select";
 
 type StravaActivityAverages = {
   averageMovingTime: number;
@@ -24,23 +26,31 @@ function roundToNearestTwoDecimalPlaces(value: number) {
   return Math.round(value * 100) / 100;
 }
 
-async function getStravaActivity(id: number) {
-  const { rows } = await planetScale.execute("SELECT * FROM StravaActivity WHERE ID = ?", [id]);
+async function getStravaActivityYears(activity: StravaActivity) {
+  const { rows } = await planetScale.execute(
+    "SELECT DISTINCT YEAR(startDate) as year FROM StravaActivity WHERE type = ?",
+    [activity.type]
+  );
 
   if (!rows?.length) {
     return null;
   }
 
-  const [stravaActivity] = rows;
+  const years = rows as { year: number }[];
 
-  return stravaActivity as StravaActivity;
+  return years.map(year => year.year.toString());
 }
 
-async function getStravaActivityAveragesByType(activity: StravaActivity) {
-  const { rows } = await planetScale.execute(
-    "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ?",
-    [activity.type]
-  );
+async function getStravaActivityAveragesByType(activity: StravaActivity, year: string) {
+  const { rows } = year
+    ? await planetScale.execute(
+        "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ? AND YEAR(startDate) = ?",
+        [activity.type, year]
+      )
+    : await planetScale.execute(
+        "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ?",
+        [activity.type]
+      );
 
   if (!rows?.length) {
     return null;
@@ -131,12 +141,15 @@ async function getStravaActivityAveragesByType(activity: StravaActivity) {
 
 export async function ActivityTypeTrend({
   activity,
+  year,
   stagger = "1"
 }: {
   activity: StravaActivity;
+  year?: string;
   stagger?: string;
 }) {
-  const stats = await getStravaActivityAveragesByType(activity);
+  const years = await getStravaActivityYears(activity);
+  const stats = await getStravaActivityAveragesByType(activity, years.includes(year) ? year : null);
 
   return (
     <div
@@ -146,7 +159,14 @@ export async function ActivityTypeTrend({
         "--stagger": stagger
       }}
     >
-      <Heading as="h3">Stats</Heading>
+      <div className="mb-4 flex items-center justify-between">
+        <Heading as="h3" noMargin>
+          Stats
+        </Heading>
+        <Suspense fallback={<ActivityYearSelectSkeleton />}>
+          <ActivityYearSelect years={years} />
+        </Suspense>
+      </div>
       <dl className="grid grid-cols-1 gap-x-8 overflow-hidden rounded-lg md:grid-cols-2">
         {stats.map(item => (
           <div key={item.name} className="py-5">
@@ -167,12 +187,12 @@ export async function ActivityTypeTrend({
               >
                 {item.changeType === "increase" ? (
                   <Icons.ArrowUp
-                    className="-ml-1 mr-0.5 h-4 w-4 flex-shrink-0 self-center text-emerald-500"
+                    className="-ml-1 mr-0.5 h-4 w-4 shrink-0 self-center text-emerald-500"
                     aria-hidden="true"
                   />
                 ) : (
                   <Icons.ArrowDown
-                    className="-ml-1 mr-0.5 h-4 w-4 flex-shrink-0 self-center text-rose-500"
+                    className="-ml-1 mr-0.5 h-4 w-4 shrink-0 self-center text-rose-500"
                     aria-hidden="true"
                   />
                 )}

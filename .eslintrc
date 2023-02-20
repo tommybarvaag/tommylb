@@ -2,6 +2,9 @@
   "$schema": "http://json.schemastore.org/eslintrc",
   "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
   "plugins": ["tailwindcss"],
+  "rules": {
+    "tailwindcss/no-custom-classname": "off"
+  },
   "settings": {
     "tailwindcss": {
       "callees": ["cn"]

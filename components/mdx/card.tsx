@@ -18,7 +18,7 @@ export function Card({ href, className, children, disabled, ...props }: CardProp
       {...props}
     >
       <div className="flex flex-col justify-between space-y-4">
-        <div className="space-y-2 [&>p]:text-zinc-300 [&>h4]:!mt-0 [&>h3]:!mt-0">{children}</div>
+        <div className="space-y-2 [&>h3]:!mt-0 [&>h4]:!mt-0 [&>p]:text-zinc-300">{children}</div>
       </div>
       {href && (
         <Link href={disabled ? "#" : href} className="absolute inset-0">

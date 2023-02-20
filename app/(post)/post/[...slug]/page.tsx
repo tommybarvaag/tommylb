@@ -4,7 +4,7 @@ import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
 import { allAuthors, allPosts } from "@/contentlayer/generated";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
 import Image from "next/image";
 import NextLink from "next/link";
@@ -13,6 +13,71 @@ import { notFound } from "next/navigation";
 interface PostPageProps {
   params: {
     slug: string[];
+  };
+}
+
+export function generateMetadata({ params }: PostPageProps) {
+  const slug = params?.slug?.join("/");
+  const post = allPosts.find(post => post.slugAsParams === slug);
+
+  if (!post) {
+    return {};
+  }
+
+  const title = post?.title;
+
+  const url = getAbsoluteUrl();
+
+  const description = post?.description;
+
+  const ogImageUrl = new URL(`${url}/api/og`);
+  ogImageUrl.searchParams.set("heading", title);
+  ogImageUrl.searchParams.set("type", "post");
+  ogImageUrl.searchParams.set("mode", "dark");
+
+  return {
+    themeColor: "#18181b",
+    viewport: {
+      width: "device-width",
+      initialScale: 1
+    },
+    title: {
+      default: title,
+      template: "%s | Tommy Lunde Barvåg"
+    },
+    description,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1
+      }
+    },
+    twitter: {
+      title,
+      description,
+      card: "summary_large_image",
+      images: ogImageUrl
+    },
+    openGraph: {
+      title,
+      type: "website",
+      url: getAbsoluteUrl(),
+      siteName: title,
+      description,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Tommy Lunde Barvåg."
+        }
+      ]
+    }
   };
 }
 
@@ -36,7 +101,7 @@ export default async function PostPage({ params }: PostPageProps) {
       accumulator.push(foundAuthor);
     }
     return accumulator;
-  }, []);
+  }, [] as typeof allAuthors);
 
   return (
     <article className="container relative max-w-3xl">

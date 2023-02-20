@@ -62,9 +62,9 @@ export default async function Home() {
             "--stagger": "2"
           }}
         >
-          I've spent the last nine years creating web solutions for great companies. Experimenting
-          with new technologies and learning new things is what I love the most. I'm currently
-          working as a senior consultant at{" "}
+          I&apos;ve spent the last nine years creating web solutions for great companies.
+          Experimenting with new technologies and learning new things is what I love the most.
+          I&apos;m currently working as a senior consultant at{" "}
           <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
             @knowit
           </Link>
@@ -100,17 +100,6 @@ export default async function Home() {
               <Text className="text-sm">
                 Hopefully a successor to <Link href="https://dato.im">nk.no</Link> Built with
                 Next.js. No monetization, no ads, no tracking.
-              </Text>
-            </li>
-            <li key="name-party-app">
-              <Link className="mb-4" href="https://github.com/tommybarvaag/name-party">
-                <Heading variant="h3" noMargin>
-                  name-party.app
-                </Heading>
-              </Link>
-              <Text className="text-sm">
-                A project for my son and daughter's name party. Featuring RSVP, guestbook, gift list
-                and more. Built with Next.js 13 and RSC.
               </Text>
             </li>
           </ul>
@@ -165,8 +154,8 @@ export default async function Home() {
             "--stagger": "5"
           }}
         >
-          Developing skill through exploring and building, living for the bleeding edge. I'm a big
-          fan of the web and all the possibilities it offers.
+          Developing skill through exploring and building, living for the bleeding edge. I&apos;m a
+          big fan of the web and all the possibilities it offers.
         </Text>
         <Text
           data-animate
