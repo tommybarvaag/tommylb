@@ -180,10 +180,9 @@ const createStats = (activities: StravaActivityWithGearAndPersonalBests[] = []):
 
   return {
     goals: [
-      { name: "5k", value: convertSecondsToHoursAndMinutes(1170) },
+      { name: "5k", value: convertSecondsToHoursAndMinutes(1190) },
       { name: "10k", value: convertSecondsToHoursAndMinutes(2480) },
-      { name: "Half-Marathon", value: convertSecondsToHoursAndMinutes(5700) },
-      { name: "Marathon", value: convertSecondsToHoursAndMinutes(12000) }
+      { name: "Half-Marathon", value: convertSecondsToHoursAndMinutes(6000) }
     ],
     personalBests: [
       getPersonalBest(allBestEfforts, "400m"),

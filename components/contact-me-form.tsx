@@ -6,7 +6,6 @@ import { useForm, useFormState } from "react-hook-form";
 import { validateEmail } from "../utils/form-validation-utils";
 import Button from "./button";
 import FormSubmitMessage from "./form-submit-message";
-import Heading from "./heading";
 import { Icons } from "./icons";
 import Text from "./text";
 import TextArea from "./text-area";
@@ -59,7 +58,6 @@ export default function ContactMeForm({ location }: ContactMeFormProps) {
   return (
     <div className="mb-12 max-w-md self-center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Heading>Contact me</Heading>
         <TextField
           id="name"
           name="name"

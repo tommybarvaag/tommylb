@@ -4,8 +4,22 @@ import StravaActivities from "@/components/strava/strava-activities";
 import StravaStats from "@/components/strava/strava-stats";
 import Text from "@/components/text";
 import strava from "@/lib/strava";
+import { defaultOg } from "@/utils/metadata-utils";
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Strava",
+  description:
+    "I like to keep moving. I usually play indoor football once a week and I like the occasional run or hike. Running while being a dad of two is not always easy but I hope I'll be able to reach my goals soon.",
+  openGraph: {
+    ...defaultOg,
+    title: "Strava",
+    description:
+      "I like to keep moving. I usually play indoor football once a week and I like the occasional run or hike. Running while being a dad of two is not always easy but I hope I'll be able to reach my goals soon."
+  }
+};
 
 async function getStravaData() {
   const stats = await strava.getStats();
@@ -43,9 +57,9 @@ export default async function Strava() {
           "--stagger": "2"
         }}
       >
-        I like to keep moving. After years and years of football in my youth I&apos;ve taken a
-        liking of running with the occasional hike. To motivate myself I&apos;ve set some running
-        goals for the future and I hope I&apos;ll be able to reach them soon.
+        I like to keep moving. I usually play indoor football once a week and I like the occasional
+        run or hike. Running while being a dad of two is not always easy but I hope I&apos;ll be
+        able to reach my goals soon.
       </Text>
       <Text
         data-animate

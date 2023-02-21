@@ -147,7 +147,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.date && (
             <time
               dateTime={post.date}
-              className="block max-w-[120px] shrink text-sm text-zinc-300"
+              className="block max-w-[120px] shrink text-sm text-zinc-300 md:max-w-full"
               data-animate
               style={{
                 "--stagger": "2"
