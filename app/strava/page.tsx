@@ -4,7 +4,7 @@ import StravaActivities from "@/components/strava/strava-activities";
 import StravaStats from "@/components/strava/strava-stats";
 import Text from "@/components/text";
 import strava from "@/lib/strava";
-import { defaultOg } from "@/utils/metadata-utils";
+import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -15,6 +15,12 @@ export const metadata: Metadata = {
     "I like to keep moving. I usually play indoor football once a week and I like the occasional run or hike. Running while being a dad of two is not always easy but I hope I'll be able to reach my goals soon.",
   openGraph: {
     ...defaultOg,
+    title: "Strava",
+    description:
+      "I like to keep moving. I usually play indoor football once a week and I like the occasional run or hike. Running while being a dad of two is not always easy but I hope I'll be able to reach my goals soon."
+  },
+  twitter: {
+    ...defaultTwitter,
     title: "Strava",
     description:
       "I like to keep moving. I usually play indoor football once a week and I like the occasional run or hike. Running while being a dad of two is not always easy but I hope I'll be able to reach my goals soon."

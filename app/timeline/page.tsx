@@ -1,7 +1,7 @@
 import Heading from "@/components/heading";
 import Text from "@/components/text";
 import { TimelineFromBirthUntilNow } from "@/components/timeline";
-import { defaultOg } from "@/utils/metadata-utils";
+import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,6 +10,12 @@ export const metadata: Metadata = {
     "View my timeline from birth until now. Read along to get to know me a little better.",
   openGraph: {
     ...defaultOg,
+    title: "Timeline",
+    description:
+      "View my timeline from birth until now. Read along to get to know me a little better."
+  },
+  twitter: {
+    ...defaultTwitter,
     title: "Timeline",
     description:
       "View my timeline from birth until now. Read along to get to know me a little better."
