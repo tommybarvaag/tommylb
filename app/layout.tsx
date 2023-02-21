@@ -4,10 +4,11 @@ import { VercelAnalytics } from "@/components/vercel-analytics";
 import { getAbsoluteUrl } from "@/lib/utils";
 import { getDefaultSeoDescription } from "@/utils/seo-utils";
 import { Inter } from "@next/font/google";
+import type { Metadata } from "next";
 import Script from "next/script";
 import "styles/global.css";
 
-export function generateMetadata() {
+export function generateMetadata(): Metadata {
   const url = getAbsoluteUrl();
 
   const title = "Tommy Lunde Barvåg";
@@ -77,6 +78,9 @@ export function generateMetadata() {
     },
     other: {
       robots: "max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    },
+    verification: {
+      google: "XDSv8hkk6HystJxcyceiBz0bt_5vZJakkq-1fFTw8CU"
     }
   };
 }

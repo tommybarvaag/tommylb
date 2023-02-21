@@ -6,6 +6,7 @@ import Text from "@/components/text";
 import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
+import type { Metadata } from "next";
 import Image from "next/image";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
@@ -16,7 +17,7 @@ interface PostPageProps {
   };
 }
 
-export function generateMetadata({ params }: PostPageProps) {
+export function generateMetadata({ params }: PostPageProps): Metadata {
   const slug = params?.slug?.join("/");
   const post = allPosts.find(post => post.slugAsParams === slug);
 
@@ -46,17 +47,6 @@ export function generateMetadata({ params }: PostPageProps) {
       template: "%s | Tommy Lunde Barvåg"
     },
     description,
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-video-preview": -1,
-        "max-image-preview": "large",
-        "max-snippet": -1
-      }
-    },
     twitter: {
       title,
       description,
