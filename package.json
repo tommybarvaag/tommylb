@@ -14,7 +14,6 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@next/font": "^13.2.1",
     "@planetscale/database": "^1.5.0",
     "@prisma/client": "4.10.1",
     "@radix-ui/react-select": "^1.2.0",

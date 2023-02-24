@@ -2,7 +2,7 @@ import Footer from "@/components/footer";
 import Main from "@/components/main";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { defaultMetadata } from "@/utils/metadata-utils";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Script from "next/script";
 import "styles/global.css";
