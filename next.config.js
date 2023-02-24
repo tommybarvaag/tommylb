@@ -17,6 +17,11 @@ const nextConfig = {
         source: "/blog/:slug",
         destination: "/post/:slug",
         permanent: true
+      },
+      {
+        source: "/post/why-i-run",
+        destination: "/post",
+        permanent: true
       }
     ];
   },
