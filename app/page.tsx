@@ -163,7 +163,7 @@ export default async function Home() {
             "--stagger": "6"
           }}
         >
-          I love building websites and web applications. I excel at <Link href="/blog">Test</Link>
+          I love building websites and web applications. I excel at
           <Link href="https://www.typescriptlang.org/">TypeScript</Link>,{" "}
           <Link href="https://reactjs.org/">React</Link>,{" "}
           <Link href="https://nextjs.org/">Next.js</Link> and other modern web technologies.
