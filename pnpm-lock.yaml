@@ -17,7 +17,7 @@ specifiers:
   eslint: 8.34.0
   eslint-config-next: ^13.2.1
   eslint-plugin-tailwindcss: ^3.9.0
-  framer-motion: ^9.1.6
+  framer-motion: ^10.0.0
   lucide-react: 0.115.0
   next: 13.2.1
   next-contentlayer: ^0.3.0
@@ -41,7 +41,7 @@ specifiers:
   sharp: ^0.31.3
   shiki: ^0.14.1
   strava-v3: ^2.1.0
-  swr: 2.0.3
+  swr: 2.0.4
   tailwind-merge: ^1.10.0
   tailwindcss: ^3.2.7
   tailwindcss-animate: ^1.0.5
@@ -58,7 +58,7 @@ dependencies:
   clsx: 1.2.1
   contentlayer: 0.3.0
   date-fns: 2.29.3
-  framer-motion: 9.1.6_biqbaboplfbrettd7655fr4n2y
+  framer-motion: 10.0.0_biqbaboplfbrettd7655fr4n2y
   lucide-react: 0.115.0_react@18.2.0
   next: 13.2.1_biqbaboplfbrettd7655fr4n2y
   next-contentlayer: 0.3.0_qgtcjgzkkjtbiyvnx7d32fl5vu
@@ -71,7 +71,7 @@ dependencies:
   sharp: 0.31.3
   shiki: 0.14.1
   strava-v3: 2.1.0
-  swr: 2.0.3_react@18.2.0
+  swr: 2.0.4_react@18.2.0
   tailwind-merge: 1.10.0
   zod: 3.20.6
 
@@ -2865,8 +2865,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion/9.1.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-3y4p8xGspkEe7eWPdKncg4IvYeUwvHeky9em6dqKu6gnrmo2iBdrChX0s+emhbv00/VuBhdf33rw38J/cxaBrA==}
+  /framer-motion/10.0.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-qVmndcu4Z3q5ftqcbUCvVewHc5yiw4uIZyM0uvJ0/spj9lza/FnWywUUc8DNIZTG1my6nFsNLRPGDruP4o6eIw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -5603,8 +5603,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /swr/2.0.3_react@18.2.0:
-    resolution: {integrity: sha512-sGvQDok/AHEWTPfhUWXEHBVEXmgGnuahyhmRQbjl9XBYxT/MSlAzvXEKQpyM++bMPaI52vcWS2HiKNaW7+9OFw==}
+  /swr/2.0.4_react@18.2.0:
+    resolution: {integrity: sha512-4GUiTjknRUVuw4MWUHR7mzJ9G/DWL+yZz/TgWDfiA0OZ9tL6qyrTkN2wPeboBpL3OJTkej3pexh3mWCnv8cFkQ==}
     engines: {pnpm: '7'}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0
