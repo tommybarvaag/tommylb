@@ -1,5 +1,6 @@
 import Heading from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
+import Link from "@/components/link";
 import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
@@ -8,7 +9,6 @@ import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
 import type { Metadata } from "next";
 import Image from "next/image";
-import NextLink from "next/link";
 import { notFound } from "next/navigation";
 
 interface PostPageProps {
@@ -124,7 +124,7 @@ export default async function PostPage({ params }: PostPageProps) {
               }}
             >
               {authors.map(author => (
-                <NextLink
+                <Link
                   key={author._id}
                   href={`https://twitter.com/${author.twitter}`}
                   className="flex items-center space-x-2 text-sm"
@@ -140,7 +140,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     <Text className="mb-0 font-medium text-zinc-100">{author.title}</Text>
                     <Text className="mb-0 text-[12px] text-zinc-300">@{author.twitter}</Text>
                   </div>
-                </NextLink>
+                </Link>
               ))}
             </div>
           ) : null}

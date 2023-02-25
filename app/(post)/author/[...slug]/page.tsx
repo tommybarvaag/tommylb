@@ -18,7 +18,7 @@ export async function generateStaticParams(): Promise<PostPageProps["params"][]>
   }));
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+export default async function AuthorPage({ params }: PostPageProps) {
   const pageSlug = params?.slug?.join("/");
 
   const author = allAuthors.find(({ slugAsParams }) => slugAsParams === pageSlug);
