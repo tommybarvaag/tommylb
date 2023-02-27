@@ -88,19 +88,20 @@ export default async function Home() {
                 </Heading>
               </Link>
               <Text className="text-sm">
-                A project for internal use @knowit. Estimating salary for consultants and more.
+                A project for internal use{" "}
+                <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
+                  @knowit
+                </Link>
+                . Estimating salary and more.
               </Text>
             </li>
             <li key="list-element-calendar-app">
-              <Link className="mb-4" href="https://github.com/tommybarvaag/norwegian-calendar">
+              <Link className="mb-4" href="https://dato.im">
                 <Heading variant="h3" noMargin>
                   dato.im
                 </Heading>
               </Link>
-              <Text className="text-sm">
-                Hopefully a successor to <Link href="https://dato.im">nk.no</Link> Built with
-                Next.js. No monetization, no ads, no tracking.
-              </Text>
+              <Text className="text-sm">Norwegian calendar with holidays and vacations.</Text>
             </li>
           </ul>
         </div>
@@ -163,7 +164,7 @@ export default async function Home() {
             "--stagger": "6"
           }}
         >
-          I love building websites and web applications. I excel at
+          I love building websites and web applications. I excel at{" "}
           <Link href="https://www.typescriptlang.org/">TypeScript</Link>,{" "}
           <Link href="https://reactjs.org/">React</Link>,{" "}
           <Link href="https://nextjs.org/">Next.js</Link> and other modern web technologies.
