@@ -27,7 +27,7 @@ const components = {
     />
   ),
   p: ({ className, ...props }) => (
-    <Text className={cn("mb-0 leading-7 [&:not(:first-child)]:mt-6", className)} {...props} />
+    <Text className={cn("mb-0 mt-6 leading-7", className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
@@ -78,7 +78,10 @@ const components = {
   ),
   pre: ({ className, ...props }) => (
     <pre
-      className={cn("mt-6 mb-4 overflow-x-auto rounded-lg bg-zinc-800 py-4", className)}
+      className={cn(
+        "mt-6 mb-4 overflow-x-auto rounded-lg border-4 border-zinc-800 bg-zinc-800 py-4",
+        className
+      )}
       {...props}
     />
   ),

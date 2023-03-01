@@ -48,7 +48,7 @@ const Link = React.forwardRef<LinkElement, LinkProps>(
       >
         {children}
         <Show when={isHrefExternal}>
-          <Icons.ArrowUpRight className="h-4 w-4 text-zinc-500" />
+          <Icons.ArrowUpRight className="h-4 w-4 opacity-50" />
         </Show>
       </NextLink>
     );

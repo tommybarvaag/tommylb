@@ -1,0 +1,263 @@
+---
+title: Do you need a third-party form library?
+description: This article can help you decide if you need third-party form library or not. We will look at React Hook Form and a traditional HTML5 approach.
+shortDescription: This article can help you decide if you need third-party form library or not.
+date: "2023-03-01"
+authors:
+  - tommy
+---
+
+Consider the following form:
+
+```jsx
+<form>
+  <input name="fullName" required />
+  <input name="email" required />
+  <textarea name="message" required />
+  <button type="submit">Submit</button>
+</form>
+```
+
+Without taking any consideration to spam prevention, let's investigate how we can handle the form with [React Hook Form](https://react-hook-form.com/) and a traditional approach using HTML5 validation.
+
+<Callout type="warning">
+  For this article, I will be using React Hook Form. If you are not familiar with React Hook Form, you can read more about it [here](https://react-hook-form.com/).
+
+There are other form libraries out there such as [Formik](https://formik.org/) and [React Final Form](https://final-form.org/react). I will not be covering those libraries in this article.
+
+</Callout>
+
+The spec for our form is as follows:
+
+- Validate that the name is only letters and spaces
+- Validate that the email is a valid email address
+
+## React Hook Form
+
+React Hook Form is a library that helps you build performant and flexible forms. It is a wrapper around the browser's native form validation. It is a light-weight library that is less than 10kb at the time of writing.
+
+```jsx
+import React from "react";
+import { useForm } from "react-hook-form";
+
+const isOnlyLettersAndSpaces = value => /^[a-zA-Z ]+$/.test(value);
+
+// Overly simplified email validation
+const isValidEmailSimple = email => /^\S+@\S+\.\S+$/.test(email);
+
+function Form() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = data => console.log(data);
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="fullName">
+        Full Name
+        <input
+          id="fullName"
+          {...register("fullName", {
+            required: true,
+            validate: value => isOnlyLettersAndSpaces(value)
+          })}
+        />
+        {errors?.fullName && <span>This field is required</span>}
+      </label>
+
+      <label htmlFor="email">
+        Email
+        <input
+          id="email"
+          {...register("email", { required: true, validate: value => isValidEmailSimple(value) })}
+        />
+        {errors?.email && <span>This field is required</span>}
+      </label>
+
+      <label htmlFor="message">
+        Message
+        <textarea id="message" {...register("message", { required: true })} />
+        {errors?.message && <span>This field is required</span>}
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+Easy enough, right? We register our fields with the `register` function and then we can use the `errors` object to display any errors. To further accommodate our spec, we can add a `validate` function to the `register` function. This function will be called when the form is submitted and will return a boolean value. If the value is `true`, the field is valid. If the value is `false`, the field is invalid.
+
+Let's look at the same form using a basic HTML5 approach.
+
+## HTML5
+
+```jsx
+function Form() {
+  return (
+    <form>
+      <label htmlFor="fullName">
+        Full Name
+        <input
+          id="fullName"
+          name="fullName"
+          pattern="^[a-zA-Z ]+$"
+          title="Only letters and spaces are allowed"
+          required
+        />
+      </label>
+      <label htmlFor="email">
+        <input id="email" name="email" type="email" required />
+      </label>
+      <label htmlFor="message">
+        <textarea id="message" name="message" required />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+You could argue that this is easier on the eyes. We have to add a `pattern` attribute to the `fullName` field and a `type` attribute to the `email` field. We also must add a `title` attribute to the `fullName` field to provide a message to the user if the field is invalid.
+
+## Posting the form
+
+<Callout>
+  I love working with Next.js and I highly recommend it. Most of my projects are built with it and
+  naturally I will use it for examples on this site. If you are not familiar with Next.js, you can
+  read more about it [here](https://nextjs.org/).
+</Callout>
+
+### React Hook Form post
+
+Let's look at how we can post the form data with React Hook Form.
+
+```jsx {16-29}
+import React from "react";
+import { useForm } from "react-hook-form";
+
+const isOnlyLettersAndSpaces = value => /^[a-zA-Z ]+$/.test(value);
+
+// Overly simplified email validation
+const isValidEmailSimple = email => /^\S+@\S+\.\S+$/.test(email);
+
+function Form() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = async data => {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    // check if the response is successful
+    if (response.ok) {
+      // do something
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <label htmlFor="fullName">
+        Full Name
+        <input
+          id="fullName"
+          {...register("fullName", {
+            required: true,
+            validate: value => isOnlyLettersAndSpaces(value)
+          })}
+        />
+        {errors?.fullName && <span>This field is required</span>}
+      </label>
+
+      <label htmlFor="email">
+        Email
+        <input
+          id="email"
+          {...register("email", { required: true, validate: value => isValidEmailSimple(value) })}
+        />
+        {errors?.email && <span>This field is required</span>}
+      </label>
+
+      <label htmlFor="message">
+        Message
+        <textarea id="message" {...register("message", { required: true })} />
+        {errors?.message && <span>This field is required</span>}
+      </label>
+
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+We can use the `onSubmit` function to post the form data to our endpoint. We can use the `fetch` API to post the data.
+
+### HTML5 post
+
+First, we need to add an `onSubmit` attribute to the form and then we can use the `fetch` API to post the data via the `submit` event.
+
+```jsx {2-21,24}
+function Form() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: e.currentTarget?.fullName?.value,
+        email: e.currentTarget?.email?.value,
+        message: e.currentTarget?.message?.value
+      })
+    });
+
+    // check if the response is successful
+    if (response.ok) {
+      // do something
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="fullName">
+        Full Name
+        <input
+          id="fullName"
+          name="fullName"
+          pattern="^[a-zA-Z ]+$"
+          title="Only letters and spaces are allowed"
+          required
+        />
+      </label>
+      <label htmlFor="email">
+        <input id="email" name="email" type="email" required />
+      </label>
+      <label htmlFor="message">
+        <textarea id="message" name="message" required />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+```
+
+Both versions are similar. We can use the `fetch` API to post the data to our endpoint. The only major difference is that React Hook Form provides a `handleSubmit` function that automatically prevents the default form submission behavior and parses the form data into a JavaScript object.
+
+## Conclusion
+
+So, when should you use React Hook Form? I recommend using it for complex forms that require conditional validation, dynamic form fields, or asynchronous data fetching. If you have a lot of form fields or your form is nested, React Hook Form can help you manage your form state more efficiently.
+
+In conclusion, while React Hook Form is a great library for managing forms in React, it may not be necessary for simple forms in a Next.js site. For simple forms, you can use React's built-in hooks and HTML5 form validation attributes to manage form state and perform basic validation. Save React Hook Form for complex forms, where its performance benefits and intuitive API shine.

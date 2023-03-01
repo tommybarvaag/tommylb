@@ -16,9 +16,9 @@ export function formatDate(input: string): string {
 
 export function formatMonthDay(input: string): string {
   const date = new Date(input);
-  return date.toLocaleDateString("sv-SE", {
-    month: "numeric",
-    day: "numeric"
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "2-digit"
   });
 }
 

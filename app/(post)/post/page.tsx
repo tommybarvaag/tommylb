@@ -13,7 +13,7 @@ export default async function PostPage() {
       return compareDesc(new Date(a.date), new Date(b.date));
     })
     .reduce((accumulator, post) => {
-      const year = `Year ${new Date(post.date).getFullYear()}`;
+      const year = `${new Date(post.date).getFullYear()}`;
       if (!accumulator[year]) {
         accumulator[year] = [];
       }
@@ -48,7 +48,7 @@ export default async function PostPage() {
               "--stagger": "2"
             }}
           >
-            A page for posts built using Contentlayer. Posts are written in MDX.
+            Thoughts, ideas, and stories.
           </Text>
         </div>
       </div>
@@ -61,35 +61,41 @@ export default async function PostPage() {
       />
       {Object.entries(yearPosts).length ? (
         <div
-          className=""
+          className="group"
           data-animate
           style={{
             "--stagger": "4"
           }}
         >
-          {Object.entries(yearPosts).map(([year, posts]) => (
-            <div
-              key={year}
-              className="mb-8 flex justify-between gap-8 border-b-zinc-700 pb-8 [&:not(:last-child)]:border-b"
-            >
-              <Text className="mb-0 py-2">{year}</Text>
-              <ul className="grow items-center">
-                {posts.map(post => (
-                  <li
-                    key={`post-page-${post._id}`}
-                    className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b"
-                  >
-                    <Link href={post.slug} className="group flex w-full gap-3" underline={false}>
-                      <>
-                        <Text className="mb-0 grow group-hover:underline">{post.title}</Text>
-                        <Text className="mb-0 text-zinc-500">{formatMonthDay(post.date)}</Text>
-                      </>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {Object.entries(yearPosts)
+            .reverse()
+            .map(([year, posts]) => (
+              <div
+                key={year}
+                className="mb-8 flex justify-between gap-6 border-b-zinc-700 pb-8 lg:gap-12 [&:not(:last-child)]:border-b"
+              >
+                <Text className="mb-0 self-start py-2 text-sm leading-7 text-zinc-500">{year}</Text>
+                <ul className="grow items-center">
+                  {posts.map(post => (
+                    <li
+                      key={`post-page-${post._id}`}
+                      className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b"
+                    >
+                      <Link href={post.slug} className="flex w-full gap-3" underline={false}>
+                        <>
+                          <Text className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500">
+                            {post.title}
+                          </Text>
+                          <Text className="mb-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50">
+                            {formatMonthDay(post.date)}
+                          </Text>
+                        </>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
       ) : (
         <Text>No posts published.</Text>

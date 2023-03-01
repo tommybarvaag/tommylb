@@ -79,7 +79,7 @@ export default async function Home() {
         }}
       >
         <div>
-          <Heading className="text-zinc-400">Building</Heading>
+          <Heading className="text-zinc-300">Building</Heading>
           <ul>
             <li key="list-element-kxb-app">
               <Link className="mb-4" href="https://kxb.app/">
@@ -106,7 +106,11 @@ export default async function Home() {
           </ul>
         </div>
         <div>
-          <Heading className="text-zinc-400">Strava</Heading>
+          <Heading className="text-zinc-300">
+            <Link href="/strava" underline={false}>
+              Strava
+            </Link>
+          </Heading>
           <ul>
             {lastStravaActivity.map(activity => (
               <li key={activity.id}>
@@ -125,7 +129,11 @@ export default async function Home() {
           </ul>
         </div>
         <div>
-          <Heading className="text-base text-zinc-400">Posts</Heading>
+          <Heading className="text-base text-zinc-300">
+            <Link href="/post" underline={false}>
+              Posts
+            </Link>
+          </Heading>
           <ul>
             {lastPosts.map(post => (
               <li key={post._id}>
@@ -134,7 +142,7 @@ export default async function Home() {
                     {post.title}
                   </Heading>
                 </Link>
-                <Text className="text-sm">{post.description}</Text>
+                <Text className="text-sm">{post.shortDescription ?? post.description}</Text>
               </li>
             ))}
           </ul>

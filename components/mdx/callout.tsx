@@ -10,14 +10,14 @@ export function Callout({ children, icon, type = "default", ...props }: CalloutP
   return (
     <div
       className={cn("my-6 flex items-start rounded-md border border-l-4 p-4", {
-        "border-zinc-900 bg-zinc-800": type === "default",
+        "border-zinc-700 bg-zinc-800": type === "default",
         "border-red-900 bg-red-800": type === "danger",
-        "border-yellow-900 bg-yellow-800": type === "warning"
+        "border-amber-900 bg-amber-800": type === "warning"
       })}
       {...props}
     >
       {icon && <span className="mr-4 text-2xl">{icon}</span>}
-      <div>{children}</div>
+      <div className="first-of-type:[&>p]:mt-0">{children}</div>
     </div>
   );
 }
