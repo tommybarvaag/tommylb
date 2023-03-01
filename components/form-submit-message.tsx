@@ -1,3 +1,5 @@
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import Text from "./text";
 
@@ -17,7 +19,7 @@ export default function FormSubmitMessage({ text, icon }: FormSubmitMessageProps
           type: "spring"
         }}
       >
-        <div className="flex items-center justify-center space-x-4 rounded-md border-zinc-700 bg-zinc-900 text-zinc-100">
+        <div className="flex items-center space-x-4 rounded-md border-zinc-700 bg-zinc-900 text-zinc-100">
           {icon ? <div className="flex-initial">{icon}</div> : null}
           <div className="flex-initial">
             <Text className="text-sm" noMargin>

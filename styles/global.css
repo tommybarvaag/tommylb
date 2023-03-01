@@ -64,10 +64,6 @@ html {
   }
 }
 
-.grecaptcha-badge {
-  visibility: hidden;
-}
-
 @-webkit-keyframes enter {
   0% {
     opacity: 0;
@@ -105,5 +101,5 @@ html {
 }
 
 .auto-link-heading {
-  @apply before:content-['#'] before:absolute before:-ml-[1em] before:text-zinc-100/0 group-hover:before:text-zinc-100/50 pl-[1em] -ml-[1em];
+  @apply -ml-[1em] pl-[1em] before:absolute before:-ml-[1em] before:text-zinc-100/0 before:content-['#'] group-hover:before:text-zinc-100/50;
 }

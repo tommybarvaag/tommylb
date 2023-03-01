@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import * as React from "react";
 import Text from "./text";
 
-type TextFieldProps = {
+type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
   id: string;
   label: string;
   error?: boolean;
