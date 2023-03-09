@@ -40,7 +40,7 @@ const TwitterCard = ({ tweet }: { tweet: Tweet }) => {
             </p>
           </div>
         )}
-        <p className="mt-3 block text-xl leading-snug">{tweet.text}</p>
+        <p className="mt-3 whitespace-pre-wrap leading-normal">{tweet.text}</p>
         {tweet.media && tweet.media.length ? (
           <div
             className={

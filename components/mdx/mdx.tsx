@@ -125,7 +125,7 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const ParallelismWithPromisesExample = () => {
     return (
       <React.Suspense fallback={<div />}>
-        <div className="my-8">
+        <div className="mb-8">
           {/* @ts-expect-error Async Server Component */}
           <ParallelismLiveTestExample />
         </div>
