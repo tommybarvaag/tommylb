@@ -9,7 +9,7 @@ interface CalloutProps {
 export function Callout({ children, icon, type = "default", ...props }: CalloutProps) {
   return (
     <div
-      className={cn("my-6 flex items-start rounded-md border border-l-4 p-4", {
+      className={cn("my-6 flex items-start rounded-lg border border-l-4 p-4", {
         "border-zinc-700 bg-zinc-800": type === "default",
         "border-red-900 bg-red-800": type === "danger",
         "border-amber-900 bg-amber-800": type === "warning"

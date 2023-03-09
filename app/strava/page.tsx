@@ -3,6 +3,7 @@ import { HistoryBackLink } from "@/components/history-back-link";
 import StravaActivities from "@/components/strava/strava-activities";
 import StravaStats from "@/components/strava/strava-stats";
 import Text from "@/components/text";
+import { query } from "@/lib/query";
 import strava from "@/lib/strava";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
@@ -27,15 +28,8 @@ export const metadata: Metadata = {
   }
 };
 
-async function getStravaData() {
-  const stats = await strava.getStats();
-  const activities = await strava.get();
-
-  return { stats, activities };
-}
-
 export default async function Strava() {
-  const { stats, activities } = await getStravaData();
+  const [stats, activities] = await query([strava.getStats(), strava.get()]);
 
   return (
     <div className="container relative max-w-4xl">
@@ -76,14 +70,14 @@ export default async function Strava() {
         Scroll down to view my goals, personal bests and struggles along the way.
       </Text>
       <StravaStats
-        initialStats={stats}
+        initialStats={stats.data}
         data-animate
         style={{
           "--stagger": "4"
         }}
       />
       <StravaActivities
-        initialActivities={activities}
+        initialActivities={activities.data}
         data-animate
         style={{
           "--stagger": "5"

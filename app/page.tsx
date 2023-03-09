@@ -56,20 +56,24 @@ export default async function Home() {
         >
           Tommy Lunde Barvåg
         </Heading>
-        <Text
+        <div
           data-animate
           style={{
             "--stagger": "2"
           }}
         >
-          I&apos;ve spent the last nine years creating web solutions for great companies.
-          Experimenting with new technologies and learning new things is what I love the most.
-          I&apos;m currently working as a senior consultant at{" "}
-          <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
-            @knowit
-          </Link>
-          .
-        </Text>
+          <Text>
+            I&apos;ve spent the last nine years creating web solutions for great companies.
+            Experimenting with new technologies and learning new things is what I love the most.
+          </Text>
+          <Text>
+            I&apos;m currently working as a senior consultant at{" "}
+            <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
+              knowit
+            </Link>
+            .
+          </Text>
+        </div>
       </div>
       <div
         className="mb-12 grid w-full justify-between gap-8 sm:grid-cols-3"
@@ -90,7 +94,7 @@ export default async function Home() {
               <Text className="text-sm">
                 A project for internal use{" "}
                 <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
-                  @knowit
+                  knowit
                 </Link>
                 . Estimating salary and more.
               </Text>

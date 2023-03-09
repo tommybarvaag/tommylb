@@ -4,11 +4,155 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
+import fs from "fs";
+import path from "path";
+import { u } from "unist-builder";
+import { visit } from "unist-util-visit";
+
+function rehypeComponent() {
+  return async tree => {
+    visit(tree, node => {
+      const { value: src } = getNodeAttributeByName(node, "src") || {};
+
+      if (node.name === "ComponentExample") {
+        const source = getComponentSourceFileContent(node);
+        if (!source) {
+          return;
+        }
+
+        // Replace the Example component with a pre element.
+        node.children?.push(
+          u("element", {
+            tagName: "pre",
+            properties: {
+              __src__: src
+            },
+            children: [
+              u("element", {
+                tagName: "code",
+                properties: {
+                  className: ["language-tsx"]
+                },
+                children: [
+                  {
+                    type: "text",
+                    value: source
+                  }
+                ]
+              })
+            ]
+          })
+        );
+
+        const extractClassname = getNodeAttributeByName(node, "extractClassname");
+        if (
+          extractClassname &&
+          typeof extractClassname.value !== "undefined" &&
+          extractClassname.value !== "false"
+        ) {
+          // Extract className from string
+          // TODO: Use @swc/core and a visitor to extract this.
+          // For now, a simple regex should do.
+          const values = source.match(/className="(.*)"/);
+          const className = values ? values[1] : "";
+
+          // Add the className as a jsx prop so we can pass it to the copy button.
+          node.attributes?.push({
+            name: "extractedClassNames",
+            type: "mdxJsxAttribute",
+            value: className
+          });
+
+          // Add a pre element with the className only.
+          node.children?.push(
+            u("element", {
+              tagName: "pre",
+              properties: {},
+              children: [
+                u("element", {
+                  tagName: "code",
+                  properties: {
+                    className: ["language-tsx"]
+                  },
+                  children: [
+                    {
+                      type: "text",
+                      value: className
+                    }
+                  ]
+                })
+              ]
+            })
+          );
+        }
+      }
+
+      if (node.name === "ComponentSource") {
+        const source = getComponentSourceFileContent(node);
+        if (!source) {
+          return;
+        }
+
+        // Replace the Source component with a pre element.
+        node.children?.push(
+          u("element", {
+            tagName: "pre",
+            properties: {
+              __src__: src
+            },
+            children: [
+              u("element", {
+                tagName: "code",
+                properties: {
+                  className: ["language-tsx"]
+                },
+                children: [
+                  {
+                    type: "text",
+                    value: source
+                  }
+                ]
+              })
+            ]
+          })
+        );
+      }
+    });
+  };
+}
+
+function getNodeAttributeByName(node, name) {
+  return node.attributes?.find(attribute => attribute.name === name);
+}
+
+function getComponentSourceFileContent(node) {
+  const src = getNodeAttributeByName(node, "src")?.value;
+
+  console.log(src);
+
+  if (!src) {
+    return null;
+  }
+
+  // Read the source file.
+  const filePath = path.join(process.cwd(), src);
+  const source = fs.readFileSync(filePath, "utf8");
+
+  return source;
+}
+
 /** @type {import('contentlayer/source-files').ComputedFields} */
 const computedFields = {
   slug: {
     type: "string",
     resolve: doc => `/${doc._raw.flattenedPath}`
+  },
+  tweetIds: {
+    type: "array",
+    resolve: doc => {
+      const tweetMatches = doc.body.raw.match(/<Tweet\sid="[0-9]+"\s\/>/g);
+      return tweetMatches?.map(tweet => tweet.match(/[0-9]+/g)[0]) || [];
+    }
   },
   slugAsParams: {
     type: "string",
@@ -87,6 +231,7 @@ export default makeSource({
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
+      rehypeComponent,
       [
         rehypePrettyCode,
         {

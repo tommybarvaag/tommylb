@@ -11,6 +11,16 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       const payload = postSchema.parse(body);
 
+      // ignore localhost requests
+      if (req?.headers?.host?.includes("localhost")) {
+        const post = await prisma.post.findFirst({
+          where: {
+            slug: payload.slug
+          }
+        });
+        return res.status(200).json(post);
+      }
+
       const post = await prisma.post.upsert({
         where: {
           slug: payload.slug

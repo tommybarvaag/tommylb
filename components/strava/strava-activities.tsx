@@ -2,7 +2,7 @@
 
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { ComponentPropsWithoutRef, useState } from "react";
-import Button from "../button";
+import { Button } from "../button";
 import Heading from "../heading";
 import useStravaActivities from "./hooks";
 import StravaActivity from "./strava-activity";

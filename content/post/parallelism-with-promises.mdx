@@ -1,0 +1,145 @@
+---
+title: Parallelism with promises
+description: When should you utilize parallelism with promises? I view into fetching with parallelism with React Server Components.
+shortDescription: When should you utilize parallelism with promises?
+date: "2023-03-09"
+authors:
+  - tommy
+---
+
+One of the challenges of building modern web applications is handling asynchronous operations efficiently. For example, when fetching data from multiple sources, we want to avoid blocking the UI or making unnecessary requests. This is where promises come in handy.
+
+Promises are objects that represent the eventual completion or failure of an asynchronous operation. They allow us to write clean and concise code that can handle multiple async tasks without nesting callbacks or using global variables.
+
+However, not all promises are created equal. Sometimes we need different behaviors depending on our use case. For example, what if we want to fetch data from multiple APIs and render them as soon as they arrive, regardless of their order or status? Or what if we want to wait for all the data to be fetched before rendering anything?
+
+This is where [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) and [Promise.allSettled()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) come into play. These are two methods that take an array of promises and return a new promise that resolves or rejects based on some criteria.
+
+## Promise.all()
+
+[Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all) resolves when all the promises in the array have resolved, and rejects as soon as one of them rejects. The resolved value is an array of the resolved values of each promise in the same order as they were passed. This is useful when we need to wait for all the data to be available before rendering anything.
+
+## Promise.allSettled()
+
+[Promise.allSettled()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled) resolves when all the promises in the array have either resolved or rejected, regardless of their status. The resolved value is an array of objects that describe the outcome of each promise with a status property (either "fulfilled" or "rejected") and a value property (either the resolved value or the rejection reason). This is useful when we want to render each piece of data as soon as it arrives, regardless of its status.
+
+## Fetching with React Server Components
+
+For example, let's say we have a [Next.js](https://nextjs.org/) application that uses [React Server Components](https://vercel.com/blog/everything-about-react-server-components) to fetch data from three different APIs: posts, comments, and users. We want to render each component as soon as all data arrives, but also handle any errors gracefully.
+
+We can use `Promise.allSettled()` to achieve this:
+
+```typescript
+export default async function Page() {
+  // Fetch data from three APIs using React Server Components
+  const posts = fetch("https://jsonplaceholder.typicode.com/posts").then(x => x.json());
+  const comments = fetch("https://jsonplaceholder.typicode.com/comments").then(x => x.json());
+  const users = fetch("https://jsonplaceholder.typicode.com/users").then(x => x.json());
+
+  // Use Promise.allSettled to wait for all promises to settle
+  const results = await Promise.allSettled([posts, comments, users]);
+
+  // Render each component based on its status and value
+  return (
+    <div>
+      <h1>App</h1>
+      {results.map((result, index) => {
+        if (result.status === "fulfilled") {
+          // Render component with resolved value
+          switch (index) {
+            case 0:
+              return <div key={index}>Posts success</div>;
+            case 1:
+              return <div key={index}>Comments success</div>;
+            case 2:
+              return <div key={index}>Users success</div>;
+          }
+        } else {
+          // Render error message with rejection reason
+          return <p key={index}>Error: {result.reason}</p>;
+        }
+      })}
+    </div>
+  );
+}
+```
+
+## Query helper
+
+We can also use a helper function to make this code more concise. Taking inspiration from the tweet from @jenna.
+
+<Tweet id="1633441945212076033" />
+
+First let's extract the type.
+
+```typescript
+type QueryResult<T> = {
+  [K in keyof T]:
+    | { data: Awaited<T[K]>; success: true; error: null }
+    | { data: null; success: false; error: string };
+};
+```
+
+Then we can create the helper function that takes an object of promises and returns a promise that resolves to an object of the same shape, but with the resolved values.
+
+```typescript
+async function query<T extends Promise<unknown>[]>(queries: [...T]) {
+  const results = await Promise.allSettled(queries);
+
+  return results.map(result => {
+    return result.status === "rejected"
+      ? { data: null, success: false, error: result.reason }
+      : { data: result.value, success: true, error: undefined };
+  }, []) as QueryResult<T>;
+}
+```
+
+Finally, we can create two React Server Components to show how fetching in parallel can be done.
+
+### React Server Component with Promise.allSettled()
+
+<ComponentSource src="/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-all-settled.tsx" />
+
+### React Server Component with async await
+
+<ComponentSource src="/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-async-await.tsx" />
+
+Both examples is loading three promises that mocks the functionality of fetch with a delay
+of 1000 milliseconds. The first component utilizes `Promise.allSettled()` to load the promises
+in parallel. The second component utilizes async await to load the promises.
+
+The first component should execute in approximately 1000 milliseconds. The second component
+should execute in approximately 3000 milliseconds.
+
+The performance benefits of using `Promise.allSettled()` is more apparent when the promises
+are more complex and take longer to resolve.
+
+<ParallelismWithPromisesExample />
+
+<Callout>
+  I have created a page using the new [App Router](https://beta.nextjs.org/docs) from Next.js to
+  [demonstrate the above results](/post/parallelism-live-test).
+
+You can refresh the page to see the effect of the parallelism.
+
+</Callout>
+
+## To summarize
+
+Choosing between `Promise.all()` and `Promise.allSettled()` depends on your use case and how you want to handle errors. Here are some guidelines to help you decide:
+
+- Use `Promise.all()` when you need all the promises to be fulfilled before proceeding with your logic. For example, if you are fetching data from multiple sources and you need to combine them or perform some calculations on them, you should use `Promise.all()` to ensure that all the data is available and valid.
+- Use `Promise.allSettled()` when you don't need all the promises to be fulfilled or when you want to handle each promise individually. For example, if you are fetching data from multiple sources and you want to render each piece of data as soon as it arrives, regardless of its status.
+- Moreover, **Promise.allSettled() is faster than Promise.all() in some cases**, such as when some promises reject early and you don't need to wait for all of them to finish. For example, if you are fetching data from multiple sources and some of them may fail due to network errors or timeouts, but you only care about the successful results, you should use Promise.allSettled() to get the resolved values as soon as possible without being blocked by the rejected ones.
+
+In summary, `Promise.all()` and `Promise.allSettled()` are both useful methods for achieving parallelism with promises, but they have different behaviors and trade-offs. You should choose the one that suits your needs best based on how you want to handle errors and what kind of results you expect.
+
+## References
+
+- [Promise.all()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all)
+- [Promise.allSettled()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled)
+- [Everything about React Server Components](https://vercel.com/blog/everything-about-react-server-components)
+- [Next.js App Router](https://beta.nextjs.org/docs)
+- [Next.js](https://nextjs.org/)
+- [React Server Components](https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html)
+- [React](https://reactjs.org/)

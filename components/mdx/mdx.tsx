@@ -2,12 +2,17 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import * as React from "react";
 
+import { ParallelismLiveTestExample } from "@/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-example";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
 import { cn } from "@/lib/utils";
+import { Tweet } from "@/types";
 import Heading from "../heading";
 import Link from "../link";
 import Text from "../text";
+import { TwitterCard } from "../twitter-card";
+import { CodeBlockWrapper } from "./code-block-wrapper";
+import { ComponentSource } from "./component-source";
 
 const components = {
   h1: ({ className, ...props }) => (
@@ -47,7 +52,7 @@ const components = {
   ),
   img: ({ className, alt, ...props }: React.ImgHTMLAttributes<HTMLImageElement>) => (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn("rounded-md border border-zinc-200", className)} alt={alt} {...props} />
+    <img className={cn("rounded-lg border border-zinc-200", className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }) => <hr className="my-4 border-zinc-200 md:my-8" {...props} />,
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
@@ -96,20 +101,41 @@ const components = {
   ),
   Image,
   Callout,
-  Card
+  Card,
+  CodeBlockWrapper: ({ ...props }) => (
+    <CodeBlockWrapper className="rounded-md border border-slate-100" {...props} />
+  ),
+  ComponentSource: ({ src, ...other }) => <ComponentSource src={src} {...other} />
 };
 
 type MdxProps = React.ComponentPropsWithoutRef<"div"> & {
   code: string;
   className?: string;
+  tweets: Tweet[];
 };
 
-export function Mdx({ code, className, ...other }: MdxProps) {
+export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
+
+  const Tweet = ({ id }: { id: string }) => {
+    const tweet = tweets?.find(tweet => tweet.id === id);
+    return <TwitterCard tweet={tweet} />;
+  };
+
+  const ParallelismWithPromisesExample = () => {
+    return (
+      <React.Suspense fallback={<div />}>
+        <div className="my-8">
+          {/* @ts-expect-error Async Server Component */}
+          <ParallelismLiveTestExample />
+        </div>
+      </React.Suspense>
+    );
+  };
 
   return (
     <div {...other}>
-      <Component components={components} />
+      <Component components={{ ...components, Tweet, ParallelismWithPromisesExample }} />
     </div>
   );
 }

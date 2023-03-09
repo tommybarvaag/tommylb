@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, useState } from "react";
-import Button from "./button";
+import { Button } from "./button";
 import FormSubmitMessage from "./form-submit-message";
 import { Icons } from "./icons";
 import TextArea from "./text-area";

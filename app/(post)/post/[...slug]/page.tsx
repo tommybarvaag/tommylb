@@ -4,6 +4,7 @@ import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
 import { allAuthors, allPosts } from "@/contentlayer/generated";
+import { getTweets } from "@/lib/twitter";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
 import type { Metadata } from "next";
@@ -93,6 +94,8 @@ export default async function PostPage({ params }: PostPageProps) {
     return accumulator;
   }, [] as typeof allAuthors);
 
+  const tweets = await getTweets(post.tweetIds);
+
   return (
     <article className="container relative max-w-3xl">
       <HistoryBackLink
@@ -164,7 +167,7 @@ export default async function PostPage({ params }: PostPageProps) {
           alt={post.title}
           width={840}
           height={450}
-          className="my-8 rounded-md border border-zinc-200 bg-zinc-200 transition-colors group-hover:border-zinc-900"
+          className="my-8 rounded-lg border border-zinc-200 bg-zinc-200 transition-colors group-hover:border-zinc-900"
           data-animate
           style={{
             "--stagger": "4"
@@ -173,6 +176,7 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
       <Mdx
         code={post.body.code}
+        tweets={tweets}
         data-animate
         style={{
           "--stagger": "5"

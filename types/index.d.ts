@@ -221,3 +221,136 @@ export type Post = Prisma.PostGetPayload<{
     views: true;
   };
 }>;
+
+export interface TwitterApiResponseAttachments {
+  media_keys: string[];
+}
+
+export interface TwitterApiResponsePublicMetrics {
+  retweet_count: number;
+  reply_count: number;
+  like_count: number;
+  quote_count: number;
+  impression_count: number;
+}
+
+export interface TwitterApiResponseReferencedTweet {
+  type: string;
+  id: string;
+}
+
+export interface TwitterApiResponseMedia {
+  type: string;
+  height: number;
+  width: number;
+  url: string;
+  media_key: string;
+}
+
+export interface TwitterApiResponseUser {
+  name: string;
+  created_at: string;
+  id: string;
+  protected: boolean;
+  url: string;
+  verified: boolean;
+  username: string;
+  profile_image_url: string;
+}
+
+export interface TwitterApiResponseTweet {
+  created_at: string;
+  attachments: TwitterApiResponseAttachments;
+  edit_history_tweet_ids: string[];
+  author_id: string;
+  id: string;
+  public_metrics: TwitterApiResponsePublicMetrics;
+  text: string;
+}
+
+export interface TwitterApiResponseData {
+  created_at: string;
+  attachments: TwitterApiResponseAttachments;
+  edit_history_tweet_ids: string[];
+  author_id: string;
+  id: string;
+  public_metrics: TwitterApiResponsePublicMetrics;
+  text: string;
+  in_reply_to_user_id: string;
+  referenced_tweets: TwitterApiResponseReferencedTweet[];
+}
+
+export interface TwitterApiResponseIncludes {
+  media: TwitterApiResponseMedia[];
+  users: TwitterApiResponseUser[];
+  tweets: TwitterApiResponseTweet[];
+}
+
+export interface TwitterApiResponseRoot {
+  data: TwitterApiResponseData[];
+  includes: TwitterApiResponseIncludes;
+}
+
+export interface TweetPublicMetrics {
+  retweetCount: number;
+  replyCount: number;
+  likeCount: number;
+  quoteCount: number;
+  impressionCount: number;
+}
+
+export interface TweetAttachments {
+  mediaKeys: string[];
+}
+
+export interface TweetMedia {
+  type: string;
+  height: number;
+  width: number;
+  url: string;
+  mediaKey: string;
+}
+
+export interface TweetReferencedTweet {
+  type: string;
+  author: TweetAuthor;
+  id: string;
+  text: string;
+  authorId: string;
+  editHistoryTweetIds: string[];
+  createdAt: string;
+  publicMetrics: TweetPublicMetrics;
+  attachments: TweetAttachments;
+}
+
+export interface TweetAuthor {
+  name: string;
+  createdAt: string;
+  id: string;
+  protected: boolean;
+  url: string;
+  verified: boolean;
+  username: string;
+  profileImageUrl: string;
+  twitterUrl: string;
+}
+
+export interface Tweet {
+  id: string;
+  text: string;
+  authorId: string;
+  editHistoryTweetIds: string[];
+  createdAt: string;
+  inReplyToUserId: string;
+  inReplyToUser?: TweetAuthor;
+  publicMetrics: TweetPublicMetrics;
+  attachments: TweetAttachments;
+  media: TweetMedia[];
+  referencedTweets: TweetReferencedTweet[];
+  author: TweetAuthor;
+  likeUrl: string;
+  retweetUrl: string;
+  replyUrl: string;
+  url: string;
+  quoteUrl: string;
+}

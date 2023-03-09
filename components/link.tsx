@@ -10,10 +10,14 @@ type LinkProps = React.ComponentPropsWithoutRef<typeof NextLink> & {
   children: React.ReactNode;
   className?: string;
   underline?: boolean;
+  showExternalLinkIcon?: boolean;
 };
 
 const Link = React.forwardRef<LinkElement, LinkProps>(
-  ({ children, href, className, underline = true, ...other }, forwardedRef) => {
+  (
+    { children, href, className, underline = true, showExternalLinkIcon = true, ...other },
+    forwardedRef
+  ) => {
     const isHrefExternal = React.useMemo(() => {
       // server side rendering safe check for external links
       return /^https?:\/\//.test(href);
@@ -47,7 +51,7 @@ const Link = React.forwardRef<LinkElement, LinkProps>(
         {...other}
       >
         {children}
-        <Show when={isHrefExternal}>
+        <Show when={showExternalLinkIcon && isHrefExternal}>
           <Icons.ArrowUpRight className="h-4 w-4 opacity-50" />
         </Show>
       </NextLink>

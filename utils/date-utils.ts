@@ -31,6 +31,10 @@ export const getFormattedMonth = (date: Date) => getFormattedDate(getDateISO(dat
 
 export const getFormattedPostDate = (date: Date) => getFormattedDate(date, "MMMM d, yyyy");
 
+// pretty date with time
+export const getFormattedTwitterDate = (date: Date) =>
+  getFormattedDate(getDateISO(date), "h:mm a '·' MMMM d, yyyy ");
+
 export const compareDatesAscending = (date1: Date, date2: Date) =>
   compareAsc(getDateISO(date1), getDateISO(date2));
 

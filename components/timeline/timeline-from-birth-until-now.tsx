@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "../button";
+import { Button } from "../button";
 import Timeline from "./timeline";
 import TimelineHeading from "./timeline-heading";
 import TimelinePost from "./timeline-post";

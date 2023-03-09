@@ -60,7 +60,7 @@ const ActivityYearSelect = ({ years }: { years: string[] }) => {
 const ActivityYearSelectSkeleton = () => {
   return (
     <div className="w-[180px]">
-      <div className="h-[38px] animate-pulse rounded-md bg-zinc-700"></div>
+      <div className="h-[38px] animate-pulse rounded-lg bg-zinc-700"></div>
     </div>
   );
 };
