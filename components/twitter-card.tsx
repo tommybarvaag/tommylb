@@ -45,8 +45,8 @@ const TwitterCard = ({ tweet }: { tweet: Tweet }) => {
           <div
             className={
               tweet.media.length === 1
-                ? "my-2 inline-grid grid-cols-1 gap-x-2 gap-y-2"
-                : "my-2 inline-grid grid-cols-2 gap-x-2 gap-y-2"
+                ? "my-2 inline-grid grid-cols-1 gap-2"
+                : "my-2 inline-grid grid-cols-2 gap-2"
             }
           >
             {tweet.media.map(m => (
