@@ -128,8 +128,6 @@ function getNodeAttributeByName(node, name) {
 function getComponentSourceFileContent(node) {
   const src = getNodeAttributeByName(node, "src")?.value;
 
-  console.log(src);
-
   if (!src) {
     return null;
   }
