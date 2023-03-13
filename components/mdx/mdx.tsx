@@ -2,7 +2,7 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import * as React from "react";
 
-import { ParallelismLiveTestExample } from "@/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-example";
+import { ParallelismLiveTestExample } from "@/app/example/parallelism-live-test/_components/parallelism-live-test-example";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
 import { cn } from "@/lib/utils";

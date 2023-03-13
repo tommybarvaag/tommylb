@@ -98,11 +98,11 @@ Finally, we can create two React Server Components to show how fetching in paral
 
 ### React Server Component with Promise.allSettled()
 
-<ComponentSource src="/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-all-settled.tsx" />
+<ComponentSource src="/app/example/parallelism-live-test/_components/parallelism-live-test-all-settled.tsx" />
 
 ### React Server Component with async await
 
-<ComponentSource src="/app/(post)/post/parallelism-live-test/_components/parallelism-live-test-async-await.tsx" />
+<ComponentSource src="/app/example/parallelism-live-test/_components/parallelism-live-test-async-await.tsx" />
 
 Both examples is loading three promises that mocks the functionality of fetch with a delay
 of 1000 milliseconds. The first component utilizes `Promise.allSettled()` to load the promises
@@ -118,7 +118,7 @@ are more complex and take longer to resolve.
 <ParallelismWithPromisesExample />
 I have created a page using the new [App
 Router](https://beta.nextjs.org/docs) from Next.js to [demonstrate the above
-results](/post/parallelism-live-test).
+results](/example/parallelism-live-test).
 
 You can refresh the page to see the effect of the parallelism.
 
