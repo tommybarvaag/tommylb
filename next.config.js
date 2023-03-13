@@ -22,6 +22,11 @@ const nextConfig = {
         source: "/post/why-i-run",
         destination: "/post",
         permanent: true
+      },
+      {
+        source: "/post/do-you-need-a-third-party-library",
+        destination: "/post/do-you-need-a-third-party-form-library",
+        permanent: true
       }
     ];
   },
