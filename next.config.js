@@ -31,10 +31,7 @@ const nextConfig = {
     ];
   },
   experimental: {
-    appDir: true,
-    newNextLinkBehavior: true,
-    serverComponentsExternalPackages: ["@prisma/client"],
-    fontLoaders: [{ loader: "@next/font/google", options: { subsets: ["latin"] } }]
+    appDir: true
   }
 };
 

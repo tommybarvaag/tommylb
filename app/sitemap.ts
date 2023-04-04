@@ -1,7 +1,7 @@
 import { allPosts } from "@/.contentlayer/generated";
 
 export default async function sitemap() {
-  const blogs = allPosts
+  const posts = allPosts
     .filter(post => post.published)
     .map(post => ({
       url: `https://tommylb.com${post.slug}`,
@@ -13,5 +13,5 @@ export default async function sitemap() {
     lastModified: new Date().toISOString().split("T")[0]
   }));
 
-  return [...routes, ...blogs];
+  return [...routes, ...posts];
 }

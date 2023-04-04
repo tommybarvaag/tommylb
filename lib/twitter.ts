@@ -17,11 +17,17 @@ async function getTweets(ids: string[]) {
       }
     }
   );
+
   const rawTweets = (await response.json()) as TwitterApiResponseRoot;
 
   const createTweet = (tweet: TwitterApiResponseData): Tweet => {
     const getAuthorInfo = (author_id: TwitterApiResponseData["author_id"]): TweetAuthor => {
       const author = rawTweets.includes.users.find(user => user.id === author_id);
+
+      if (!author) {
+        return undefined;
+      }
+
       return {
         name: author.name,
         createdAt: author.created_at,
