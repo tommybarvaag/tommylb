@@ -11,7 +11,7 @@ export default function StravaNameAndValue({ name, value, ...other }: StravaName
       <Text as="div" className="mb-0 max-w-[220px] grow">
         {name}
       </Text>
-      <Text as="div" className="ml-auto mb-0 text-right">
+      <Text as="div" className="mb-0 ml-auto text-right">
         {value}
       </Text>
     </div>

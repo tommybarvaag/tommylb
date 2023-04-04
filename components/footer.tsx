@@ -2,7 +2,7 @@ import Link from "./link";
 
 export default function Footer({ ...other }) {
   return (
-    <footer className="border-t border-zinc-700 py-4 px-6 text-sm" {...other}>
+    <footer className="border-t border-zinc-700 px-6 py-4 text-sm" {...other}>
       <div className="mx-auto flex max-w-xl items-center justify-between ">
         <Link href="/" underline={false}>
           Tommy Lunde Barvåg

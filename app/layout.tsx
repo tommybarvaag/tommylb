@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   ...defaultMetadata
 };
 
-const interFont = Inter();
+const interFont = Inter({
+  subsets: ["latin"]
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const name = "Tommy Lunde Barvåg";

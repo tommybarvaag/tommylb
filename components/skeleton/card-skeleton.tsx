@@ -12,7 +12,7 @@ export default function CardSkeleton({ ...other }) {
             <p className="mb-3 h-3 w-1/2 animate-pulse bg-gray-400 leading-relaxed"></p>
             <div className="flex flex-wrap items-center ">
               <a className="mt-2 inline-flex h-4 w-32 animate-pulse items-center bg-gray-400 md:mb-2 lg:mb-0"></a>
-              <span className="mt-2 mr-3 ml-auto inline-flex h-4 w-16 animate-pulse items-center bg-gray-400 px-2 py-1 pr-5 text-sm leading-none"></span>
+              <span className="ml-auto mr-3 mt-2 inline-flex h-4 w-16 animate-pulse items-center bg-gray-400 px-2 py-1 pr-5 text-sm leading-none"></span>
             </div>
           </div>
         </div>

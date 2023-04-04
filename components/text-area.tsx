@@ -19,7 +19,7 @@ const TextArea = React.forwardRef<React.ElementRef<"textarea">, TextAreaProps>(f
     <div className={cn("mb-6 flex flex-col")}>
       <label className="block text-sm text-zinc-100">{label}</label>
       <textarea
-        className="mt-1 mb-2 block w-full resize-none scroll-py-2 rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
+        className="mb-2 mt-1 block w-full resize-none scroll-py-2 rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
         ref={ref}
         {...other}
       />
