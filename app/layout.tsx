@@ -15,7 +15,13 @@ const interFont = Inter({
   subsets: ["latin"]
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+  modal
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   const name = "Tommy Lunde Barvåg";
 
   return (
@@ -23,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-zinc-900 text-zinc-50">
         <Main className="pt-14 sm:pt-32">{children}</Main>
         <Footer />
+        {modal}
         <VercelAnalytics />
       </body>
       <Script id="json-ld-data" type="application/ld+json">
