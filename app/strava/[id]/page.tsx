@@ -10,9 +10,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ActivityTypeTrend } from "./_components/activity-type-trend";
 
-export const runtime = "edge";
-export const dynamic = "force-dynamic";
-export const dynamicParams = true;
+export const runtime = "experimental-edge";
 
 interface StravaActivityPageProps {
   params: {
@@ -41,7 +39,17 @@ const ActivityDescription = ({
 }) => {
   return (
     <Text {...other}>
-      {`I participated in an ${activity.name}. The activity was located in ${activity.locationCountry} and lasted for a moving time of ${activity.formattedMovingTime}. During this time, I had an average heart rate of ${activity.averageHeartRate} beats per minute and a maximum heart rate of ${activity.maxHeartRate} beats per minute. My suffer score for this activity was ${activity.sufferScore} and I burned a total of ${activity.calories} calories.`}
+      {`I participated in an ${activity.name}. The activity was located in ${
+        activity.locationCountry === "Norge" ? "Norway" : activity.locationCountry
+      } and lasted for a moving time of ${
+        activity.formattedMovingTime
+      }. During this time, I had an average heart rate of ${
+        activity.averageHeartRate
+      } beats per minute and a maximum heart rate of ${
+        activity.maxHeartRate
+      } beats per minute. My suffer score for this activity was ${
+        activity.sufferScore
+      } and I burned a total of ${activity.calories} calories.`}
     </Text>
   );
 };

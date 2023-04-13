@@ -28,7 +28,7 @@ function roundToNearestTwoDecimalPlaces(value: number) {
 
 async function getStravaActivityYears(activity: StravaActivity) {
   const { rows } = await planetScale.execute(
-    "SELECT DISTINCT YEAR(startDate) as year FROM StravaActivity WHERE type = ?",
+    "SELECT DISTINCT YEAR(startDate) as year FROM StravaActivity WHERE type = ? ORDER BY YEAR(startDate) DESC",
     [activity.type]
   );
 
