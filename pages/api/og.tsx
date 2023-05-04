@@ -2,11 +2,6 @@ import { ogImageSchema } from "@/lib/validations/og";
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
-export const config = {
-  runtime: "edge",
-  regions: ["fra1"]
-};
-
 const interRegular = fetch(new URL("../../assets/fonts/Inter-Regular.ttf", import.meta.url)).then(
   res => res.arrayBuffer()
 );
