@@ -36,6 +36,7 @@ const defaultTwitter: Pick<Metadata, "twitter">["twitter"] = {
 };
 
 const defaultMetadata: Metadata = {
+  metadataBase: new URL(getAbsoluteUrl()),
   themeColor: "#18181b",
   viewport: {
     width: "device-width",
