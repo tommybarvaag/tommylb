@@ -20,11 +20,9 @@ async function ParallelismLiveTestExample() {
   return (
     <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
       <Suspense fallback={<Skeleton />}>
-        {/* @ts-expect-error Async Server Component */}
         <ParallelismLiveTestAllSettled />
       </Suspense>
       <Suspense fallback={<Skeleton />}>
-        {/* @ts-expect-error Async Server Component */}
         <ParallelismLiveTestAsyncAwait />
       </Suspense>
     </div>

@@ -111,8 +111,11 @@ export default async function StravaActivityPage({
           }}
         />
         <Suspense fallback={<div></div>}>
-          {/* @ts-expect-error Async Server Component */}
-          <ActivityTypeTrend activity={activity} year={searchParams?.year} stagger="5" />
+          <ActivityTypeTrend
+            activity={activity}
+            year={searchParams?.year?.toString()}
+            stagger="5"
+          />
         </Suspense>
       </div>
     </article>

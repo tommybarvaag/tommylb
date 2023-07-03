@@ -51,7 +51,6 @@ export default async function ParallelismLiveTest() {
       </Text>
       <div className="my-8">
         <Suspense fallback={<div />}>
-          {/* @ts-expect-error Async Server Component */}
           <ParallelismLiveTestExample />
         </Suspense>
       </div>

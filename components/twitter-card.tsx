@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "./link";
 
 const TwitterCard = ({ tweet }: { tweet: Tweet }) => {
+  if (!tweet) {
+    return null;
+  }
+
   const createdAt = new Date(tweet.createdAt);
 
   return (

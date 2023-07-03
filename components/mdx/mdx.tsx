@@ -99,7 +99,7 @@ const components = {
       {...props}
     />
   ),
-  Image,
+  Image: ({ ...props }) => <Image alt={props.alt} src={props.src} {...props} />,
   Callout,
   Card,
   CodeBlockWrapper: ({ ...props }) => (
@@ -126,7 +126,6 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
     return (
       <React.Suspense fallback={<div />}>
         <div className="mb-8">
-          {/* @ts-expect-error Async Server Component */}
           <ParallelismLiveTestExample />
         </div>
       </React.Suspense>
