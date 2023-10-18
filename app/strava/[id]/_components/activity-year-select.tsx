@@ -28,9 +28,7 @@ const ActivityYearSelect = ({ years }: { years: string[] }) => {
         }
 
         // update url
-        router.push(window.location.pathname + "?" + searchParams.toString(), {
-          forceOptimisticNavigation: true
-        });
+        router.push(window.location.pathname + "?" + searchParams.toString());
 
         // start transition
         startTransition(() => {
