@@ -37,11 +37,6 @@ const defaultTwitter: Pick<Metadata, "twitter">["twitter"] = {
 
 const defaultMetadata: Metadata = {
   metadataBase: new URL(getAbsoluteUrl()),
-  themeColor: "#18181b",
-  viewport: {
-    width: "device-width",
-    initialScale: 1
-  },
   title: {
     default: title,
     template: "%s | Tommy Lunde Barvåg"
@@ -86,4 +81,4 @@ const defaultMetadata: Metadata = {
   }
 };
 
-export { defaultOg, defaultTwitter, defaultMetadata };
+export { defaultMetadata, defaultOg, defaultTwitter };

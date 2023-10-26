@@ -38,11 +38,6 @@ export function generateMetadata({ params }: PostPageProps): Metadata {
   ogImageUrl.searchParams.set("mode", "dark");
 
   return {
-    themeColor: "#18181b",
-    viewport: {
-      width: "device-width",
-      initialScale: 1
-    },
     title: {
       default: title,
       template: "%s | Tommy Lunde Barvåg"
@@ -86,13 +81,16 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
 
-  const authors = post.authors.reduce((accumulator, author) => {
-    const foundAuthor = allAuthors.find(({ slug }) => slug === `/author/${author}`);
-    if (foundAuthor) {
-      accumulator.push(foundAuthor);
-    }
-    return accumulator;
-  }, [] as typeof allAuthors);
+  const authors = post.authors.reduce(
+    (accumulator, author) => {
+      const foundAuthor = allAuthors.find(({ slug }) => slug === `/author/${author}`);
+      if (foundAuthor) {
+        accumulator.push(foundAuthor);
+      }
+      return accumulator;
+    },
+    [] as typeof allAuthors
+  );
 
   const tweets = await getTweets(post.tweetIds);
 
