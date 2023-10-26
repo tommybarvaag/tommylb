@@ -2,10 +2,17 @@ import Footer from "@/components/footer";
 import Main from "@/components/main";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { defaultMetadata } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "styles/global.css";
+
+export const viewport: Viewport = {
+  themeColor: "#18181b",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1
+};
 
 export const metadata: Metadata = {
   ...defaultMetadata
