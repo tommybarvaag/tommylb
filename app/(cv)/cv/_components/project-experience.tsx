@@ -4,12 +4,17 @@ import { CvTime } from "@/app/(cv)/cv/_components/cv-time";
 import { type ProjectExperienceItem } from "@/app/(cv)/cv/_data/project-experience-data";
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Drawer } from "vaul";
+import {
+  ListItemWithTimeline,
+  ListItemWithTimelineDescription,
+  ListItemWithTimelineTitle
+} from "./cv-list-item-with-timeline";
 
 function ProjectExperience({ projectExperience }: { projectExperience: ProjectExperienceItem }) {
   const router = useRouter();
@@ -34,7 +39,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
               </Drawer.Close>
               <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
                 <Image
-                  className="select-none rounded-t-[10px] brightness-75"
+                  className="select-none rounded-t-[10px] border-l border-r border-t border-zinc-900 brightness-90"
                   src={projectExperience.images?.[0].src}
                   alt={projectExperience.images?.[0].alt}
                   fill
@@ -42,36 +47,35 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                   objectPosition="center top"
                 />
               </div>
-              <div className="my-8 px-8 md:px-12 lg:px-24">
+              <div className="space-y-8 border-l border-r border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
                 <Drawer.Title asChild>
-                  <div className="flex justify-between text-xl font-bold">
-                    <Heading as="h1" variant="pageHeading" className="text-xl font-bold">
-                      {projectExperience.title}
-                    </Heading>
-                    <CvTime
-                      fromDate={projectExperience.startDate}
-                      toDate={projectExperience.endDate}
-                    />
-                  </div>
+                  <Heading variant="h1" prose>
+                    {projectExperience.title}
+                  </Heading>
                 </Drawer.Title>
-                <Drawer.Description>
-                  {projectExperience.description.map((desc, index) => (
-                    <Text key={`desc-${index}`}>{desc}</Text>
-                  ))}
+                <CvTime fromDate={projectExperience.startDate} toDate={projectExperience.endDate} />
+                <Drawer.Description asChild>
+                  <>
+                    {projectExperience.description.map((desc, index) => (
+                      <Text key={`desc-${index}`}>{desc}</Text>
+                    ))}
+                  </>
                 </Drawer.Description>
-                <div className="mb-8">
-                  <Heading as="h3" className="text-lg font-semibold">
+                <div>
+                  <Heading className="mb-4" variant="h3" prose>
                     Roles
                   </Heading>
                   <ul className="">
                     {projectExperience.roles.map((role, index) => (
-                      <li key={`${role.title}-${index}`}>
-                        <div>{role.title}</div>
-                        <Text>{role.description}</Text>
-                      </li>
+                      <ListItemWithTimeline key={`${role.title}-${index}`}>
+                        <ListItemWithTimelineTitle>{role.title}</ListItemWithTimelineTitle>
+                        <ListItemWithTimelineDescription>
+                          {role.description}
+                        </ListItemWithTimelineDescription>
+                      </ListItemWithTimeline>
                     ))}
                   </ul>
-                  <Heading as="h3" className="text-lg font-semibold">
+                  <Heading className="mb-4" variant="h3" prose>
                     Technology
                   </Heading>
                   <ul className="flex flex-wrap gap-1">
@@ -82,21 +86,25 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                     ))}
                   </ul>
                 </div>
-                <h3 className="text-xl font-semibold">Screenshots</h3>
-                <div className="grid grid-cols-1 gap-y-6">
-                  {projectExperience.images?.map((image, index) => (
-                    <Image
-                      key={`${image.src}-${index}`}
-                      className="select-none rounded-[10px]"
-                      src={image.src}
-                      alt={image.alt}
-                      width={image.width ?? 800}
-                      height={image.height ?? 400}
-                    />
-                  ))}
-                </div>
+                <section>
+                  <Heading className="mb-4" variant="h3" prose>
+                    Screenshots
+                  </Heading>
+                  <div className="grid grid-cols-1 gap-y-6">
+                    {projectExperience.images?.map((image, index) => (
+                      <Image
+                        key={`${image.src}-${index}`}
+                        className="mx-auto select-none rounded-[10px]"
+                        src={image.src}
+                        alt={image.alt}
+                        width={image.width ?? 800}
+                        height={image.height ?? 400}
+                      />
+                    ))}
+                  </div>
+                </section>
               </div>
-              <div className="mt-auto h-24 border-t border-zinc-800 bg-zinc-900 p-4"></div>
+              <div className="mt-auto h-24 border-l border-r border-t border-zinc-900 border-t-zinc-800 bg-zinc-900 p-4"></div>
             </div>
           </Drawer.Content>
         </Drawer.Portal>

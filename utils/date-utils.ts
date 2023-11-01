@@ -6,6 +6,7 @@ import {
   format,
   getYear,
   isDate,
+  isToday,
   parse,
   parseISO
 } from "date-fns";
@@ -32,6 +33,9 @@ export const getFormattedMonth = (date: Date) => getFormattedDate(getDateISO(dat
 
 export const getFormattedMonthAndYearDate = (date: Date) =>
   getFormattedDate(getDateISO(date), "MMMM, yyyy");
+
+export const getFormattedShortMonthAndYearDate = (date: Date) =>
+  getFormattedDate(getDateISO(date), "MMM. yyyy");
 
 export const getFormattedPostDate = (date: Date) => getFormattedDate(date, "MMMM d, yyyy");
 
@@ -78,7 +82,9 @@ export const getDurationAsYearsAndMonths = (startDate: Date, endDate: Date): str
 };
 
 export const getFormattedToAndFromCvDate = (startDate: Date, endDate: Date): string => {
-  return `${getFormattedMonthAndYearDate(startDate)} - ${getFormattedMonthAndYearDate(
+  const end = isToday(endDate) ? "now" : getFormattedShortMonthAndYearDate(endDate);
+  return `${getFormattedShortMonthAndYearDate(startDate)} - ${end} • ${getDurationAsYearsAndMonths(
+    startDate,
     endDate
-  )} • ${getDurationAsYearsAndMonths(startDate, endDate)}`;
+  )}`;
 };

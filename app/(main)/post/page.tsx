@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
@@ -12,14 +12,17 @@ export default async function PostPage() {
     .sort((a, b) => {
       return compareDesc(new Date(a.date), new Date(b.date));
     })
-    .reduce((accumulator, post) => {
-      const year = `${new Date(post.date).getFullYear()}`;
-      if (!accumulator[year]) {
-        accumulator[year] = [];
-      }
-      accumulator[year].push(post);
-      return accumulator;
-    }, {} as Record<string, typeof allPosts>);
+    .reduce(
+      (accumulator, post) => {
+        const year = `${new Date(post.date).getFullYear()}`;
+        if (!accumulator[year]) {
+          accumulator[year] = [];
+        }
+        accumulator[year].push(post);
+        return accumulator;
+      },
+      {} as Record<string, typeof allPosts>
+    );
   return (
     <div className="container relative max-w-4xl">
       <HistoryBackLink
@@ -34,7 +37,7 @@ export default async function PostPage() {
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <Heading
-            as="pageHeading"
+            variant="h1"
             data-animate
             style={{
               "--stagger": "1"

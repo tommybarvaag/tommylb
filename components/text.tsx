@@ -14,21 +14,24 @@ type Props = {
 export type TextProps<T extends React.ElementType = typeof TextDefaultElement> =
   PolymorphicPropsWithoutRef<Props, T>;
 
-const Text = <T extends React.ElementType = typeof TextDefaultElement>({
-  children,
-  as,
-  className,
-  ...other
-}: TextProps<T>) => {
-  const Component: React.ElementType = as || TextDefaultElement;
-  return (
-    <Component
-      className={cn("text-base leading-7 [&:not(:first-child)]:mt-6", className)}
-      {...other}
-    >
-      {children}
-    </Component>
-  );
-};
+const Text = React.forwardRef(
+  <T extends React.ElementType = typeof TextDefaultElement>(
+    { children, as, className, ...other }: TextProps<T>,
+    ref: React.Ref<HTMLElement>
+  ) => {
+    const Component: React.ElementType = as || TextDefaultElement;
+    return (
+      <Component
+        ref={ref}
+        className={cn("text-base leading-7 [&:not(:first-child)]:mt-6", className)}
+        {...other}
+      >
+        {children}
+      </Component>
+    );
+  }
+);
+
+Text.displayName = "Text";
 
 export default Text;

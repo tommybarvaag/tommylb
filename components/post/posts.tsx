@@ -1,4 +1,4 @@
-import Heading from "../heading";
+import { Heading } from "../heading";
 import Post from "./post";
 
 type PostsProps = {

@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import Text from "@/components/text";
 import { allAuthors } from "@/contentlayer/generated";
 import { notFound } from "next/navigation";

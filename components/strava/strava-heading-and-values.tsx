@@ -1,4 +1,4 @@
-import Heading from "../heading";
+import { Heading } from "../heading";
 import StravaNameAndValue from "./strava-name-and-value";
 
 type StravaHeadingAndValuesProps = {
@@ -13,7 +13,7 @@ export default function StravaHeadingAndValues({
 }: StravaHeadingAndValuesProps) {
   return nameAndValues?.length > 0 ? (
     <div className="mb-12 w-full" {...other}>
-      <Heading as="h2" className="mb-3">
+      <Heading variant="h2" className="mb-3">
         {title}
       </Heading>
       {nameAndValues.map((nameAndValue, index) => (

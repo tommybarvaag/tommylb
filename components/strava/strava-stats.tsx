@@ -2,7 +2,7 @@
 
 import { ComponentPropsWithoutRef } from "react";
 import { StravaStats as StravaStatsType } from "types";
-import Heading from "../heading";
+import { Heading } from "../heading";
 import useStravaStats from "./hooks/use-strava-stats";
 import StravaGear from "./strava-gear";
 import StravaNameAndValue from "./strava-name-and-value";

@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
 import Text from "@/components/text";

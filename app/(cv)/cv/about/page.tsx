@@ -39,8 +39,8 @@ export default async function CvAboutPage() {
         digging deep to ensure that the end product delivers the best possible results.
       </Text>
       <Text>
-        I have worked with several great companies and clients, including Hansa Borg Bryggerier AS,
-        BOB BBL AS and Compello AS to name a few. In collaboration we have created{" "}
+        Working with several great companies and clients, including Hansa Borg Bryggerier AS, BOB
+        BBL AS and Compello AS to name a few. In collaboration we have created{" "}
         <Link href="/cv/project">great projects and solutions</Link> that we&apos;re truly proud of.
       </Text>
       <Text>

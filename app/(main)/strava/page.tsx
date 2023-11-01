@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import StravaActivities from "@/components/strava/strava-activities";
 import StravaStats from "@/components/strava/strava-stats";
@@ -43,7 +43,7 @@ export default async function Strava() {
         Home
       </HistoryBackLink>
       <Heading
-        as="pageHeading"
+        variant="h1"
         data-animate
         style={{
           "--stagger": "1"

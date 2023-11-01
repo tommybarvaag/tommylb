@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
@@ -107,7 +107,7 @@ export default async function PostPage({ params }: PostPageProps) {
       </HistoryBackLink>
       <div>
         <Heading
-          as="pageHeading"
+          variant="h1"
           data-animate
           style={{
             "--stagger": "1"

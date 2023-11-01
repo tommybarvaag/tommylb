@@ -1,7 +1,13 @@
 import { CvTime } from "@/app/(cv)/cv/_components/cv-time";
 import { cvEducation, cvWorkExperience } from "@/app/(cv)/cv/_data/cv-key-points";
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import Text from "@/components/text";
+import {
+  ListItemWithTimeline,
+  ListItemWithTimelineDescription,
+  ListItemWithTimelineTime,
+  ListItemWithTimelineTitle
+} from "./cv-list-item-with-timeline";
 
 function CvKeyPoints() {
   // group work experiences with the same work place
@@ -30,22 +36,24 @@ function CvKeyPoints() {
             if (workExperiences.length > 1) {
               return (
                 <li key={workPlace} className="mb-8">
-                  <Heading variant="h3">{workPlace}</Heading>{" "}
+                  <Heading className="mb-3 text-lg" variant="h2">
+                    {workPlace}
+                  </Heading>
                   <ol className="relative">
                     {workExperiences.map((workExperience, index) => {
                       return (
-                        <li
-                          key={`${workExperience.id}-${index}`}
-                          className="relative mb-10 ml-6 pl-6 [&:not(:last-child)]:before:absolute [&:not(:last-child)]:before:left-[4px] [&:not(:last-child)]:before:top-8 [&:not(:last-child)]:before:h-full [&:not(:last-child)]:before:w-px [&:not(:last-child)]:before:bg-zinc-600"
-                        >
-                          <span className="absolute left-0 top-2 flex h-[8.75px] w-[8.75px] rounded-full bg-zinc-600" />
-                          <Heading as="h3">{workExperience.workPlaceTitle}</Heading>
-                          <CvTime
+                        <ListItemWithTimeline key={`${workExperience.id}-${index}`}>
+                          <ListItemWithTimelineTitle>
+                            {workExperience.workPlaceTitle}
+                          </ListItemWithTimelineTitle>
+                          <ListItemWithTimelineTime
                             fromDate={workExperience.fromDate}
                             toDate={workExperience.toDate}
                           />
-                          <Text className="text-sm">{workExperience.summary}</Text>
-                        </li>
+                          <ListItemWithTimelineDescription>
+                            {workExperience.summary}
+                          </ListItemWithTimelineDescription>
+                        </ListItemWithTimeline>
                       );
                     })}
                   </ol>
@@ -55,13 +63,15 @@ function CvKeyPoints() {
 
             return (
               <li key={workPlace} className="mb-8">
-                <Heading variant="h3">{workPlace}</Heading>{" "}
+                <Heading className="mb-3 text-lg" variant="h2">
+                  {workPlace}
+                </Heading>
                 <ol className="">
                   {workExperiences.map((workExperience, index) => {
                     return (
                       <li key={`${workExperience.id}-${index}`} className="">
+                        <Heading variant="h3">{workExperience.workPlaceTitle}</Heading>
                         <CvTime fromDate={workExperience.fromDate} toDate={workExperience.toDate} />
-                        <Heading as="h3">{workExperience.workPlaceTitle}</Heading>
                         <Text className="text-sm">{workExperience.summary}</Text>
                       </li>
                     );
@@ -73,7 +83,9 @@ function CvKeyPoints() {
         </ol>
       </section>
       <section>
-        <Heading variant="h2">Education</Heading>
+        <Heading className="mb-3 text-lg" variant="h2">
+          Education
+        </Heading>
         <ul className="">
           {cvEducation.map((education, index) => {
             return (

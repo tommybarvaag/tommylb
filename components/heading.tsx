@@ -1,72 +1,64 @@
 import { cn } from "@/lib/utils";
-import * as React from "react";
+import { VariantProps, cva } from "class-variance-authority";
+import { HtmlHTMLAttributes, forwardRef } from "react";
 
-function getComponentForHeading(as) {
-  switch (as) {
-    case "pageHeading":
-      return "h1";
-    case "h1":
-      return "h1";
-    case "h2":
-      return "h2";
-    case "h3":
-      return "h3";
-    default:
-      return as;
+const headingVariants = cva("text-zinc-50", {
+  variants: {
+    variant: {
+      h1: "font-normal tracking-tight text-base",
+      h2: "font-normal tracking-tight text-base",
+      h3: "font-normal tracking-tight text-base",
+      h4: "font-normal tracking-tight text-base"
+    },
+    prose: {
+      true: ""
+    }
+  },
+  compoundVariants: [
+    {
+      variant: "h1",
+      prose: true,
+      className: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
+    },
+    {
+      variant: "h2",
+      prose: true,
+      className: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0"
+    },
+    {
+      variant: "h3",
+      prose: true,
+      className: "scroll-m-20 text-2xl font-semibold tracking-tight"
+    },
+    {
+      variant: "h4",
+      prose: true,
+      className: "scroll-m-20 text-xl font-semibold tracking-tight"
+    }
+  ],
+  defaultVariants: {
+    variant: "h2"
   }
-}
+});
 
-function getVariantForHeading(variant) {
-  switch (variant) {
-    case "pageHeading":
-      return "pageHeading";
-    case "h1":
-      return "h1";
-    case "h2":
-      return "h2";
-    case "h3":
-      return "h3";
-    default:
-      return "h2";
+export type HeadingProps = HtmlHTMLAttributes<HTMLHeadingElement> &
+  VariantProps<typeof headingVariants>;
+
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
+  ({ className, children, variant, prose, ...props }, ref) => {
+    const Component: React.ElementType = variant || "h2";
+    return (
+      <Component
+        className={cn(headingVariants({ variant, prose }), className)}
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </Component>
+    );
   }
-}
+);
 
-const DEFAULT_TAG = "h2";
+Heading.displayName = "Heading";
 
-type HeadingProps = React.ComponentPropsWithoutRef<typeof DEFAULT_TAG> & {
-  as?: string;
-  className?: string;
-  children?: React.ReactNode;
-  variant?: "pageHeading" | "h1" | "h2" | "h3";
-  noMargin?: boolean;
-};
-
-export default function Heading({
-  children,
-  as = DEFAULT_TAG,
-  variant = DEFAULT_TAG,
-  className,
-  noMargin = false,
-  ...other
-}: HeadingProps) {
-  const Component = getComponentForHeading(as);
-  const headerVariant = getVariantForHeading(variant ?? as);
-
-  return (
-    <Component
-      className={cn(
-        "mb-8 font-normal leading-7 tracking-tight text-zinc-50",
-        { "text-base": headerVariant === "pageHeading" },
-        { "text-base": headerVariant === "h1" },
-        { "text-base": headerVariant === "h2" },
-        { "mb-4 text-base": headerVariant === "h3" },
-        { "mb-0": noMargin },
-
-        className
-      )}
-      {...other}
-    >
-      {children}
-    </Component>
-  );
-}
+export { Heading };

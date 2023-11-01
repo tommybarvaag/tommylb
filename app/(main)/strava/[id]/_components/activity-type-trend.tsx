@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import { planetScale } from "@/lib/planetscale";
 import { cn } from "@/lib/utils";
@@ -160,9 +160,7 @@ export async function ActivityTypeTrend({
       }}
     >
       <div className="mb-4 flex items-center justify-between">
-        <Heading as="h3" noMargin>
-          Stats
-        </Heading>
+        <Heading variant="h3">Stats</Heading>
         <Suspense fallback={<ActivityYearSelectSkeleton />}>
           <ActivityYearSelect years={years} />
         </Suspense>

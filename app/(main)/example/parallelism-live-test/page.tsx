@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
@@ -33,7 +33,7 @@ export default async function ParallelismLiveTest() {
       >
         Home
       </HistoryBackLink>
-      <Heading as="pageHeading">Parallelism live test</Heading>
+      <Heading variant="h1">Parallelism live test</Heading>
       <Text>
         This page is used to test fetch in parallel with React Server Components. It lists two
         examples below. The first example is a React Server Component using Promise.allSettled and

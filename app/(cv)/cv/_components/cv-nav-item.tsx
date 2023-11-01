@@ -17,11 +17,11 @@ function CvNavItem({ path, name }: { path: string; name: string }) {
         "text-zinc-400": !isActive
       })}
     >
-      <span className="relative px-2 py-1">
+      <span className="relative px-1 py-1 lg:px-2">
         {name}
         {isActive ? (
           <motion.div
-            className="absolute inset-0 top-7 z-[-1] mx-2 h-[1px] bg-zinc-400"
+            className="absolute inset-0 top-7 z-[-1] mx-1 h-[1px] bg-zinc-400 lg:mx-2"
             layoutId="sidebar"
             transition={{
               type: "spring",

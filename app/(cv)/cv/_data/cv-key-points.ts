@@ -9,7 +9,7 @@ type CvWorkExperience = {
   fromDate: string;
   // date string in format YYYY-MM-DD or now
   toDate: string | "now";
-  description: string;
+  description: string[];
   summary: string;
 };
 
@@ -69,10 +69,11 @@ const cvWorkExperience: CvWorkExperience[] = [
     area: "Bergen, Norway",
     fromDate: "2014-01-01",
     toDate: "2017-01-01",
-    description:
-      "I primarily worked with development of e-commerce solutions with varying degrees of custom tailoring. In my time at Digitroll I worked with nopCommerce and Digitroll's self-developed Lynx to build the solutions we delivered.",
+    description: [
+      "I primarily worked with development of e-commerce solutions with varying degrees of custom tailoring. In my time at Digitroll I worked with nopCommerce and Digitroll's self-developed Lynx to build the solutions we delivered."
+    ],
     summary:
-      "I worked with development of e-commerce solutions with varying degrees of custom tailoring."
+      "I worked with development of e-commerce solutions with varying degrees of custom tailoring. Deep diving into technologies such as vanilla JavaScript, jQuery, ASP.NET MVC, C#, SQL Server."
   },
   {
     id: 2,
@@ -81,9 +82,12 @@ const cvWorkExperience: CvWorkExperience[] = [
     area: "Bergen, Norway",
     fromDate: "2017-02-01",
     toDate: "2020-01-01",
-    description:
-      "My work is within customized customer solutions covering CMS to complex integrations. In my time with Knowit I have taken part in large-scale customer projects involving traditional REST API’s, micro services and custom-tailored solutions written in react.js among others.",
-    summary: "My work is within customized customer solutions covering CMS to complex integrations."
+    description: [
+      "Crafting modern web solutions with headless CMS and microservices. My work was within customized customer solutions covering CMS to complex integrations.",
+      "I have worked with several great companies and clients, including Hansa Borg Bryggerier AS, BOB BBL AS and Compello AS to name a few. In collaboration we have created great projects and solutions that we're truly proud of."
+    ],
+    summary:
+      "Crafting modern web solutions with headless CMS and microservices. Working with great clients and companies to create great projects and solutions."
   },
   {
     id: 3,
@@ -92,8 +96,12 @@ const cvWorkExperience: CvWorkExperience[] = [
     area: "Bergen, Norway",
     fromDate: "2020-02-01",
     toDate: new Date().toISOString().split("T")[0],
-    description: "Senior consultant",
-    summary: ""
+    description: [
+      "Spearheaded the development of a new webapp for Hansa Borg Bryggerier AS to drive innovation and digitalization withing the nightlife segment of the industry. The webapp was built using React, Next.js, TypeScript, Tailwind CSS, Azure and Azure DevOps. Utilizing the latest and greatest technologies to create a modern and scalable webapp with PWA capabilities.",
+      "Assesed and administration of Hansa Borg Bryggerier AS Customer Portal. Continuously delivering new features and improvements to the customer portal."
+    ],
+    summary:
+      "Contracted as a tech lead and senior consultant for Hansa Borg Bryggerier AS. Maintaining and developing the Digital Customer Portal and spearheading the development of a new webapp for the nightlife segment of the industry."
   }
 ];
 
@@ -104,7 +112,7 @@ const cvEducation: CvEducation[] = [
     area: "Bergen, Norway",
     fromDate: "2010-08-01",
     toDate: "2013-06-01",
-    description: "Computer Engineering"
+    description: ""
   }
 ];
 

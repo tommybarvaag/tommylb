@@ -28,7 +28,7 @@ function CvNavigation() {
             className="fade relative flex scroll-pr-6 flex-row items-start px-0 pb-0 md:relative md:overflow-auto"
             id="nav"
           >
-            <div className="flex flex-row space-x-0 pr-10">
+            <div className="flex flex-row space-x-0">
               <Suspense fallback={null}>
                 {Object.entries(navItems).map(([path, { name }]) => {
                   return <CvNavItem key={path} path={path} name={name} />;

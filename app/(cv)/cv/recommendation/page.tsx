@@ -1,4 +1,4 @@
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default async function Recommendation() {
   return (
     <div className="animate-in">
-      <Heading as="h1">Recommendation</Heading>
+      <Heading variant="h1">Recommendation</Heading>
     </div>
   );
 }
