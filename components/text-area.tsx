@@ -38,9 +38,7 @@ const TextArea = React.forwardRef<React.ElementRef<"textarea">, TextAreaProps>(f
           ease: "easeOut"
         }}
       >
-        <Text className="text-sm !text-red-700" noMargin>
-          {error ? helperText : <>&nbsp;</>}
-        </Text>
+        <Text className="text-sm !text-red-700">{error ? helperText : <>&nbsp;</>}</Text>
       </motion.div>
     </div>
   );

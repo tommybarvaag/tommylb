@@ -16,7 +16,7 @@ export default function Post({ title, summary, href, publishedAt, ...other }: Po
         <Heading as="div" variant="h3" noMargin>
           {title}
         </Heading>
-        <Text noMargin>{publishedAt}</Text>
+        <Text>{publishedAt}</Text>
       </div>
       <Text className="pt-4">{summary}</Text>
     </Link>

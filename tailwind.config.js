@@ -20,6 +20,15 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
         full: "100%"
+      },
+      animation: {
+        background: "background ease infinite"
+      },
+      keyframes: {
+        background: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" }
+        }
       }
     }
   },

@@ -1,5 +1,4 @@
-import { projectExperienceData } from "@/app/curriculum-vitae/_data/project-experience-data";
-import Heading from "@/components/heading";
+import { projectExperienceData } from "@/app/(cv)/cv/_data/project-experience-data";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -44,10 +43,5 @@ export default async function ProjectExperiencePage({ params }: ProjectExperienc
     return notFound();
   }
 
-  return (
-    <>
-      <Heading as="h1">Project Experience</Heading>
-      <ProjectExperience projectExperience={projectExperience} />
-    </>
-  );
+  return <ProjectExperience projectExperience={projectExperience} />;
 }

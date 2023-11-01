@@ -1,12 +1,9 @@
-import Heading from "@/components/heading";
+import { CvKeyPoints } from "@/app/(cv)/cv/_components/cv-key-points";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
-import { ProjectExperiences } from "./_components/project-experiences";
 
 export const metadata: Metadata = {
   title: "Curriculum Vitae",
-  // generate a curriculum vitae description for SEO with 155-160 characters
-  //
   description: "",
   openGraph: {
     ...defaultOg,
@@ -22,9 +19,8 @@ export const metadata: Metadata = {
 
 export default async function CurriculumVitae() {
   return (
-    <>
-      <Heading as="h1">Curriculum Vitae</Heading>
-      <ProjectExperiences />
-    </>
+    <div className="animate-in">
+      <CvKeyPoints />
+    </div>
   );
 }

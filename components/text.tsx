@@ -7,7 +7,6 @@ export const TextDefaultElement = "p";
 // Component-specific props should be specified separately
 type Props = {
   classname?: string;
-  noMargin?: boolean;
 };
 
 // Extend own props with others inherited from the underlying element type
@@ -19,19 +18,12 @@ const Text = <T extends React.ElementType = typeof TextDefaultElement>({
   children,
   as,
   className,
-  noMargin = false,
   ...other
 }: TextProps<T>) => {
   const Component: React.ElementType = as || TextDefaultElement;
   return (
     <Component
-      className={cn(
-        "text-base text-zinc-200",
-        {
-          "mb-4": !noMargin
-        },
-        className
-      )}
+      className={cn("text-base leading-7 [&:not(:first-child)]:mt-6", className)}
       {...other}
     >
       {children}

@@ -68,10 +68,8 @@ export default function StravaActivity({ activity, ...other }: StravaActivitiesP
         <Heading as="div" variant="h3" noMargin>
           {activity.type}
         </Heading>
-        <Text className="mx-3" noMargin>
-          -
-        </Text>
-        <Text noMargin>{getFormattedLongDate(new Date(activity.startDateLocal))}</Text>
+        <Text className="mx-3">-</Text>
+        <Text>{getFormattedLongDate(new Date(activity.startDateLocal))}</Text>
       </div>
       {activity.personalBests.map((personalBest, index) => (
         <div

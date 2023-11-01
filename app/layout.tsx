@@ -1,5 +1,4 @@
 import Footer from "@/components/footer";
-import Main from "@/components/main";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { defaultMetadata } from "@/utils/metadata-utils";
 import type { Metadata, Viewport } from "next";
@@ -34,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={interFont.className}>
       <body className="bg-zinc-900 text-zinc-50">
-        <Main className="pt-14 sm:pt-32">{children}</Main>
+        {children}
         <Footer />
         {modal}
         <VercelAnalytics />
