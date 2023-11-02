@@ -17,7 +17,7 @@ function CvNavItem({ path, name }: { path: string; name: string }) {
         "text-zinc-400": !isActive
       })}
     >
-      <span className="relative px-1 py-1 lg:px-2">
+      <span className="relative p-1 lg:px-2">
         {name}
         {isActive ? (
           <motion.div

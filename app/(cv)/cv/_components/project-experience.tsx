@@ -39,7 +39,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
               </Drawer.Close>
               <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
                 <Image
-                  className="select-none rounded-t-[10px] border-l border-r border-t border-zinc-900 brightness-90"
+                  className="select-none rounded-t-[10px] border-x border-t border-zinc-900 brightness-90"
                   src={projectExperience.images?.[0].src}
                   alt={projectExperience.images?.[0].alt}
                   fill
@@ -47,7 +47,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                   objectPosition="center top"
                 />
               </div>
-              <div className="space-y-8 border-l border-r border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
+              <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
                 <Drawer.Title asChild>
                   <Heading variant="h1" prose>
                     {projectExperience.title}
@@ -104,7 +104,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                   </div>
                 </section>
               </div>
-              <div className="mt-auto h-24 border-l border-r border-t border-zinc-900 border-t-zinc-800 bg-zinc-900 p-4"></div>
+              <div className="mt-auto h-24 border-x border-t border-zinc-900 border-t-zinc-800 bg-zinc-900 p-4"></div>
             </div>
           </Drawer.Content>
         </Drawer.Portal>
