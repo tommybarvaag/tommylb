@@ -18,13 +18,18 @@ import {
 
 function ProjectExperience({ projectExperience }: { projectExperience: ProjectExperienceItem }) {
   const router = useRouter();
+
   return (
     <>
       <Drawer.Root
         open
         onOpenChange={open => {
           if (!open) {
-            router.back();
+            if (document.referrer) {
+              router.back();
+            } else {
+              router.push("/cv/project");
+            }
           }
         }}
       >
