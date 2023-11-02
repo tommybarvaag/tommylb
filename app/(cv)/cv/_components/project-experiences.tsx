@@ -10,7 +10,7 @@ function ProjectExperiences() {
     <>
       <Text>
         I have been fortunate to work with some great clients and companies the last{" "}
-        {getActiveWorkYears()}. Below you'll find a selection of the projects I have enjoyed the
+        {getActiveWorkYears()}. Below you will find a selection of the projects I have enjoyed the
         most.
       </Text>
       <Text className="mb-8">Click the project to expand further details.</Text>
