@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { ParallelismLiveTestExample } from "./_components/parallelism-live-test-example";
 
-export const runtime = "experimental-edge";
+// export const runtime = "experimental-edge";
 
 export const metadata: Metadata = {
   robots: {
