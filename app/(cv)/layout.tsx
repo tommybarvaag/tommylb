@@ -17,8 +17,8 @@ import { cvKeySkills } from "./cv/_data/cv-key-points";
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="mx-auto min-h-screen w-full max-w-4xl pt-24">
-      <div className="relative items-start gap-10 lg:grid lg:grid-cols-3">
+    <main className="mx-auto w-full max-w-4xl pt-24">
+      <div className="relative items-start gap-10 pb-44 lg:grid lg:grid-cols-3">
         <div className="space-y-5 px-6 lg:col-span-2 lg:px-0">
           <CvNavigation />
           {children}

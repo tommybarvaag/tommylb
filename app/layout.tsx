@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import { VercelAnalytics } from "@/components/vercel-analytics";
+import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
@@ -31,7 +32,7 @@ export default function RootLayout({
   const name = "Tommy Lunde Barvåg";
 
   return (
-    <html lang="en" className={interFont.className}>
+    <html lang="en" className={cn("scroll-smooth", interFont.className)}>
       <body className="bg-zinc-900 text-zinc-50">
         {children}
         <Footer />
