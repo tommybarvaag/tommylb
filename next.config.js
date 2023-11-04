@@ -31,7 +31,6 @@ const nextConfig = {
     ];
   },
   experimental: {
-    scrollRestoration: true,
     webpackBuildWorker: true
   }
 };

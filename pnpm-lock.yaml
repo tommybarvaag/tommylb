@@ -84,8 +84,8 @@ dependencies:
     specifier: ^1.14.0
     version: 1.14.0
   vaul:
-    specifier: ^0.7.4
-    version: 0.7.4(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.6.4
+    version: 0.6.4(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
   zod:
     specifier: ^3.22.4
     version: 3.22.4
@@ -6979,8 +6979,8 @@ packages:
       kleur: 4.1.5
       sade: 1.8.1
 
-  /vaul@0.7.4(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-+nvUjrAaDKITr3Tn1K9f6Zj0dCGbA1TyR5BOWvOu8OX6tso0clA+4X064O+k9yhRGmiyAf9BHDzW+bEqs9Va3g==}
+  /vaul@0.6.4(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-c955kymhdH/XhQEIl53F3zGy3jfo0D99r9FlkEQaPIJGLbh5pmrReEmp2d5Y45I4b4aM4HOrrOuse15uyxngxg==}
     peerDependencies:
       react: ^16.8 || ^17.0 || ^18.0
       react-dom: ^16.8 || ^17.0 || ^18.0

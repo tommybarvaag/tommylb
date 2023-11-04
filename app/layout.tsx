@@ -32,7 +32,7 @@ export default function RootLayout({
   const name = "Tommy Lunde Barvåg";
 
   return (
-    <html lang="en" className={cn("scroll-smooth", interFont.className)}>
+    <html lang="en" className={cn("", interFont.className)}>
       <body className="bg-zinc-900 text-zinc-50">
         {children}
         <Footer />
