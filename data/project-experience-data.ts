@@ -25,7 +25,7 @@ const projectExperienceData: ProjectExperienceItem[] = [
     title: "Hansa Borg Bryggerier AS — Digital customer portal",
     slug: "hansa-borg-bryggerier-as-digital-customer-portal",
     description: [
-      "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa’s hospitality customers to order goods without the need for a sales representative.",
+      "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa's hospitality customers to order goods without the need for a sales representative.",
       "The portal is constructed using a microservice architecture, with Knowit providing some services and Hansa providing others. All services are hosted on Azure WebApps, and we have utilized Azure B2C for authentication and Azure Search Service for search. The majority of the services are built in Microsoft .NET, while the user interface is a pure React application."
     ],
     summary:
@@ -199,9 +199,9 @@ const projectExperienceData: ProjectExperienceItem[] = [
     title: "Hansa Borg Bryggerier AS — Digital Customer Portal v2",
     slug: "hansa-borg-bryggerier-as-digital-customer-portal-v2",
     description: [
-      "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa’s hospitality customers to order goods without the need for a sales representative.",
+      "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa's hospitality customers to order goods without the need for a sales representative.",
       "The portal is constructed using a microservice architecture, with Knowit providing some services and Hansa providing others. All services are hosted on Azure WebApps, and we have utilized Azure B2C for authentication and Azure Search Service for search. The majority of the services are built in Microsoft .NET, while the user interface is a pure React application.",
-      "My role as a tech load and senior front-end specialist was to refine the existing codebase and implement new features and improvements. Going from a Redux focused Create React App (CRA) with SASS to a Single Page Application (SPA) with Vite, React Query, and Tailwind CSS. I also conncatonated the exising UI components into a more refined and reusable component library to ensure uniformity and consistency across the application.",
+      "My role as a tech load and senior front-end specialist was to refine the existing codebase and implement new features and improvements. Going from a Redux focused Create React App (CRA) with SASS to a Single Page Application (SPA) with Vite, React Query, and Tailwind CSS. I also concatenated the existing UI components into a more refined and reusable component library to ensure uniformity and consistency across the application.",
       "Porting and improving the existing microservices from .NET Framework to .NET Core (now .NET 6). Creating automated build and deployment pipelines for the microservices and the React application."
     ],
     summary:
