@@ -12,8 +12,8 @@ import {
 import Link from "@/components/link";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 import "styles/global.css";
-import { CvNavigation } from "./cv/_components/cv-navigation";
-import { cvKeySkills } from "./cv/_data/cv-key-points";
+import { CvNavigation } from "../../components/cv-navigation";
+import { cvKeySkills } from "../../data/cv-key-points";
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,8 +1,8 @@
-import { projectExperienceData } from "@/app/(cv)/cv/_data/project-experience-data";
+import { ProjectExperience } from "@/components/project-experience";
+import { projectExperienceData } from "@/data/project-experience-data";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProjectExperience } from "../../_components/project-experience";
 
 export async function generateStaticParams() {
   return projectExperienceData.map(projectExperienceItem => ({

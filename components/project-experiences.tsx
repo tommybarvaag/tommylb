@@ -1,9 +1,9 @@
-import { CvTime } from "@/app/(cv)/cv/_components/cv-time";
+import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
 import { getActiveWorkYears } from "@/utils/date-utils";
 import Link from "next/link";
-import { projectExperienceData } from "../_data/project-experience-data";
+import { projectExperienceData } from "../data/project-experience-data";
 
 function ProjectExperiences() {
   return (

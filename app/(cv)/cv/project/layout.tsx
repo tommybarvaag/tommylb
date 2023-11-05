@@ -1,5 +1,5 @@
 import "styles/global.css";
-import { ProjectExperiences } from "../_components/project-experiences";
+import { ProjectExperiences } from "../../../../components/project-experiences";
 
 export default function ProjectLayout({ children }: { children: React.ReactNode }) {
   return (

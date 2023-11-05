@@ -1,7 +1,7 @@
-import { CvTime } from "@/app/(cv)/cv/_components/cv-time";
-import { cvEducation, cvWorkExperience } from "@/app/(cv)/cv/_data/cv-key-points";
+import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
+import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 import {
   ListItemWithTimeline,
   ListItemWithTimelineDescription,

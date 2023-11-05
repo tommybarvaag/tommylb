@@ -1,4 +1,4 @@
-import { CvKeyPoints } from "@/app/(cv)/cv/_components/cv-key-points";
+import { CvKeyPoints } from "@/components/cv-key-points";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 

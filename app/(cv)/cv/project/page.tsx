@@ -1,4 +1,4 @@
-import { projectExperienceData } from "@/app/(cv)/cv/_data/project-experience-data";
+import { projectExperienceData } from "@/data/project-experience-data";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 

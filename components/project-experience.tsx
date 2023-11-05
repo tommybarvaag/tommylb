@@ -1,17 +1,17 @@
 "use client";
 
+import { Badge } from "@/components/badge";
+import { Button } from "@/components/button";
 import {
   ListItemWithTimeline,
   ListItemWithTimelineDescription,
   ListItemWithTimelineTitle
-} from "@/app/(cv)/cv/_components/cv-list-item-with-timeline";
-import { CvTime } from "@/app/(cv)/cv/_components/cv-time";
-import { type ProjectExperienceItem } from "@/app/(cv)/cv/_data/project-experience-data";
-import { Badge } from "@/components/badge";
-import { Button } from "@/components/button";
+} from "@/components/cv-list-item-with-timeline";
+import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
+import { type ProjectExperienceItem } from "@/data/project-experience-data";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Drawer } from "vaul";
@@ -25,11 +25,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
         open
         onOpenChange={open => {
           if (!open) {
-            if (document.referrer) {
-              router.back();
-            } else {
-              router.push("/cv/project");
-            }
+            router.back();
           }
         }}
       >
