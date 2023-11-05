@@ -108,6 +108,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <div>
         <Heading
           variant="h1"
+          className="mb-8"
           data-animate
           style={{
             "--stagger": "1"

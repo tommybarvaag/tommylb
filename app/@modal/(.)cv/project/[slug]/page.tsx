@@ -1,6 +1,6 @@
 import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
-import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
+import { getAbsoluteUrl } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -10,22 +10,55 @@ export async function generateStaticParams() {
   }));
 }
 
-export const metadata: Metadata = {
-  title: "Project Experience",
-  // generate a curriculum vitae description for SEO with 155-160 characters
-  //
-  description: "",
-  openGraph: {
-    ...defaultOg,
-    title: "Project Experience",
-    description: ""
-  },
-  twitter: {
-    ...defaultTwitter,
-    title: "Project Experience",
-    description: ""
+export function generateMetadata({ params }: ProjectExperienceProps): Metadata {
+  const projectExperience = projectExperienceData.find(
+    projectExperienceItem => projectExperienceItem.slug === params.slug
+  );
+
+  if (!projectExperience) {
+    return {};
   }
-};
+
+  const title = projectExperience?.title;
+
+  const url = getAbsoluteUrl();
+
+  const description = projectExperience?.summary;
+
+  const ogImageUrl = new URL(`${url}/api/og`);
+  ogImageUrl.searchParams.set("heading", title);
+  ogImageUrl.searchParams.set("type", "cv-project");
+  ogImageUrl.searchParams.set("mode", "dark");
+
+  return {
+    title: {
+      default: title,
+      template: "%s | Tommy Lunde Barvåg"
+    },
+    description,
+    twitter: {
+      title,
+      description,
+      card: "summary_large_image",
+      images: ogImageUrl
+    },
+    openGraph: {
+      title,
+      type: "website",
+      url: getAbsoluteUrl(),
+      siteName: title,
+      description,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Tommy Lunde Barvåg."
+        }
+      ]
+    }
+  };
+}
 
 interface ProjectExperienceProps {
   params: {

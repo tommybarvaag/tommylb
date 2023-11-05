@@ -65,7 +65,9 @@ export default function StravaActivity({ activity, ...other }: StravaActivitiesP
       {...other}
     >
       <div className="flex items-center">
-        <Heading variant="h3">{activity.type}</Heading>
+        <Heading variant="h3" noMargin>
+          {activity.type}
+        </Heading>
         <Text className="mx-3">-</Text>
         <Text>{getFormattedLongDate(new Date(activity.startDateLocal))}</Text>
       </div>

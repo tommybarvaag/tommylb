@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ActivityTypeTrend } from "./_components/activity-type-trend";
 
-// export const runtime = "experimental-edge";
+export const runtime = "edge";
 
 interface StravaActivityPageProps {
   params: {

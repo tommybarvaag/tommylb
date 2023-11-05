@@ -20,6 +20,9 @@ export default function Footer({ ...other }) {
           <Link href="mailto:tommy@barvaag.com" aria-label="Send me something at tommy@barvaag.com">
             Mail
           </Link>
+          <Link href="/cv" aria-label="View my CV">
+            CV
+          </Link>
         </div>
       </div>
     </footer>

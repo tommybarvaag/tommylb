@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { HtmlHTMLAttributes, forwardRef } from "react";
 
-const headingVariants = cva("text-zinc-50", {
+const headingVariants = cva("text-zinc-50 mb-8", {
   variants: {
     variant: {
       h1: "font-normal tracking-tight text-base",
@@ -12,6 +12,9 @@ const headingVariants = cva("text-zinc-50", {
     },
     prose: {
       true: ""
+    },
+    noMargin: {
+      true: "mb-0"
     }
   },
   compoundVariants: [
@@ -45,11 +48,11 @@ export type HeadingProps = HtmlHTMLAttributes<HTMLHeadingElement> &
   VariantProps<typeof headingVariants>;
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, children, variant, prose, ...props }, ref) => {
+  ({ className, children, variant, prose, noMargin, ...props }, ref) => {
     const Component: React.ElementType = variant || "h2";
     return (
       <Component
-        className={cn(headingVariants({ variant, prose }), className)}
+        className={cn(headingVariants({ variant, prose, noMargin }), className)}
         {...props}
         ref={ref}
       >

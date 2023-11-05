@@ -84,10 +84,12 @@ export default async function Home() {
       >
         <div>
           <Heading className="text-zinc-300">Building</Heading>
-          <ul>
+          <ul className="flex flex-col gap-4">
             <li key="list-element-kxb-app">
               <Link className="mb-4" href="https://kxb.app/">
-                <Heading variant="h3">kxb.app</Heading>
+                <Heading variant="h3" noMargin>
+                  kxb.app
+                </Heading>
               </Link>
               <Text className="text-sm">
                 A project for internal use{" "}
@@ -99,7 +101,9 @@ export default async function Home() {
             </li>
             <li key="list-element-calendar-app">
               <Link className="mb-4" href="https://dato.im">
-                <Heading variant="h3">dato.im</Heading>
+                <Heading variant="h3" noMargin>
+                  dato.im
+                </Heading>
               </Link>
               <Text className="text-sm">Norwegian calendar with holidays and vacations.</Text>
             </li>
@@ -111,11 +115,13 @@ export default async function Home() {
               Strava
             </Link>
           </Heading>
-          <ul>
+          <ul className="flex flex-col gap-4">
             {lastStravaActivity.map(activity => (
               <li key={activity.id}>
                 <Link className="mb-4 block" href={`/strava/${activity.id}`}>
-                  <Heading variant="h3">{getFormattedPostDate(activity.startDateLocal)}</Heading>
+                  <Heading variant="h3" noMargin>
+                    {getFormattedPostDate(activity.startDateLocal)}
+                  </Heading>
                 </Link>
                 <Text className="text-sm">
                   {`${activity.type} with a suffering score of ${
@@ -132,11 +138,13 @@ export default async function Home() {
               Posts
             </Link>
           </Heading>
-          <ul>
+          <ul className="flex flex-col gap-4">
             {lastPosts.map(post => (
               <li key={post._id}>
                 <Link className="mb-4 block" href={post.slug}>
-                  <Heading variant="h3">{post.title}</Heading>
+                  <Heading variant="h3" noMargin>
+                    {post.title}
+                  </Heading>
                 </Link>
                 <Text className="text-sm">{post.shortDescription ?? post.description}</Text>
               </li>
