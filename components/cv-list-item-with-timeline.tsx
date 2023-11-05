@@ -37,7 +37,7 @@ const ListItemWithTimelineTime = forwardRef<
 
 ListItemWithTimelineTime.displayName = "ListItemWithTimelineTime";
 
-export type ListItemWithTimelineDescriptionProps = React.HTMLAttributes<typeof Text>;
+export type ListItemWithTimelineDescriptionProps = ComponentPropsWithoutRef<typeof Text>;
 
 const ListItemWithTimelineDescription = forwardRef<
   ElementRef<typeof Text>,
