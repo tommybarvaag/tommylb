@@ -129,7 +129,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 <Link
                   key={author._id}
                   href={`https://twitter.com/${author.twitter}`}
-                  className="flex items-center space-x-2 text-sm"
+                  className="flex items-center space-x-4 text-sm"
                 >
                   <Image
                     src={author.avatar}
@@ -139,8 +139,12 @@ export default async function PostPage({ params }: PostPageProps) {
                     className="rounded-full"
                   />
                   <div className="flex-1 items-center">
-                    <Text className="mb-0 text-sm font-medium text-zinc-100">{author.title}</Text>
-                    <Text className="mb-0 text-[12px] text-zinc-300">@{author.twitter}</Text>
+                    <Text className="mb-0 text-sm font-medium text-zinc-100" noMargin>
+                      {author.title}
+                    </Text>
+                    <Text className="mb-0 text-[12px] text-zinc-300" noMargin>
+                      @{author.twitter}
+                    </Text>
                   </div>
                 </Link>
               ))}

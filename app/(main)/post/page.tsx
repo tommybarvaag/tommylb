@@ -89,7 +89,7 @@ export default async function PostPage() {
                           <Text className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500">
                             {post.title}
                           </Text>
-                          <Text className="mb-0 mt-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50">
+                          <Text className="my-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50">
                             {formatMonthDay(post.date)}
                           </Text>
                         </>

@@ -27,11 +27,7 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
           <Card>
             <CardHeader className="flex flex-row gap-3">
               <Avatar>
-                <AvatarImage
-                  src="https://avatars.githubusercontent.com/u/24416970?v=4"
-                  alt="Avatar"
-                  className="user-photo"
-                />
+                <AvatarImage src="/images/tommy-zoom-256.webp" alt="Avatar" priority quality={90} />
                 <AvatarFallback>TLB</AvatarFallback>
               </Avatar>
               <div>
@@ -39,7 +35,7 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                 <CardDescription>Senior front-end specialist</CardDescription>
               </div>
             </CardHeader>
-            <CardContent className="">
+            <CardContent>
               <Badge variant="optimistic">Open for opportunities</Badge>
             </CardContent>
             <CardFooter>

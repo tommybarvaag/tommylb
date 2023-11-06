@@ -4,7 +4,7 @@ const { withContentlayer } = require("next-contentlayer");
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["images.unsplash.com", "avatars.githubusercontent.com", "pbs.twimg.com"]
+    domains: ["images.unsplash.com", "pbs.twimg.com"]
   },
   async redirects() {
     return [
