@@ -32,7 +32,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
         <Drawer.Portal>
           <Drawer.Overlay className="fixed inset-0 bg-black/40" />
           <Drawer.Content className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-zinc-900">
-            <div className="relative z-10 flex-1 overflow-auto rounded-t-[10px]">
+            <div className="relative z-10 flex-1 overflow-y-auto rounded-t-[10px]">
               <Drawer.Close asChild>
                 <Button className="absolute right-3 top-3 z-20 h-10 w-10 rounded-full p-0">
                   <Icons.X className="h-6 w-6" />
@@ -46,6 +46,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                   fill
                   objectFit="cover"
                   objectPosition="center top"
+                  draggable={false}
                 />
               </div>
               <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
