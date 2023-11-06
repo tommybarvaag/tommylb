@@ -91,7 +91,7 @@ export default async function Home() {
                   kxb.app
                 </Heading>
               </Link>
-              <Text className="text-sm">
+              <Text variant="small" noMargin>
                 A project for internal use{" "}
                 <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
                   knowit
@@ -105,7 +105,9 @@ export default async function Home() {
                   dato.im
                 </Heading>
               </Link>
-              <Text className="text-sm">Norwegian calendar with holidays and vacations.</Text>
+              <Text variant="small" noMargin>
+                Norwegian calendar with holidays and vacations.
+              </Text>
             </li>
           </ul>
         </div>
@@ -123,7 +125,7 @@ export default async function Home() {
                     {getFormattedPostDate(activity.startDateLocal)}
                   </Heading>
                 </Link>
-                <Text className="text-sm">
+                <Text variant="small" noMargin>
                   {`${activity.type} with a suffering score of ${
                     activity.sufferScore
                   } and an average heart rate of ${activity.averageHeartRate?.toString()}.`}
@@ -146,7 +148,9 @@ export default async function Home() {
                     {post.title}
                   </Heading>
                 </Link>
-                <Text className="text-sm">{post.shortDescription ?? post.description}</Text>
+                <Text variant="small" noMargin>
+                  {post.shortDescription ?? post.description}
+                </Text>
               </li>
             ))}
           </ul>

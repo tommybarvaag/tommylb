@@ -15,6 +15,9 @@ const headingVariants = cva("text-zinc-50 mb-8", {
     },
     noMargin: {
       true: "mb-0"
+    },
+    uppercase: {
+      true: "uppercase"
     }
   },
   compoundVariants: [
@@ -48,11 +51,11 @@ export type HeadingProps = HtmlHTMLAttributes<HTMLHeadingElement> &
   VariantProps<typeof headingVariants>;
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, children, variant, prose, noMargin, ...props }, ref) => {
+  ({ className, children, variant, prose, noMargin, uppercase, ...props }, ref) => {
     const Component: React.ElementType = variant || "h2";
     return (
       <Component
-        className={cn(headingVariants({ variant, prose, noMargin }), className)}
+        className={cn(headingVariants({ variant, prose, noMargin, uppercase }), className)}
         {...props}
         ref={ref}
       >

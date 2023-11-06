@@ -2,10 +2,11 @@ import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
-const textVariants = cva("", {
+const textVariants = cva("[&:not(:first-child)]:mt-6", {
   variants: {
     variant: {
-      default: "text-base leading-7 [&:not(:first-child)]:mt-6"
+      default: "text-base leading-relaxed",
+      small: "text-sm leading-normal"
     },
     noMargin: {
       true: "mt-0 [&:not(:first-child)]:mt-0"

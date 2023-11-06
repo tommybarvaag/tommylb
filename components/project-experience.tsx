@@ -50,9 +50,14 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
               </div>
               <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
                 <Drawer.Title asChild>
-                  <Heading variant="h1" prose>
-                    {projectExperience.title}
-                  </Heading>
+                  <div>
+                    <Heading className="font-semibold" variant="h2" noMargin uppercase>
+                      {projectExperience.clientName}
+                    </Heading>
+                    <Heading variant="h1" noMargin prose>
+                      {projectExperience.title}
+                    </Heading>
+                  </div>
                 </Drawer.Title>
                 <CvTime fromDate={projectExperience.startDate} toDate={projectExperience.endDate} />
                 <Drawer.Description asChild>

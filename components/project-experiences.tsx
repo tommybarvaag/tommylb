@@ -24,12 +24,17 @@ function ProjectExperiences() {
                 className="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-b-zinc-700 [&:not(:last-child)]:pb-4"
               >
                 <Link key={index} href={`/cv/project/${projectExperience.slug}`}>
-                  <Heading variant="h3">{projectExperience.title}</Heading>
+                  <Heading variant="h3" noMargin>
+                    {projectExperience.title}
+                  </Heading>
+                  <Heading className="text-sm text-zinc-400" variant="h4" noMargin>
+                    {projectExperience.clientName}
+                  </Heading>
                   <CvTime
                     fromDate={projectExperience.startDate}
                     toDate={projectExperience.endDate}
                   />
-                  <Text className="text-sm">{projectExperience.summary}</Text>
+                  <Text variant="small">{projectExperience.summary}</Text>
                 </Link>
               </li>
             );

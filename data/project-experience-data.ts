@@ -1,6 +1,7 @@
 type ProjectExperienceItem = {
   id: number;
   title: string;
+  clientName: string;
   slug: string;
   description: string[];
   summary: string;
@@ -22,14 +23,15 @@ type ProjectExperienceItem = {
 const projectExperienceData: ProjectExperienceItem[] = [
   {
     id: 1,
-    title: "Hansa Borg Bryggerier AS — Digital customer portal",
+    title: "Digital customer portal",
+    clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-digital-customer-portal",
     description: [
       "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa's hospitality customers to order goods without the need for a sales representative.",
       "The portal is constructed using a microservice architecture, with Knowit providing some services and Hansa providing others. All services are hosted on Azure WebApps, and we have utilized Azure B2C for authentication and Azure Search Service for search. The majority of the services are built in Microsoft .NET, while the user interface is a pure React application."
     ],
     summary:
-      "Knowit partnered with Hansa Borg Bryggerier AS to develop a digital customer portal using React, ASP.NET Core, and Azure services.",
+      "Hansa Borg Bryggerier AS wanted to develop a digital customer portal to streamline the ordering process for its hospitality customers. Knowit was responsible for the development of the portal using React, ASP.NET Core, and Azure services.",
     startDate: "2017-05",
     endDate: "2018-09",
     technologies: [
@@ -61,14 +63,15 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 2,
-    title: "BOB BBL — Web and CMS",
+    title: "New web and CMS",
+    clientName: "BOB BBL AS",
     slug: "bob-bbl-web-and-cms",
     description: [
       "BOB web was solved through the development of a newly developed component library along with a modern web app written in React that fetches dynamic content from Umbraco CMS via a headless REST API.",
       "I was responsible for setting up a new .NET package that made Umbraco content available via a REST API. This API was then consumed by a React app that I developed to display the user interface. My primary focus was on Umbraco and setting up the new module, as well as how the content should be integrated with React."
     ],
     summary:
-      "Knowit partnered with BOB BBL to develop a new website and CMS using React, Umbraco, and Azure services.",
+      "Knowit was responsible for the development of a new web and CMS solution for BOB BBL AS using React, Umbraco, and Azure services.",
     startDate: "2018-10",
     endDate: "2019-06",
     technologies: [
@@ -107,10 +110,11 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 3,
-    title: "Compello AS — Web",
+    title: "New web and CMS",
+    clientName: "Compello AS",
     slug: "compello-as-web",
     description: [
-      "Compello is a Norwegian company that helps businesses with digitalization and automation of processes within invoice and message exchange. Knowit assists in the development of the company’s digital customer journey. The goal of the project is to make Compello an even more modern and customer-oriented company for the future.",
+      "Compello is a Norwegian company that helps businesses with digitalization and automation of processes within invoice and message exchange. Knowit assists in the development of the company's digital customer journey. The goal of the project is to make Compello an even more modern and customer-oriented company for the future.",
       "In the fall of 2018, Knowit conducted a pre-project where, through methodical analysis and qualitative insight, they uncovered what challenges and needs existing Compello customers have around the software itself and the surrounding services today, and what they want from Compello and similar vendors in the future. The pre-project revealed that the web experience of Compello should be renewed. The web is designed with Next.js, a React framework, and takes advantage of Server Side Rendering to display content from the Umbraco CMS.",
       "The team consists of a project manager, a UX designer, a front-end developer, a back-end developer, and a tester. The project is run in an agile manner, with a focus on continuous delivery and DevOps.",
       "Tommy's role in the project was as tech lead, front-end developer and back-end developer. He was responsible for setting up the Next.js project and integrating it with Umbraco CMS. He was also responsible for setting up the build and deployment pipeline. Working alongside the UX designer, she was responsible for the design and implementation of the user interface."
@@ -156,7 +160,8 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 4,
-    title: "Hansa Borg Bryggerier AS — olden.no",
+    title: "olden.no",
+    clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-olden-no",
     description: [
       "The brand Olden is owned by Hansa Borg Bryggerier AS. Olden is a brand that has been on the market for many years, and has a strong position in the Norwegian market. The brand is known for its high quality and good taste. The brand is available in several variants, including sparkling water, still water, and flavored water.",
@@ -196,7 +201,8 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 5,
-    title: "Hansa Borg Bryggerier AS — Digital Customer Portal v2",
+    title: "Digital Customer Portal v2",
+    clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-digital-customer-portal-v2",
     description: [
       "Hansa Borg Bryggerier AS had an inefficient and laborious process for ordering goods for its hospitality customers. In partnership with internal Hansa resources, Knowit developed a portal that enables Hansa's hospitality customers to order goods without the need for a sales representative.",
@@ -250,7 +256,8 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 6,
-    title: "Hansa Borg Bryggerier AS — Onboarding wizard",
+    title: "Onboarding wizard",
+    clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-onboarding-wizard",
     description: [
       "With a steadily increasing customer portfolio, Hansa Borg Bryggerier AS wanted a new and more flexible way to onboard new customers. The goal was to collect and save customer leads in Microsoft Dynamics, and to make it easier for the sales department to follow up on these leads. The solution was to develop a new onboarding wizard that would be integrated with the existing Digital Customer Portal.",
@@ -297,7 +304,8 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 7,
-    title: "Hansa Borg Bryggerier AS — Beer as a Service",
+    title: "Beer as a Service",
+    clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-beer-as-a-service",
     description: [
       "Hansa Borg Bryggerier AS is Norway's largest Norwegian-owned brewery and beverage company with around 300 employees. The company is facing increasing price pressure while trying to differentiate itself on service, leading to a negative spiral of lower revenues and higher costs. In the market, there is a proliferation of chains: International chains have their suppliers and are almost impossible to penetrate. Norwegian chains are easier to approach. There are also purchasing groups that put pressure on prices. At the same time, HBB sees self-service as a trend and things are being automated. The industry is moving from products to services.",
