@@ -16,10 +16,10 @@ export function GridTileImage({
   return (
     <div
       className={cn(
-        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border-2 hover:border-blue-600 dark:bg-black",
+        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border-2 bg-zinc-950 hover:border-blue-600",
         {
           "border-2 border-blue-600": active,
-          "border-zinc-700 dark:border-neutral-800": !active
+          "border-zinc-700": !active
         }
       )}
     >
@@ -40,7 +40,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
   const [imageIndex, setImageIndex] = useState(0);
 
   const buttonClassName =
-    "unset h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
+    "unset h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-white flex items-center justify-center";
 
   return (
     <>
@@ -57,7 +57,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
         )}
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-zinc-950 bg-zinc-900/80 text-neutral-400 backdrop-blur">
               <button
                 aria-label="Previous product image"
                 className={buttonClassName}
