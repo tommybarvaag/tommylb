@@ -3,7 +3,7 @@ import { ProjectExperiences } from "../../../../components/project-experiences";
 
 export default function ProjectLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="animate-in">
+    <div className="duration-500 animate-in">
       <ProjectExperiences />
       {children}
     </div>

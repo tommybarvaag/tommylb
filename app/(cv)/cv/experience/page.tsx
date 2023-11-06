@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default async function CurriculumVitae() {
   return (
-    <div className="animate-in">
+    <div className="duration-500 animate-in">
       <CvKeyPoints />
     </div>
   );

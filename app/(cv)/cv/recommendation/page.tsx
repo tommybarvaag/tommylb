@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default async function Recommendation() {
   return (
-    <div className="animate-in">
+    <div className="duration-500 animate-in">
       <Heading variant="h1">Recommendation</Heading>
     </div>
   );
