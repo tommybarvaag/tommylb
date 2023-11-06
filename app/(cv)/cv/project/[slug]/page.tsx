@@ -26,7 +26,7 @@ export function generateMetadata({ params }: ProjectExperienceProps): Metadata {
     return {};
   }
 
-  const title = projectExperience?.title;
+  const title = `${projectExperience.clientName} — ${projectExperience.title}`;
 
   const url = getAbsoluteUrl();
 
