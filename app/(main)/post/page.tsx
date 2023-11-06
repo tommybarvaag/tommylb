@@ -86,10 +86,16 @@ export default async function PostPage() {
                     >
                       <Link href={post.slug} className="flex w-full gap-3" underline={false}>
                         <>
-                          <Text className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500">
+                          <Text
+                            className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500"
+                            noMargin
+                          >
                             {post.title}
                           </Text>
-                          <Text className="my-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50">
+                          <Text
+                            className="my-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50"
+                            noMargin
+                          >
                             {formatMonthDay(post.date)}
                           </Text>
                         </>
