@@ -15,6 +15,7 @@ import { type ProjectExperienceItem } from "@/data/project-experience-data";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Drawer } from "vaul";
+import { Gallery } from "./gallery";
 
 function ProjectExperience({ projectExperience }: { projectExperience: ProjectExperienceItem }) {
   const router = useRouter();
@@ -98,16 +99,12 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                     Screenshots
                   </Heading>
                   <div className="grid grid-cols-1 gap-y-6">
-                    {projectExperience.images?.map((image, index) => (
-                      <Image
-                        key={`${image.src}-${index}`}
-                        className="mx-auto select-none rounded-[10px]"
-                        src={image.src}
-                        alt={image.alt}
-                        width={image.width ?? 800}
-                        height={image.height ?? 400}
-                      />
-                    ))}
+                    <Gallery
+                      images={projectExperience.images.map(image => ({
+                        src: image.src,
+                        alt: image.alt
+                      }))}
+                    />
                   </div>
                 </section>
               </div>
