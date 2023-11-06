@@ -1,29 +1,21 @@
 import Link from "@/components/link";
 import Text from "@/components/text";
 import { getActiveWorkYears } from "@/utils/date-utils";
-import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
+import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Curriculum Vitae",
-  description: "",
-  openGraph: {
-    ...defaultOg,
-    title: "Curriculum Vitae",
-    description: ""
-  },
-  twitter: {
-    ...defaultTwitter,
-    title: "Curriculum Vitae",
-    description: ""
-  }
-};
+export const metadata: Metadata = metadataWithCustomOgImage(
+  "About",
+  "Tommy is an experienced and solution-oriented consultant with expertise in JavaScript/TypeScript and React. He has a systematic and analytical approach to developing custom solutions from concept to product.",
+  "Curriculum Vitae — About",
+  "An experienced and solution-oriented senior consultant"
+);
 
 export default async function CvAboutPage() {
   return (
     <div className="duration-500 animate-in">
       <Text>
-        Tommy is an experienced and solution-oriented consultant with expertise in
+        Tommy is an experienced and solution-oriented senior consultant with expertise in
         JavaScript/TypeScript and React. He has a systematic and analytical approach to developing
         custom solutions from concept to product.
       </Text>

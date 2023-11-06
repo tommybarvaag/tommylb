@@ -1,6 +1,6 @@
 import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
-import { getAbsoluteUrl } from "@/lib/utils";
+import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -28,43 +28,12 @@ export function generateMetadata({ params }: ProjectExperienceProps): Metadata {
 
   const title = `${projectExperience.clientName} — ${projectExperience.title}`;
 
-  const url = getAbsoluteUrl();
-
-  const description = projectExperience?.summary;
-
-  const ogImageUrl = new URL(`${url}/api/og`);
-  ogImageUrl.searchParams.set("heading", title);
-  ogImageUrl.searchParams.set("type", "CV Project");
-  ogImageUrl.searchParams.set("mode", "dark");
-
-  return {
-    title: {
-      default: title,
-      template: "%s | Tommy Lunde Barvåg"
-    },
-    description,
-    twitter: {
-      title,
-      description,
-      card: "summary_large_image",
-      images: ogImageUrl
-    },
-    openGraph: {
-      title,
-      type: "website",
-      url: getAbsoluteUrl(),
-      siteName: title,
-      description,
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: "Tommy Lunde Barvåg."
-        }
-      ]
-    }
-  };
+  return metadataWithCustomOgImage(
+    title,
+    projectExperience.summary,
+    "Curriculum Vitae — Project experience",
+    title
+  );
 }
 
 export default async function ProjectExperiencePage({ params }: ProjectExperienceProps) {

@@ -81,4 +81,48 @@ const defaultMetadata: Metadata = {
   }
 };
 
-export { defaultMetadata, defaultOg, defaultTwitter };
+const metadataWithCustomOgImage = (
+  title: string,
+  description: string,
+  type: string,
+  ogHeading?: string,
+  mode: "light" | "dark" = "dark"
+): Metadata => {
+  const url = getAbsoluteUrl();
+
+  const ogImageUrl = new URL(`${url}/api/og`);
+  ogImageUrl.searchParams.set("heading", ogHeading ?? title);
+  ogImageUrl.searchParams.set("type", type);
+  ogImageUrl.searchParams.set("mode", "dark");
+
+  return {
+    title: {
+      default: title,
+      template: "%s | Tommy Lunde Barvåg"
+    },
+    description,
+    twitter: {
+      title,
+      description,
+      card: "summary_large_image",
+      images: ogImageUrl
+    },
+    openGraph: {
+      title,
+      type: "website",
+      url: getAbsoluteUrl(),
+      siteName: title,
+      description,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Tommy Lunde Barvåg."
+        }
+      ]
+    }
+  };
+};
+
+export { defaultMetadata, defaultOg, defaultTwitter, metadataWithCustomOgImage };

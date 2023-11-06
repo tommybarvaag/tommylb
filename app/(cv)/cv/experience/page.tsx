@@ -1,21 +1,14 @@
 import { CvKeyPoints } from "@/components/cv-key-points";
-import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
+import { getActiveWorkYears } from "@/utils/date-utils";
+import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Curriculum Vitae",
-  description: "",
-  openGraph: {
-    ...defaultOg,
-    title: "Curriculum Vitae",
-    description: ""
-  },
-  twitter: {
-    ...defaultTwitter,
-    title: "Curriculum Vitae",
-    description: ""
-  }
-};
+export const metadata: Metadata = metadataWithCustomOgImage(
+  "Experience",
+  `With over ${getActiveWorkYears()} years of experience, Tommy has developed a deep understanding of creating seamless user experiences.`,
+  "Curriculum Vitae — Experience",
+  "An experienced and solution-oriented senior consultant"
+);
 
 export default async function CurriculumVitae() {
   return (
