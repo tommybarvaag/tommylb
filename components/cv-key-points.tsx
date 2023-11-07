@@ -70,7 +70,9 @@ function CvKeyPoints() {
                   {workExperiences.map((workExperience, index) => {
                     return (
                       <li key={`${workExperience.id}-${index}`} className="">
-                        <Heading variant="h3">{workExperience.workPlaceTitle}</Heading>
+                        <Heading variant="h3" noMargin>
+                          {workExperience.workPlaceTitle}
+                        </Heading>
                         <CvTime fromDate={workExperience.fromDate} toDate={workExperience.toDate} />
                         <Text className="text-sm">{workExperience.summary}</Text>
                       </li>
@@ -90,7 +92,9 @@ function CvKeyPoints() {
           {cvEducation.map((education, index) => {
             return (
               <li key={`${education.id}-${index}`} className="mb-8">
-                <Heading variant="h3">{education.title}</Heading>
+                <Heading variant="h3" noMargin>
+                  {education.title}
+                </Heading>
                 <CvTime fromDate={education.fromDate} toDate={education.toDate} />
                 <Text>{education.description}</Text>
               </li>

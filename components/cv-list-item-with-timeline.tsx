@@ -20,7 +20,7 @@ export interface ListItemWithTimelineTitleProps extends React.HTMLAttributes<HTM
 
 const ListItemWithTimelineTitle = forwardRef<HTMLDivElement, ListItemWithTimelineTitleProps>(
   ({ className, children, ...props }, ref) => (
-    <Heading className={cn(className)} variant="h3" {...props}>
+    <Heading className={cn(className)} variant="h3" noMargin {...props}>
       {children}
     </Heading>
   )

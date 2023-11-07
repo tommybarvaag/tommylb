@@ -61,6 +61,15 @@ type CvKeySkills = {
   skills: CvSkill[];
 };
 
+type CvRecommendation = {
+  id: number;
+  date: string;
+  name: string;
+  title: string;
+  company: string;
+  description: string[];
+};
+
 const cvWorkExperience: CvWorkExperience[] = [
   {
     id: 1,
@@ -188,9 +197,35 @@ const cvKeySkills: CvKeySkills = {
   ]
 };
 
+const cvRecommendations: CvRecommendation[] = [
+  {
+    id: 1,
+    date: "2015-10-31",
+    name: "Johannes Giske",
+    company: "Knowit Experience Bergen AS",
+    title: "Developer",
+    description: [
+      'I have worked with Tommy for nearly 2 years at Digitroll AS. He is a skilled developer who learns quickly and is not afraid of challenges. Tommy has expertise in both development and operations. We have closely collaborated, and he is usually my first "go-to-guy" when I\'ve needed to discuss a problem or brainstorm.'
+    ]
+  },
+  {
+    id: 2,
+    date: "2023-11-06",
+    name: "Ken Bernes",
+    company: "Hansa Borg Bryggerier AS",
+    title: "CDO",
+    description: [
+      "I had the pleasure of working with Tommy for several years on developing various solutions for the company's customers.",
+      "Among several skilled consultants, we chose Tommy as the one we worked with the most. He was full-time with us for a long period, and for good reason.",
+      "Tommy is exceptionally talented and delivers results. He embraces challenges with joy, and his pleasant personality made him a delight to work with. "
+    ]
+  }
+];
+
 export {
   cvEducation,
   cvKeySkills,
+  cvRecommendations,
   cvSkillCSharp,
   cvSkillJavaScript,
   cvSkillNextJs,
@@ -199,4 +234,5 @@ export {
   cvSkillTypeScript,
   cvWorkExperience
 };
-export type { CvEducation, CvKeySkills, CvWorkExperience };
+
+export type { CvEducation, CvKeySkills, CvRecommendation, CvWorkExperience };
