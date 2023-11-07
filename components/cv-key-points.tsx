@@ -74,7 +74,7 @@ function CvKeyPoints() {
                           {workExperience.workPlaceTitle}
                         </Heading>
                         <CvTime fromDate={workExperience.fromDate} toDate={workExperience.toDate} />
-                        <Text className="text-sm">{workExperience.summary}</Text>
+                        <Text variant="small">{workExperience.summary}</Text>
                       </li>
                     );
                   })}

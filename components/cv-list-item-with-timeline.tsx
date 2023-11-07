@@ -42,8 +42,8 @@ export type ListItemWithTimelineDescriptionProps = ComponentPropsWithoutRef<type
 const ListItemWithTimelineDescription = forwardRef<
   ElementRef<typeof Text>,
   ListItemWithTimelineDescriptionProps
->(({ className, children, ...props }, ref) => (
-  <Text className={cn("text-sm", className)} {...props} ref={ref}>
+>(({ className, children, variant = "small", ...props }, ref) => (
+  <Text className={cn("", className)} variant={variant} {...props} ref={ref}>
     {children}
   </Text>
 ));
