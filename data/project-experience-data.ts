@@ -308,13 +308,13 @@ const projectExperienceData: ProjectExperienceItem[] = [
     clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-beer-as-a-service",
     description: [
-      "Hansa Borg Bryggerier AS is Norway's largest Norwegian-owned brewery and beverage company with around 300 employees. The company is facing increasing price pressure while trying to differentiate itself on service, leading to a negative spiral of lower revenues and higher costs. In the market, there is a proliferation of chains: International chains have their suppliers and are almost impossible to penetrate. Norwegian chains are easier to approach. There are also purchasing groups that put pressure on prices. At the same time, HBB sees self-service as a trend and things are being automated. The industry is moving from products to services.",
-      "HBB saw a need to innovate to increase profitability in the nightlife segment and to better connect with customers to better meet the changes the industry faces. Therefore, in the fall of 2020, they decided to engage Knowit to identify needs, innovation potential, and associated innovation solutions.",
+      "Hansa Borg Bryggerier AS is Norway's largest Norwegian-owned brewery and beverage company with around 300 employees. The company is facing increasing price pressure while trying to differentiate itself on service, leading to a negative spiral of lower revenues and higher costs. In the market, there is a proliferation of chains: International chains have their suppliers and are almost impossible to penetrate. Norwegian chains are easier to approach. There are also purchasing groups that put pressure on prices. At the same time, Hansa Borg Bryggerier AS sees self-service as a trend and things are being automated. The industry is moving from products to services.",
+      "Hansa Borg Bryggerier AS saw a need to innovate to increase profitability in the nightlife segment and to better connect with customers to better meet the changes the industry faces. Therefore, in the fall of 2020, they decided to engage Knowit to identify needs, innovation potential, and associated innovation solutions.",
       "Tommy started working on developing a web application based on the graphic profile designed in the fall of 2021. Unfortunately the project was put on ice following the acquisition by Royal Unibrew AS in 2023.",
       "The web application is built using React, Next.js, TypeScript, Tailwind CSS, Azure, and Azure DevOps. Utilizing the latest and greatest technologies to create a modern and scalable web application with PWA capabilities. My role as a tech lead and senior front-end specialist was to develop the web application in React. The web application was integrated with the a series of IoT microservices developed by Hansa Borg Bryggerier AS. The microservices was connected to a host of datacenters that concatinated data from the IoT devices and sent it to the web application via a REST API. Data collected from the IoT devices was used to display real-time data in the web application."
     ],
     summary:
-      "HBB saw a need to innovate to increase profitability in the nightlife segment and to better connect with customers to better meet the changes the industry faces. Utilizing the latest and greatest technologies Tommy created a modern and scalable web application with PWA capabilities to expose a data driven nightlife experience.",
+      "Hansa Borg Bryggerier AS saw a need to innovate to increase profitability in the nightlife segment and to better connect with customers to better meet the changes the industry faces. Utilizing the latest and greatest technologies Tommy created a modern and scalable web application with PWA capabilities to expose a data driven nightlife experience.",
     startDate: "2022-01",
     endDate: "2023-01",
     technologies: [
@@ -344,11 +344,12 @@ const projectExperienceData: ProjectExperienceItem[] = [
       {
         title: "Tech Lead",
         description:
-          "Technical consulting before, during, and after delivery. Development of component libraries, web app in React, and integration with IoT microservices."
+          "Technical consulting before, during, and after delivery. Coordinating with the client and other vendors. Discussing and planning the architecture of the web application and microservices."
       },
       {
         title: "Senior Front-end Specialist",
-        description: "Development of the web application in React."
+        description:
+          "Development of the web application in Next.js. Development of component libraries, web app in React, and integration with IoT microservices."
       }
     ]
   }

@@ -6,7 +6,7 @@ const textVariants = cva("[&:not(:first-child)]:mt-6", {
   variants: {
     variant: {
       default: "text-base leading-relaxed",
-      small: "text-sm leading-normal"
+      small: "text-sm leading-normal [&:not(:first-child)]:mt-3"
     },
     noMargin: {
       true: "mt-0 [&:not(:first-child)]:mt-0"
