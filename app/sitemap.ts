@@ -20,10 +20,10 @@ export default async function sitemap() {
     "/strava",
     "/connect",
     "/timeline",
-    "/cv",
     "/cv/about",
     "/cv/project",
-    "/cv/experience"
+    "/cv/experience",
+    "/cv/recommendation"
   ].map(route => ({
     url: `https://tommylb.com${route}`,
     lastModified: new Date().toISOString().split("T")[0]

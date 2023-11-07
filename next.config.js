@@ -27,6 +27,11 @@ const nextConfig = {
         source: "/post/do-you-need-a-third-party-library",
         destination: "/post/do-you-need-a-third-party-form-library",
         permanent: true
+      },
+      {
+        source: "/cv",
+        destination: "/cv/about",
+        permanent: true
       }
     ];
   },
