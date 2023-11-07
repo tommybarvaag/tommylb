@@ -6,7 +6,7 @@ import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-liv
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
 import { cn } from "@/lib/utils";
-import { Tweet } from "@/types";
+import type { Tweet } from "react-tweet/api";
 import { Heading } from "../heading";
 import Link from "../link";
 import Text from "../text";
@@ -116,7 +116,7 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   const Tweet = ({ id }: { id: string }) => {
-    const tweet = tweets?.find(tweet => tweet.id === id);
+    const tweet = tweets?.find(tweet => tweet.id_str === id);
     return <TwitterCard tweet={tweet} />;
   };
 

@@ -1,4 +1,3 @@
-import Footer from "@/components/footer";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
@@ -35,7 +34,6 @@ export default function RootLayout({
     <html lang="en" className={cn("", interFont.className)}>
       <body className="bg-zinc-900 text-zinc-50">
         {children}
-        <Footer />
         {modal}
         <VercelAnalytics />
       </body>
