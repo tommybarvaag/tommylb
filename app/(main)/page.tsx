@@ -63,8 +63,9 @@ export default async function Home() {
           }}
         >
           <Text>
-            I&apos;ve spent the last nine years creating web solutions for great companies.
-            Experimenting with new technologies and learning new things is what I love the most.
+            I&apos;ve spent the <Link href="/cv/about">last nine years</Link> creating web solutions
+            for great companies. Experimenting with new technologies and learning new things is what
+            I love the most.
           </Text>
           <Text>
             I&apos;m currently working as a senior consultant at{" "}
