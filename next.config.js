@@ -4,7 +4,7 @@ const { withContentlayer } = require("next-contentlayer");
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["images.unsplash.com", "avatars.githubusercontent.com", "pbs.twimg.com"]
+    domains: ["images.unsplash.com", "pbs.twimg.com"]
   },
   async redirects() {
     return [
@@ -27,12 +27,17 @@ const nextConfig = {
         source: "/post/do-you-need-a-third-party-library",
         destination: "/post/do-you-need-a-third-party-form-library",
         permanent: true
+      },
+      {
+        source: "/cv",
+        destination: "/cv/about",
+        permanent: true
       }
     ];
   },
   experimental: {
-    scrollRestoration: true,
-    webpackBuildWorker: true
+    webpackBuildWorker: true,
+    scrollRestoration: true
   }
 };
 

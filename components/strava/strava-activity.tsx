@@ -1,6 +1,6 @@
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { getFormattedLongDate } from "../../utils/date-utils";
-import Heading from "../heading";
+import { Heading } from "../heading";
 import { Icons } from "../icons";
 import Link from "../link";
 import Text from "../text";
@@ -65,7 +65,7 @@ export default function StravaActivity({ activity, ...other }: StravaActivitiesP
       {...other}
     >
       <div className="flex items-center">
-        <Heading as="div" variant="h3" noMargin>
+        <Heading variant="h3" noMargin>
           {activity.type}
         </Heading>
         <Text className="mx-3" noMargin>
@@ -79,7 +79,7 @@ export default function StravaActivity({ activity, ...other }: StravaActivitiesP
           key={`strava-personal-best-${activity.id}-${index}`}
         >
           <Icons.Fire className="mr-3" />
-          <Heading as="div" variant="h3" noMargin>
+          <Heading variant="h3" noMargin>
             {`Personal best ${personalBest.name} (${personalBest.formattedMovingTime})`}
           </Heading>
         </div>

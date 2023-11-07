@@ -2,18 +2,20 @@ import { ogImageSchema } from "@/lib/validations/og";
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
-const interRegular = fetch(new URL("../../assets/fonts/Inter-Regular.ttf", import.meta.url)).then(
-  res => res.arrayBuffer()
-);
-
-const interBold = fetch(new URL("../../assets/fonts/Inter-Bold.ttf", import.meta.url)).then(res =>
-  res.arrayBuffer()
-);
+export const runtime = "edge";
 
 export default async function handler(req: NextRequest) {
   try {
-    const fontRegular = await interRegular;
-    const fontBold = await interBold;
+    const fontRegular = fetch(
+      new URL("../../assets/fonts/Geist-Regular.otf", import.meta.url)
+    ).then(res => res.arrayBuffer());
+
+    const fontBold = fetch(new URL("../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
+      res => res.arrayBuffer()
+    );
+
+    const fontRegularData = await fontRegular;
+    const fontBoldData = await fontBold;
 
     const url = new URL(req.url);
     const values = ogImageSchema.parse(Object.fromEntries(url.searchParams));
@@ -37,14 +39,14 @@ export default async function handler(req: NextRequest) {
           <div tw="flex flex-col flex-1 py-10">
             <div
               tw="flex text-xl uppercase font-bold tracking-tight"
-              style={{ fontFamily: "Inter", fontWeight: "normal" }}
+              style={{ fontFamily: "Geist", fontWeight: "normal" }}
             >
               {values.type}
             </div>
             <div
               tw="flex leading-[1.1] text-[80px] font-bold tracking-tighter"
               style={{
-                fontFamily: "Inter",
+                fontFamily: "Geist",
                 fontWeight: "bolder",
                 marginLeft: "-3px",
                 fontSize
@@ -54,12 +56,12 @@ export default async function handler(req: NextRequest) {
             </div>
           </div>
           <div tw="flex items-center w-full justify-between">
-            <div tw="flex text-xl" style={{ fontFamily: "Inter", fontWeight: "normal" }}>
+            <div tw="flex text-xl" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
               tommylb.com
             </div>
             <div
               tw="flex items-center text-xl"
-              style={{ fontFamily: "Inter", fontWeight: "normal" }}
+              style={{ fontFamily: "Geist", fontWeight: "normal" }}
             >
               <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
                 <path
@@ -87,14 +89,14 @@ export default async function handler(req: NextRequest) {
         height: 630,
         fonts: [
           {
-            name: "Inter",
-            data: fontRegular,
+            name: "Geist",
+            data: fontRegularData,
             weight: 400,
             style: "normal"
           },
           {
-            name: "Inter",
-            data: fontBold,
+            name: "Geist",
+            data: fontBoldData,
             weight: 700,
             style: "normal"
           }

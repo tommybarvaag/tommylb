@@ -74,7 +74,7 @@ const StravaActivityKudos = ({ activityId, kudosCount, ...other }: StravaActivit
       ) : (
         <Icons.Fire className="h-5 w-5 group-hover:text-zinc-500 group-active:text-zinc-300" />
       )}
-      <Text className="mb-0 group-hover:text-zinc-500 group-active:text-zinc-300">
+      <Text className="mb-0 group-hover:text-zinc-500 group-active:text-zinc-300" noMargin>
         {kudosCount}
       </Text>
     </button>

@@ -22,9 +22,7 @@ export default function FormSubmitMessage({ text, icon }: FormSubmitMessageProps
         <div className="flex items-center space-x-4 rounded-lg border-zinc-700 bg-zinc-900 text-zinc-100">
           {icon ? <div className="flex-initial">{icon}</div> : null}
           <div className="flex-initial">
-            <Text className="text-sm" noMargin>
-              {text}
-            </Text>
+            <Text variant="small">{text}</Text>
           </div>
         </div>
       </motion.div>

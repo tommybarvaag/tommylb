@@ -8,10 +8,10 @@ type StravaNameAndValueProps = {
 export default function StravaNameAndValue({ name, value, ...other }: StravaNameAndValueProps) {
   return (
     <div className="flex gap-3" {...other}>
-      <Text as="div" className="mb-0 max-w-[220px] grow">
+      <Text className="mb-0 max-w-[220px] grow" noMargin>
         {name}
       </Text>
-      <Text as="div" className="mb-0 ml-auto text-right">
+      <Text className="mb-0 ml-auto text-right" noMargin>
         {value}
       </Text>
     </div>

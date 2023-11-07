@@ -2,12 +2,12 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import * as React from "react";
 
-import { ParallelismLiveTestExample } from "@/app/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
 import { cn } from "@/lib/utils";
-import { Tweet } from "@/types";
-import Heading from "../heading";
+import type { Tweet } from "react-tweet/api";
+import { Heading } from "../heading";
 import Link from "../link";
 import Text from "../text";
 import { TwitterCard } from "../twitter-card";
@@ -15,9 +15,7 @@ import { CodeBlockWrapper } from "./code-block-wrapper";
 import { ComponentSource } from "./component-source";
 
 const components = {
-  h1: ({ className, ...props }) => (
-    <Heading variant="pageHeading" className="mt-8 text-xl" {...props} />
-  ),
+  h1: ({ className, ...props }) => <Heading variant="h1" className="mt-8 text-xl" {...props} />,
   h2: ({ className, ...props }) => (
     <Heading variant="h2" className="group mt-8 text-lg" {...props} />
   ),
@@ -118,7 +116,7 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   const Tweet = ({ id }: { id: string }) => {
-    const tweet = tweets?.find(tweet => tweet.id === id);
+    const tweet = tweets?.find(tweet => tweet.id_str === id);
     return <TwitterCard tweet={tweet} />;
   };
 

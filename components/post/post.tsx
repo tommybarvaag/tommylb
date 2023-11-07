@@ -1,4 +1,4 @@
-import Heading from "../heading";
+import { Heading } from "../heading";
 import Link from "../link";
 import Text from "../text";
 
@@ -13,10 +13,8 @@ export default function Post({ title, summary, href, publishedAt, ...other }: Po
   return (
     <Link href={href} className="mb-12 block w-full divide-y divide-white" {...other}>
       <div className="mb-4 flex items-center justify-between">
-        <Heading as="div" variant="h3" noMargin>
-          {title}
-        </Heading>
-        <Text noMargin>{publishedAt}</Text>
+        <Heading variant="h1">{title}</Heading>
+        <Text>{publishedAt}</Text>
       </div>
       <Text className="pt-4">{summary}</Text>
     </Link>

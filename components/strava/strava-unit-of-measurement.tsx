@@ -12,8 +12,12 @@ export default function StravaUnitOfMeasurement({
 }: StravaUnitOfMeasurementProps) {
   return (
     <div className="mr-6" {...other}>
-      <Text className="mb-1 text-sm">{title}</Text>
-      <Text className="text-base font-bold">{value}</Text>
+      <Text className="mb-1 text-sm" noMargin>
+        {title}
+      </Text>
+      <Text className="text-base font-bold" noMargin>
+        {value}
+      </Text>
     </div>
   );
 }

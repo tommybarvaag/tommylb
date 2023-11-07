@@ -1,5 +1,5 @@
 import * as React from "react";
-import Heading from "../heading";
+import { Heading } from "../heading";
 
 type TimelineProps = {
   heading?: string;
