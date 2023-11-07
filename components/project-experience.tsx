@@ -48,6 +48,7 @@ function ProjectExperience({ projectExperience }: { projectExperience: ProjectEx
                   objectFit="cover"
                   objectPosition="center top"
                   draggable={false}
+                  priority
                 />
               </div>
               <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
