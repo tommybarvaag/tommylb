@@ -27,7 +27,7 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
             <CvNavigation />
             {children}
           </div>
-          <div className="space-y-5 lg:sticky lg:top-8 lg:px-0">
+          <div className="my-8 space-y-5 lg:sticky lg:top-8 lg:my-0 lg:px-0">
             <Card>
               <CardHeader className="flex flex-row gap-3">
                 <Avatar>
