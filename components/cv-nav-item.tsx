@@ -21,7 +21,7 @@ function CvNavItem({ path, name }: { path: string; name: string }) {
         {name}
         {isActive ? (
           <motion.div
-            className="absolute inset-0 top-7 z-[-1] mx-1 h-[1px] bg-zinc-400 lg:mx-2"
+            className="absolute inset-0 top-7 mx-1 h-[1px] bg-zinc-400 lg:mx-2"
             layoutId="sidebar"
             transition={{
               type: "spring",
