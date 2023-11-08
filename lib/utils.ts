@@ -27,7 +27,8 @@ export function getAbsoluteUrl(path?: string) {
     process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL;
 
   if (path) {
-    return `${base}${path}`;
+    // ensure no double slashes
+    return `${base}/${path}`.replace(/\/+/g, "/");
   }
 
   return base;
