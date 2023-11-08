@@ -8,7 +8,7 @@ export const metadata: Metadata = metadataWithCustomOgImage(
   "About",
   "Tommy is an experienced and solution-oriented consultant with expertise in JavaScript/TypeScript and React. He has a systematic and analytical approach to developing custom solutions from concept to product.",
   "Curriculum Vitae — About",
-  "An experienced and solution-oriented senior consultant"
+  `Over ${getActiveWorkYears()} of experience in web technology`
 );
 
 export default async function CvAboutPage() {

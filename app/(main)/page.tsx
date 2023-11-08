@@ -3,7 +3,7 @@ import Link from "@/components/link";
 import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
 import prisma from "@/lib/prisma";
-import { getFormattedPostDate } from "@/utils/date-utils";
+import { getActiveWorkYears, getFormattedPostDate } from "@/utils/date-utils";
 import { compareDesc } from "date-fns";
 
 export const revalidate = 60;
@@ -63,9 +63,9 @@ export default async function Home() {
           }}
         >
           <Text>
-            I&apos;ve spent the <Link href="/cv/about">last nine years</Link> creating web solutions
-            for great companies. Experimenting with new technologies and learning new things is what
-            I love the most.
+            I&apos;ve spent the <Link href="/cv/about">last {getActiveWorkYears()}</Link> creating
+            web solutions for great companies. Experimenting with new technologies and learning new
+            things is what I love the most.
           </Text>
           <Text>
             I&apos;m currently working as a senior consultant at{" "}

@@ -53,10 +53,15 @@ export const getActiveWorkYearsAsNumber = () => {
   return Math.min(differenceInYears(new Date(), new Date(2014, 0, 1)), RETIREMENT_YEAR);
 };
 
-export const getActiveWorkYears = (): string => {
+export const getActiveWorkYears = (
+  options = {
+    capitalize: false
+  }
+): string => {
   const activeWorkYears = getActiveWorkYearsAsNumber();
+  const years = `${numberToWords(activeWorkYears)} ${simplePluralize("year", activeWorkYears)}`;
 
-  return `${numberToWords(activeWorkYears)} ${simplePluralize("year", activeWorkYears)}`;
+  return options.capitalize ? years.charAt(0).toUpperCase() + years.slice(1) : years;
 };
 
 export const getDurationAsYearsAndMonths = (startDate: Date, endDate: Date): string => {

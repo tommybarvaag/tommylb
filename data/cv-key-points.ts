@@ -151,7 +151,7 @@ const cvSkillCSharp: CvSkill = {
   title: "C#",
   slug: "cv/skill/csharp",
   description: [
-    "I consider myself more of a frontend developer these days, but I have a solid background in C# and .NET. I have used C# and .NET for many years and have experience with both .NET Framework and .NET Core.",
+    "I consider myself more of a front-end developer these days, but I have a solid background in C# and .NET. I have used C# and .NET for many years and have experience with both .NET Framework and .NET Core.",
     "My experience comes from building things such as locally hosted EPiServer CMS solutions to large-scale cloud-based microservice solutions.",
     "I still enjoy working with C# and .NET and I'm always looking for ways to improve my knowledge of it."
   ]

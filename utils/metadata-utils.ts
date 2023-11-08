@@ -7,7 +7,7 @@ const url = getAbsoluteUrl();
 const title = "Tommy Lunde Barvåg";
 const description = getDefaultSeoDescription(true);
 
-const ogImageUrl = `${url}/images/seo-banner.png`;
+const ogImageUrl = `${url}/images/og.jpg`;
 
 const defaultOg: Pick<Metadata, "openGraph">["openGraph"] = {
   title: {

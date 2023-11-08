@@ -10,9 +10,9 @@ export async function generateStaticParams() {
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "Project Experiences",
-  "Working with several great companies and projects has given me a lot of experience in different areas. In collaboration with my clients, I have developed solutions that have helped them achieve their goals.",
+  "Working with several great companies and clients has given me a lot of experience in different areas. In collaboration with my clients, I have developed solutions that have helped them achieve their goals.",
   "Curriculum Vitae — Project Experiences",
-  "An experienced and solution-oriented consultant"
+  "Working with several great companies and clients"
 );
 
 export default async function ProjectExperiencesPage() {

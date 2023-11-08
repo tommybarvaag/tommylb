@@ -13,9 +13,13 @@ export default async function handler(req: NextRequest) {
     const fontBold = fetch(new URL("../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
       res => res.arrayBuffer()
     );
+    const image = fetch(new URL("../../public/images/tommy-zoom-256.jpg", import.meta.url)).then(
+      res => res.arrayBuffer()
+    );
 
     const fontRegularData = await fontRegular;
     const fontBoldData = await fontBold;
+    const imageData = await image;
 
     const url = new URL(req.url);
     const values = ogImageSchema.parse(Object.fromEntries(url.searchParams));
@@ -30,7 +34,7 @@ export default async function handler(req: NextRequest) {
     return new ImageResponse(
       (
         <div
-          tw="flex relative flex-col p-12 w-full h-full items-start"
+          tw="flex relative flex-col px-12 py-10 w-full h-full items-start"
           style={{
             color: paint,
             background: mode === "dark" ? "#18181b" : "#fafafa"
@@ -38,13 +42,13 @@ export default async function handler(req: NextRequest) {
         >
           <div tw="flex flex-col flex-1 py-10">
             <div
-              tw="flex text-xl uppercase font-bold tracking-tight"
+              tw="flex text-2xl uppercase font-bold tracking-tight mb-4"
               style={{ fontFamily: "Geist", fontWeight: "normal" }}
             >
               {values.type}
             </div>
             <div
-              tw="flex leading-[1.1] text-[80px] font-bold tracking-tighter"
+              tw="flex leading-[1.1] text-[80px] grow items-center font-bold tracking-tighter"
               style={{
                 fontFamily: "Geist",
                 fontWeight: "bolder",
@@ -56,8 +60,30 @@ export default async function handler(req: NextRequest) {
             </div>
           </div>
           <div tw="flex items-center w-full justify-between">
-            <div tw="flex text-xl" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
-              tommylb.com
+            <div tw="flex" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
+              <div tw="flex items-center justify-between">
+                <div
+                  tw="flex h-[128px] w-[128px] border rounded-full overflow-hidden"
+                  style={{ fontFamily: "Geist", fontWeight: "normal" }}
+                >
+                  {/* @ts-ignore */}
+                  <img src={imageData} height="128" width="128" alt="WUT" />
+                </div>
+                <div tw="flex flex-col ml-8">
+                  <div
+                    tw="flex text-2xl font-bold tracking-tight"
+                    style={{ fontFamily: "Geist", fontWeight: "bold" }}
+                  >
+                    Tommy Lunde Barvåg
+                  </div>
+                  <div
+                    tw="flex text-xl font-bold tracking-tight text-zinc-400"
+                    style={{ fontFamily: "Geist", fontWeight: "normal" }}
+                  >
+                    Senior front-end specialist
+                  </div>
+                </div>
+              </div>
             </div>
             <div
               tw="flex items-center text-xl"
