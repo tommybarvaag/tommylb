@@ -1,3 +1,5 @@
+// TODO: Update to app dir
+
 import strava from "@/lib/strava";
 import { NextApiRequest, NextApiResponse } from "next";
 
