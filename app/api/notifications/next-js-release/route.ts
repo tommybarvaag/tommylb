@@ -1,6 +1,9 @@
 import { fetchLatestNonPrereleaseNextJsRelease } from "@/lib/github";
 import prisma from "@/lib/prisma";
 
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+
 const NOTIFICATION_TYPE = "next-js-release";
 
 export async function GET(request: Request) {
@@ -33,6 +36,18 @@ export async function POST() {
     });
   }
 
+  // semi-colon separated env variable
+  const recipients = process.env.NOTIFICATIONS_NEXT_JS_RELEASE_RECIPIENTS?.split(";");
+
+  // If no recipients are set, skip further action and return latest release
+  if (!recipients) {
+    console.info("No recipients are set.");
+    return Response.json({
+      type: NOTIFICATION_TYPE,
+      value: latestNonPrereleaseVersion
+    });
+  }
+
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -40,8 +55,7 @@ export async function POST() {
       Authorization: `Bearer ${process.env.RESEND_EMAIL_SENDING_API_KEY}`
     },
     body: JSON.stringify({
-      // to: ["tommy@barvaag.com", "erlend.rommetveit@gmail.com"],
-      to: ["tommy@barvaag.com", "tommy123@barvaag.com"],
+      to: recipients,
       from: "post@barvaag.com",
       subject: `New Next.js release ${latestNonPrereleaseVersion}`,
       html: `<div>

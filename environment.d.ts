@@ -10,6 +10,7 @@ declare global {
       TLB_STRAVA_REFRESH_TOKEN: string;
       RESEND_EMAIL_SENDING_API_KEY: string;
       RESEND_EMAIL_RECIPIENT: string;
+      NOTIFICATIONS_NEXT_JS_RELEASE_RECIPIENTS: string;
     }
   }
 }
