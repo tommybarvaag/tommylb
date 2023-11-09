@@ -16,7 +16,7 @@ export default function ConnectDialog() {
         }
       }}
     >
-      <DialogContent>
+      <DialogContent className="flex min-h-[540px] flex-1 flex-col">
         <DialogHeader>Connect</DialogHeader>
         <DialogDescription>Connect with me</DialogDescription>
         <ContactMeForm className="mb-0" location="connect-dialog" />
