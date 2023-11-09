@@ -76,5 +76,5 @@ export default async function ProjectExperiencePage({ params }: ProjectExperienc
     return notFound();
   }
 
-  return <ProjectExperience projectExperience={projectExperience} />;
+  return <ProjectExperience projectExperience={projectExperience} isRouteIntercepted />;
 }
