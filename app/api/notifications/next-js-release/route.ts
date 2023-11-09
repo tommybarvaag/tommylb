@@ -1,13 +1,16 @@
 import { fetchLatestNonPrereleaseNextJsRelease } from "@/lib/github";
 import prisma from "@/lib/prisma";
 
-export const runtime = "edge";
 export const dynamic = "force-dynamic";
 
 const NOTIFICATION_TYPE = "next-js-release";
 
 export async function GET(request: Request) {
-  const allNotifications = await prisma.notificationLog.findMany({});
+  const allNotifications = await prisma.notificationLog.findMany({
+    orderBy: {
+      id: "desc"
+    }
+  });
   return Response.json(allNotifications ?? []);
 }
 
