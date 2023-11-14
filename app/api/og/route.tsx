@@ -4,16 +4,16 @@ import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
-export default async function handler(req: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const fontRegular = fetch(
-      new URL("../../assets/fonts/Geist-Regular.otf", import.meta.url)
+      new URL("../../../assets/fonts/Geist-Regular.otf", import.meta.url)
     ).then(res => res.arrayBuffer());
 
-    const fontBold = fetch(new URL("../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
+    const fontBold = fetch(new URL("../../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
       res => res.arrayBuffer()
     );
-    const image = fetch(new URL("../../public/images/tommy-zoom-256.jpg", import.meta.url)).then(
+    const image = fetch(new URL("../../../public/images/tommy-zoom-256.jpg", import.meta.url)).then(
       res => res.arrayBuffer()
     );
 
@@ -21,8 +21,7 @@ export default async function handler(req: NextRequest) {
     const fontBoldData = await fontBold;
     const imageData = await image;
 
-    const url = new URL(req.url);
-    const values = ogImageSchema.parse(Object.fromEntries(url.searchParams));
+    const values = ogImageSchema.parse(Object.fromEntries(request.nextUrl.searchParams));
     const heading =
       values.heading.length > 140 ? `${values.heading.substring(0, 140)}...` : values.heading;
 
