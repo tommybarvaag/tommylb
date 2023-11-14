@@ -61,7 +61,7 @@ function ProjectExperience({
                 alt={projectExperience.images?.[0].alt}
                 fill
                 objectFit="cover"
-                objectPosition="center top"
+                objectPosition="center center"
                 draggable={false}
                 priority
               />
