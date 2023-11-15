@@ -69,10 +69,10 @@ function ProjectExperience({
             <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
               <Drawer.Title asChild>
                 <div>
-                  <Heading className="font-semibold" variant="h2" noMargin uppercase>
+                  <Heading className="mb-3 font-semibold" variant="h2" uppercase>
                     {projectExperience.clientName}
                   </Heading>
-                  <Heading variant="h1" noMargin prose>
+                  <Heading className="mb-4" variant="h1" prose>
                     {projectExperience.title}
                   </Heading>
                 </div>
