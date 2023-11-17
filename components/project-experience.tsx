@@ -54,6 +54,9 @@ function ProjectExperience({
                 <Icons.X className="h-6 w-6" />
               </Button>
             </Drawer.Close>
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-20 w-[calc(100%-(theme(width.10)+theme(spacing.3)))] py-2">
+              <div className="z-50 mx-auto h-2 w-16 rounded-full bg-zinc-800"></div>
+            </div>
             <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
               <Image
                 className="select-none rounded-t-[10px] border-x border-t border-zinc-900 brightness-90"
