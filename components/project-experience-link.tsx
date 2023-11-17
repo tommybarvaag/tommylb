@@ -29,7 +29,7 @@ function ProjectExperienceLink({
 
   return (
     <Link
-      className="group/link peer pointer-events-auto cursor-pointer transition-colors duration-500 hover:!text-zinc-50 group-hover:text-zinc-500"
+      className="group/link peer pointer-events-auto cursor-pointer lg:transition-colors lg:duration-500 lg:hover:!text-zinc-50 lg:group-hover:text-zinc-500"
       href={href}
       {...other}
     >
@@ -39,14 +39,14 @@ function ProjectExperienceLink({
             {title}
           </Heading>
           <Heading
-            className="text-sm text-zinc-400 transition-colors duration-500 group-hover/link:text-zinc-400 group-hover:text-zinc-500"
+            className="text-sm text-zinc-400 lg:transition-colors lg:duration-500 lg:group-hover/link:text-zinc-400 lg:group-hover:text-zinc-500"
             variant="h4"
             noMargin
           >
             {subtitle}
           </Heading>
           <CvTime
-            className="text-zinc-400 transition-colors duration-500 group-hover/link:text-zinc-400 group-hover:text-zinc-500"
+            className="text-zinc-400 lg:transition-colors lg:duration-500 lg:group-hover/link:text-zinc-400 lg:group-hover:text-zinc-500"
             fromDate={fromDate}
             toDate={toDate}
           />
