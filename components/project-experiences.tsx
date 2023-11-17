@@ -12,7 +12,7 @@ function ProjectExperiences() {
         most.
       </Text>
       <Text className="mb-8">Click the project to expand further details.</Text>
-      <ol className="mb-12 space-y-4">
+      <ol className="group mb-12 space-y-4">
         {projectExperienceData
           .sort((a, b) => b.id - a.id)
           .map((projectExperience, index) => {
@@ -22,7 +22,6 @@ function ProjectExperiences() {
                 className="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-b-zinc-700 [&:not(:last-child)]:pb-4"
               >
                 <ProjectExperienceLink
-                  className="group"
                   key={index}
                   href={`/cv/project/${projectExperience.slug}`}
                   title={projectExperience.title}
