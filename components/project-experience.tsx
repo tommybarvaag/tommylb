@@ -50,11 +50,11 @@ function ProjectExperience({
         <Drawer.Content className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-zinc-900">
           <div className="relative z-10 flex-1 select-none overflow-y-auto rounded-t-[10px]">
             <Drawer.Close asChild>
-              <Button className="absolute right-3 top-3 z-20 h-10 w-10 rounded-full p-0">
+              <Button className="absolute right-3 top-3 z-40 h-10 w-10 rounded-full p-0">
                 <Icons.X className="h-6 w-6" />
               </Button>
             </Drawer.Close>
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-20 w-[calc(100%-(theme(width.10)+theme(spacing.3)))] py-2">
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-20 w-full py-2">
               <div className="z-50 mx-auto h-2 w-16 rounded-full bg-zinc-800"></div>
             </div>
             <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
