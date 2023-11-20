@@ -39,7 +39,7 @@ const Link = React.forwardRef<LinkElement, LinkProps>(
         className={cn(
           "",
           {
-            "underline decoration-zinc-500 underline-offset-2 transition-colors duration-200 hover:decoration-zinc-300":
+            "underline decoration-zinc-500 underline-offset-[2.5px] transition-colors duration-200 hover:decoration-zinc-300":
               underline
           },
           { "inline-flex items-center gap-1": isHrefExternal },
