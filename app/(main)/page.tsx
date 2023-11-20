@@ -85,9 +85,9 @@ export default async function Home() {
       >
         <div>
           <Heading className="text-zinc-300">Building</Heading>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-6">
             <li key="list-element-kxb-app">
-              <Link className="mb-4" href="https://kxb.app/">
+              <Link className="mb-1" href="https://kxb.app/">
                 <Heading variant="h3" noMargin>
                   kxb.app
                 </Heading>
@@ -101,7 +101,7 @@ export default async function Home() {
               </Text>
             </li>
             <li key="list-element-calendar-app">
-              <Link className="mb-4" href="https://dato.im">
+              <Link className="mb-1" href="https://dato.im">
                 <Heading variant="h3" noMargin>
                   dato.im
                 </Heading>
@@ -118,10 +118,10 @@ export default async function Home() {
               Strava
             </Link>
           </Heading>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-6">
             {lastStravaActivity.map(activity => (
               <li key={activity.id}>
-                <Link className="mb-4 block" href={`/strava/${activity.id}`}>
+                <Link className="mb-1 block" href={`/strava/${activity.id}`}>
                   <Heading variant="h3" noMargin>
                     {getFormattedPostDate(activity.startDateLocal)}
                   </Heading>
@@ -141,10 +141,10 @@ export default async function Home() {
               Posts
             </Link>
           </Heading>
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-6">
             {lastPosts.map(post => (
               <li key={post._id}>
-                <Link className="mb-4 block" href={post.slug}>
+                <Link className="mb-1 block" href={post.slug}>
                   <Heading variant="h3" noMargin>
                     {post.title}
                   </Heading>
