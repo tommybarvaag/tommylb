@@ -1,6 +1,6 @@
 :root {
   --shiki-color-text: #fafafa;
-  --shiki-color-background: transparent;
+  --shiki-color-background: #09090b;
   --shiki-token-constant: #a1a1aa;
   --shiki-token-string: #d4d4d8;
   --shiki-token-comment: #71717a;
@@ -31,11 +31,12 @@
   text-align: right;
   @apply text-zinc-50;
 }
-[data-rehype-pretty-code-fragment] .line--highlighted {
-  @apply bg-zinc-900;
+
+[data-rehype-pretty-code-fragment] [data-line] {
+  @apply border-x-4 border-zinc-950;
 
   --shiki-color-text: #fafafa;
-  --shiki-color-background: transparent;
+  --shiki-color-background: #a1a1aa;
   --shiki-token-constant: #a1a1aa;
   --shiki-token-string: #e4e4e7;
   --shiki-token-comment: #a1a1aa;
@@ -48,6 +49,25 @@
   --nextra-shiki-deleted: #f00;
   --nextra-shiki-inserted: #e4e4e7;
 }
+
+[data-rehype-pretty-code-fragment] [data-highlighted-line] {
+  @apply border-x-4 border-zinc-900 bg-zinc-900;
+
+  --shiki-color-text: #fafafa;
+  --shiki-color-background: #a1a1aa;
+  --shiki-token-constant: #a1a1aa;
+  --shiki-token-string: #e4e4e7;
+  --shiki-token-comment: #a1a1aa;
+  --shiki-token-keyword: #e4e4e7;
+  --shiki-token-parameter: #ff9800;
+  --shiki-token-function: #a1a1aa;
+  --shiki-token-string-expression: #fafafa;
+  --shiki-token-punctuation: #212121;
+  --shiki-token-link: #e4e4e7;
+  --nextra-shiki-deleted: #f00;
+  --nextra-shiki-inserted: #e4e4e7;
+}
+
 [data-rehype-pretty-code-fragment] .line-highlighted span {
   @apply relative;
 }
@@ -55,7 +75,7 @@
   @apply rounded-lg bg-zinc-800 bg-opacity-10 p-1;
 }
 [data-rehype-pretty-code-title] {
-  @apply mt-4 py-2 px-4 text-sm font-medium;
+  @apply mt-4 px-4 py-2 text-sm font-medium;
 }
 [data-rehype-pretty-code-title] + pre {
   @apply mt-0;
