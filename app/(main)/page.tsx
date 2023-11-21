@@ -157,60 +157,38 @@ export default async function Home() {
           </ul>
         </div>
       </div>
-      <div className="mb-12">
-        <Heading
-          data-animate
-          style={{
-            "--stagger": "4"
-          }}
-        >
-          Current
-        </Heading>
-        <Text
-          data-animate
-          style={{
-            "--stagger": "5"
-          }}
-        >
+      <div
+        className="mb-12"
+        data-animate
+        style={{
+          "--stagger": "4"
+        }}
+      >
+        <Heading>Current</Heading>
+        <Text>
           Developing skill through exploring and building, living for the bleeding edge. I&apos;m a
           big fan of the web and all the possibilities it offers.
         </Text>
-        <Text
-          data-animate
-          style={{
-            "--stagger": "6"
-          }}
-        >
+        <Text>
           I love building websites and web applications. I excel at{" "}
           <Link href="https://www.typescriptlang.org/">TypeScript</Link>,{" "}
           <Link href="https://reactjs.org/">React</Link>,{" "}
           <Link href="https://nextjs.org/">Next.js</Link> and other modern web technologies.
         </Text>
-        <Text
-          data-animate
-          style={{
-            "--stagger": "7"
-          }}
-        >
+        <Text>
           I spend my free time with my live-in girlfriend, daughter and son, coding hobby projects,
           taking runs around Bergen, and enjoying time with friends.
         </Text>
       </div>
-      <div className="mb-12">
-        <Heading
-          data-animate
-          style={{
-            "--stagger": "8"
-          }}
-        >
-          Connect
-        </Heading>
-        <Text
-          data-animate
-          style={{
-            "--stagger": "9"
-          }}
-        >
+      <div
+        className="mb-12"
+        data-animate
+        style={{
+          "--stagger": "5"
+        }}
+      >
+        <Heading>Connect</Heading>
+        <Text>
           Reach out via my <Link href="/connect">contact form</Link>, find me on{" "}
           <Link href="https://www.linkedin.com/in/tommybarvaag/">LinkedIn</Link> or simply drop me
           an email at <Link href="mailto:tommy@barvaag.com">tommy@barvaag.com</Link>.

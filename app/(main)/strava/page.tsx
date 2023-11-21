@@ -33,56 +33,16 @@ export default async function Strava() {
 
   return (
     <div className="container relative max-w-4xl">
-      <HistoryBackLink
-        href="/"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        Home
-      </HistoryBackLink>
-      <Heading
-        variant="h1"
-        data-animate
-        style={{
-          "--stagger": "1"
-        }}
-      >
-        Strava activity
-      </Heading>
-      <Text
-        data-animate
-        style={{
-          "--stagger": "2"
-        }}
-      >
+      <HistoryBackLink href="/">Home</HistoryBackLink>
+      <Heading variant="h1">Strava activity</Heading>
+      <Text>
         I like to keep moving. I usually play indoor football once a week and I like the occasional
         run or hike. Running while being a dad of two is not always easy but I hope I&apos;ll be
         able to reach my goals soon.
       </Text>
-      <Text
-        data-animate
-        style={{
-          "--stagger": "3"
-        }}
-      >
-        Scroll down to view my goals, personal bests and struggles along the way.
-      </Text>
-      <StravaStats
-        initialStats={stats.data}
-        data-animate
-        style={{
-          "--stagger": "4"
-        }}
-      />
-      <StravaActivities
-        initialActivities={activities.data}
-        data-animate
-        style={{
-          "--stagger": "5"
-        }}
-      />
+      <Text>Scroll down to view my goals, personal bests and struggles along the way.</Text>
+      <StravaStats initialStats={stats.data} />
+      <StravaActivities initialActivities={activities.data} />
     </div>
   );
 }

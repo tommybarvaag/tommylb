@@ -24,15 +24,7 @@ export const metadata: Metadata = {
 export default async function ParallelismLiveTest() {
   return (
     <div className="container relative max-w-4xl">
-      <HistoryBackLink
-        href="/"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        Home
-      </HistoryBackLink>
+      <HistoryBackLink href="/">Home</HistoryBackLink>
       <Heading variant="h1">Parallelism live test</Heading>
       <Text>
         This page is used to test fetch in parallel with React Server Components. It lists two

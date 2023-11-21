@@ -141,24 +141,16 @@ async function getStravaActivityAveragesByType(activity: StravaActivity, year: s
 
 export async function ActivityTypeTrend({
   activity,
-  year,
-  stagger = "1"
+  year
 }: {
   activity: StravaActivity;
   year?: string;
-  stagger?: string;
 }) {
   const years = await getStravaActivityYears(activity);
   const stats = await getStravaActivityAveragesByType(activity, years.includes(year) ? year : null);
 
   return (
-    <div
-      className="my-8"
-      data-animate
-      style={{
-        "--stagger": stagger
-      }}
-    >
+    <div className="my-8">
       <div className="mb-4 flex items-center justify-between">
         <Heading variant="h3">Stats</Heading>
         <Suspense fallback={<ActivityYearSelectSkeleton />}>

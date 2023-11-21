@@ -19,10 +19,6 @@ const HistoryBackLink = forwardRef<HistoryBackLinkElement, HistoryBackLinkProps>
         )}
         href={href}
         underline={false}
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
         ref={forwardedRef}
         {...other}
       >

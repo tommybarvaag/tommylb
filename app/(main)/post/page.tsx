@@ -25,51 +25,16 @@ export default async function PostPage() {
     );
   return (
     <div className="container relative max-w-4xl">
-      <HistoryBackLink
-        href="/"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        Home
-      </HistoryBackLink>
+      <HistoryBackLink href="/">Home</HistoryBackLink>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
-          <Heading
-            variant="h1"
-            data-animate
-            style={{
-              "--stagger": "1"
-            }}
-          >
-            Posts
-          </Heading>
-          <Text
-            data-animate
-            style={{
-              "--stagger": "2"
-            }}
-          >
-            Thoughts, ideas, and stories.
-          </Text>
+          <Heading variant="h1">Posts</Heading>
+          <Text>Thoughts, ideas, and stories.</Text>
         </div>
       </div>
-      <hr
-        className="my-8 border-zinc-700"
-        data-animate
-        style={{
-          "--stagger": "3"
-        }}
-      />
+      <hr className="my-8 border-zinc-700" />
       {Object.entries(yearPosts).length ? (
-        <div
-          className="group"
-          data-animate
-          style={{
-            "--stagger": "4"
-          }}
-        >
+        <div className="group">
           {Object.entries(yearPosts)
             .reverse()
             .map(([year, posts]) => (

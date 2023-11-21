@@ -29,32 +29,10 @@ export default async function AuthorPage({ params }: PostPageProps) {
 
   return (
     <article className="container relative max-w-3xl">
-      <HistoryBackLink
-        href="/author"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        Authors
-      </HistoryBackLink>
+      <HistoryBackLink href="/author">Authors</HistoryBackLink>
       <div>
-        <Heading
-          data-animate
-          style={{
-            "--stagger": "1"
-          }}
-        >
-          {author.title}
-        </Heading>
-        <Text
-          data-animate
-          style={{
-            "--stagger": "2"
-          }}
-        >
-          Desc...
-        </Text>
+        <Heading>{author.title}</Heading>
+        <Text>Desc...</Text>
       </div>
     </article>
   );

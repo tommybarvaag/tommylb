@@ -96,35 +96,14 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="container relative max-w-3xl">
-      <HistoryBackLink
-        href="/post"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        See all posts
-      </HistoryBackLink>
+      <HistoryBackLink href="/post">See all posts</HistoryBackLink>
       <div>
-        <Heading
-          variant="h1"
-          className="mb-8"
-          data-animate
-          style={{
-            "--stagger": "1"
-          }}
-        >
+        <Heading variant="h1" className="mb-8">
           {post.title}
         </Heading>
         <div className="flex items-center justify-between">
           {authors?.length ? (
-            <div
-              className="flex grow space-x-4"
-              data-animate
-              style={{
-                "--stagger": "3"
-              }}
-            >
+            <div className="flex grow space-x-4">
               {authors.map(author => (
                 <Link
                   key={author._id}
@@ -154,10 +133,6 @@ export default async function PostPage({ params }: PostPageProps) {
             <time
               dateTime={post.date}
               className="block max-w-[120px] shrink text-sm text-zinc-300 md:max-w-full"
-              data-animate
-              style={{
-                "--stagger": "2"
-              }}
             >
               Published on {formatDate(post.date)}
             </time>
@@ -171,35 +146,11 @@ export default async function PostPage({ params }: PostPageProps) {
           width={840}
           height={450}
           className="my-8 rounded-lg border border-zinc-200 bg-zinc-200 transition-colors group-hover:border-zinc-900"
-          data-animate
-          style={{
-            "--stagger": "4"
-          }}
         />
       )}
-      <Mdx
-        code={post.body.code}
-        tweets={tweets}
-        data-animate
-        style={{
-          "--stagger": "5"
-        }}
-      />
-      <hr
-        className="my-6 border-zinc-700"
-        data-animate
-        style={{
-          "--stagger": "6"
-        }}
-      />
-      <PostViewCount
-        className="flex justify-end"
-        slug={post.slugAsParams}
-        data-animate
-        style={{
-          "--stagger": "7"
-        }}
-      />
+      <Mdx code={post.body.code} tweets={tweets} />
+      <hr className="my-6 border-zinc-700" />
+      <PostViewCount className="flex justify-end" slug={post.slugAsParams} />
     </article>
   );
 }

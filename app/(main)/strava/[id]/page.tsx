@@ -66,56 +66,18 @@ export default async function StravaActivityPage({
 
   return (
     <article className="container relative max-w-3xl">
-      <HistoryBackLink
-        href="/strava"
-        data-animate
-        style={{
-          "--stagger": "10"
-        }}
-      >
-        Strava activities
-      </HistoryBackLink>
+      <HistoryBackLink href="/strava">Strava activities</HistoryBackLink>
       <div>
-        <Heading
-          data-animate
-          style={{
-            "--stagger": "1"
-          }}
-        >
-          {activity.name}
-        </Heading>
+        <Heading>{activity.name}</Heading>
         <div className="mb-4 flex items-center justify-between">
-          <StravaActivityKudos
-            activityId={activity.id}
-            kudosCount={activity.kudosCount}
-            data-animate
-            style={{
-              "--stagger": "2"
-            }}
-          />
-          <div
-            className="text-sm text-zinc-500"
-            data-animate
-            style={{
-              "--stagger": "3"
-            }}
-          >
+          <StravaActivityKudos activityId={activity.id} kudosCount={activity.kudosCount} />
+          <div className="text-sm text-zinc-500">
             {getFormattedLongDate(activity.startDateLocal)}
           </div>
         </div>
-        <ActivityDescription
-          activity={activity}
-          data-animate
-          style={{
-            "--stagger": "4"
-          }}
-        />
+        <ActivityDescription activity={activity} />
         <Suspense fallback={<div></div>}>
-          <ActivityTypeTrend
-            activity={activity}
-            year={searchParams?.year?.toString()}
-            stagger="5"
-          />
+          <ActivityTypeTrend activity={activity} year={searchParams?.year?.toString()} />
         </Suspense>
       </div>
     </article>
