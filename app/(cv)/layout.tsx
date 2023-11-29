@@ -74,12 +74,20 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Availability</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">1 week</span>
-                </div>
-                <div className="flex justify-between">
                   <span className="text-sm text-zinc-400">Relocation</span>
                   <span className="text-right text-sm font-medium text-zinc-200">No</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-zinc-400">Native language</span>
+                  <span className="text-right text-sm font-medium text-zinc-200">Norwegian</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-zinc-400">Other languages</span>
+                  <span className="text-right text-sm font-medium text-zinc-200">English</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-zinc-400">Hybrid</span>
+                  <span className="text-right text-sm font-medium text-zinc-200">Preferred</span>
                 </div>
               </CardContent>
             </Card>
