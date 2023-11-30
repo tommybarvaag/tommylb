@@ -172,3 +172,5 @@ export type Post = Prisma.PostGetPayload<{
     views: true;
   };
 }>;
+
+export type Platform = "mobile" | "tablet" | "desktop" | "touch";

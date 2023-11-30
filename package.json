@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "engines": {
-    "node": ">=16.13.0"
+    "node": ">=18.17.0"
   },
   "scripts": {
     "dev": "contentlayer dev & next dev",
@@ -23,13 +23,14 @@
     "@sendgrid/mail": "^7.7.0",
     "@vercel/analytics": "^1.1.1",
     "@vercel/og": "^0.5.20",
+    "bowser": "^2.11.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "contentlayer": "^0.3.4",
     "date-fns": "^2.30.0",
-    "framer-motion": "^10.16.5",
-    "lucide-react": "0.293.0",
-    "next": "14.0.3",
+    "framer-motion": "^10.16.9",
+    "lucide-react": "0.294.0",
+    "next": "14.0.4-canary.28",
     "next-contentlayer": "^0.3.4",
     "next-themes": "^0.2.1",
     "pluralize": "^8.0.0",
