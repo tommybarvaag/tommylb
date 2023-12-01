@@ -1,5 +1,5 @@
-import Post from "./post";
-import { PostViewCount } from "./post-view-count";
-import Posts from "./posts";
+import Post from "@/components/post/post";
+import { PostViewCount } from "@/components/post/post-view-count";
+import Posts from "@/components/post/posts";
 
-export { Post, Posts, PostViewCount };
+export { Post, PostViewCount, Posts };

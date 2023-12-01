@@ -1,12 +1,12 @@
 "use client";
 
+import { Icons } from "@/components/icons";
 import fetcher from "@/lib/fetcher";
 import { cn } from "@/lib/utils";
 import { postSchema } from "@/lib/validations/post/post";
 import { Post } from "@prisma/client";
 import { FC, useEffect } from "react";
 import useSWR from "swr";
-import { Icons } from "../icons";
 
 type PostViewCountProps = {
   slug: string;

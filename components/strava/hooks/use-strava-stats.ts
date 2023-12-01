@@ -1,6 +1,6 @@
+import fetcher from "@/lib/fetcher";
+import { StravaStats } from "@/types";
 import useSwr, { SWRConfiguration } from "swr";
-import { StravaStats } from "types";
-import fetcher from "../../../lib/fetcher";
 
 export const defaultConfig: SWRConfiguration = {
   revalidateOnMount: true,

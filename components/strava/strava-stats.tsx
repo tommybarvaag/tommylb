@@ -1,13 +1,13 @@
 "use client";
 
+import { Heading } from "@/components/heading";
+import useStravaStats from "@/components/strava/hooks/use-strava-stats";
+import StravaGear from "@/components/strava/strava-gear";
+import StravaNameAndValue from "@/components/strava/strava-name-and-value";
+import StravaPersonalBests from "@/components/strava/strava-personal-bests";
+import StravaRunningGoals from "@/components/strava/strava-running-goals";
+import { StravaStats as StravaStatsType } from "@/types";
 import { ComponentPropsWithoutRef } from "react";
-import { StravaStats as StravaStatsType } from "types";
-import { Heading } from "../heading";
-import useStravaStats from "./hooks/use-strava-stats";
-import StravaGear from "./strava-gear";
-import StravaNameAndValue from "./strava-name-and-value";
-import StravaPersonalBests from "./strava-personal-bests";
-import StravaRunningGoals from "./strava-running-goals";
 
 type StravaActivityCountAndDistanceOverviewProps = {
   title: string;

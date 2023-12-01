@@ -1,3 +1,4 @@
+import { ActivityTypeTrend } from "@/app/(main)/strava/[id]/_components/activity-type-trend";
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
@@ -8,7 +9,6 @@ import { getFormattedLongDate } from "@/utils/date-utils";
 import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { ActivityTypeTrend } from "./_components/activity-type-trend";
 
 export const runtime = "edge";
 

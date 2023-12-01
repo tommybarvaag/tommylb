@@ -1,6 +1,6 @@
-import { Heading } from "../heading";
-import Link from "../link";
-import Text from "../text";
+import { Heading } from "@/components/heading";
+import Link from "@/components/link";
+import Text from "@/components/text";
 
 type PostProps = {
   title: string;

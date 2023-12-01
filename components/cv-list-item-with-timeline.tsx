@@ -1,8 +1,8 @@
+import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import { CvTime } from "./cv-time";
 
 export interface ListItemWithTimelineProps extends React.HTMLAttributes<HTMLDataListElement> {}
 

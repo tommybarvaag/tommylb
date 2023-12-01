@@ -1,3 +1,4 @@
+import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
 import {
   compareAsc,
   compareDesc,
@@ -10,7 +11,6 @@ import {
   parse,
   parseISO
 } from "date-fns";
-import { numberToWords, simplePluralize } from "./humanize-utils";
 
 const RETIREMENT_YEAR = 67;
 

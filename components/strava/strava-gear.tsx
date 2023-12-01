@@ -1,8 +1,8 @@
 "use client";
 
-import { StravaGearSimple } from "types";
-import useStravaStats from "./hooks/use-strava-stats";
-import StravaHeadingAndValues from "./strava-heading-and-values";
+import useStravaStats from "@/components/strava/hooks/use-strava-stats";
+import StravaHeadingAndValues from "@/components/strava/strava-heading-and-values";
+import { StravaGearSimple } from "@/types";
 
 type StravaGearProps = {
   title?: string;

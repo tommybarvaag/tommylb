@@ -1,11 +1,11 @@
 "use client";
 
+import { Button } from "@/components/button";
+import { Heading } from "@/components/heading";
+import useStravaActivities from "@/components/strava/hooks";
+import StravaActivity from "@/components/strava/strava-activity";
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { ComponentPropsWithoutRef, useState } from "react";
-import { Button } from "../button";
-import { Heading } from "../heading";
-import useStravaActivities from "./hooks";
-import StravaActivity from "./strava-activity";
 
 type StravaActivitiesProps = ComponentPropsWithoutRef<"div"> & {
   initialActivities: StravaActivityWithGearAndPersonalBests[];

@@ -1,6 +1,6 @@
 import { getAbsoluteUrl } from "@/lib/utils";
+import { getDefaultSeoDescription } from "@/utils/seo-utils";
 import type { Metadata } from "next";
-import { getDefaultSeoDescription } from "./seo-utils";
 
 const url = getAbsoluteUrl();
 

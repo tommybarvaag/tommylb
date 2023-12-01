@@ -1,8 +1,8 @@
+import fetcher from "@/lib/fetcher";
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
+import { isString } from "@/utils/common-utils";
 import { useMemo } from "react";
 import useSwr, { SWRConfiguration } from "swr";
-import fetcher from "../../../lib/fetcher";
-import { isString } from "../../../utils/common-utils";
 
 export const defaultConfig: SWRConfiguration = { revalidateOnMount: true, refreshInterval: 360000 };
 

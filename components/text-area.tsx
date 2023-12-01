@@ -1,7 +1,7 @@
+import Text from "@/components/text";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as React from "react";
-import Text from "./text";
 
 type TextAreaProps = React.ComponentPropsWithoutRef<"textarea"> & {
   id: string;

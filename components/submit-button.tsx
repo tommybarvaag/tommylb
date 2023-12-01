@@ -1,7 +1,7 @@
+import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { useFormStatus } from "react-dom";
-import { Button } from "./button";
 
 export type SubmitButtonProps = ComponentPropsWithoutRef<typeof Button>;
 

@@ -1,13 +1,13 @@
-import { CvTime } from "@/components/cv-time";
-import { Heading } from "@/components/heading";
-import Text from "@/components/text";
-import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 import {
   ListItemWithTimeline,
   ListItemWithTimelineDescription,
   ListItemWithTimelineTime,
   ListItemWithTimelineTitle
-} from "./cv-list-item-with-timeline";
+} from "@/components/cv-list-item-with-timeline";
+import { CvTime } from "@/components/cv-time";
+import { Heading } from "@/components/heading";
+import Text from "@/components/text";
+import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 
 function CvKeyPoints() {
   // group work experiences with the same work place

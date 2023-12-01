@@ -1,10 +1,13 @@
+import {
+  ActivityYearSelect,
+  ActivityYearSelectSkeleton
+} from "@/app/(main)/strava/[id]/_components/activity-year-select";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import { planetScale } from "@/lib/planetscale";
 import { cn } from "@/lib/utils";
 import { StravaActivity } from "@prisma/client";
 import { Suspense } from "react";
-import { ActivityYearSelect, ActivityYearSelectSkeleton } from "./activity-year-select";
 
 type StravaActivityAverages = {
   averageMovingTime: number;

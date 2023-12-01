@@ -1,1 +1,1 @@
-export { default } from "./use-strava-activities";
+export { default } from "@/components/strava/hooks/use-strava-activities";

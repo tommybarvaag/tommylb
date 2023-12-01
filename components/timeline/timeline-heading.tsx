@@ -1,5 +1,5 @@
+import { Icons } from "@/components/icons";
 import * as React from "react";
-import { Icons } from "../icons";
 
 type TimelineHeadingProps = {
   children: React.ReactNode;

@@ -1,4 +1,4 @@
-import { GitHubRelease } from "types";
+import { GitHubRelease } from "@/types";
 
 export // https://docs.github.com/en/rest/reference/repos#releases
 const fetchLatestNonPrereleaseNextJsRelease = async () => {

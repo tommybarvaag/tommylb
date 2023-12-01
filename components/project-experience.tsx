@@ -8,6 +8,13 @@ import {
   ListItemWithTimelineTitle
 } from "@/components/cv-list-item-with-timeline";
 import { CvTime } from "@/components/cv-time";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerTitle
+} from "@/components/drawer";
 import { Gallery } from "@/components/gallery";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
@@ -16,7 +23,6 @@ import { type ProjectExperienceItem } from "@/data/project-experience-data";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle } from "./drawer";
 
 function ProjectExperience({
   projectExperience,

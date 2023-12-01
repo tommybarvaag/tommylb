@@ -1,9 +1,9 @@
 "use client";
 
+import useStravaStats from "@/components/strava/hooks/use-strava-stats";
+import StravaHeadingAndValues from "@/components/strava/strava-heading-and-values";
+import { StravaPersonalBestSimple } from "@/types";
 import { useMemo } from "react";
-import { StravaPersonalBestSimple } from "types";
-import useStravaStats from "./hooks/use-strava-stats";
-import StravaHeadingAndValues from "./strava-heading-and-values";
 
 type StravaPersonalBestsProps = {
   title?: string;

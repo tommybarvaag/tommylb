@@ -1,21 +1,21 @@
-import { Prisma } from "@prisma/client";
-import stravaApi from "strava-v3";
+import prisma from "@/lib/prisma";
 import {
   StravaApiActivity,
   StravaGearSimple,
   StravaPersonalBest,
   StravaPersonalBestSimple,
   StravaStats
-} from "types";
-import { flat, groupBy, maxBy, min, sum } from "../utils/common-utils";
-import { getDateYear, parseDateISO } from "../utils/date-utils";
+} from "@/types";
+import { flat, groupBy, maxBy, min, sum } from "@/utils/common-utils";
+import { getDateYear, parseDateISO } from "@/utils/date-utils";
 import {
   convertKilometersPerSecondToMinutesPerKilometer,
   convertMetersPerSecondToKilometersPerSecond,
   convertMetersToKilometers,
   convertSecondsToHoursAndMinutes
-} from "../utils/unit-of-measurement-utils";
-import prisma from "./prisma";
+} from "@/utils/unit-of-measurement-utils";
+import { Prisma } from "@prisma/client";
+import stravaApi from "strava-v3";
 
 export type StravaActivityWithGearAndPersonalBests = Prisma.PromiseReturnType<typeof getById>;
 export type StravaActivityWithGearAndPersonalBestsAndStartDateYear = Omit<

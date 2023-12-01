@@ -1,5 +1,5 @@
+import { Heading } from "@/components/heading";
 import * as React from "react";
-import { Heading } from "../heading";
 
 type TimelineSectionHeadingProps = {
   children: React.ReactNode;

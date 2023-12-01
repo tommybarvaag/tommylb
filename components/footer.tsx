@@ -1,7 +1,7 @@
+import Link from "@/components/link";
 import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
 import { HtmlHTMLAttributes } from "react";
-import Link from "./link";
 
 const footerVariants = cva("border-t border-zinc-700 px-6 py-4 text-sm", {
   variants: {

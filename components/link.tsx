@@ -1,8 +1,8 @@
+import { Icons } from "@/components/icons";
+import { Show } from "@/components/show";
 import { cn } from "@/lib/utils";
 import NextLink from "next/link";
 import * as React from "react";
-import { Icons } from "./icons";
-import { Show } from "./show";
 
 type LinkElement = React.ElementRef<typeof NextLink>;
 type LinkProps = React.ComponentPropsWithoutRef<typeof NextLink> & {

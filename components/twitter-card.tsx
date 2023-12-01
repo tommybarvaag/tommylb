@@ -1,9 +1,9 @@
+import { Icons } from "@/components/icons";
+import Link from "@/components/link";
 import { getFormattedTwitterDate } from "@/utils/date-utils";
 import Image from "next/image";
 import { enrichTweet } from "react-tweet";
 import type { Tweet } from "react-tweet/api";
-import { Icons } from "./icons";
-import Link from "./link";
 
 const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
   if (!t) {

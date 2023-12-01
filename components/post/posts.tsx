@@ -1,5 +1,5 @@
-import { Heading } from "../heading";
-import Post from "./post";
+import { Heading } from "@/components/heading";
+import Post from "@/components/post/post";
 
 type PostsProps = {
   title?: string;

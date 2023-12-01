@@ -3,16 +3,16 @@ import Image from "next/image";
 import * as React from "react";
 
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Heading } from "@/components/heading";
+import Link from "@/components/link";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
+import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper";
+import { ComponentSource } from "@/components/mdx/component-source";
+import Text from "@/components/text";
+import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
 import type { Tweet } from "react-tweet/api";
-import { Heading } from "../heading";
-import Link from "../link";
-import Text from "../text";
-import { TwitterCard } from "../twitter-card";
-import { CodeBlockWrapper } from "./code-block-wrapper";
-import { ComponentSource } from "./component-source";
 
 const components = {
   h1: ({ className, ...props }) => <Heading variant="h1" className="mt-8 text-xl" {...props} />,

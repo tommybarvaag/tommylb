@@ -1,10 +1,10 @@
+import { Heading } from "@/components/heading";
+import { Icons } from "@/components/icons";
+import Link from "@/components/link";
+import StravaUnitOfMeasurement from "@/components/strava/strava-unit-of-measurement";
+import Text from "@/components/text";
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
-import { getFormattedLongDate } from "../../utils/date-utils";
-import { Heading } from "../heading";
-import { Icons } from "../icons";
-import Link from "../link";
-import Text from "../text";
-import StravaUnitOfMeasurement from "./strava-unit-of-measurement";
+import { getFormattedLongDate } from "@/utils/date-utils";
 
 type StravaActivitiesProps = {
   activity: StravaActivityWithGearAndPersonalBests;
