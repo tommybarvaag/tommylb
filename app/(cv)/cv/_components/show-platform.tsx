@@ -1,18 +1,53 @@
 import { getPlatform } from "@/lib/actions/bowser-actions";
-import { Platform } from "@/types";
 import { type ReactNode } from "react";
 
-function ShowPlatform({ platforms, children }: { platforms: Platform[]; children: ReactNode }) {
+function ShowPlatform({
+  platforms: { mobile, tablet, desktop, touch, bot, fallback }
+}: {
+  platforms: {
+    mobile?: ReactNode;
+    tablet?: ReactNode;
+    desktop?: ReactNode;
+    touch?: ReactNode;
+    bot?: ReactNode;
+    fallback?: ReactNode;
+  };
+}) {
   const platform = getPlatform();
 
-  const shouldShowChildren = platforms.some(p => {
-    if (p === "mobile") return platform.isMobile;
-    if (p === "tablet") return platform.isTablet;
-    if (p === "desktop") return platform.isDesktop;
-    if (p === "touch") return platform.isTouch;
-  });
+  if (platform.isError && fallback) {
+    return <>{fallback}</>;
+  }
 
-  return <>{shouldShowChildren ? children : null}</>;
+  if (platform.isBot) {
+    // find any available react node and prioritize the following order:
+    // 1. bot
+    // 2. fallback
+    // 3. desktop
+    // 4. touch
+    // 5. mobile
+    // 6. tablet
+    const node = bot || fallback || desktop || touch || mobile || tablet;
+    return <>{node}</>;
+  }
+
+  if (platform.isMobile && mobile) {
+    return <>{mobile}</>;
+  }
+
+  if (platform.isTablet && tablet) {
+    return <>{tablet}</>;
+  }
+
+  if (platform.isDesktop && desktop) {
+    return <>{desktop}</>;
+  }
+
+  if (platform.isTouch && touch) {
+    return <>{touch}</>;
+  }
+
+  return null;
 }
 
 export { ShowPlatform };

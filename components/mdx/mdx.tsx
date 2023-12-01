@@ -1,7 +1,4 @@
-import { useMDXComponent } from "next-contentlayer/hooks";
-import Image from "next/image";
-import * as React from "react";
-
+import { ShowPlatform } from "@/app/(cv)/cv/_components/show-platform";
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
@@ -12,12 +9,15 @@ import { ComponentSource } from "@/components/mdx/component-source";
 import Text from "@/components/text";
 import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import Image from "next/image";
+import * as React from "react";
 import type { Tweet } from "react-tweet/api";
 
 const components = {
   h1: ({ className, ...props }) => <Heading variant="h1" className="mt-8 text-xl" {...props} />,
   h2: ({ className, ...props }) => (
-    <Heading variant="h2" className="group mt-8 text-lg" {...props} />
+    <Heading variant="h2" className="group mt-8 cursor-pointer" {...props} />
   ),
   h3: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
   h4: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
@@ -132,7 +132,9 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
 
   return (
     <div {...other}>
-      <Component components={{ ...components, Tweet, ParallelismWithPromisesExample }} />
+      <Component
+        components={{ ...components, Tweet, ParallelismWithPromisesExample, ShowPlatform }}
+      />
     </div>
   );
 }
