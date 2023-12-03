@@ -75,7 +75,13 @@ export async function generateStaticParams(): Promise<PostPageProps["params"][]>
 
 export default async function PostPage({ params }: PostPageProps) {
   const slug = params?.slug?.join("/");
-  const post = allPosts.find(post => post.slugAsParams === slug);
+
+  console.log("[POST SLUG:]:", slug, params?.slug?.join("/"));
+  console.log("[POSTS:]", JSON.stringify(allPosts?.map(x => x.slug) ?? [], null, 2));
+
+  const post = allPosts.find(post => post.slug === `/post/${slug}`);
+
+  console.log(post.slug, `/post/${slug}`, post.slug === `/post/${slug}`);
 
   if (!post) {
     notFound();
