@@ -94,7 +94,7 @@ This approach works, but it has some problems
 
 With React Server Components, we can render different content based on the platform that the user is on. And because the server renders the content, we don't have to worry about extra code being downloaded or the client re-rendering the content that the server already rendered.
 
-With [Next.js headers](https://nextjs.org/docs/app/api-reference/functions/headers) we can easily access the `user-agent` header and use it to determine the platform that the user is on.
+With [Next.js headers](https://nextjs.org/docs/app/api-reference/functions/headers) we can easily access the `user-agent` header and use it to determine the platform that the user is on. The `user-agent` header contains information about the user's browser, device, and operating system.
 
 ```typescript
 import { headers as getHeaders } from "next/headers";
@@ -113,11 +113,76 @@ We want to compose our solution by utilizing the `user-agent` header to determin
 
 Starting with the complete solution, here's what the code looks like.
 
-<ComponentSource src="/app/(cv)/cv/_components/show-platform.tsx" forceMount />
+```typescript
+import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
+import { getPlatform } from "@/lib/actions/bowser-actions";
+import { ShowPlatformProps } from "@/types";
+
+function ShowPlatform({
+  platforms: { mobile, tablet, desktop, touch, bot, fallback }
+}: ShowPlatformProps) {
+  const platform = getPlatform();
+
+  return (
+    <ShowPlatformContent
+      platform={platform}
+      platforms={{ mobile, tablet, desktop, touch, bot, fallback }}
+    />
+  );
+}
+
+export { ShowPlatform };
+```
 
 Showing of content per platform is abstracted away in the `<ShowPlatformContent />` component.
 
-<ComponentSource src="/app/(cv)/cv/_components/show-platform-content.tsx" />
+```typescript
+import { PlatformReturnType } from "@/lib/actions/bowser-actions";
+import { ShowPlatformProps } from "@/types";
+
+function ShowPlatformContent({
+  platform,
+  platforms: { mobile, tablet, desktop, touch, bot, fallback }
+}: ShowPlatformProps & {
+  platform: PlatformReturnType;
+}) {
+  if (platform.isError && fallback) {
+    return <>{fallback}</>;
+  }
+
+  if (platform.isBot) {
+    // find any available react node and prioritize the following order:
+    // 1. bot
+    // 2. fallback
+    // 3. desktop
+    // 4. touch
+    // 5. mobile
+    // 6. tablet
+    const node = bot || fallback || desktop || touch || mobile || tablet;
+    return <>{node}</>;
+  }
+
+  if (platform.isMobile && mobile) {
+    return <>{mobile}</>;
+  }
+
+  if (platform.isTablet && tablet) {
+    return <>{tablet}</>;
+  }
+
+  if (platform.isDesktop && desktop) {
+    return <>{desktop}</>;
+  }
+
+  if (platform.isTouch && touch) {
+    return <>{touch}</>;
+  }
+
+  return null;
+}
+
+export { ShowPlatformContent };
+```
 
 Before I go into explaining how this works, let's take a look at how I use this component in my connect page.
 
@@ -176,7 +241,7 @@ The `<ShowPlatform />` component takes a `platforms` prop that is an object with
 }
 ```
 
-The `<ShowPlatform />` component then uses the `getPlatform` action to determine the current platform. The `getPlatform` action feeds the `user-agent` to the `Bowser` library and returns an object that can be used to identify the current platform.
+The `<ShowPlatform />` component then uses the `getPlatform()` action to determine the current platform. The `getPlatform()` action feeds the `user-agent` to the `Bowser` library and returns an object that can be used to identify the current platform.
 
 The `Bowser` library is a [browser detector library](https://github.com/bowser-js/bowser) that parses the `user-agent` header and returns an object with information about the current platform.
 
@@ -215,7 +280,7 @@ function getPlatform() {
 }
 ```
 
-As the `<ShowPlatform />` component is rendered on the server, and the action is declared with `"use server"`, the client bundle never needs to handle anything related to the `Bowser` library or the `user-agent` header.
+As the `<ShowPlatform />` component is rendered on the server, and the action is declared with the [`"use server" directive`](https://react.dev/reference/react/use-server), the client bundle never needs to handle anything related to the `Bowser` library or the `user-agent` header.
 
 If the component determines that the current platform is mobile, the client bundle will only contain the mobile component. And likewise, if the component determines that the current platform is desktop, the client bundle will only contain the desktop component.
 
@@ -238,3 +303,5 @@ It's pretty exciting to think about the different problems we can tackle with th
 - [React Server Components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components)
 - [Bowser](https://github.com/bowser-js/bowser)
 - [Next.js (v14.0.4-canary.32) headers](https://nextjs.org/docs/app/api-reference/functions/headers)
+- [Josh Comeau - React Server Components](https://www.joshwcomeau.com/react/server-components/)
+- [`"use server" directive`](https://react.dev/reference/react/use-server)
