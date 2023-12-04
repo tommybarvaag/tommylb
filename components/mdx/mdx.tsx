@@ -116,7 +116,7 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   const Tweet = ({ id }: { id: string }) => {
-    const tweet = tweets?.find(tweet => tweet.id_str === id);
+    const tweet = tweets?.find(tweet => tweet?.id_str === id);
     return <TwitterCard tweet={tweet} />;
   };
 
