@@ -7,6 +7,7 @@ import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { getTweets } from "@/lib/twitter";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
+import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -102,9 +103,9 @@ export default async function PostPage({ params }: PostPageProps) {
         <Heading variant="h1" className="mb-8">
           {post.title}
         </Heading>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           {authors?.length ? (
-            <div className="flex grow space-x-4">
+            <div className="flex space-x-4 md:grow">
               {authors.map(author => (
                 <Link
                   key={author._id}
@@ -122,7 +123,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     <Text className="mb-0 text-sm font-medium text-zinc-100" noMargin>
                       {author.title}
                     </Text>
-                    <Text className="mb-0 text-[12px] text-zinc-300" noMargin>
+                    <Text className="mb-0 text-[12px] text-zinc-400" noMargin>
                       @{author.twitter}
                     </Text>
                   </div>
@@ -131,12 +132,17 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           ) : null}
           {post.date && (
-            <time
-              dateTime={post.date}
-              className="block max-w-[120px] shrink text-sm text-zinc-300 md:max-w-full"
-            >
-              Published on {formatDate(post.date)}
-            </time>
+            <div className="flex flex-col md:items-end">
+              <time
+                dateTime={post.date}
+                className="block shrink text-sm text-zinc-300 md:max-w-full"
+              >
+                Published on {formatDate(post.date)}
+              </time>
+              <span className="text-[12px] text-zinc-400">
+                {getHumanizedDateFromNow(new Date(post.date))} ago
+              </span>
+            </div>
           )}
         </div>
       </div>

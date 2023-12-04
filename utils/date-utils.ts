@@ -6,6 +6,7 @@ import {
   differenceInYears,
   format,
   getYear,
+  intervalToDuration,
   isDate,
   isToday,
   parse,
@@ -92,4 +93,43 @@ export const getFormattedToAndFromCvDate = (startDate: Date, endDate: Date): str
     startDate,
     endDate
   )}`;
+};
+
+export const getHumanizedDateFromNow = (date: Date) => {
+  const now = new Date();
+
+  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration({
+    start: date,
+    end: now
+  });
+
+  if (years && years > 0) {
+    return `${years} ${simplePluralize("year", hours)}`;
+  }
+
+  if (months && months > 0) {
+    return `${months} ${simplePluralize("month", hours)}`;
+  }
+
+  if (weeks && weeks > 0) {
+    return `${weeks} ${simplePluralize("week", hours)}`;
+  }
+
+  if (days && days > 0) {
+    return `${days} ${simplePluralize("day", hours)}`;
+  }
+
+  if (hours && hours > 0) {
+    return `${hours} ${simplePluralize("hour", hours)}`;
+  }
+
+  if (minutes && minutes > 0) {
+    return `${minutes} ${simplePluralize("minute", minutes)}`;
+  }
+
+  if (seconds && seconds > 0) {
+    return `${seconds} ${simplePluralize("second", seconds)}`;
+  }
+
+  return "now";
 };
