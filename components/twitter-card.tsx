@@ -29,7 +29,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
             <div className="ml-1.5 text-sm leading-tight">
               <span className="block font-bold">{tweet.user.name}</span>
               <span className="block font-normal">
-                <Link href={tweet.user.id_str}>@{tweet.user.screen_name}</Link>
+                <Link href={tweet.user?.id_str}>@{tweet.user.screen_name}</Link>
               </span>
             </div>
           </div>
@@ -70,7 +70,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
         <div className="mt-3 flex">
           <div className="mr-6 flex items-center text-sm text-zinc-500">
             <Link
-              href={`https://twitter.com/intent/like?tweet_id=${tweet.id_str}`}
+              href={`https://twitter.com/intent/like?tweet_id=${tweet?.id_str}`}
               underline={false}
               showExternalLinkIcon={false}
             >
@@ -84,7 +84,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
           </div>
           <div className="mr-6 flex items-center text-sm text-zinc-500">
             <Link
-              href={`https://twitter.com/intent/tweet?in_reply_to=${tweet.id_str}`}
+              href={`https://twitter.com/intent/tweet?in_reply_to=${tweet?.id_str}`}
               underline={false}
               showExternalLinkIcon={false}
             >
@@ -98,7 +98,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
           </div>
           <div className="mr-6 flex items-center text-sm text-zinc-500">
             <Link
-              href={`https://twitter.com/intent/retweet?tweet_id=${tweet.id_str}`}
+              href={`https://twitter.com/intent/retweet?tweet_id=${tweet?.id_str}`}
               underline={false}
               showExternalLinkIcon={false}
             >
