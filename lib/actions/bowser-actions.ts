@@ -5,9 +5,9 @@ import { revalidatePath } from "next/cache";
 import { headers as getHeaders } from "next/headers";
 
 function getPlatform() {
-  const headers = getHeaders();
-
   try {
+    const headers = getHeaders();
+
     const browser = Bowser.parse(headers.get("user-agent"));
 
     const { isMobile, isTablet, isDesktop, isTouch, isBot, isError } = {
@@ -32,7 +32,9 @@ function getPlatform() {
   }
 }
 
-function shouldRevalidatePlatform(platform: ReturnType<typeof getPlatform>) {
+type PlatformReturnType = ReturnType<typeof getPlatform>;
+
+function shouldRevalidatePlatform(platform: PlatformReturnType) {
   const checkDate = getPlatform();
 
   const platformChanged =
@@ -47,3 +49,4 @@ function shouldRevalidatePlatform(platform: ReturnType<typeof getPlatform>) {
 }
 
 export { getPlatform, shouldRevalidatePlatform };
+export type { PlatformReturnType };

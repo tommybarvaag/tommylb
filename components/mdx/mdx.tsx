@@ -1,4 +1,4 @@
-import { ShowPlatform } from "@/app/(cv)/cv/_components/show-platform";
+import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
@@ -11,7 +11,7 @@ import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
-import * as React from "react";
+import { Suspense } from "react";
 import type { Tweet } from "react-tweet/api";
 
 const components = {
@@ -122,18 +122,59 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
 
   const ParallelismWithPromisesExample = () => {
     return (
-      <React.Suspense fallback={<div />}>
+      <Suspense fallback={<div />}>
         <div className="mb-8">
           <ParallelismLiveTestExample />
         </div>
-      </React.Suspense>
+      </Suspense>
+    );
+  };
+
+  const ShowPlatformExample = () => {
+    return (
+      <Suspense fallback={<div />}>
+        <ShowPlatformClient
+          platforms={{
+            desktop: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on desktop right now. If you
+                load this page on mobile, you&apos;ll see a different callout.
+              </Callout>
+            ),
+            touch: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on mobile right now. If you
+                load this page on desktop, you&apos;ll see a different callout.
+              </Callout>
+            ),
+            bot: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on a bot.
+              </Callout>
+            ),
+            fallback: (
+              <Callout type="warning">
+                Hi there! You&apos;re seeing this because the server failed to determine your
+                platform. This might be because you&apos;re using a browser that the server
+                doesn&apos;t recognize. I would appreciate it if you could let me know what browser
+                you&apos;re using by sending me a <a href="/connect">message</a>.
+              </Callout>
+            )
+          }}
+        />
+      </Suspense>
     );
   };
 
   return (
     <div {...other}>
       <Component
-        components={{ ...components, Tweet, ParallelismWithPromisesExample, ShowPlatform }}
+        components={{
+          ...components,
+          Tweet,
+          ParallelismWithPromisesExample,
+          ShowPlatformExample
+        }}
       />
     </div>
   );
