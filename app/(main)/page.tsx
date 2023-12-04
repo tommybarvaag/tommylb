@@ -4,7 +4,6 @@ import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
 import prisma from "@/lib/prisma";
 import { getActiveWorkYears, getFormattedPostDate } from "@/utils/date-utils";
-import { compareDesc } from "date-fns";
 
 export const revalidate = 60;
 
@@ -32,9 +31,7 @@ async function getLastStravaActivity() {
 function getLastPosts() {
   const posts = allPosts
     .filter(post => post.published)
-    .sort((a, b) => {
-      return compareDesc(new Date(a.date), new Date(b.date));
-    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
 
   return posts;

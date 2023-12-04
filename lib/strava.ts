@@ -7,7 +7,7 @@ import {
   StravaStats
 } from "@/types";
 import { flat, groupBy, maxBy, min, sum } from "@/utils/common-utils";
-import { getDateYear, parseDateISO } from "@/utils/date-utils";
+import { getDateYear } from "@/utils/date-utils";
 import {
   convertKilometersPerSecondToMinutesPerKilometer,
   convertMetersPerSecondToKilometersPerSecond,
@@ -141,7 +141,7 @@ const createActivity = (activity: any): StravaApiActivity => {
 const createStats = (activities: StravaActivityWithGearAndPersonalBests[] = []): StravaStats => {
   const allActivities: StravaActivityWithGearAndPersonalBestsAndStartDateYear[] = activities.map(
     activity => {
-      const startDate = parseDateISO(activity.startDate);
+      const startDate = new Date(activity.startDate);
       return {
         ...activity,
         startDate,

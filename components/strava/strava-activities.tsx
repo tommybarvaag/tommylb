@@ -2,23 +2,16 @@
 
 import { Button } from "@/components/button";
 import { Heading } from "@/components/heading";
-import useStravaActivities from "@/components/strava/hooks";
 import StravaActivity from "@/components/strava/strava-activity";
 import { StravaActivityWithGearAndPersonalBests } from "@/lib/strava";
 import { ComponentPropsWithoutRef, useState } from "react";
 
 type StravaActivitiesProps = ComponentPropsWithoutRef<"div"> & {
-  initialActivities: StravaActivityWithGearAndPersonalBests[];
+  activities: StravaActivityWithGearAndPersonalBests[];
 };
 
-export default function StravaActivities({
-  initialActivities = [],
-  ...other
-}: StravaActivitiesProps) {
+export default function StravaActivities({ activities = [], ...other }: StravaActivitiesProps) {
   const [activitiesToShow, setActivitiesToShow] = useState<number>(10);
-  const { activities } = useStravaActivities({
-    fallbackData: initialActivities
-  });
 
   const renderShowAllActivitiesButton = () => {
     if (activitiesToShow === activities?.length) {

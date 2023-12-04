@@ -1,5 +1,6 @@
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
+import { Icons } from "@/components/icons";
 import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
@@ -12,6 +13,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface PostPageProps {
   params: {
@@ -157,7 +159,9 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
       <Mdx code={post.body.code} tweets={tweets} />
       <hr className="my-6 border-zinc-700" />
-      <PostViewCount className="flex justify-end" slug={post.slugAsParams} />
+      <Suspense fallback={<Icons.Spinner className="h-5 w-5" />}>
+        <PostViewCount slug={post.slugAsParams} />
+      </Suspense>
     </article>
   );
 }

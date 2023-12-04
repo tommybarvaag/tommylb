@@ -1,7 +1,6 @@
 "use client";
 
 import { Heading } from "@/components/heading";
-import useStravaStats from "@/components/strava/hooks/use-strava-stats";
 import StravaGear from "@/components/strava/strava-gear";
 import StravaNameAndValue from "@/components/strava/strava-name-and-value";
 import StravaPersonalBests from "@/components/strava/strava-personal-bests";
@@ -48,20 +47,16 @@ function StravaActivityCountAndDistanceOverview({
 }
 
 type StravaStatsProps = ComponentPropsWithoutRef<"div"> & {
-  initialStats: StravaStatsType;
+  stats: StravaStatsType;
 };
 
-export default function StravaStats({ initialStats, ...other }: StravaStatsProps) {
-  const { stats } = useStravaStats({
-    fallbackData: initialStats
-  });
-
+export default function StravaStats({ stats, ...other }: StravaStatsProps) {
   return (
     <div className="my-12 grid sm:grid-cols-1 sm:gap-0 md:grid-cols-2 md:gap-12" {...other}>
       <div>
-        <StravaRunningGoals goals={stats?.goals ?? []} />
-        <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
-        <StravaGear gear={stats?.gear ?? []} />
+        <StravaRunningGoals stats={stats} goals={stats?.goals ?? []} />
+        <StravaPersonalBests stats={stats} personalBests={stats?.personalBests ?? []} />
+        <StravaGear stats={stats} gear={stats?.gear ?? []} />
       </div>
       <div>
         <StravaActivityCountAndDistanceOverview

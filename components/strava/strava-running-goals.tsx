@@ -1,23 +1,22 @@
 "use client";
 
 import StravaGoalsSkeleton from "@/components/skeleton/strava-goals-skeleton";
-import useStravaStats from "@/components/strava/hooks/use-strava-stats";
 import StravaHeadingAndValues from "@/components/strava/strava-heading-and-values";
-import { StravaGoal } from "@/types";
+import { StravaGoal, StravaStats } from "@/types";
 
 type StravaRunningGoalsProps = {
+  stats: StravaStats;
   title?: string;
   goals?: StravaGoal[];
   center?: boolean;
 };
 export default function StravaRunningGoals({
+  stats,
   title,
   goals = [],
   center,
   ...other
 }: StravaRunningGoalsProps) {
-  const { stats } = useStravaStats();
-
   const nameAndValues = goals.length > 0 ? goals : stats?.goals;
 
   const renderStravaHeadingAndValues = () => {
