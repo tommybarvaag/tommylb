@@ -7,16 +7,18 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { cn } from "@/lib/utils";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
+  forceMount?: boolean;
   expandButtonTitle?: string;
 }
 
 export function CodeBlockWrapper({
   expandButtonTitle = "View Code",
   className,
+  forceMount = false,
   children,
   ...props
 }: CodeBlockProps) {
-  const [isOpened, setIsOpened] = React.useState(false);
+  const [isOpened, setIsOpened] = React.useState(forceMount);
 
   return (
     <Collapsible open={isOpened} onOpenChange={setIsOpened}>

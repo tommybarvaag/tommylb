@@ -113,62 +113,11 @@ We want to compose our solution by utilizing the `user-agent` header to determin
 
 Starting with the complete solution, here's what the code looks like.
 
-```typescript
-import { getPlatform } from "@/lib/actions/bowser-actions";
-import { type ReactNode } from "react";
+<ComponentSource src="/app/(cv)/cv/_components/show-platform.tsx" forceMount />
 
-function ShowPlatform({
-  platforms: { mobile, tablet, desktop, touch, bot, fallback }
-}: {
-  platforms: {
-    mobile?: ReactNode;
-    tablet?: ReactNode;
-    desktop?: ReactNode;
-    touch?: ReactNode;
-    bot?: ReactNode;
-    fallback?: ReactNode;
-  };
-}) {
-  const platform = getPlatform();
+Showing of content per platform is abstracted away in the `<ShowPlatformContent />` component.
 
-  if (platform.isError && fallback) {
-    return <>{fallback}</>;
-  }
-
-  if (platform.isBot) {
-    // find any available react node and prioritize the following order:
-    // 1. bot
-    // 2. fallback
-    // 3. desktop
-    // 4. touch
-    // 5. mobile
-    // 6. tablet
-    const node = bot || fallback || desktop || touch || mobile || tablet;
-    return <>{node}</>;
-  }
-
-  if (platform.isMobile && mobile) {
-    return <>{mobile}</>;
-  }
-
-  if (platform.isTablet && tablet) {
-    return <>{tablet}</>;
-  }
-
-  if (platform.isDesktop && desktop) {
-    return <>{desktop}</>;
-  }
-
-  if (platform.isTouch && touch) {
-    return <>{touch}</>;
-  }
-
-  return null;
-}
-
-export { ShowPlatform };
-
-```
+<ComponentSource src="/app/(cv)/cv/_components/show-platform-content.tsx" />
 
 Before I go into explaining how this works, let's take a look at how I use this component in my connect page.
 
