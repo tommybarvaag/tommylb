@@ -1,5 +1,7 @@
 "use client";
 
+import { Icons } from "@/components/icons";
+import Text from "@/components/text";
 import { debounce } from "@/lib/debounce";
 import { cn } from "@/lib/utils";
 import { kudosSchema } from "@/lib/validations/strava/kudos";
@@ -8,8 +10,6 @@ import useLocalStorage from "hooks/use-local-storage";
 import { useRouter } from "next/navigation";
 import { ComponentPropsWithoutRef, useMemo, useState, useTransition } from "react";
 import type { infer as zodInfer } from "zod";
-import { Icons } from "../icons";
-import Text from "../text";
 
 type StravaActivityKudosFormData = zodInfer<typeof kudosSchema>;
 

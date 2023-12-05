@@ -7,6 +7,7 @@ import { query } from "@/lib/query";
 import strava from "@/lib/strava";
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const revalidate = 60;
 
@@ -41,8 +42,12 @@ export default async function Strava() {
         able to reach my goals soon.
       </Text>
       <Text>Scroll down to view my goals, personal bests and struggles along the way.</Text>
-      <StravaStats initialStats={stats.data} />
-      <StravaActivities initialActivities={activities.data} />
+      <Suspense fallback={<div></div>}>
+        <StravaStats stats={stats.data} />
+      </Suspense>
+      <Suspense fallback={<div></div>}>
+        <StravaActivities activities={activities.data} />
+      </Suspense>
     </div>
   );
 }

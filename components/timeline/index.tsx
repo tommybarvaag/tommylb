@@ -1,10 +1,10 @@
-import Timeline from "./timeline";
-import TimelineFromBirthUntilNow from "./timeline-from-birth-until-now";
-import TimelineHeading from "./timeline-heading";
-import TimelinePost from "./timeline-post";
-import TimelineSection from "./timeline-section";
-import TimelineSectionHeading from "./timeline-section-heading";
-import TimelineText from "./timeline-text";
+import Timeline from "@/components/timeline/timeline";
+import TimelineFromBirthUntilNow from "@/components/timeline/timeline-from-birth-until-now";
+import TimelineHeading from "@/components/timeline/timeline-heading";
+import TimelinePost from "@/components/timeline/timeline-post";
+import TimelineSection from "@/components/timeline/timeline-section";
+import TimelineSectionHeading from "@/components/timeline/timeline-section-heading";
+import TimelineText from "@/components/timeline/timeline-text";
 
 export {
   Timeline,

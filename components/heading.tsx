@@ -51,7 +51,7 @@ export type HeadingProps = HtmlHTMLAttributes<HTMLHeadingElement> &
   VariantProps<typeof headingVariants>;
 
 const Heading = forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, children, variant, prose, noMargin, uppercase, ...props }, ref) => {
+  ({ className, children, variant = "h2", prose, noMargin, uppercase, ...props }, ref) => {
     const Component: React.ElementType = variant || "h2";
     return (
       <Component

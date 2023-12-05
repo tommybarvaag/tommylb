@@ -1,4 +1,4 @@
-import { mockFetch } from "../_utils/mock-fetch";
+import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
 
 async function ParallelismLiveTestAsyncAwait() {
   const start = new Date().getTime();

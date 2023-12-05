@@ -1,13 +1,12 @@
 "use client";
 
+import { Heading } from "@/components/heading";
+import StravaGear from "@/components/strava/strava-gear";
+import StravaNameAndValue from "@/components/strava/strava-name-and-value";
+import StravaPersonalBests from "@/components/strava/strava-personal-bests";
+import StravaRunningGoals from "@/components/strava/strava-running-goals";
+import { StravaStats as StravaStatsType } from "@/types";
 import { ComponentPropsWithoutRef } from "react";
-import { StravaStats as StravaStatsType } from "types";
-import { Heading } from "../heading";
-import useStravaStats from "./hooks/use-strava-stats";
-import StravaGear from "./strava-gear";
-import StravaNameAndValue from "./strava-name-and-value";
-import StravaPersonalBests from "./strava-personal-bests";
-import StravaRunningGoals from "./strava-running-goals";
 
 type StravaActivityCountAndDistanceOverviewProps = {
   title: string;
@@ -48,20 +47,16 @@ function StravaActivityCountAndDistanceOverview({
 }
 
 type StravaStatsProps = ComponentPropsWithoutRef<"div"> & {
-  initialStats: StravaStatsType;
+  stats: StravaStatsType;
 };
 
-export default function StravaStats({ initialStats, ...other }: StravaStatsProps) {
-  const { stats } = useStravaStats({
-    fallbackData: initialStats
-  });
-
+export default function StravaStats({ stats, ...other }: StravaStatsProps) {
   return (
     <div className="my-12 grid sm:grid-cols-1 sm:gap-0 md:grid-cols-2 md:gap-12" {...other}>
       <div>
-        <StravaRunningGoals goals={stats?.goals ?? []} />
-        <StravaPersonalBests personalBests={stats?.personalBests ?? []} />
-        <StravaGear gear={stats?.gear ?? []} />
+        <StravaRunningGoals stats={stats} goals={stats?.goals ?? []} />
+        <StravaPersonalBests stats={stats} personalBests={stats?.personalBests ?? []} />
+        <StravaGear stats={stats} gear={stats?.gear ?? []} />
       </div>
       <div>
         <StravaActivityCountAndDistanceOverview

@@ -1,4 +1,4 @@
-import ContactMeForm from "./contact-me-form";
+import ContactMeForm from "@/components/contact-me-form";
 
 type ContactMeProps = {
   location?: string;

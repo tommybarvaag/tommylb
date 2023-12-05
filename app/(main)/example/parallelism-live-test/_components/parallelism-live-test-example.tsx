@@ -1,6 +1,6 @@
+import { ParallelismLiveTestAllSettled } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-all-settled";
+import { ParallelismLiveTestAsyncAwait } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-async-await";
 import { Suspense } from "react";
-import { ParallelismLiveTestAllSettled } from "./parallelism-live-test-all-settled";
-import { ParallelismLiveTestAsyncAwait } from "./parallelism-live-test-async-await";
 
 const Skeleton = () => {
   return (

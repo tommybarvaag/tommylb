@@ -1,5 +1,6 @@
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
+import { Icons } from "@/components/icons";
 import { Mdx } from "@/components/mdx/mdx";
 import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
@@ -7,10 +8,12 @@ import { allAuthors, allPosts } from "@/contentlayer/generated";
 import { getTweets } from "@/lib/twitter";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import "@/styles/mdx.css";
+import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 interface PostPageProps {
   params: {
@@ -75,7 +78,8 @@ export async function generateStaticParams(): Promise<PostPageProps["params"][]>
 
 export default async function PostPage({ params }: PostPageProps) {
   const slug = params?.slug?.join("/");
-  const post = allPosts.find(post => post.slugAsParams === slug);
+
+  const post = allPosts.find(post => post.slug === `/post/${slug}`);
 
   if (!post) {
     notFound();
@@ -101,9 +105,9 @@ export default async function PostPage({ params }: PostPageProps) {
         <Heading variant="h1" className="mb-8">
           {post.title}
         </Heading>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           {authors?.length ? (
-            <div className="flex grow space-x-4">
+            <div className="flex space-x-4 md:grow">
               {authors.map(author => (
                 <Link
                   key={author._id}
@@ -121,7 +125,7 @@ export default async function PostPage({ params }: PostPageProps) {
                     <Text className="mb-0 text-sm font-medium text-zinc-100" noMargin>
                       {author.title}
                     </Text>
-                    <Text className="mb-0 text-[12px] text-zinc-300" noMargin>
+                    <Text className="mb-0 text-[12px] text-zinc-400" noMargin>
                       @{author.twitter}
                     </Text>
                   </div>
@@ -130,12 +134,17 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
           ) : null}
           {post.date && (
-            <time
-              dateTime={post.date}
-              className="block max-w-[120px] shrink text-sm text-zinc-300 md:max-w-full"
-            >
-              Published on {formatDate(post.date)}
-            </time>
+            <div className="flex flex-col md:items-end">
+              <time
+                dateTime={post.date}
+                className="block shrink text-sm text-zinc-300 md:max-w-full"
+              >
+                Published on {formatDate(post.date)}
+              </time>
+              <span className="text-[12px] text-zinc-400">
+                {getHumanizedDateFromNow(new Date(post.date))} ago
+              </span>
+            </div>
           )}
         </div>
       </div>
@@ -150,7 +159,9 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
       <Mdx code={post.body.code} tweets={tweets} />
       <hr className="my-6 border-zinc-700" />
-      <PostViewCount className="flex justify-end" slug={post.slugAsParams} />
+      <Suspense fallback={<Icons.Spinner className="h-5 w-5" />}>
+        <PostViewCount slug={post.slugAsParams} />
+      </Suspense>
     </article>
   );
 }

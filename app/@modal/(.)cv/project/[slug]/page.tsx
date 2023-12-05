@@ -2,11 +2,7 @@ import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
 import { notFound } from "next/navigation";
 
-// export async function generateStaticParams() {
-//   return projectExperienceData.map(projectExperienceItem => ({
-//     slug: projectExperienceItem.slug
-//   }));
-// }
+export const runtime = "experimental-edge";
 
 interface ProjectExperienceProps {
   params: {

@@ -1,0 +1,284 @@
+---
+title: Conditional rendering with Server Components
+description: Exploring React Server Components for platform-specific content rendering and using the user-agent header to identify user platforms.
+shortDescription: Render different content based on the platform that the user is on.
+date: "2023-12-01"
+authors:
+  - tommy
+---
+
+It's not often that I find myself wanting to render different content based on the platform that the user is on. But when I have done so in the past, I've found it to be a bit of a pain. I've written several different approaches to this problem, and none of them have been particularly satisfying always leaving me with some headaches like
+
+- How do I make sure that the client and server render the same content?
+- How do I only serve the client the content that it needs?
+- How do I make sure that the client doesn't re-render the content that the server already rendered?
+
+Enter [React Server Components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components). RSC are a new way of building React applications that allows you to render components on the server. RSC never re-render. They run once on the server to generate the UI. The rendered value is sent to the client and locked in place. As far as React is concerned, this output is immutable, and will never change.
+
+If you're interested in learning more about RSC, I recommend you check out [this great article](https://www.joshwcomeau.com/react/server-components/) by [Josh Comeau](https://x.com/joshwcomeau).
+
+<ShowPlatformExample />
+
+## The problem
+
+Let's say that we have a component that we want to render differently based on the platform that the user is on. For example, we want to render a traditional dialog for desktop users and a iOS drawer style dialog for mobile users.
+
+Fortunately for us, I allready have this setup on this site. If you're on desktop and click a link to [connect](/connect) you'll see a traditional dialog. If you're on mobile and click the same link, you'll see a iOS drawer style dialog.
+
+## A previous solution
+
+In the past, I've solved this problem by using a custom `useWindowSize` hook that returns the window size and a boolean indicating whether the user is on mobile or not.
+
+```typescript
+import { useEffect, useMemo, useState } from "react";
+
+function useWindowSize(): {
+  width: number;
+  height: number;
+  isMobile: boolean;
+  isDesktop: boolean;
+} {
+  const [windowSize, setWindowSize] = useState<{
+    width: number;
+    height: number;
+  }>({
+    width: 0,
+    height: 0
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+
+  // Memoize the result of the calculations using useMemo
+  const memoizedWindowSize = useMemo(() => {
+    return {
+      ...windowSize,
+      isMobile: typeof windowSize?.width === "number" && windowSize.width < 768,
+      isDesktop: typeof windowSize?.width === "number" && windowSize.width >= 768
+    };
+  }, [windowSize]);
+
+  return memoizedWindowSize;
+}
+
+export { useWindowSize };
+```
+
+And then I would use the `useWindowSize` hook to render the content conditionally.
+
+```typescript
+const { isMobile } = useWindowSize();
+const Component = isMobile ? MobileDialog : DesktopDialog;
+```
+
+This approach works, but it has some problems
+
+1. The client bundle contains both the mobile and desktop components. This means that the client has to download more code than it needs.
+2. In a scenario where we have a server rendered page, the client will re-render the content that the server already rendered, on other words [hydration](https://react.dev/reference/react-dom/client/hydrateRoot).
+3. The client has to determine the device type by screen width. This is not always reliable as the user might resize the browser window.
+
+## A better solution
+
+With React Server Components, we can render different content based on the platform that the user is on. And because the server renders the content, we don't have to worry about extra code being downloaded or the client re-rendering the content that the server already rendered.
+
+With [Next.js headers](https://nextjs.org/docs/app/api-reference/functions/headers) we can easily access the `user-agent` header and use it to determine the platform that the user is on. The `user-agent` header contains information about the user's browser, device, and operating system.
+
+```typescript
+import { headers as getHeaders } from "next/headers";
+
+function getUserAgent() {
+  const headers = getHeaders();
+  return headers.get("user-agent");
+}
+```
+
+We can then use the `user-agent` header to determine the platform that the user is on.
+
+### Composing our solution
+
+We want to compose our solution by utilizing the `user-agent` header to determine the platform that the user is on and then serve the user with the appropriate content.
+
+Starting with the complete solution, here's what the code looks like.
+
+```typescript
+import { PlatformReturnType } from "@/lib/actions/bowser-actions";
+import { ShowPlatformProps } from "@/types";
+
+function ShowPlatformContent({
+  platform,
+  platforms: { mobile, tablet, desktop, touch, bot, fallback }
+}: ShowPlatformProps & {
+  platform: PlatformReturnType;
+}) {
+  if (platform.isError && fallback) {
+    return <>{fallback}</>;
+  }
+
+  if (platform.isBot) {
+    // find any available react node and prioritize the following order:
+    // 1. bot
+    // 2. fallback
+    // 3. desktop
+    // 4. touch
+    // 5. mobile
+    // 6. tablet
+    const node = bot || fallback || desktop || touch || mobile || tablet;
+    return node ? <>{node}</> : null;
+  }
+
+  if (platform.isMobile && mobile) {
+    return <>{mobile}</>;
+  }
+
+  if (platform.isTablet && tablet) {
+    return <>{tablet}</>;
+  }
+
+  if (platform.isDesktop && desktop) {
+    return <>{desktop}</>;
+  }
+
+  if (platform.isTouch && touch) {
+    return <>{touch}</>;
+  }
+
+  return null;
+}
+
+export { ShowPlatformContent };
+```
+
+Before I go into explaining how this works, let's take a look at how I use this component in my connect page.
+
+```typescript
+export default function ConnectDialogPage() {
+  return (
+    <ShowPlatform
+      platforms={{
+        desktop: <ConnectDesktop />,
+        touch: <ConnectDialogTouch />,
+        fallback: <ConnectDialog />
+      }}
+    />
+  );
+}
+```
+
+Neat right?
+
+You could also use the server action directly in your page component, but I prefer to use a component for this as it makes it easier to reuse the logic.
+
+```typescript
+import { getPlatform } from "@/lib/actions/bowser-actions";
+
+export default function ConnectDialogPage() {
+  const platform = getPlatform();
+
+  if (platform.isError) {
+    return <ConnectDialog />;
+  }
+
+  if (platform.isDesktop) {
+    return <ConnectDesktop />;
+  }
+
+  if (platform.isTouch) {
+    return <ConnectDialogTouch />;
+  }
+
+  return null;
+}
+```
+
+### How it works
+
+The `<ShowPlatform />` component takes a `platforms` prop that is an object with the following shape
+
+```typescript
+{
+  mobile?: ReactNode;
+  tablet?: ReactNode;
+  desktop?: ReactNode;
+  touch?: ReactNode;
+  bot?: ReactNode;
+  fallback?: ReactNode;
+}
+```
+
+The `<ShowPlatform />` component then uses the `getPlatform()` action to determine the current platform. The `getPlatform()` action feeds the `user-agent` to the `Bowser` library and returns an object that can be used to identify the current platform.
+
+The `Bowser` library is a [browser detector library](https://github.com/bowser-js/bowser) that parses the `user-agent` header and returns an object with information about the current platform.
+
+```typescript
+"use server";
+
+import Bowser from "bowser";
+import { headers as getHeaders } from "next/headers";
+
+function getPlatform() {
+  const headers = getHeaders();
+
+  try {
+    const browser = Bowser.parse(headers.get("user-agent"));
+
+    const { isMobile, isTablet, isDesktop, isTouch, isBot, isError } = {
+      isMobile: browser.platform.type === "mobile",
+      isTablet: browser.platform.type === "tablet",
+      isDesktop: browser.platform.type === "desktop",
+      isTouch: browser.platform.type === "mobile" || browser.platform.type === "tablet",
+      isBot: browser.platform.type === "bot",
+      isError: !browser.platform.type
+    };
+
+    return { isMobile, isTablet, isDesktop, isTouch, isBot, isError };
+  } catch (error) {
+    return {
+      isMobile: false,
+      isTablet: false,
+      isDesktop: false,
+      isTouch: false,
+      isBot: false,
+      isError: true
+    };
+  }
+}
+```
+
+As the `<ShowPlatform />` component is rendered on the server, and the action is declared with the [`"use server" directive`](https://react.dev/reference/react/use-server), the client bundle never needs to handle anything related to the `Bowser` library or the `user-agent` header.
+
+If the component determines that the current platform is mobile, the client bundle will only contain the mobile component. And likewise, if the component determines that the current platform is desktop, the client bundle will only contain the desktop component.
+
+### Graceful Degradation
+
+In scenarios where platform detection fails, a fallback component ensures the user still receives content, demonstrating a graceful degradation strategy. This is particularly crucial for unrecognized browsers.
+
+### SEO considerations
+
+For bots, we have made available a `bot` property that can be used to render content specifically for bots. This is useful for SEO purposes. For example, you might want to ensure all bots see the same content as desktop users. If you don't provide a `bot` property, the component will render the different content based on a prioritized order.
+
+## Summary
+
+Lately, I've been giving a lot of thought to the various ways I can use React Server Components. These components seem like a great tool, especially for solving some of the challenges I've encountered in the past.
+
+It's pretty exciting to think about the different problems we can tackle with them. I'm keen to explore more about their capabilities and see how they can make our projects better and more efficient.
+
+## Resources
+
+- [React Server Components](https://react.dev/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components)
+- [Bowser](https://github.com/bowser-js/bowser)
+- [Next.js (v14.0.4-canary.32) headers](https://nextjs.org/docs/app/api-reference/functions/headers)
+- [Josh Comeau - React Server Components](https://www.joshwcomeau.com/react/server-components/)
+- [`"use server" directive`](https://react.dev/reference/react/use-server)

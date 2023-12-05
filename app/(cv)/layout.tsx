@@ -9,14 +9,14 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/card";
+import { CvNavigation } from "@/components/cv-navigation";
 import Footer from "@/components/footer";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Main from "@/components/main";
+import { cvKeySkills } from "@/data/cv-key-points";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 import "styles/global.css";
-import { CvNavigation } from "../../components/cv-navigation";
-import { cvKeySkills } from "../../data/cv-key-points";
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (

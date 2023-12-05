@@ -1,8 +1,8 @@
 "use client";
 
+import { CvNavItem } from "@/components/cv-nav-item";
 import { LayoutGroup } from "framer-motion";
 import { Suspense } from "react";
-import { CvNavItem } from "./cv-nav-item";
 
 const navItems = {
   "/cv/about": {

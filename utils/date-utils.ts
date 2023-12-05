@@ -1,56 +1,95 @@
-import {
-  compareAsc,
-  compareDesc,
-  differenceInMonths,
-  differenceInYears,
-  format,
-  getYear,
-  isDate,
-  isToday,
-  parse,
-  parseISO
-} from "date-fns";
-import { numberToWords, simplePluralize } from "./humanize-utils";
+import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
 
 const RETIREMENT_YEAR = 67;
 
-export const getFormattedDate = (date: Date, dateFormat: string, options = {}): string =>
-  format(date, dateFormat, options);
+export const intervalToDuration = (startDate: Date, endDate: Date) => {
+  // Ensure startDate is earlier than endDate, swap if not
+  if (startDate > endDate) {
+    [startDate, endDate] = [endDate, startDate];
+  }
 
-export const parseDate = (date: string, format: string, referenceDate?: Date) =>
-  parse(date, format, referenceDate ?? new Date());
+  // Extracting year, month, and day components from start and end dates
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
+  const startMonth = startDate.getMonth();
+  const endMonth = endDate.getMonth();
+  const startDay = startDate.getDate();
+  const endDay = endDate.getDate();
 
-export const parseDateISO = (date: string) => parseISO(date);
+  // Calculate total years difference
+  const years = endYear - startYear;
 
-export const getDateISO = (date: any): Date => (isDate(date) ? date : parseDateISO(date));
+  // Calculate months difference; adjust for negative difference
+  const monthsDiff = endMonth - startMonth;
+  let months = monthsDiff >= 0 ? monthsDiff : monthsDiff + 12;
+  let yearsAdjusted = monthsDiff >= 0 ? years : years - 1;
 
-export const getDateYear = (date: Date) => getYear(getDateISO(date));
+  // Calculate days difference; adjust for negative difference
+  // Using the last day of the previous month for accurate calculation
+  const daysDiff = endDay - startDay;
+  const lastDayOfPrevMonth = new Date(endYear, endMonth, 0).getDate();
+  let days = daysDiff >= 0 ? daysDiff : daysDiff + lastDayOfPrevMonth;
+  if (daysDiff < 0) months--;
+
+  // Calculate the total difference in seconds
+  const totalDiffInSeconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
+
+  // Convert total seconds to weeks and remaining days
+  const daysFromSeconds = Math.floor(totalDiffInSeconds / (3600 * 24));
+  const weeks = Math.floor(daysFromSeconds / 7);
+  days -= weeks * 7; // Adjust days to remove the full weeks
+
+  // Convert remaining seconds to hours, minutes, and seconds
+  const hours = Math.floor(totalDiffInSeconds / 3600) % 24;
+  const minutes = Math.floor(totalDiffInSeconds / 60) % 60;
+  const seconds = totalDiffInSeconds % 60;
+
+  return {
+    years: yearsAdjusted,
+    months,
+    weeks,
+    days,
+    hours,
+    minutes,
+    seconds
+  };
+};
+
+export const isToday = (date: Date) => {
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+};
+
+export const getDateYear = (date: Date) => date.getFullYear();
 
 export const getFormattedLongDate = (date: Date) =>
-  getFormattedDate(getDateISO(date), "MMMM d, yyyy");
+  `${new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "numeric"
+  }).format(new Date(date))} · ${new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  }).format(new Date(date))}`;
 
-export const getFormattedMonth = (date: Date) => getFormattedDate(getDateISO(date), "MMMM");
+export const getFormattedMonth = (date: Date) => date.toLocaleString("en-US", { month: "long" });
 
 export const getFormattedMonthAndYearDate = (date: Date) =>
-  getFormattedDate(getDateISO(date), "MMMM, yyyy");
+  date.toLocaleString("en-US", { month: "long", year: "numeric" });
 
 export const getFormattedShortMonthAndYearDate = (date: Date) =>
-  getFormattedDate(getDateISO(date), "MMM. yyyy");
+  date.toLocaleString("en-US", { month: "short", year: "numeric" });
 
-export const getFormattedPostDate = (date: Date) => getFormattedDate(date, "MMMM d, yyyy");
-
-// pretty date with time
-export const getFormattedTwitterDate = (date: Date) =>
-  getFormattedDate(getDateISO(date), "h:mm a '·' MMMM d, yyyy ");
-
-export const compareDatesAscending = (date1: Date, date2: Date) =>
-  compareAsc(getDateISO(date1), getDateISO(date2));
-
-export const compareDatesDescending = (date1: Date, date2: Date) =>
-  compareDesc(getDateISO(date1), getDateISO(date2));
+export const getFormattedPostDate = (date: Date) =>
+  date.toLocaleString("en-US", { dateStyle: "long" });
 
 export const getActiveWorkYearsAsNumber = () => {
-  return Math.min(differenceInYears(new Date(), new Date(2014, 0, 1)), RETIREMENT_YEAR);
+  const { years } = intervalToDuration(new Date(2014, 0, 1), new Date());
+  return Math.min(years, RETIREMENT_YEAR);
 };
 
 export const getActiveWorkYears = (
@@ -65,8 +104,7 @@ export const getActiveWorkYears = (
 };
 
 export const getDurationAsYearsAndMonths = (startDate: Date, endDate: Date): string => {
-  const years = differenceInYears(endDate, startDate);
-  const months = differenceInMonths(endDate, startDate) - years * 12;
+  const { years, months } = intervalToDuration(startDate, endDate);
 
   if (years === 0 && months === 0) {
     return "less than a month";
@@ -92,4 +130,40 @@ export const getFormattedToAndFromCvDate = (startDate: Date, endDate: Date): str
     startDate,
     endDate
   )}`;
+};
+
+export const getHumanizedDateFromNow = (date: Date) => {
+  const now = new Date();
+
+  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, now);
+
+  if (years && years > 0) {
+    return `${years} ${simplePluralize("year", hours)}`;
+  }
+
+  if (months && months > 0) {
+    return `${months} ${simplePluralize("month", hours)}`;
+  }
+
+  if (weeks && weeks > 0) {
+    return `${weeks} ${simplePluralize("week", hours)}`;
+  }
+
+  if (days && days > 0) {
+    return `${days} ${simplePluralize("day", hours)}`;
+  }
+
+  if (hours && hours > 0) {
+    return `${hours} ${simplePluralize("hour", hours)}`;
+  }
+
+  if (minutes && minutes > 0) {
+    return `${minutes} ${simplePluralize("minute", minutes)}`;
+  }
+
+  if (seconds && seconds > 0) {
+    return `${seconds} ${simplePluralize("second", seconds)}`;
+  }
+
+  return "now";
 };

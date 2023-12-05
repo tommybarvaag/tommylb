@@ -1,7 +1,7 @@
 "use client";
 
+import Text from "@/components/text";
 import { AnimatePresence, motion } from "framer-motion";
-import Text from "./text";
 
 type FormSubmitMessageProps = {
   text: string;

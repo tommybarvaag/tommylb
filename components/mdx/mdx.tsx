@@ -1,23 +1,23 @@
-import { useMDXComponent } from "next-contentlayer/hooks";
-import Image from "next/image";
-import * as React from "react";
-
+import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Heading } from "@/components/heading";
+import Link from "@/components/link";
 import { Callout } from "@/components/mdx/callout";
 import { Card } from "@/components/mdx/card";
+import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper";
+import { ComponentSource } from "@/components/mdx/component-source";
+import Text from "@/components/text";
+import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
+import { useMDXComponent } from "next-contentlayer/hooks";
+import Image from "next/image";
+import { Suspense } from "react";
 import type { Tweet } from "react-tweet/api";
-import { Heading } from "../heading";
-import Link from "../link";
-import Text from "../text";
-import { TwitterCard } from "../twitter-card";
-import { CodeBlockWrapper } from "./code-block-wrapper";
-import { ComponentSource } from "./component-source";
 
 const components = {
   h1: ({ className, ...props }) => <Heading variant="h1" className="mt-8 text-xl" {...props} />,
   h2: ({ className, ...props }) => (
-    <Heading variant="h2" className="group mt-8 text-lg" {...props} />
+    <Heading variant="h2" className="group mt-8 cursor-pointer" {...props} />
   ),
   h3: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
   h4: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
@@ -116,23 +116,66 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   const Component = useMDXComponent(code);
 
   const Tweet = ({ id }: { id: string }) => {
-    const tweet = tweets?.find(tweet => tweet.id_str === id);
+    const tweet = tweets?.find(tweet => tweet?.id_str === id);
     return <TwitterCard tweet={tweet} />;
   };
 
   const ParallelismWithPromisesExample = () => {
     return (
-      <React.Suspense fallback={<div />}>
+      <Suspense fallback={<div />}>
         <div className="mb-8">
           <ParallelismLiveTestExample />
         </div>
-      </React.Suspense>
+      </Suspense>
+    );
+  };
+
+  const ShowPlatformExample = () => {
+    return (
+      <Suspense fallback={<div />}>
+        <ShowPlatformClient
+          platforms={{
+            desktop: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on desktop right now. If you
+                load this page on mobile, you&apos;ll see a different callout.
+              </Callout>
+            ),
+            touch: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on mobile right now. If you
+                load this page on desktop, you&apos;ll see a different callout.
+              </Callout>
+            ),
+            bot: (
+              <Callout type="info">
+                Hi there! You&apos;re seeing this because you&apos;re on a bot.
+              </Callout>
+            ),
+            fallback: (
+              <Callout type="warning">
+                Hi there! You&apos;re seeing this because the server failed to determine your
+                platform. This might be because you&apos;re using a browser that the server
+                doesn&apos;t recognize. I would appreciate it if you could let me know what browser
+                you&apos;re using by sending me a <a href="/connect">message</a>.
+              </Callout>
+            )
+          }}
+        />
+      </Suspense>
     );
   };
 
   return (
     <div {...other}>
-      <Component components={{ ...components, Tweet, ParallelismWithPromisesExample }} />
+      <Component
+        components={{
+          ...components,
+          Tweet,
+          ParallelismWithPromisesExample,
+          ShowPlatformExample
+        }}
+      />
     </div>
   );
 }

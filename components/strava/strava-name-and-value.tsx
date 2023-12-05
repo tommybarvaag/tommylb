@@ -1,4 +1,4 @@
-import Text from "../text";
+import Text from "@/components/text";
 
 type StravaNameAndValueProps = {
   name: string;

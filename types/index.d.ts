@@ -172,3 +172,18 @@ export type Post = Prisma.PostGetPayload<{
     views: true;
   };
 }>;
+
+export type Platform = "mobile" | "tablet" | "desktop" | "touch";
+
+export type ShowPlatforms = {
+  mobile?: ReactNode;
+  tablet?: ReactNode;
+  desktop?: ReactNode;
+  touch?: ReactNode;
+  bot?: ReactNode;
+  fallback?: ReactNode;
+};
+
+export type ShowPlatformProps = {
+  platforms: ShowPlatforms;
+};

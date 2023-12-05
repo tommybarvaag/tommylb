@@ -4,14 +4,11 @@ import Link from "@/components/link";
 import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
 import { formatMonthDay } from "@/lib/utils";
-import { compareDesc } from "date-fns";
 
 export default async function PostPage() {
   const yearPosts = allPosts
     .filter(post => post.published)
-    .sort((a, b) => {
-      return compareDesc(new Date(a.date), new Date(b.date));
-    })
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .reduce(
       (accumulator, post) => {
         const year = `${new Date(post.date).getFullYear()}`;

@@ -1,22 +1,21 @@
 "use client";
 
+import StravaHeadingAndValues from "@/components/strava/strava-heading-and-values";
+import { StravaPersonalBestSimple, StravaStats } from "@/types";
 import { useMemo } from "react";
-import { StravaPersonalBestSimple } from "types";
-import useStravaStats from "./hooks/use-strava-stats";
-import StravaHeadingAndValues from "./strava-heading-and-values";
 
 type StravaPersonalBestsProps = {
+  stats: StravaStats;
   title?: string;
   personalBests?: StravaPersonalBestSimple[];
 };
 
 export default function StravaPersonalBests({
+  stats,
   title,
   personalBests = [],
   ...other
 }: StravaPersonalBestsProps) {
-  const { stats } = useStravaStats();
-
   const nameAndValues = useMemo(
     () =>
       (personalBests.length > 0 ? personalBests : stats?.personalBests).map<{

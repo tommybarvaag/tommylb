@@ -1,13 +1,13 @@
 "use client";
 
+import { Button } from "@/components/button";
+import Timeline from "@/components/timeline/timeline";
+import TimelineHeading from "@/components/timeline/timeline-heading";
+import TimelinePost from "@/components/timeline/timeline-post";
+import TimelineSection from "@/components/timeline/timeline-section";
+import TimelineSectionHeading from "@/components/timeline/timeline-section-heading";
+import TimelineText from "@/components/timeline/timeline-text";
 import { useState } from "react";
-import { Button } from "../button";
-import Timeline from "./timeline";
-import TimelineHeading from "./timeline-heading";
-import TimelinePost from "./timeline-post";
-import TimelineSection from "./timeline-section";
-import TimelineSectionHeading from "./timeline-section-heading";
-import TimelineText from "./timeline-text";
 
 type TimelineFromBirthUntilNowProps = {
   showAll?: boolean;

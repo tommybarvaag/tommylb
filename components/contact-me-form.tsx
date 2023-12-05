@@ -1,14 +1,14 @@
 "use client";
 
+import FormSubmitMessage from "@/components/form-submit-message";
+import { Icons } from "@/components/icons";
+import { SubmitButton } from "@/components/submit-button";
+import TextArea from "@/components/text-area";
+import TextField from "@/components/text-field";
 import { sendFormAction } from "@/lib/actions/resend-actions";
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef } from "react";
 import { useFormState } from "react-dom";
-import FormSubmitMessage from "./form-submit-message";
-import { Icons } from "./icons";
-import { SubmitButton } from "./submit-button";
-import TextArea from "./text-area";
-import TextField from "./text-field";
 
 type ContactMeFormProps = ComponentPropsWithoutRef<"div"> & {
   location: string;
