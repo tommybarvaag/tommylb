@@ -114,29 +114,6 @@ We want to compose our solution by utilizing the `user-agent` header to determin
 Starting with the complete solution, here's what the code looks like.
 
 ```typescript
-import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
-import { getPlatform } from "@/lib/actions/bowser-actions";
-import { ShowPlatformProps } from "@/types";
-
-function ShowPlatform({
-  platforms: { mobile, tablet, desktop, touch, bot, fallback }
-}: ShowPlatformProps) {
-  const platform = getPlatform();
-
-  return (
-    <ShowPlatformContent
-      platform={platform}
-      platforms={{ mobile, tablet, desktop, touch, bot, fallback }}
-    />
-  );
-}
-
-export { ShowPlatform };
-```
-
-Showing of content per platform is abstracted away in the `<ShowPlatformContent />` component.
-
-```typescript
 import { PlatformReturnType } from "@/lib/actions/bowser-actions";
 import { ShowPlatformProps } from "@/types";
 
@@ -159,7 +136,7 @@ function ShowPlatformContent({
     // 5. mobile
     // 6. tablet
     const node = bot || fallback || desktop || touch || mobile || tablet;
-    return <>{node}</>;
+    return node ? <>{node}</> : null;
   }
 
   if (platform.isMobile && mobile) {

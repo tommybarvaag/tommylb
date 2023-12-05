@@ -20,7 +20,7 @@ function ShowPlatformContent({
     // 5. mobile
     // 6. tablet
     const node = bot || fallback || desktop || touch || mobile || tablet;
-    return <>{node}</>;
+    return node ? <>{node}</> : null;
   }
 
   if (platform.isMobile && mobile) {
