@@ -59,12 +59,10 @@ function ProjectExperience({
         </DrawerClose>
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
           <Image
-            className="select-none rounded-t-[10px] border-x border-t border-zinc-900 brightness-90"
+            className="select-none rounded-t-[10px] border-x border-t border-zinc-900 object-cover object-center brightness-90"
             src={projectExperience.images?.[0].src}
             alt={projectExperience.images?.[0].alt}
             fill
-            objectFit="cover"
-            objectPosition="center center"
             draggable={false}
             priority
           />
