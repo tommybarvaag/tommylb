@@ -1,0 +1,35 @@
+---
+title: Humanize your content
+description: How to make your content more human
+shortDescription:
+date: "2023-12-12"
+authors:
+  - tommy
+---
+
+Too often we see content that is written in a way that is not human. It's written in a way that is not natural. An example of this would be numbers from code pasted into paragraphs. `2 year ago` is not a natural way to write a number. It should be `two years ago`. And even better it could be `two years ago`.
+
+How do we achive this?
+
+## Pluralize
+
+We have a function called `simplePluralize` that will pluralize a word based on a number. It will also handle irregular words.
+
+```ts
+export const simplePluralize = (noun: string, count: number, suffix: string = "s") =>
+  `${noun}${count !== 1 ? suffix : ""}`;
+```
+
+Here we set the default suffix to `s`. This is because most words will just add an `s` to the end. But there are some words that will need to be handled differently. For example `child` will become `children` and `person` will become `people`. We can handle this by passing in the suffix as the third argument.
+
+We can use this function like this:
+
+```ts
+const year = 2;
+
+simplePluralize("year", years); // years
+
+const months = 1;
+
+simplePluralize("month", months); // month
+```

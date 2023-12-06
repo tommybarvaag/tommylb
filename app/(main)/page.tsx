@@ -4,6 +4,7 @@ import Text from "@/components/text";
 import { allPosts } from "@/contentlayer/generated";
 import prisma from "@/lib/prisma";
 import { getActiveWorkYears, getFormattedPostDate } from "@/utils/date-utils";
+import { numberToWords } from "@/utils/humanize-utils";
 
 export const revalidate = 60;
 
@@ -43,6 +44,7 @@ export default async function Home() {
 
   return (
     <>
+      <p>{numberToWords(101000)}</p>
       <div className="mb-12 w-full">
         <Heading
           variant="h1"
