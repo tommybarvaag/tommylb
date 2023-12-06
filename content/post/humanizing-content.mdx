@@ -7,7 +7,7 @@ authors:
   - tommy
 ---
 
-Too often we see content that is written in a way that is not human. It's written in a way that is not natural. An example of this would be numbers from code pasted into paragraphs.
+Too often I see content that is written in a way that is not **human**. It's written in a way that is not _natural_. An example of this would be numbers from code pasted into paragraphs.
 
 ```ts
 function VisualizeYear() {
@@ -17,13 +17,13 @@ function VisualizeYear() {
 }
 ```
 
-`2 year ago` is not a natural way to write a number. It should be `2 years ago`. And even better it could be `two years ago`.
+`2 year ago` is not a natural way to represent years to text. It should be `2 years ago` — pluralized. And even better it could be `two years ago`.
 
 How do we achive this?
 
 ## Pluralize
 
-We have a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with a optional third argument to account for words like `child` and `person`.
+We create a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with a optional third argument to account for words like `child` and `person`.
 
 ```ts
 export const simplePluralize = (
@@ -243,3 +243,62 @@ One great way to incorporate humanized dates is to use it directly withing a par
 Readable content is more important that you think, and small changes can make a big difference.
 
 I hope you found this article useful. If you have any questions or feedback please [reach out to me](/connect).
+
+## The promised `intervalToDuration` function
+
+I recently worked through a small rewrite where I wanted to remove some undesired dependencies. One of them was `date-fns` and I had to rewrite the `intervalToDuration` function. I ended up with this. Feel free to copy it along with everything else you find useful on this page.
+
+```ts
+export const intervalToDuration = (startDate: Date, endDate: Date) => {
+  // Ensure startDate is earlier than endDate, swap if not
+  if (startDate > endDate) {
+    [startDate, endDate] = [endDate, startDate];
+  }
+
+  // Extracting year, month, and day components from start and end dates
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
+  const startMonth = startDate.getMonth();
+  const endMonth = endDate.getMonth();
+  const startDay = startDate.getDate();
+  const endDay = endDate.getDate();
+
+  // Calculate total years difference
+  const years = endYear - startYear;
+
+  // Calculate months difference; adjust for negative difference
+  const monthsDiff = endMonth - startMonth;
+  let months = monthsDiff >= 0 ? monthsDiff : monthsDiff + 12;
+  let yearsAdjusted = monthsDiff >= 0 ? years : years - 1;
+
+  // Calculate days difference; adjust for negative difference
+  // Using the last day of the previous month for accurate calculation
+  const daysDiff = endDay - startDay;
+  const lastDayOfPrevMonth = new Date(endYear, endMonth, 0).getDate();
+  let days = daysDiff >= 0 ? daysDiff : daysDiff + lastDayOfPrevMonth;
+  if (daysDiff < 0) months--;
+
+  // Calculate the total difference in seconds
+  const totalDiffInSeconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
+
+  // Convert total seconds to weeks and remaining days
+  const daysFromSeconds = Math.floor(totalDiffInSeconds / (3600 * 24));
+  const weeks = Math.floor(daysFromSeconds / 7);
+  days -= weeks * 7; // Adjust days to remove the full weeks
+
+  // Convert remaining seconds to hours, minutes, and seconds
+  const hours = Math.floor(totalDiffInSeconds / 3600) % 24;
+  const minutes = Math.floor(totalDiffInSeconds / 60) % 60;
+  const seconds = totalDiffInSeconds % 60;
+
+  return {
+    years: yearsAdjusted,
+    months,
+    weeks,
+    days,
+    hours,
+    minutes,
+    seconds
+  };
+};
+```
