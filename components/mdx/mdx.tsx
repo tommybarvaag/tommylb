@@ -9,6 +9,7 @@ import { ComponentSource } from "@/components/mdx/component-source";
 import Text from "@/components/text";
 import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
+import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import Image from "next/image";
 import { Suspense } from "react";
@@ -103,7 +104,19 @@ const components = {
   CodeBlockWrapper: ({ ...props }) => (
     <CodeBlockWrapper className="rounded-md border border-slate-100" {...props} />
   ),
-  ComponentSource: ({ src, ...other }) => <ComponentSource src={src} {...other} />
+  ComponentSource: ({ src, ...other }) => <ComponentSource src={src} {...other} />,
+  TimeAgo: ({ code = false, ...props }) => {
+    const Component = code ? "code" : "span";
+
+    return (
+      <Component
+        className="relative rounded border border-zinc-950 bg-zinc-950 px-[0.3rem] py-[0.2rem] font-mono text-sm text-zinc-200"
+        {...props}
+      >
+        {getHumanizedDateFromNow(new Date(2023, 11, 2))} ago
+      </Component>
+    );
+  }
 };
 
 type MdxProps = React.ComponentPropsWithoutRef<"div"> & {

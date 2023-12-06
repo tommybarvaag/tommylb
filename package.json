@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "contentlayer dev & next dev",
-    "build": "contentlayer build && next build",
+    "build": "contentlayer build && pnpm test:ci && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
+    "test:ci": "jest --ci",
     "postinstall": "prisma generate"
   },
   "dependencies": {

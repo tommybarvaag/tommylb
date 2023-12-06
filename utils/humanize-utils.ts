@@ -69,5 +69,17 @@ export const numberToWords = (input: string | number | undefined | null): string
   return result.trim();
 };
 
-export const simplePluralize = (noun: string, count: number, suffix: string = "s") =>
-  `${noun}${count !== 1 ? suffix : ""}`;
+export const simplePluralize = (
+  noun: string,
+  count: number,
+  options: {
+    suffix?: string;
+    pluralWord?: string;
+  } = {
+    suffix: "s",
+    pluralWord: undefined
+  }
+) => {
+  const pluralWord = options.pluralWord ?? `${noun}${options.suffix ?? "s"}`;
+  return count === 1 ? noun : pluralWord;
+};

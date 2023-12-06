@@ -1,26 +1,48 @@
 ---
 title: Humanize your content
-description: How to make your content more human
+description: Readable content is important. Small changes go a long way.
 shortDescription:
 date: "2023-12-12"
 authors:
   - tommy
 ---
 
-Too often we see content that is written in a way that is not human. It's written in a way that is not natural. An example of this would be numbers from code pasted into paragraphs. `2 year ago` is not a natural way to write a number. It should be `two years ago`. And even better it could be `two years ago`.
+Too often we see content that is written in a way that is not human. It's written in a way that is not natural. An example of this would be numbers from code pasted into paragraphs.
+
+```ts
+function VisualizeYear() {
+  const year = 2;
+
+  return <p>{`${year} year ago`}</p>; // 2 year ago
+}
+```
+
+`2 year ago` is not a natural way to write a number. It should be `2 years ago`. And even better it could be `two years ago`.
 
 How do we achive this?
 
 ## Pluralize
 
-We have a function called `simplePluralize` that will pluralize a word based on a number. It will also handle irregular words.
+We have a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with a optional third argument to account for words like `child` and `person`.
 
 ```ts
-export const simplePluralize = (noun: string, count: number, suffix: string = "s") =>
-  `${noun}${count !== 1 ? suffix : ""}`;
+export const simplePluralize = (
+  noun: string,
+  count: number,
+  options: {
+    suffix?: string;
+    pluralWord?: string;
+  } = {
+    suffix: "s",
+    pluralWord: undefined
+  }
+) => {
+  const pluralWord = options.pluralWord ?? `${noun}${options.suffix ?? "s"}`;
+  return count === 1 ? noun : pluralWord;
+};
 ```
 
-Here we set the default suffix to `s`. This is because most words will just add an `s` to the end. But there are some words that will need to be handled differently. For example `child` will become `children` and `person` will become `people`. We can handle this by passing in the suffix as the third argument.
+Here we set the default suffix to `s`. This is because most words will just add an `s` to the end. But there are some words (as mentioned above) that will need to be handled differently. For example `child` will become `children` and `person` will become `people`. We can handle this by passing in the suffix as the third argument.
 
 We can use this function like this:
 
@@ -32,4 +54,192 @@ simplePluralize("year", years); // years
 const months = 1;
 
 simplePluralize("month", months); // month
+
+const children = 2;
+
+simplePluralize("child", children, { suffix: "ren" }); // children
+
+const people = 2;
+
+simplePluralize("person", people, { pluralWord: "people" }); // people
 ```
+
+This is a good start, but we can do better.
+
+## Humanize numbers
+
+With the help of a utility function called `numberToWords` we can make our numbers more human.
+
+```ts
+const a = [
+  "",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen"
+];
+
+const b = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+const convertHundreds = (num: number) => {
+  let result = "";
+
+  if (num > 99) {
+    result += a[Math.floor(num / 100)] + " hundred";
+    num %= 100;
+    if (num > 0) result += " ";
+  }
+  if (num > 19) {
+    result += b[Math.floor(num / 10)];
+    num %= 10;
+    if (num > 0) result += " ";
+  }
+  if (num > 0) {
+    result += a[num];
+  }
+
+  return result;
+};
+
+export const numberToWords = (input: string | number | undefined | null): string => {
+  if (input === undefined || input === null || isNaN(Number(input))) {
+    return "";
+  }
+
+  const number = typeof input === "string" ? Number(input) : input;
+  if (number === 0) return "zero";
+
+  if (number < 0 || number >= 1e12) {
+    return number.toLocaleString();
+  }
+
+  let result = "";
+  const billion = Math.floor(number / 1e9);
+  const million = Math.floor((number % 1e9) / 1e6);
+  const thousand = Math.floor((number % 1e6) / 1e3);
+  const remainder = number % 1e3;
+
+  if (billion > 0) result += convertHundreds(billion) + " billion ";
+  if (million > 0) result += convertHundreds(million) + " million ";
+  if (thousand > 0) result += convertHundreds(thousand) + " thousand ";
+  if (remainder > 0) result += convertHundreds(remainder);
+
+  return result.trim();
+};
+```
+
+This function will convert a number to words. For example `2` will become `two` and `12` will become `twelve`. It can also handle big numbers like `1234567890` that will become `one billion two hundred thirty four million five hundred sixty seven thousand eight hundred ninety`. But humanizing big numbers might not be the best idea, but it can work marvels for smaller numbers.
+
+We can use this function like this:
+
+```ts
+const year = 2;
+
+`${numberToWords(year)} ${simplePluralize("year", year)}`; // two years
+```
+
+## Humanize dates
+
+There are several good examples of how to humanize dates and we'll walk through two of them that I happen to use a lot.
+
+### Duration
+
+Let's say we want to show the duration from a date up until now with text. For example from `2021-01-01` to `2023-12-01` we want to show `2 years and 11 months`.
+
+If you want to copy the `intervalToDuration` function you can find it at the bottom of this page.
+
+```ts
+export const getDurationAsYearsAndMonths = (startDate: Date, endDate: Date): string => {
+  const { years, months } = intervalToDuration(startDate, endDate);
+
+  if (years === 0 && months === 0) {
+    return "less than a month";
+  }
+
+  if (years === 0) {
+    return `${months} ${simplePluralize("month", months)}`;
+  }
+
+  if (months === 0) {
+    return `${years} ${simplePluralize("year", years)}`;
+  }
+
+  return `${years} ${simplePluralize("year", years)} and ${months} ${simplePluralize(
+    "month",
+    months
+  )}`;
+};
+```
+
+This function will take two dates and return a string with the duration between them. It will return `less than a month` if the duration is less than a month. It will return `2 months` if the duration is 2 months. It will return `2 years and 11 months` if the duration is 2 years and 11 months.
+
+On some scenarios this can be easier on the eyes than just outputting the duration in dates like `2021-01-01 — 2023-12-01`. On example of this is LinkedIn's experience section that [I shamelessly copied for my own CV](/cv/experience).
+
+### Time ago
+
+Let's say we want to show how long ago something happened. In this case we always want to show the greatest unit. This means if year is greater than 0 we only show years. If months is greater than 0 we only show months. And so on.
+
+For example `2023-12-2` to `now` should show <TimeAgo />.
+
+```tsx
+export const getHumanizedDateFromNow = (date: Date) => {
+  const now = new Date();
+
+  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, now);
+
+  if (years && years > 0) {
+    return `${years} ${simplePluralize("year", hours)}`;
+  }
+
+  if (months && months > 0) {
+    return `${months} ${simplePluralize("month", hours)}`;
+  }
+
+  if (weeks && weeks > 0) {
+    return `${weeks} ${simplePluralize("week", hours)}`;
+  }
+
+  if (days && days > 0) {
+    return `${days} ${simplePluralize("day", hours)}`;
+  }
+
+  if (hours && hours > 0) {
+    return `${hours} ${simplePluralize("hour", hours)}`;
+  }
+
+  if (minutes && minutes > 0) {
+    return `${minutes} ${simplePluralize("minute", minutes)}`;
+  }
+
+  if (seconds && seconds > 0) {
+    return `${seconds} ${simplePluralize("second", seconds)}`;
+  }
+
+  return "now";
+};
+```
+
+I use this function to show how long ago I wrote a post. For example `2 years ago` or `2 months ago`. But the use cases are endless.
+
+One great way to incorporate humanized dates is to use it directly withing a paragraph like I do for my frontpage where I highlight how many years I've been working as a developer.
+
+## Conclusion
+
+Readable content is more important that you think, and small changes can make a big difference.
+
+I hope you found this article useful. If you have any questions or feedback please [reach out to me](/connect).
