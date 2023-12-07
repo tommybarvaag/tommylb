@@ -1,5 +1,6 @@
 import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { ActiveWorkYears as ActiveWorkYearsRoot } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import { Callout } from "@/components/mdx/callout";
@@ -116,7 +117,12 @@ const components = {
         {getHumanizedDateFromNow(new Date(2023, 11, 2))} ago
       </Component>
     );
-  }
+  },
+  ActiveWorkYears: ({ ...props }) => (
+    <Text className="mb-0 mt-6 leading-7" {...props}>
+      <ActiveWorkYearsRoot />
+    </Text>
+  )
 };
 
 type MdxProps = React.ComponentPropsWithoutRef<"div"> & {

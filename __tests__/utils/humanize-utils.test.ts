@@ -1,4 +1,4 @@
-import { numberToWords } from "@/utils/humanize-utils";
+import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
 import { describe, expect, it } from "@jest/globals";
 
 describe("numberToWords", () => {
@@ -102,5 +102,37 @@ describe("numberToWords", () => {
     expect(numberToWords(100000000000000)).toBe("100,000,000,000,000");
     expect(numberToWords(123456789012345)).toBe("123,456,789,012,345");
     expect(numberToWords(987654321098765)).toBe("987,654,321,098,765");
+  });
+});
+
+describe("simplePluralize", () => {
+  it("should return the singular noun when count is 1", () => {
+    expect(simplePluralize("apple", 1)).toBe("apple");
+    expect(simplePluralize("car", 1)).toBe("car");
+    expect(simplePluralize("book", 1)).toBe("book");
+  });
+
+  it("should return the plural noun when count is not 1", () => {
+    expect(simplePluralize("apple", 0)).toBe("apples");
+    expect(simplePluralize("car", 2)).toBe("cars");
+    expect(simplePluralize("book", 5)).toBe("books");
+  });
+
+  it("should use the provided plural word when count is not 1", () => {
+    expect(simplePluralize("apple", 0, { pluralWord: "fruit" })).toBe("fruit");
+    expect(simplePluralize("car", 2, { pluralWord: "vehicles" })).toBe("vehicles");
+    expect(simplePluralize("book", 5, { pluralWord: "books" })).toBe("books");
+  });
+
+  it("should use the provided suffix when count is not 1", () => {
+    expect(simplePluralize("apple", 0, { suffix: "s" })).toBe("apples");
+    expect(simplePluralize("car", 2, { suffix: "s" })).toBe("cars");
+    expect(simplePluralize("book", 5, { suffix: "s" })).toBe("books");
+  });
+
+  it("should use the provided plural word and suffix when count is not 1", () => {
+    expect(simplePluralize("apple", 0, { pluralWord: "fruit", suffix: "s" })).toBe("fruit");
+    expect(simplePluralize("car", 2, { pluralWord: "vehicles", suffix: "es" })).toBe("vehicles");
+    expect(simplePluralize("book", 5, { pluralWord: "books", suffix: "s" })).toBe("books");
   });
 });
