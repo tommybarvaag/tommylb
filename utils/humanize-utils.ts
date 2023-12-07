@@ -1,66 +1,85 @@
-const a: string[] = [
+const a = [
   "",
-  "one ",
-  "two ",
-  "three ",
-  "four ",
-  "five ",
-  "six ",
-  "seven ",
-  "eight ",
-  "nine ",
-  "ten ",
-  "eleven ",
-  "twelve ",
-  "thirteen ",
-  "fourteen ",
-  "fifteen ",
-  "sixteen ",
-  "seventeen ",
-  "eighteen ",
-  "nineteen "
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen"
 ];
 
-const b: string[] = [
-  "",
-  "",
-  "twenty",
-  "thirty",
-  "forty",
-  "fifty",
-  "sixty",
-  "seventy",
-  "eighty",
-  "ninety"
-];
+const b = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
-const regex = /^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/;
+const convertHundreds = (num: number) => {
+  let result = "";
 
-const getLT20 = (n: string) => a[Number(n)];
-const getGT20 = (n: string) => b[parseInt(n[0])] + " " + a[parseInt(n[1])];
-
-export const numberToWords = (input: string | number): string => {
-  const number = typeof input === "string" ? Number(input) : input;
-  if (isNaN(number)) return "";
-  if (number === 0) return "zero";
-
-  const numberString = number.toString();
-  if (numberString.length > 9) {
-    throw new Error("overflow"); // Does not support converting more than 9 digits yet
+  if (num > 99) {
+    result += a[Math.floor(num / 100)] + " hundred";
+    num %= 100;
+    if (num > 0) result += " ";
+  }
+  if (num > 19) {
+    result += b[Math.floor(num / 10)];
+    num %= 10;
+    if (num > 0) result += " ";
+  }
+  if (num > 0) {
+    result += a[num];
   }
 
-  const [, n1, n2, n3, n4, n5] = ("000000000" + numberString).slice(-9).match(regex); // left pad zeros
-
-  let value = "";
-  value += +n1 !== 0 ? (getLT20(n1) || getGT20(n1)) + "crore " : "";
-  value += +n2 !== 0 ? (getLT20(n2) || getGT20(n2)) + "lakh " : "";
-  value += +n3 !== 0 ? (getLT20(n3) || getGT20(n3)) + "thousand " : "";
-  value += +n4 !== 0 ? getLT20(n4) + "hundred " : "";
-  value += +n5 !== 0 && value !== "" ? "and " : "";
-  value += +n5 !== 0 ? getLT20(n5) || getGT20(n5) : "";
-
-  return value.trim();
+  return result;
 };
 
-export const simplePluralize = (noun: string, count: number, suffix: string = "s") =>
-  `${noun}${count !== 1 ? suffix : ""}`;
+export const numberToWords = (input: string | number | undefined | null): string => {
+  if (input === undefined || input === null || isNaN(Number(input))) {
+    return "";
+  }
+
+  const number = typeof input === "string" ? Number(input) : input;
+  if (number === 0) return "zero";
+
+  if (number < 0 || number >= 1e12) {
+    return number.toLocaleString();
+  }
+
+  let result = "";
+  const billion = Math.floor(number / 1e9);
+  const million = Math.floor((number % 1e9) / 1e6);
+  const thousand = Math.floor((number % 1e6) / 1e3);
+  const remainder = number % 1e3;
+
+  if (billion > 0) result += convertHundreds(billion) + " billion ";
+  if (million > 0) result += convertHundreds(million) + " million ";
+  if (thousand > 0) result += convertHundreds(thousand) + " thousand ";
+  if (remainder > 0) result += convertHundreds(remainder);
+
+  return result.trim();
+};
+
+export const simplePluralize = (
+  noun: string,
+  count: number,
+  options: {
+    suffix?: string;
+    pluralWord?: string;
+  } = {
+    suffix: "s",
+    pluralWord: undefined
+  }
+) => {
+  const pluralWord = options.pluralWord ?? `${noun}${options.suffix ?? "s"}`;
+  return count === 1 ? noun : pluralWord;
+};

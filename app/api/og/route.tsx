@@ -4,6 +4,23 @@ import { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
+function getFontSize(heading: string) {
+  switch (true) {
+    case heading.length > 80:
+      return "70px";
+    case heading.length > 50:
+      return "80px";
+    case heading.length > 45:
+      return "90px";
+    case heading.length > 40:
+      return "100px";
+    case heading.length > 35:
+      return "110px";
+    default:
+      return "120px";
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const fontRegular = fetch(
@@ -28,7 +45,7 @@ export async function GET(request: NextRequest) {
     const { mode } = values;
     const paint = mode === "dark" ? "#fafafa" : "#18181b";
 
-    const fontSize = heading.length > 100 ? "70px" : "100px";
+    let fontSize = getFontSize(heading);
 
     return new ImageResponse(
       (

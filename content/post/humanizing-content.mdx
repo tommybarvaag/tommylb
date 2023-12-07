@@ -1,0 +1,358 @@
+---
+title: Humanize your content
+description: Explore the art of humanizing digital content to improve readability and engagement. Simple tweaks can make a significant impact on your audience's experience.
+shortDescription: Readable content is important. Small changes go a long way.
+date: "2023-12-07"
+authors:
+  - tommy
+---
+
+In a digital landscape brimming with information, the way content resonates with users can make all the difference. **Humanizing** our digital interactions through _natural language_ not only captures attention but fosters a connection that can transcend the screen.
+
+By transforming numerical data and system outputs into engaging narratives, we can enhance readability and evoke a sense of familiarity. This shift towards a more conversational tone aligns with our innate preference for stories over statistics, inviting users into a space that feels more personal and less programmed.
+
+Let's explore how we can infuse our digital content with the warmth of human conversation, thereby deepening user engagement and enriching the online experience.
+
+## To the point
+
+Too often I see content that is written in a way that is not **human**. It's written in a way that is not _natural_. An example of this would be numbers from code pasted into paragraphs.
+
+```ts
+function VisualizeYear() {
+  const year = 2;
+
+  return <p>{`${year} year ago`}</p>; // 2 year ago
+}
+```
+
+`2 year ago` is not a natural way to represent years to text. It should be `2 years ago` — pluralized. And even better it could be `two years ago`.
+
+How do we achieve this?
+
+## Pluralization
+
+We create a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with an optional third argument to account for words like `child` and `person`.
+
+```ts
+export const simplePluralize = (
+  noun: string,
+  count: number,
+  options: {
+    suffix?: string;
+    pluralWord?: string;
+  } = {
+    suffix: "s",
+    pluralWord: undefined
+  }
+) => {
+  const pluralWord = options.pluralWord ?? `${noun}${options.suffix ?? "s"}`;
+  return count === 1 ? noun : pluralWord;
+};
+```
+
+Here we set the default suffix to `s`. This is because most words will just add an `s` to the end. But there are some words (as mentioned above) that will need to be handled differently. For example `child` will become `children` and `person` will become `people`. We can handle this by passing in the suffix as the third argument.
+
+We can use this function like this:
+
+```ts
+const year = 2;
+
+simplePluralize("year", years); // years
+
+const months = 1;
+
+simplePluralize("month", months); // month
+
+const children = 2;
+
+simplePluralize("child", children, { suffix: "ren" }); // children
+
+const people = 2;
+
+simplePluralize("person", people, { pluralWord: "people" }); // people
+```
+
+This is a good start, but we can do better.
+
+## Humanize numbers
+
+With the help of a utility function called `numberToWords` we can make our numbers more human.
+
+```ts
+const a = [
+  "",
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+  "seventeen",
+  "eighteen",
+  "nineteen"
+];
+
+const b = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+const convertHundreds = (num: number) => {
+  let result = "";
+
+  if (num > 99) {
+    result += a[Math.floor(num / 100)] + " hundred";
+    num %= 100;
+    if (num > 0) result += " ";
+  }
+  if (num > 19) {
+    result += b[Math.floor(num / 10)];
+    num %= 10;
+    if (num > 0) result += " ";
+  }
+  if (num > 0) {
+    result += a[num];
+  }
+
+  return result;
+};
+
+export const numberToWords = (input: string | number | undefined | null): string => {
+  if (input === undefined || input === null || isNaN(Number(input))) {
+    return "";
+  }
+
+  const number = typeof input === "string" ? Number(input) : input;
+  if (number === 0) return "zero";
+
+  if (number < 0 || number >= 1e12) {
+    return number.toLocaleString();
+  }
+
+  let result = "";
+  const billion = Math.floor(number / 1e9);
+  const million = Math.floor((number % 1e9) / 1e6);
+  const thousand = Math.floor((number % 1e6) / 1e3);
+  const remainder = number % 1e3;
+
+  if (billion > 0) result += convertHundreds(billion) + " billion ";
+  if (million > 0) result += convertHundreds(million) + " million ";
+  if (thousand > 0) result += convertHundreds(thousand) + " thousand ";
+  if (remainder > 0) result += convertHundreds(remainder);
+
+  return result.trim();
+};
+```
+
+This function will convert a number to words. For example `2` will become `two` and `12` will become `twelve`. "It can also handle larger numbers, like `1234567890` which it will convert to `one billion two hundred thirty four million five hundred sixty seven thousand eight hundred ninety`. But humanizing big numbers might not be the best idea, but it can work marvels for smaller numbers.
+
+We can use this function like this:
+
+```ts
+const year = 2;
+
+`${numberToWords(year)} ${simplePluralize("year", year)}`; // two years
+```
+
+## Humanize dates
+
+There are several good examples of how to humanize dates and we'll walk through two of them that I happen to use a lot.
+
+### Duration
+
+Let's say we want to display the duration from a specific date up until now in text form. For example from `2021-01-01` to `2023-12-01` we want to show `2 years and 11 months`.
+
+If you want to copy the `intervalToDuration` function you can find it at the bottom of this page.
+
+```ts
+export const getDurationAsYearsAndMonths = (startDate: Date, endDate: Date): string => {
+  const { years, months } = intervalToDuration(startDate, endDate);
+
+  if (years === 0 && months === 0) {
+    return "less than a month";
+  }
+
+  if (years === 0) {
+    return `${months} ${simplePluralize("month", months)}`;
+  }
+
+  if (months === 0) {
+    return `${years} ${simplePluralize("year", years)}`;
+  }
+
+  return `${years} ${simplePluralize("year", years)} and ${months} ${simplePluralize(
+    "month",
+    months
+  )}`;
+};
+```
+
+This function will take two dates and return a string with the duration between them. It will return `less than a month` if the duration is less than a month. It will return `2 months` if the duration is 2 months. It will return `2 years and 11 months` if the duration is 2 years and 11 months.
+
+On some scenarios this can be easier on the eyes than just outputting the duration in dates like `2021-01-01 — 2023-12-01`. On example of this is LinkedIn's experience section that [I shamelessly copied for my own CV](/cv/experience).
+
+### Time ago
+
+Let's say we want to show how long ago something happened. In this case we always want to show the greatest unit. This means if the year value is greater than 0, we display the duration in years only. If months is greater than 0 we only show months. And so on.
+
+For example `2023-12-2` to `now` should show <TimeAgo />.
+
+```tsx
+export const getHumanizedDateFromNow = (date: Date) => {
+  const now = new Date();
+
+  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, now);
+
+  if (years && years > 0) {
+    return `${years} ${simplePluralize("year", hours)}`;
+  }
+
+  if (months && months > 0) {
+    return `${months} ${simplePluralize("month", hours)}`;
+  }
+
+  if (weeks && weeks > 0) {
+    return `${weeks} ${simplePluralize("week", hours)}`;
+  }
+
+  if (days && days > 0) {
+    return `${days} ${simplePluralize("day", hours)}`;
+  }
+
+  if (hours && hours > 0) {
+    return `${hours} ${simplePluralize("hour", hours)}`;
+  }
+
+  if (minutes && minutes > 0) {
+    return `${minutes} ${simplePluralize("minute", minutes)}`;
+  }
+
+  if (seconds && seconds > 0) {
+    return `${seconds} ${simplePluralize("second", seconds)}`;
+  }
+
+  return "now";
+};
+```
+
+I use this function to show how long ago I wrote a post. For example `2 years ago` or `2 months ago`. For an e-commerce site you could use this to show how long ago the last purchase of a item was. For example `Last purchase was 39 minutes ago`. The opportunities are endless.
+
+A practical application of humanized dates on my website is seamlessly integrating them into narratives, as exemplified on my homepage. Here, I showcase my tenure as a developer, transforming a simple duration into a story. This method not only enhances readability but also adds a personal touch.
+
+> <ActiveWorkYears />
+
+The code for this is pretty straight forward when we take into account the functions we've already created.
+
+```tsx
+import Link from "@/components/link";
+import { intervalToDuration } from "@/utils/date-utils";
+import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
+
+const getActiveWorkYears = () => {
+  const duration = intervalToDuration(new Date(2014, 0, 1), new Date());
+
+  return `${numberToWords(duration.years)} ${simplePluralize("year", duration.years)}`;
+};
+
+function ActiveWorkYears() {
+  return (
+    <>
+      I&apos;ve spent the <Link href="/cv/about">last {getActiveWorkYears()}</Link> creating web
+      solutions for great companies. Experimenting with new technologies and learning new things is
+      what I love the most.
+    </>
+  );
+}
+
+export { ActiveWorkYears };
+```
+
+## The benefits
+
+The improvements to the general readability of content are obvious, but there are other benefits to humanizing content.
+
+### Improving SEO
+
+Humanizing content significantly benefits SEO in several ways. Search engines increasingly use [Natural Language Processing (NLP)](https://en.wikipedia.org/wiki/Natural_language_processing) to understand content better, meaning humanized, conversational content is more likely to align with search algorithms, enhancing search rankings.
+
+Engaging, natural content can improve user engagement metrics like longer session times and lower bounce rates, which search engines view as indicators of quality and relevance.
+
+As voice search grows in popularity, conversational content matches better with spoken search queries, improving visibility in voice search results. By aligning closely with how users naturally search and interact, humanized content creates a more effective SEO strategy.
+
+### User trust
+
+Relatable and natural language makes content more accessible and engaging, building a connection with the audience. Clear and straightforward communication reduces confusion, fostering confidence in the content's accuracy and reliability.
+
+A consistent, humanized tone across various platforms solidifies a trustworthy brand image. By presenting information in a way that mirrors everyday conversation, websites can cultivate a more trustworthy and user-friendly online environment.
+
+## Conclusion
+
+Readable content is more important than you think, and small changes can make a big difference.
+
+I hope you found this article useful. If you have any questions or feedback please [reach out to me](/connect).
+
+## The promised `intervalToDuration` function
+
+I recently revised my codebase to remove some undesired dependencies. One of them was `date-fns` and I had to rewrite the `intervalToDuration` function. I ended up with this. Feel free to copy it along with everything else you find useful on this page.
+
+```ts
+export const intervalToDuration = (startDate: Date, endDate: Date) => {
+  // Ensure startDate is earlier than endDate, swap if not
+  if (startDate > endDate) {
+    [startDate, endDate] = [endDate, startDate];
+  }
+
+  // Extracting year, month, and day components from start and end dates
+  const startYear = startDate.getFullYear();
+  const endYear = endDate.getFullYear();
+  const startMonth = startDate.getMonth();
+  const endMonth = endDate.getMonth();
+  const startDay = startDate.getDate();
+  const endDay = endDate.getDate();
+
+  // Calculate total years difference
+  const years = endYear - startYear;
+
+  // Calculate months difference; adjust for negative difference
+  const monthsDiff = endMonth - startMonth;
+  let months = monthsDiff >= 0 ? monthsDiff : monthsDiff + 12;
+  let yearsAdjusted = monthsDiff >= 0 ? years : years - 1;
+
+  // Calculate days difference; adjust for negative difference
+  // Using the last day of the previous month for accurate calculation
+  const daysDiff = endDay - startDay;
+  const lastDayOfPrevMonth = new Date(endYear, endMonth, 0).getDate();
+  let days = daysDiff >= 0 ? daysDiff : daysDiff + lastDayOfPrevMonth;
+  if (daysDiff < 0) months--;
+
+  // Calculate the total difference in seconds
+  const totalDiffInSeconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
+
+  // Convert total seconds to weeks and remaining days
+  const daysFromSeconds = Math.floor(totalDiffInSeconds / (3600 * 24));
+  const weeks = Math.floor(daysFromSeconds / 7);
+  days -= weeks * 7; // Adjust days to remove the full weeks
+
+  // Convert remaining seconds to hours, minutes, and seconds
+  const hours = Math.floor(totalDiffInSeconds / 3600) % 24;
+  const minutes = Math.floor(totalDiffInSeconds / 60) % 60;
+  const seconds = totalDiffInSeconds % 60;
+
+  return {
+    years: yearsAdjusted,
+    months,
+    weeks,
+    days,
+    hours,
+    minutes,
+    seconds
+  };
+};
+```
