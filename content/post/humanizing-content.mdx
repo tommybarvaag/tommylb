@@ -7,7 +7,7 @@ authors:
   - tommy
 ---
 
-In a digital landscape brimming with information, the way content resonates with users can make all the difference. **Humanizing** our digital interactions through _natural language_ not only captures attention but fosters a connection that can trancend the screen.
+In a digital landscape brimming with information, the way content resonates with users can make all the difference. **Humanizing** our digital interactions through _natural language_ not only captures attention but fosters a connection that can transcend the screen.
 
 By transforming numerical data and system outputs into engaging narratives, we can enhance readability and evoke a sense of familiarity. This shift towards a more conversational tone aligns with our innate preference for stories over statistics, inviting users into a space that feels more personal and less programmed.
 
@@ -27,11 +27,11 @@ function VisualizeYear() {
 
 `2 year ago` is not a natural way to represent years to text. It should be `2 years ago` — pluralized. And even better it could be `two years ago`.
 
-How do we achive this?
+How do we achieve this?
 
 ## Pluralize
 
-We create a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with a optional third argument to account for words like `child` and `person`.
+We create a function called `simplePluralize` that will pluralize a word based on a number. It will also handle "irregular words" with an optional third argument to account for words like `child` and `person`.
 
 ```ts
 export const simplePluralize = (
@@ -151,7 +151,7 @@ export const numberToWords = (input: string | number | undefined | null): string
 };
 ```
 
-This function will convert a number to words. For example `2` will become `two` and `12` will become `twelve`. It can also handle big numbers like `1234567890` that will become `one billion two hundred thirty four million five hundred sixty seven thousand eight hundred ninety`. But humanizing big numbers might not be the best idea, but it can work marvels for smaller numbers.
+This function will convert a number to words. For example `2` will become `two` and `12` will become `twelve`. "It can also handle larger numbers, like `1234567890` which it will convert to `one billion two hundred thirty four million five hundred sixty seven thousand eight hundred ninety`. But humanizing big numbers might not be the best idea, but it can work marvels for smaller numbers.
 
 We can use this function like this:
 
@@ -167,7 +167,7 @@ There are several good examples of how to humanize dates and we'll walk through 
 
 ### Duration
 
-Let's say we want to show the duration from a date up until now with text. For example from `2021-01-01` to `2023-12-01` we want to show `2 years and 11 months`.
+Let's say we want to display the duration from a specific date up until now in text form. For example from `2021-01-01` to `2023-12-01` we want to show `2 years and 11 months`.
 
 If you want to copy the `intervalToDuration` function you can find it at the bottom of this page.
 
@@ -200,7 +200,7 @@ On some scenarios this can be easier on the eyes than just outputting the durati
 
 ### Time ago
 
-Let's say we want to show how long ago something happened. In this case we always want to show the greatest unit. This means if year is greater than 0 we only show years. If months is greater than 0 we only show months. And so on.
+Let's say we want to show how long ago something happened. In this case we always want to show the greatest unit. This means if the year value is greater than 0, we display the duration in years only. If months is greater than 0 we only show months. And so on.
 
 For example `2023-12-2` to `now` should show <TimeAgo />.
 
@@ -242,7 +242,7 @@ export const getHumanizedDateFromNow = (date: Date) => {
 };
 ```
 
-I use this function to show how long ago I wrote a post. For example `2 years ago` or `2 months ago`. For an e-commerce site you could use this to show how long ago the last purchase of a item was. For example `Last purchase was 39 minutes ago`. The oppurtunities are endless.
+I use this function to show how long ago I wrote a post. For example `2 years ago` or `2 months ago`. For an e-commerce site you could use this to show how long ago the last purchase of a item was. For example `Last purchase was 39 minutes ago`. The opportunities are endless.
 
 A practical application of humanized dates on my website is seamlessly integrating them into narratives, as exemplified on my homepage. Here, I showcase my tenure as a developer, transforming a simple duration into a story. This method not only enhances readability but also adds a personal touch.
 
@@ -268,13 +268,13 @@ A consistent, humanized tone across various platforms solidifies a trustworthy b
 
 ## Conclusion
 
-Readable content is more important that you think, and small changes can make a big difference.
+Readable content is more important than you think, and small changes can make a big difference.
 
 I hope you found this article useful. If you have any questions or feedback please [reach out to me](/connect).
 
 ## The promised `intervalToDuration` function
 
-I recently worked through a small rewrite where I wanted to remove some undesired dependencies. One of them was `date-fns` and I had to rewrite the `intervalToDuration` function. I ended up with this. Feel free to copy it along with everything else you find useful on this page.
+I recently revised my codebase to remove some undesired dependencies. One of them was `date-fns` and I had to rewrite the `intervalToDuration` function. I ended up with this. Feel free to copy it along with everything else you find useful on this page.
 
 ```ts
 export const intervalToDuration = (startDate: Date, endDate: Date) => {
