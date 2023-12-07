@@ -248,6 +248,32 @@ A practical application of humanized dates on my website is seamlessly integrati
 
 > <ActiveWorkYears />
 
+The code for this is pretty straight forward when we take into account the functions we've already created.
+
+```tsx
+import Link from "@/components/link";
+import { intervalToDuration } from "@/utils/date-utils";
+import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
+
+const getActiveWorkYears = () => {
+  const duration = intervalToDuration(new Date(2014, 0, 1), new Date());
+
+  return `${numberToWords(duration.years)} ${simplePluralize("year", duration.years)}`;
+};
+
+function ActiveWorkYears() {
+  return (
+    <>
+      I&apos;ve spent the <Link href="/cv/about">last {getActiveWorkYears()}</Link> creating web
+      solutions for great companies. Experimenting with new technologies and learning new things is
+      what I love the most.
+    </>
+  );
+}
+
+export { ActiveWorkYears };
+```
+
 ## The benefits
 
 The improvements to the general readability of content are obvious, but there are other benefits to humanizing content.
