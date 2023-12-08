@@ -1,6 +1,7 @@
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
@@ -35,6 +36,7 @@ export default function RootLayout({
       <body className="bg-zinc-900 text-zinc-50">
         {children}
         {modal}
+        <SpeedInsights />
         <VercelAnalytics />
       </body>
       <Script id="json-ld-data" type="application/ld+json">
