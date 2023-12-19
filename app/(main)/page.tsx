@@ -22,7 +22,8 @@ async function getLastStravaActivity() {
       sufferScore: true,
       hasHeartRate: true,
       averageHeartRate: true,
-      startDateLocal: true
+      startDateLocal: true,
+      distanceInKilometers: true
     }
   });
 
@@ -123,9 +124,13 @@ export default async function Home() {
                   </Heading>
                 </Link>
                 <Text variant="small" noMargin>
-                  {`${activity.type} with a suffering score of ${
+                  {`${
                     activity.sufferScore
-                  } and an average heart rate of ${activity.averageHeartRate?.toString()}.`}
+                      ? `${activity.type} with a suffering score of ${activity.sufferScore} and`
+                      : `${
+                          activity.distanceInKilometers
+                        } km ${activity.type?.toLocaleLowerCase()} with`
+                  } an average heart rate of ${activity.averageHeartRate?.toString()}.`}
                 </Text>
               </li>
             ))}
