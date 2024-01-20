@@ -20,6 +20,7 @@ import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
 import { type ProjectExperienceItem } from "@/data/project-experience-data";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -59,7 +60,14 @@ function ProjectExperience({
         </DrawerClose>
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
           <Image
-            className="select-none rounded-t-[10px] border-x border-t border-zinc-900 object-cover object-center brightness-90"
+            className={cn(
+              "select-none rounded-t-[10px] border-x border-t border-zinc-900 object-cover object-center brightness-90",
+              {
+                "object-top": projectExperience.images?.[0]?.bannerObjectPosition === "top",
+                "object-center": projectExperience.images?.[0]?.bannerObjectPosition === "center",
+                "object-bottom": projectExperience.images?.[0]?.bannerObjectPosition === "bottom"
+              }
+            )}
             src={projectExperience.images?.[0].src}
             alt={projectExperience.images?.[0].alt}
             fill

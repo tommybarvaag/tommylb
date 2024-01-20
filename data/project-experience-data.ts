@@ -13,6 +13,7 @@ type ProjectExperienceItem = {
     alt: string;
     height?: number;
     width?: number;
+    bannerObjectPosition?: "top" | "center" | "bottom";
   }[];
   roles: {
     title: string;
@@ -266,6 +267,60 @@ const projectExperienceData: ProjectExperienceItem[] = [
   },
   {
     id: 6,
+    title: "kxb.app",
+    clientName: "Knowit Experience Bergen AS",
+    slug: "knowit-experience-bergen-as-kxb-app",
+    description: ["Coming..."],
+    summary:
+      "Internal project for Knowit Experience Bergen AS. Estimating commission salary. Built with React, React Server Components, Server Actions, Next.js, Tailwind CSS, Vercel, Resend, PlanetScale, and MySQL.",
+    startDate: "2020-05",
+    endDate: "2023-12",
+    technologies: [
+      "React",
+      "Next.js",
+      "Tailwind CSS",
+      "Vercel",
+      "Resend",
+      "PlanetScale",
+      "MySQL",
+      "React Server Components"
+    ],
+    images: [
+      {
+        src: "/images/cv/projects/kxb-app-1.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app",
+        bannerObjectPosition: "top"
+      },
+      {
+        src: "/images/cv/projects/kxb-app-2.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app"
+      },
+      {
+        src: "/images/cv/projects/kxb-app-3.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app"
+      },
+      {
+        src: "/images/cv/projects/kxb-app-4.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app"
+      },
+      {
+        src: "/images/cv/projects/kxb-app-5.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app"
+      },
+      {
+        src: "/images/cv/projects/kxb-app-6.webp",
+        alt: "Knowit Experience Bergen AS — kxb.app"
+      }
+    ],
+    roles: [
+      {
+        title: "Lead",
+        description: ""
+      }
+    ]
+  },
+  {
+    id: 7,
     title: "Onboarding wizard",
     clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-onboarding-wizard",
@@ -315,7 +370,7 @@ const projectExperienceData: ProjectExperienceItem[] = [
     ]
   },
   {
-    id: 7,
+    id: 8,
     title: "Beer as a Service",
     clientName: "Hansa Borg Bryggerier AS",
     slug: "hansa-borg-bryggerier-as-beer-as-a-service",
