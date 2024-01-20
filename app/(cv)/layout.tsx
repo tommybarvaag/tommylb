@@ -44,9 +44,9 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                   <CardDescription>Senior front-end specialist</CardDescription>
                 </div>
               </CardHeader>
-              <CardContent>
+              {/* <CardContent>
                 <Badge variant="optimistic">Open for opportunities</Badge>
-              </CardContent>
+              </CardContent> */}
               <CardFooter>
                 <Link
                   href="/connect"

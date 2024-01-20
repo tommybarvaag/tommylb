@@ -1,5 +1,5 @@
-type CvWorkPlace = "Digitroll AS" | "Knowit Experience Bergen AS";
-type CvWorkPlaceTitle = "Senior Consultant" | "Developer";
+type CvWorkPlace = "Digitroll AS" | "Knowit Experience Bergen AS" | "Elmera Group ASA";
+type CvWorkPlaceTitle = "Senior Consultant" | "Developer" | "Senior system developer";
 
 type CvWorkExperience = {
   id: number;
@@ -104,13 +104,26 @@ const cvWorkExperience: CvWorkExperience[] = [
     workPlaceTitle: "Senior Consultant",
     area: "Bergen, Norway",
     fromDate: "2020-02-01",
-    toDate: new Date().toISOString().split("T")[0],
+    toDate: "2024-01-01",
     description: [
       "Spearheaded the development of a new webapp for Hansa Borg Bryggerier AS to drive innovation and digitalization withing the nightlife segment of the industry. The webapp was built using React, Next.js, TypeScript, Tailwind CSS, Azure and Azure DevOps. Utilizing the latest and greatest technologies to create a modern and scalable webapp with PWA capabilities.",
       "Assesed and administration of Hansa Borg Bryggerier AS Customer Portal. Continuously delivering new features and improvements to the customer portal."
     ],
     summary:
       "Contracted as a tech lead and senior consultant for Hansa Borg Bryggerier AS. Maintaining and developing the Digital Customer Portal and spearheading the development of a new webapp for the nightlife segment of the industry."
+  },
+  {
+    id: 4,
+    workPlace: "Elmera Group ASA",
+    workPlaceTitle: "Senior system developer",
+    area: "Bergen, Norway",
+    fromDate: "2024-01-01",
+    toDate: new Date().toISOString().split("T")[0],
+    description: [
+      "Working with several web solutions serving external and internal sale channels. The solutions are built using React, Next.js, TypeScript, Tailwind CSS, Azure and Azure DevOps."
+    ],
+    summary:
+      "Working with several web solutions serving external and internal sale channels. The solutions are built using React, Next.js, TypeScript, Tailwind CSS, Azure and Azure DevOps."
   }
 ];
 
