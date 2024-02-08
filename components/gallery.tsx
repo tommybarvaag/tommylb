@@ -16,7 +16,7 @@ export function GridTileImage({
   return (
     <div
       className={cn(
-        "group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border-2 bg-zinc-950 hover:border-blue-600",
+        "group flex size-full items-center justify-center overflow-hidden rounded-lg border-2 bg-zinc-950 hover:border-blue-600",
         {
           "border-2 border-blue-600": active,
           "border-zinc-700": !active
@@ -26,7 +26,7 @@ export function GridTileImage({
       {props.src ? (
         // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
         <Image
-          className={cn("relative h-full w-full object-contain", {
+          className={cn("relative size-full object-contain", {
             "transition duration-300 ease-in-out group-hover:scale-105": isInteractive
           })}
           {...props}
@@ -44,10 +44,10 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
 
   return (
     <>
-      <div className="relative aspect-square h-full max-h-[450px] w-full overflow-hidden">
+      <div className="relative aspect-square size-full max-h-[450px] overflow-hidden">
         {images[imageIndex] && (
           <Image
-            className="h-full w-full object-contain "
+            className="size-full object-contain "
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt={images[imageIndex]?.alt as string}
@@ -83,10 +83,10 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
             const isActive = index === imageIndex;
 
             return (
-              <li key={image.src} className="h-20 w-20">
+              <li key={image.src} className="size-20">
                 <button
                   aria-label="Enlarge product image"
-                  className="h-full w-full"
+                  className="size-full"
                   onClick={() => {
                     setImageIndex(index);
                   }}

@@ -159,7 +159,7 @@ export default async function PostPage({ params }: PostPageProps) {
       )}
       <Mdx code={post.body.code} tweets={tweets} />
       <hr className="my-6 border-zinc-700" />
-      <Suspense fallback={<Icons.Spinner className="h-5 w-5" />}>
+      <Suspense fallback={<Icons.Spinner className="size-5" />}>
         <PostViewCount slug={post.slugAsParams} />
       </Suspense>
     </article>

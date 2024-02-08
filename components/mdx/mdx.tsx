@@ -84,7 +84,7 @@ const components = {
   pre: ({ className, ...props }) => (
     <pre
       className={cn(
-        "mb-4 mt-6 overflow-x-auto rounded-lg border-x-4 border-b-4 border-t-4 border-zinc-950 border-b-zinc-950 border-t-zinc-950 bg-zinc-950 py-4",
+        "mb-4 mt-6 overflow-x-auto rounded-lg border-4 border-zinc-950 bg-zinc-950 py-4",
         className
       )}
       {...props}

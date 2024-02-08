@@ -54,8 +54,8 @@ function ProjectExperience({
     >
       <DrawerContent variant="scrollable">
         <DrawerClose asChild>
-          <Button className="absolute right-3 top-3 z-40 h-10 w-10 rounded-full p-0">
-            <Icons.X className="h-6 w-6" />
+          <Button className="absolute right-3 top-3 z-40 size-10 rounded-full p-0">
+            <Icons.X className="size-6" />
           </Button>
         </DrawerClose>
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">

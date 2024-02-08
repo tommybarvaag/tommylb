@@ -56,7 +56,7 @@ function ProjectExperienceLink({
         </div>
         <Icons.ArrowRight
           className={cn(
-            "h-5 w-5 text-zinc-400 transition-all group-hover/link:-rotate-90 group-hover/link:text-zinc-50",
+            "size-5 text-zinc-400 transition-all group-hover/link:-rotate-90 group-hover/link:text-zinc-50",
             {
               "-rotate-90 text-zinc-50": isActive
             }

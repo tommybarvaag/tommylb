@@ -138,19 +138,19 @@ export const getHumanizedDateFromNow = (date: Date) => {
   const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, now);
 
   if (years && years > 0) {
-    return `${years} ${simplePluralize("year", hours)}`;
+    return `${years} ${simplePluralize("year", years)}`;
   }
 
   if (months && months > 0) {
-    return `${months} ${simplePluralize("month", hours)}`;
+    return `${months} ${simplePluralize("month", months)}`;
   }
 
   if (weeks && weeks > 0) {
-    return `${weeks} ${simplePluralize("week", hours)}`;
+    return `${weeks} ${simplePluralize("week", weeks)}`;
   }
 
   if (days && days > 0) {
-    return `${days} ${simplePluralize("day", hours)}`;
+    return `${days} ${simplePluralize("day", days)}`;
   }
 
   if (hours && hours > 0) {

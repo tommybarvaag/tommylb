@@ -37,7 +37,7 @@ export function ShowPlatformClient({
     }
 
     checkPlatform();
-  }, []);
+  });
 
   return (
     <ShowPlatformContent

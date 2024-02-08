@@ -44,7 +44,7 @@ export default function ContactMeForm({ className, location, ...other }: Contact
         <TextArea id="message" name="message" label="Message" placeholder="My wishes..." required />
         <TextField id="location" name="location" label="Location" type="hidden" value={location} />
         <TextField id="phone" name="phone" label="Phone" type="hidden" />
-        <SubmitButton rightIcon={<Icons.Send className="h-5 w-5" />}>Send</SubmitButton>
+        <SubmitButton rightIcon={<Icons.Send className="size-5" />}>Send</SubmitButton>
         {state ? (
           <FormSubmitMessage
             text="I have recieved your inquiry and you'll hear from me soon."

@@ -23,9 +23,9 @@ const HistoryBackLink = forwardRef<HistoryBackLinkElement, HistoryBackLinkProps>
         {...other}
       >
         {isHrefRoot ? (
-          <Icons.BackToHome className="mr-2 h-4 w-4" />
+          <Icons.BackToHome className="mr-2 size-4" />
         ) : (
-          <Icons.ArrowLeft className="mr-2 h-4 w-4" />
+          <Icons.ArrowLeft className="mr-2 size-4" />
         )}
         {children}
       </Link>

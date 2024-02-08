@@ -13,6 +13,10 @@ const nextConfig = {
       }
     ]
   },
+  experimental: {
+    webpackBuildWorker: true,
+    scrollRestoration: true
+  },
   async redirects() {
     return [
       {
@@ -41,10 +45,6 @@ const nextConfig = {
         permanent: true
       }
     ];
-  },
-  experimental: {
-    webpackBuildWorker: true,
-    scrollRestoration: true
   }
 };
 

@@ -180,12 +180,12 @@ export async function ActivityTypeTrend({
               >
                 {item.changeType === "increase" ? (
                   <Icons.ArrowUp
-                    className="-ml-1 mr-0.5 h-4 w-4 shrink-0 self-center text-emerald-500"
+                    className="-ml-1 mr-0.5 size-4 shrink-0 self-center text-emerald-500"
                     aria-hidden="true"
                   />
                 ) : (
                   <Icons.ArrowDown
-                    className="-ml-1 mr-0.5 h-4 w-4 shrink-0 self-center text-rose-500"
+                    className="-ml-1 mr-0.5 size-4 shrink-0 self-center text-rose-500"
                     aria-hidden="true"
                   />
                 )}

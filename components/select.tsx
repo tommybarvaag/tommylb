@@ -25,7 +25,7 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <ChevronDown className="h-4 w-4 opacity-50" />
+    <ChevronDown className="size-4 opacity-50" />
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -73,9 +73,9 @@ const SelectItem = React.forwardRef<
     )}
     {...props}
   >
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+    <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <Check className="size-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
 
@@ -98,11 +98,11 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
-  SelectSeparator
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue
 };

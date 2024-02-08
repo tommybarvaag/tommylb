@@ -23,7 +23,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
               height={44}
               width={44}
               alt="Twitter avatar"
-              className="h-11 w-11 rounded-full"
+              className="size-11 rounded-full"
               src={tweet.user.profile_image_url_https}
             />
             <div className="ml-1.5 text-sm leading-tight">
