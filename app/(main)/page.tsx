@@ -65,11 +65,8 @@ export default async function Home() {
             <ActiveWorkYears />
           </Text>
           <Text>
-            I&apos;m currently working as a senior consultant at{" "}
-            <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
-              knowit
-            </Link>
-            .
+            I&apos;m currently working as a senior system developer at{" "}
+            <Link href="https://investor.elmeragroup.no/">Elmera Group</Link>.
           </Text>
         </div>
       </div>
