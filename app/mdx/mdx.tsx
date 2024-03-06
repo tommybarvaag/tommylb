@@ -1,35 +1,63 @@
 import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
 import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Callout } from "@/app/mdx/callout";
+import { Card } from "@/app/mdx/card";
+import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
+import { ComponentSource } from "@/app/mdx/component-source";
 import { ActiveWorkYears as ActiveWorkYearsRoot } from "@/components/active-work-years";
-import { Heading } from "@/components/heading";
 import Link from "@/components/link";
-import { Callout } from "@/components/mdx/callout";
-import { Card } from "@/components/mdx/card";
-import { CodeBlockWrapper } from "@/components/mdx/code-block-wrapper";
-import { ComponentSource } from "@/components/mdx/component-source";
 import Text from "@/components/text";
 import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import type { Tweet } from "react-tweet/api";
+import { highlight } from "sugar-high";
+
+function slugify(str: string) {
+  return str
+    .toString()
+    .toLowerCase()
+    .trim() // Remove whitespace from both ends of a string
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
+}
+
+function createHeading(level: number) {
+  // eslint-disable-next-line react/display-name
+  return ({ children }) => {
+    let slug = slugify(children);
+    return React.createElement(
+      `h${level}`,
+      { id: slug },
+      [
+        React.createElement("a", {
+          href: `#${slug}`,
+          key: `link-${slug}`,
+          className: cn("anchor", {
+            "text-xl": level === 1,
+            group: level > 1
+          })
+        })
+      ],
+      children
+    );
+  };
+}
 
 const components = {
-  h1: ({ className, ...props }) => <Heading variant="h1" className="mt-8 text-xl" {...props} />,
-  h2: ({ className, ...props }) => (
-    <Heading variant="h2" className="group mt-8 cursor-pointer" {...props} />
-  ),
-  h3: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
-  h4: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
-  h5: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
-  h6: ({ className, ...props }) => <Heading variant="h3" className="group mt-8" {...props} />,
+  h1: createHeading(1),
+  h2: createHeading(2),
+  h3: createHeading(3),
+  h4: createHeading(4),
+  h5: createHeading(5),
+  h6: createHeading(6),
   a: ({ className, ...props }: { children: React.ReactNode; className?: string; href: string }) => (
-    <Link
-      className={cn("font-medium text-zinc-100 underline underline-offset-4", className)}
-      {...props}
-    />
+    <Link className={cn("text-zinc-100 underline underline-offset-4", className)} {...props} />
   ),
   p: ({ className, ...props }) => (
     <Text className={cn("mb-0 mt-6 leading-7", className)} {...props} />
@@ -40,7 +68,7 @@ const components = {
   ol: ({ className, ...props }) => (
     <ol className={cn("my-6 ml-6 list-decimal", className)} {...props} />
   ),
-  li: ({ className, ...props }) => <li className={cn("mt-2", className)} {...props} />,
+  li: ({ className, ...props }) => <li className={cn("not-prose mt-2", className)} {...props} />,
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
@@ -84,21 +112,26 @@ const components = {
   pre: ({ className, ...props }) => (
     <pre
       className={cn(
-        "mb-4 mt-6 overflow-x-auto rounded-lg border-4 border-zinc-950 bg-zinc-950 py-4",
+        "mb-4 mt-6 overflow-x-auto rounded-lg border-4 border-zinc-950 bg-zinc-950 p-4",
         className
       )}
       {...props}
     />
   ),
-  code: ({ className, ...props }) => (
-    <code
-      className={cn(
-        "relative rounded border border-zinc-950 bg-zinc-950 px-[0.3rem] py-[0.2rem] font-mono text-sm text-zinc-200",
-        className
-      )}
-      {...props}
-    />
-  ),
+  code: ({ children, className, ...props }) => {
+    let codeHTML = highlight(children);
+
+    return (
+      <code
+        className={cn(
+          "rounded border border-zinc-950 bg-zinc-950 p-1 font-mono text-sm",
+          className
+        )}
+        dangerouslySetInnerHTML={{ __html: codeHTML }}
+        {...props}
+      />
+    );
+  },
   Image: ({ ...props }) => <Image alt={props.alt} src={props.src} {...props} />,
   Callout,
   Card,
@@ -125,15 +158,11 @@ const components = {
   )
 };
 
-type MdxProps = React.ComponentPropsWithoutRef<"div"> & {
-  code: string;
-  className?: string;
+type MdxProps = React.ComponentPropsWithoutRef<typeof MDXRemote> & {
   tweets: Tweet[];
 };
 
-export function Mdx({ code, tweets, className, ...other }: MdxProps) {
-  const Component = useMDXComponent(code);
-
+export function Mdx({ tweets, ...other }: MdxProps) {
   const Tweet = ({ id }: { id: string }) => {
     const tweet = tweets?.find(tweet => tweet?.id_str === id);
     return <TwitterCard tweet={tweet} />;
@@ -186,15 +215,14 @@ export function Mdx({ code, tweets, className, ...other }: MdxProps) {
   };
 
   return (
-    <div {...other}>
-      <Component
-        components={{
-          ...components,
-          Tweet,
-          ParallelismWithPromisesExample,
-          ShowPlatformExample
-        }}
-      />
-    </div>
+    <MDXRemote
+      components={{
+        ...components,
+        Tweet,
+        ParallelismWithPromisesExample,
+        ShowPlatformExample
+      }}
+      {...other}
+    />
   );
 }

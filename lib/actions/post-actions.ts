@@ -1,4 +1,3 @@
-"use server";
 import { unstable_noStore as noStore } from "next/cache";
 
 import prisma from "@/lib/prisma";
@@ -25,7 +24,7 @@ async function getPost(slug: string) {
   return post;
 }
 
-async function increment(slug: string) {
+const incrementPostViews = cache(async (slug: string) => {
   noStore();
 
   const headers = getHeaders();
@@ -50,8 +49,6 @@ async function increment(slug: string) {
   });
 
   return post;
-}
-
-const incrementPostViews = cache(increment);
+});
 
 export { getPost, incrementPostViews };

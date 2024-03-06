@@ -38,5 +38,8 @@ module.exports = {
   variants: {
     typography: ["dark"]
   },
-  plugins: [require("tailwindcss-animate")]
+  future: {
+    hoverOnlyWhenSupported: true
+  },
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")]
 };

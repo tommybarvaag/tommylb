@@ -1,7 +1,6 @@
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import { cn } from "@/lib/utils";
-import "@/styles/mdx.css";
 import { forwardRef, useMemo } from "react";
 
 type HistoryBackLinkElement = React.ElementRef<typeof Link>;

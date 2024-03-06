@@ -36,7 +36,7 @@ export function ShowPlatformClient({
       setPlatform(platform);
     }
 
-    checkPlatform();
+    void checkPlatform();
   });
 
   return (

@@ -140,32 +140,6 @@ export type GitHubReactions = {
   eyes: number;
 };
 
-export type FrontMatterData = {
-  title?: string;
-  publishedAt?: string;
-  summary?: string;
-  image?: string;
-  author?: string;
-  categories?: string[];
-  keywords?: string[];
-  featured?: boolean;
-  published?: boolean;
-  unlisted?: boolean;
-  readingTime?: FrontMatterReadingTime;
-};
-
-export type FrontMatterReadingTime = {
-  text: string;
-  minutes: number;
-  time: number;
-  words: number;
-};
-
-export type FileSystemPost = FrontMatterData & {
-  slug: string;
-  publishedAtDateFormatted: string;
-};
-
 export type Post = Prisma.PostGetPayload<{
   select: {
     slug: true;

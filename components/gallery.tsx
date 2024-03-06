@@ -57,7 +57,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
         )}
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-zinc-950 bg-zinc-900/80 text-neutral-400 backdrop-blur">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-zinc-950 bg-zinc-900/80 text-zinc-400 backdrop-blur">
               <button
                 aria-label="Previous product image"
                 className={buttonClassName}
@@ -65,7 +65,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
               >
                 <Icons.ArrowLeft className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+              <div className="mx-1 h-6 w-px bg-zinc-500"></div>
               <button
                 aria-label="Next product image"
                 className={buttonClassName}

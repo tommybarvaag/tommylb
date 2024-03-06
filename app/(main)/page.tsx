@@ -2,7 +2,7 @@ import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { allPosts } from "@/contentlayer/generated";
+import { getPosts } from "@/lib/post";
 import prisma from "@/lib/prisma";
 import { getFormattedPostDate } from "@/utils/date-utils";
 
@@ -31,9 +31,8 @@ async function getLastStravaActivity() {
 }
 
 function getLastPosts() {
-  const posts = allPosts
-    .filter(post => post.published)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const posts = getPosts()
+    .sort((a, b) => new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime())
     .slice(0, 3);
 
   return posts;
@@ -141,14 +140,14 @@ export default async function Home() {
           </Heading>
           <ul className="flex flex-col gap-6">
             {lastPosts.map(post => (
-              <li key={post._id}>
-                <Link className="mb-1 block" href={post.slug}>
+              <li key={post.slug}>
+                <Link className="mb-1 block" href={`/post/${post.slug}`}>
                   <Heading variant="h3" noMargin>
-                    {post.title}
+                    {post.metadata.title}
                   </Heading>
                 </Link>
                 <Text variant="small" noMargin>
-                  {post.shortDescription ?? post.description}
+                  {post.metadata.shortDescription ?? post.metadata.description}
                 </Text>
               </li>
             ))}

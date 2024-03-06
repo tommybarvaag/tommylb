@@ -1,5 +1,3 @@
-const { withContentlayer } = require("next-contentlayer");
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -14,7 +12,8 @@ const nextConfig = {
     ]
   },
   experimental: {
-    webpackBuildWorker: true,
+    ppr: true,
+    useLightningcss: true,
     scrollRestoration: true
   },
   async redirects() {
@@ -48,6 +47,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withContentlayer({
-  ...nextConfig
-});
+export default nextConfig;

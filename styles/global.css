@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --sh-class: #fafafa;
+  --sh-identifier: #fafafa;
+  --sh-sign: #a1a1aa;
+  --sh-property: #a1a1aa;
+  --sh-entity: #a1a1aa;
+  --sh-jsxliterals: #a1a1aa;
+  --sh-string: #fafafa;
+  --sh-keyword: #a1a1aa;
+  --sh-comment: #71717a;
+}
+
 ::selection {
   background-color: #47a3f3;
   color: #fefefe;
@@ -60,4 +72,42 @@
 
 .auto-link-heading {
   @apply -ml-[1em] pl-[1em] before:absolute before:-ml-[1em] before:text-zinc-100/0 before:content-['#'] group-hover:before:text-zinc-100/50;
+}
+
+.prose h2,
+.prose h3,
+.prose h4 {
+  @apply text-base font-normal tracking-tight !important;
+}
+
+.prose .anchor {
+  @apply invisible absolute no-underline;
+
+  margin-left: -1em;
+  padding-right: 0.5em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.anchor:hover {
+  @apply visible;
+}
+
+.prose a {
+  @apply decoration-zinc-400 decoration-[0.1em] underline-offset-2 transition-all dark:decoration-zinc-600;
+}
+
+.prose .anchor:after {
+  @apply text-zinc-300 dark:text-zinc-700;
+  content: "#";
+}
+
+.prose *:hover > .anchor {
+  @apply visible;
+}
+
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
+  content: "";
 }

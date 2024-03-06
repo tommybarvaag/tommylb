@@ -2,10 +2,10 @@ import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-con
 import { getPlatform } from "@/lib/actions/bowser-actions";
 import { ShowPlatformProps } from "@/types";
 
-function ShowPlatform({
+async function ShowPlatform({
   platforms: { mobile, tablet, desktop, touch, bot, fallback }
 }: ShowPlatformProps) {
-  const platform = getPlatform();
+  const platform = await getPlatform();
 
   return (
     <ShowPlatformContent

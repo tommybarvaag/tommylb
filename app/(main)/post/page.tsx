@@ -2,23 +2,22 @@ import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { allPosts } from "@/contentlayer/generated";
+import { getPosts } from "@/lib/post";
 import { formatMonthDay } from "@/lib/utils";
 
 export default async function PostPage() {
-  const yearPosts = allPosts
-    .filter(post => post.published)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const yearPosts = getPosts()
+    .sort((a, b) => new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime())
     .reduce(
       (accumulator, post) => {
-        const year = `${new Date(post.date).getFullYear()}`;
+        const year = `${new Date(post.metadata.date).getFullYear()}`;
         if (!accumulator[year]) {
           accumulator[year] = [];
         }
         accumulator[year].push(post);
         return accumulator;
       },
-      {} as Record<string, typeof allPosts>
+      {} as Record<string, ReturnType<typeof getPosts>>
     );
   return (
     <div className="container relative max-w-4xl">
@@ -43,22 +42,26 @@ export default async function PostPage() {
                 <ul className="grow items-center">
                   {posts.map(post => (
                     <li
-                      key={`post-page-${post._id}`}
+                      key={`post-page-${post.slug}`}
                       className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b"
                     >
-                      <Link href={post.slug} className="flex w-full gap-3" underline={false}>
+                      <Link
+                        href={`/post/${post.slug}`}
+                        className="flex w-full gap-3"
+                        underline={false}
+                      >
                         <>
                           <Text
                             className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500"
                             noMargin
                           >
-                            {post.title}
+                            {post.metadata.title}
                           </Text>
                           <Text
                             className="my-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50"
                             noMargin
                           >
-                            {formatMonthDay(post.date)}
+                            {formatMonthDay(post.metadata.date)}
                           </Text>
                         </>
                       </Link>

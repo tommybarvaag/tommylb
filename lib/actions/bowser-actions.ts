@@ -4,7 +4,7 @@ import Bowser from "bowser";
 import { revalidatePath } from "next/cache";
 import { headers as getHeaders } from "next/headers";
 
-function getPlatform() {
+async function getPlatform() {
   try {
     const headers = getHeaders();
 
@@ -32,16 +32,16 @@ function getPlatform() {
   }
 }
 
-type PlatformReturnType = ReturnType<typeof getPlatform>;
+type PlatformReturnType = Awaited<ReturnType<typeof getPlatform>>;
 
-function shouldRevalidatePlatform(platform: PlatformReturnType) {
-  const checkDate = getPlatform();
+async function shouldRevalidatePlatform(platform: PlatformReturnType) {
+  const up = await getPlatform();
 
   const platformChanged =
-    platform.isMobile !== checkDate.isMobile ||
-    platform.isTablet !== checkDate.isTablet ||
-    platform.isDesktop !== checkDate.isDesktop ||
-    platform.isTouch !== checkDate.isTouch;
+    platform.isMobile !== up.isMobile ||
+    platform.isTablet !== up.isTablet ||
+    platform.isDesktop !== up.isDesktop ||
+    platform.isTouch !== up.isTouch;
 
   if (platformChanged) {
     revalidatePath("/", "layout");

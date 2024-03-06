@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 async function PostViewCount({ slug }: { slug: string }) {
   const data = await getPost(slug);
-  incrementPostViews(slug);
+  void incrementPostViews(slug);
 
   return (
     <div className={cn("flex min-h-[25px] items-center justify-end")}>

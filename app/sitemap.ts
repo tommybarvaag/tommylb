@@ -1,13 +1,11 @@
-import { allPosts } from "@/.contentlayer/generated";
 import { projectExperienceData } from "@/data/project-experience-data";
+import { getPosts } from "@/lib/post";
 
 export default async function sitemap() {
-  const posts = allPosts
-    .filter(post => post.published)
-    .map(post => ({
-      url: `https://tommylb.com${post.slug}`,
-      lastModified: post.date.split("T")[0]
-    }));
+  const posts = getPosts().map(post => ({
+    url: `https://tommylb.com${post.slug}`,
+    lastModified: post.metadata.date.split("T")[0]
+  }));
 
   const projectExperience = projectExperienceData.map(project => ({
     url: `https://tommylb.com/cv/project/${project.slug}`,

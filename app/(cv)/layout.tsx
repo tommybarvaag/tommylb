@@ -18,6 +18,8 @@ import { cvKeySkills } from "@/data/cv-key-points";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 import "styles/global.css";
 
+export const revalidate = 60;
+
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>

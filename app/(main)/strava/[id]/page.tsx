@@ -4,7 +4,6 @@ import { HistoryBackLink } from "@/components/history-back-link";
 import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
 import Text from "@/components/text";
 import { planetScale } from "@/lib/planetscale";
-import "@/styles/mdx.css";
 import { getFormattedLongDate } from "@/utils/date-utils";
 import { Prisma, StravaActivity } from "@prisma/client";
 import { notFound } from "next/navigation";
