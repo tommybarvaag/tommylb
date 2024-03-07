@@ -12,7 +12,7 @@ const nextConfig = {
     ]
   },
   experimental: {
-    ppr: true,
+    ppr: false,
     useLightningcss: true,
     scrollRestoration: true
   },
