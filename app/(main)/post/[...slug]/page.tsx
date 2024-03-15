@@ -87,7 +87,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const tweets = await getTweets(post.tweetIds);
 
   return (
-    <article className="prose prose-zinc prose-invert container relative max-w-3xl">
+    <article className="container prose prose-zinc prose-invert relative max-w-3xl">
       <HistoryBackLink href="/post">See all posts</HistoryBackLink>
       <div>
         <Heading variant="h1" className="mb-8">

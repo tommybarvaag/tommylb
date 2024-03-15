@@ -44,7 +44,7 @@ const DrawerContent = forwardRef<
         {...props}
       >
         <DrawerContentWrapper>
-          <div className="absolute left-1/2 top-3 z-60 h-2 w-[50px] translate-x-[-50%] rounded-full bg-zinc-800" />
+          <div className="absolute left-1/2 top-3 z-60 h-2 w-[50px] -translate-x-1/2 rounded-full bg-zinc-800" />
           {children}
         </DrawerContentWrapper>
       </DrawerPrimitive.Content>
