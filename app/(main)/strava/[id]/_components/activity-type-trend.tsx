@@ -4,9 +4,10 @@ import {
 } from "@/app/(main)/strava/[id]/_components/activity-year-select";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
-import { planetScale } from "@/lib/planetscale";
+import { db } from "@/db/db";
+import { SelectStravaActivity, stravaActivity } from "@/db/schema";
 import { cn } from "@/lib/utils";
-import { StravaActivity } from "@prisma/client";
+import { and, avg, desc, eq, like } from "drizzle-orm";
 import { Suspense } from "react";
 
 type StravaActivityAverages = {
@@ -29,39 +30,44 @@ function roundToNearestTwoDecimalPlaces(value: number) {
   return Math.round(value * 100) / 100;
 }
 
-async function getStravaActivityYears(activity: StravaActivity) {
-  const { rows } = await planetScale.execute(
-    "SELECT DISTINCT YEAR(startDate) as year FROM StravaActivity WHERE type = ? ORDER BY YEAR(startDate) DESC",
-    [activity.type]
-  );
+async function getStravaActivityYears(activity: SelectStravaActivity) {
+  return (
+    await db
+      .select({
+        startDate: stravaActivity.startDate
+      })
+      .from(stravaActivity)
+      .orderBy(desc(stravaActivity.id))
+  )
+    .reduce<number[]>((acc, curr) => {
+      const date = new Date(curr.startDate);
+      const year = date.getFullYear();
+      if (!acc.includes(year)) {
+        acc.push(year);
+      }
 
-  if (!rows?.length) {
-    return null;
-  }
-
-  const years = rows as { year: number }[];
-
-  return years.map(year => year.year.toString());
+      return acc;
+    }, [])
+    .sort((a, b) => b - a)
+    .map(String);
 }
 
-async function getStravaActivityAveragesByType(activity: StravaActivity, year: string) {
-  const { rows } = year
-    ? await planetScale.execute(
-        "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ? AND YEAR(startDate) = ?",
-        [activity.type, year]
-      )
-    : await planetScale.execute(
-        "SELECT avg(movingTime) as averageMovingTime, avg(averageHeartRate) as averageHeartRate, avg(maxHeartRate) as averageMaxHeartRate, avg(sufferScore) as averageSufferScore, avg(calories) as averageCalories FROM StravaActivity WHERE type = ?",
-        [activity.type]
-      );
-
-  if (!rows?.length) {
-    return null;
-  }
-
-  const [row] = rows;
-
-  const stravaActivityAveragesRow = row as StravaActivityAverages;
+async function getStravaActivityAveragesByType(activity: SelectStravaActivity, year: string) {
+  const stravaActivityAveragesRow = await db
+    .select({
+      averageMovingTime: avg(stravaActivity.movingTime).mapWith(Number),
+      averageHeartRate: avg(stravaActivity.averageHeartRate).mapWith(Number),
+      averageMaxHeartRate: avg(stravaActivity.maxHeartRate).mapWith(Number),
+      averageSufferScore: avg(stravaActivity.sufferScore).mapWith(Number),
+      averageCalories: avg(stravaActivity.calories).mapWith(Number)
+    })
+    .from(stravaActivity)
+    .where(
+      year
+        ? and(eq(stravaActivity.type, activity.type), like(stravaActivity.startDate, `${year}%`))
+        : eq(stravaActivity.type, activity.type)
+    )
+    .get();
 
   // map the row to the correct type
   // and round the averages to 2 decimal places
@@ -146,7 +152,7 @@ export async function ActivityTypeTrend({
   activity,
   year
 }: {
-  activity: StravaActivity;
+  activity: SelectStravaActivity;
   year?: string;
 }) {
   const years = await getStravaActivityYears(activity);

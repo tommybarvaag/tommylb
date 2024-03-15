@@ -1,4 +1,6 @@
-import prisma from "@/lib/prisma";
+import { db } from "@/db/db";
+import { posts } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
@@ -10,21 +12,13 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
   try {
     const { slug } = await postSlugSchema.parseAsync(params);
 
-    let post = await prisma.post.findUnique({
-      where: {
-        slug: slug
-      }
-    });
+    const post = await db.select().from(posts).where(eq(posts.slug, slug)).get();
 
-    if (!post) {
-      post = await prisma.post.create({
-        data: {
-          slug: slug
-        }
-      });
+    if (post) {
+      return NextResponse.json(post);
     }
 
-    return NextResponse.json(post);
+    return NextResponse.json(await db.insert(posts).values({ slug }).returning().get());
   } catch (error) {
     console.error(JSON.stringify(error));
     if (error instanceof z.ZodError) {

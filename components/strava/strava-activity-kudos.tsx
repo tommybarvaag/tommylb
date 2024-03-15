@@ -2,10 +2,10 @@
 
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
+import { SelectStravaActivity } from "@/db/schema";
 import { debounce } from "@/lib/debounce";
 import { cn } from "@/lib/utils";
 import { kudosSchema } from "@/lib/validations/strava/kudos";
-import type { StravaActivity } from "@prisma/client";
 import useLocalStorage from "hooks/use-local-storage";
 import { useRouter } from "next/navigation";
 import { ComponentPropsWithoutRef, useMemo, useState, useTransition } from "react";
@@ -23,8 +23,8 @@ async function patchStravaActivityKudos(url: string, body: StravaActivityKudosFo
 const debouncedPatchStravaActivityKudos = debounce(patchStravaActivityKudos, 1000);
 
 type StravaActivityKudosProps = ComponentPropsWithoutRef<"button"> & {
-  activityId: StravaActivity["id"];
-  kudosCount: StravaActivity["kudosCount"];
+  activityId: SelectStravaActivity["id"];
+  kudosCount: SelectStravaActivity["kudosCount"];
 };
 
 const StravaActivityKudos = ({ activityId, kudosCount, ...other }: StravaActivityKudosProps) => {

@@ -3,13 +3,12 @@ import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import { StravaActivityKudos } from "@/components/strava/strava-activity-kudos";
 import Text from "@/components/text";
-import { planetScale } from "@/lib/planetscale";
+import { db } from "@/db/db";
+import { SelectStravaActivity, stravaActivity } from "@/db/schema";
 import { getFormattedLongDate } from "@/utils/date-utils";
-import { Prisma, StravaActivity } from "@prisma/client";
+import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-
-export const runtime = "edge";
 
 interface StravaActivityPageProps {
   params: {
@@ -19,22 +18,18 @@ interface StravaActivityPageProps {
 }
 
 async function getStravaActivity(id: string) {
-  const { rows } = await planetScale.execute("SELECT * FROM StravaActivity WHERE ID = ?", [id]);
-
-  if (!rows?.length) {
-    return null;
-  }
-
-  const [stravaActivity] = rows;
-
-  return stravaActivity as StravaActivity;
+  return await db
+    .select()
+    .from(stravaActivity)
+    .where(eq(stravaActivity.id, Number(id)))
+    .get();
 }
 
 const ActivityDescription = ({
   activity,
   ...other
 }: React.ComponentPropsWithoutRef<typeof Text> & {
-  activity: Prisma.PromiseReturnType<typeof getStravaActivity>;
+  activity: SelectStravaActivity;
 }) => {
   return (
     <Text {...other}>
@@ -71,7 +66,7 @@ export default async function StravaActivityPage({
         <div className="mb-4 flex items-center justify-between">
           <StravaActivityKudos activityId={activity.id} kudosCount={activity.kudosCount} />
           <div className="text-sm text-zinc-500">
-            {getFormattedLongDate(activity.startDateLocal)}
+            {getFormattedLongDate(new Date(activity.startDateLocal))}
           </div>
         </div>
         <ActivityDescription activity={activity} />

@@ -1,16 +1,18 @@
+import { db } from "@/db/db";
+import { notificationLogs } from "@/db/schema";
 import { fetchLatestNonPrereleaseNextJsRelease } from "@/lib/github";
-import prisma from "@/lib/prisma";
+import { and, desc, eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
 const NOTIFICATION_TYPE = "next-js-release";
 
 export async function GET(request: Request) {
-  const allNotifications = await prisma.notificationLog.findMany({
-    orderBy: {
-      id: "desc"
-    }
-  });
+  const allNotifications = await db
+    .select()
+    .from(notificationLogs)
+    .orderBy(desc(notificationLogs.id));
+
   return Response.json(allNotifications ?? []);
 }
 
@@ -18,12 +20,16 @@ export async function POST() {
   const latestNonPrerelease = await fetchLatestNonPrereleaseNextJsRelease();
   const latestNonPrereleaseVersion = latestNonPrerelease?.tag_name ?? latestNonPrerelease?.name;
 
-  const sentNotification = await prisma.notificationLog.findFirst({
-    where: {
-      type: NOTIFICATION_TYPE,
-      value: latestNonPrereleaseVersion
-    }
-  });
+  const sentNotification = await db
+    .select()
+    .from(notificationLogs)
+    .where(
+      and(
+        eq(notificationLogs.type, NOTIFICATION_TYPE),
+        eq(notificationLogs.value, latestNonPrereleaseVersion)
+      )
+    )
+    .get();
 
   // If notification for type and value is already sent
   // skip further action and return latest release
@@ -71,11 +77,10 @@ export async function POST() {
   // Log notification sent
   if (response.ok) {
     console.info("Notification sent");
-    await prisma.notificationLog.create({
-      data: {
-        type: NOTIFICATION_TYPE,
-        value: latestNonPrereleaseVersion
-      }
+
+    await db.insert(notificationLogs).values({
+      type: NOTIFICATION_TYPE,
+      value: latestNonPrereleaseVersion
     });
   }
 

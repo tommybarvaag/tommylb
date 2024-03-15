@@ -1,0 +1,20 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710488951222,
+      "tag": "0000_tan_redwing",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1710492207442,
+      "tag": "0001_parallel_starbolt",
+      "breakpoints": true
+    }
+  ]
+}

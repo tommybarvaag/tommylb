@@ -1,5 +1,7 @@
-import prisma from "@/lib/prisma";
+import { db, increment } from "@/db/db";
+import { posts } from "@/db/schema";
 import { postSchema } from "@/lib/validations/post/post";
+import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
@@ -14,27 +16,23 @@ export async function PATCH(request: NextRequest) {
 
     // ignore localhost requests
     if (headersList?.get("host")?.includes("localhost")) {
-      const post = await prisma.post.findFirst({
-        where: {
-          slug: payload.slug
-        }
-      });
-      return NextResponse.json(post);
+      const post = await db.select().from(posts).where(eq(posts.slug, payload.slug)).get();
+
+      if (post) {
+        return NextResponse.json(post);
+      }
+
+      return NextResponse.json(
+        await db.insert(posts).values({ slug: payload.slug }).returning().get()
+      );
     }
 
-    const post = await prisma.post.upsert({
-      where: {
-        slug: payload.slug
-      },
-      create: {
-        slug: payload.slug
-      },
-      update: {
-        views: {
-          increment: 1
-        }
-      }
-    });
+    const post = await db
+      .update(posts)
+      .set({ views: increment(posts.views, 1) })
+      .where(eq(posts.slug, payload.slug))
+      .returning()
+      .get();
 
     return NextResponse.json(post);
   } catch (error) {

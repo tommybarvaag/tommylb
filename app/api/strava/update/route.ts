@@ -98,6 +98,7 @@ export async function POST(request: NextRequest) {
 
     return new Response("Bad data", { status: 400 });
   } catch (err) {
+    console.log(err);
     return new Response("Bad data", { status: 400 });
   }
 }

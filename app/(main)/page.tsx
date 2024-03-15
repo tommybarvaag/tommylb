@@ -2,30 +2,29 @@ import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import Text from "@/components/text";
+import { db } from "@/db/db";
+import { stravaActivity } from "@/db/schema";
 import { getPosts } from "@/lib/post";
-import prisma from "@/lib/prisma";
 import { getFormattedPostDate } from "@/utils/date-utils";
+import { desc } from "drizzle-orm";
 
 export const revalidate = 60;
 
 async function getLastStravaActivity() {
-  const activity = await prisma.stravaActivity.findMany({
-    orderBy: {
-      startDateLocal: "desc"
-    },
-    skip: 0,
-    take: 3,
-    select: {
-      id: true,
-      name: true,
-      type: true,
-      sufferScore: true,
-      hasHeartRate: true,
-      averageHeartRate: true,
-      startDateLocal: true,
-      distanceInKilometers: true
-    }
-  });
+  const activity = await db
+    .select({
+      id: stravaActivity.id,
+      name: stravaActivity.name,
+      type: stravaActivity.type,
+      sufferScore: stravaActivity.sufferScore,
+      hasHeartRate: stravaActivity.hasHeartRate,
+      averageHeartRate: stravaActivity.averageHeartRate,
+      startDateLocal: stravaActivity.startDateLocal,
+      distanceInKilometers: stravaActivity.distanceInKilometers
+    })
+    .from(stravaActivity)
+    .orderBy(desc(stravaActivity.startDateLocal))
+    .limit(3);
 
   return activity;
 }
@@ -116,7 +115,7 @@ export default async function Home() {
               <li key={activity.id}>
                 <Link className="mb-1 block" href={`/strava/${activity.id}`}>
                   <Heading variant="h3" noMargin>
-                    {getFormattedPostDate(activity.startDateLocal)}
+                    {getFormattedPostDate(new Date(activity.startDateLocal))}
                   </Heading>
                 </Link>
                 <Text variant="small" noMargin>

@@ -1,6 +1,5 @@
 /// <reference types="react" />
 
-import { Prisma } from "@prisma/client";
 import "react";
 
 type AllowCSSVariables = { [key in `--${string}`]: string };
@@ -17,8 +16,8 @@ export type StravaApiActivity = {
   id: number;
   calories: number;
   totalElevationGain: number;
-  startDate: Date;
-  startDateLocal: Date;
+  startDate: string;
+  startDateLocal: string;
   locationCountry: string;
   kudosCount: number;
   averageSpeed: number;
@@ -139,13 +138,6 @@ export type GitHubReactions = {
   rocket: number;
   eyes: number;
 };
-
-export type Post = Prisma.PostGetPayload<{
-  select: {
-    slug: true;
-    views: true;
-  };
-}>;
 
 export type Platform = "mobile" | "tablet" | "desktop" | "touch";
 

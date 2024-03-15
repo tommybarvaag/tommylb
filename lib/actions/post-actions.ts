@@ -1,27 +1,21 @@
 import { unstable_noStore as noStore } from "next/cache";
 
-import prisma from "@/lib/prisma";
+import { db, increment } from "@/db/db";
+import { posts } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { headers as getHeaders } from "next/headers";
 import { cache } from "react";
 
 async function getPost(slug: string) {
   noStore();
 
-  let post = await prisma.post.findUnique({
-    where: {
-      slug: slug
-    }
-  });
+  const post = await db.select().from(posts).where(eq(posts.slug, slug)).get();
 
-  if (!post) {
-    post = await prisma.post.create({
-      data: {
-        slug: slug
-      }
-    });
+  if (post) {
+    return post;
   }
 
-  return post;
+  return await db.insert(posts).values({ slug }).returning().get();
 }
 
 const incrementPostViews = cache(async (slug: string) => {
@@ -34,19 +28,12 @@ const incrementPostViews = cache(async (slug: string) => {
     return getPost(slug);
   }
 
-  const post = await prisma.post.upsert({
-    where: {
-      slug: slug
-    },
-    create: {
-      slug: slug
-    },
-    update: {
-      views: {
-        increment: 1
-      }
-    }
-  });
+  const post = await db
+    .update(posts)
+    .set({ views: increment(posts.views, 1) })
+    .where(eq(posts.slug, slug))
+    .returning()
+    .get();
 
   return post;
 });
