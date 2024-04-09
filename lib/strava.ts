@@ -105,6 +105,7 @@ const getGear = (
 const createActivity = (activity: any): StravaApiActivity => {
   const kilometersPerSecond = convertMetersPerSecondToKilometersPerSecond(activity.average_speed);
 
+  console.log(activity);
   return {
     name: activity.name,
     distance: activity.distance,
@@ -291,8 +292,6 @@ const getById = async (id: number) => {
 };
 
 const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise<void> => {
-  console.log(stravaApiActivity);
-
   const activity = await db
     .select()
     .from(stravaActivity)
@@ -329,7 +328,7 @@ const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise
       })
       .where(eq(stravaActivity.stravaId, activity.stravaId));
 
-    if (stravaApiActivity.gear) {
+    if (stravaApiActivity.gear?.id) {
       await db
         .update(stravaGear)
         .set({
@@ -367,7 +366,7 @@ const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise
 
   let existingGear: SelectStravaGear = null;
 
-  if (stravaApiActivity.gear) {
+  if (stravaApiActivity.gear?.id) {
     existingGear = await db
       .select()
       .from(stravaGear)
@@ -376,7 +375,7 @@ const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise
   }
 
   // create if activity does not exist
-  if (!existingGear) {
+  if (stravaApiActivity.gear?.id && !existingGear) {
     const insertedStravaGear = await db
       .insert(stravaGear)
       .values({
@@ -414,7 +413,7 @@ const create = async (id: string, stravaApiActivity: StravaApiActivity): Promise
     startDate: stravaApiActivity.startDate,
     startDateLocal: stravaApiActivity.startDateLocal,
     stravaId: stravaApiActivity.id.toString(),
-    stravaGearId: existingGear.id
+    stravaGearId: existingGear?.id
   } satisfies InsertStravaActivity);
 
   for (const personalBest of stravaApiActivity.personalBests) {
@@ -478,6 +477,7 @@ const update = async (
 
 const getAndCreate = async (id: string): Promise<void> => {
   const activity = await getActivityFromStravaApi(id);
+
   await create(id, {
     ...activity,
     name: "Evening Activity"
