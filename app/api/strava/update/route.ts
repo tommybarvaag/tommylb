@@ -63,6 +63,8 @@ export async function POST(request: NextRequest) {
 
     const body = await stravaPostSchema.safeParseAsync(res);
 
+    console.log(body);
+
     if (!body.success) {
       return new Response("Bad data", { status: 400 });
     }
