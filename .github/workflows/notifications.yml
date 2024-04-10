@@ -1,7 +1,7 @@
 name: Notifications
 on:
   schedule:
-    - cron: '*/60 * * * *'
+    - cron: "*/60 * * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -10,3 +10,7 @@ jobs:
         run: |
           curl --request POST \
           --url 'https://tommylb.com/api/notifications/next-js-release'
+      - name: Call barber time slot notification API route
+        run: |
+          curl --request POST \
+          --url 'https://tommylb.com/api/notifications/barber'
