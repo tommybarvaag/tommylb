@@ -57,8 +57,6 @@ async function getAvailableTimeSlots() {
     availableTimeSlot => availableTimeSlot.AvailableTimeList
   );
 
-  console.log(slots);
-
   return slots
     .filter(
       slot =>
