@@ -1,3 +1,4 @@
+import "@/app/global.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import { Badge } from "@/components/badge";
 import { buttonVariants } from "@/components/button";
@@ -16,7 +17,6 @@ import Link from "@/components/link";
 import Main from "@/components/main";
 import { cvKeySkills } from "@/data/cv-key-points";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
-import "styles/global.css";
 
 export const revalidate = 60;
 

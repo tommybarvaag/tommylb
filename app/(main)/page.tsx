@@ -16,11 +16,12 @@ async function getLastStravaActivity() {
       id: stravaActivity.id,
       name: stravaActivity.name,
       type: stravaActivity.type,
-      sufferScore: stravaActivity.sufferScore,
+      calories: stravaActivity.calories,
       hasHeartRate: stravaActivity.hasHeartRate,
       averageHeartRate: stravaActivity.averageHeartRate,
       startDateLocal: stravaActivity.startDateLocal,
-      distanceInKilometers: stravaActivity.distanceInKilometers
+      distanceInKilometers: stravaActivity.distanceInKilometers,
+      formattedMovingTime: stravaActivity.formattedMovingTime
     })
     .from(stravaActivity)
     .orderBy(desc(stravaActivity.startDateLocal))
@@ -120,11 +121,11 @@ export default async function Home() {
                 </Link>
                 <Text variant="small" noMargin>
                   {`${
-                    activity.sufferScore
-                      ? `${activity.type} with a suffering score of ${activity.sufferScore} and`
+                    activity.type === "Workout"
+                      ? `${activity.type} with ${activity.calories} calories burned and`
                       : `${
                           activity.distanceInKilometers
-                        } km ${activity.type?.toLocaleLowerCase()} with`
+                        } km ${activity.type?.toLocaleLowerCase()} in ${activity.formattedMovingTime} minutes, with`
                   } an average heart rate of ${activity.averageHeartRate?.toString()}.`}
                 </Text>
               </li>

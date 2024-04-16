@@ -12,8 +12,6 @@ const nextConfig = {
     ]
   },
   experimental: {
-    ppr: false,
-    useLightningcss: true,
     scrollRestoration: true
   },
   async redirects() {
