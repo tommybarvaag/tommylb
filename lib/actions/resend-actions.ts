@@ -1,5 +1,14 @@
 "use server";
 
+import { z } from "zod";
+
+const SendContactFormSchema = z.object({
+  fullName: z.string(),
+  email: z.string(),
+  message: z.string(),
+  phone: z.string().optional()
+});
+
 async function sendConnectForm(fullName: string, email: string, message: string) {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -22,12 +31,23 @@ async function sendConnectForm(fullName: string, email: string, message: string)
   return response;
 }
 
-async function sendFormAction(prevState: any, formData: FormData) {
-  const response = await sendConnectForm(
-    formData.get("fullName") as string,
-    formData.get("email") as string,
-    formData.get("message") as string
-  );
+async function sendFormAction(prevState: any, formData: FormData): Promise<boolean> {
+  const form = SendContactFormSchema.safeParse({
+    fullName: formData.get("fullName"),
+    email: formData.get("email"),
+    message: formData.get("message"),
+    phone: formData.get("phone")
+  });
+
+  if (!form.success) {
+    return false;
+  }
+
+  if (form.data.phone) {
+    return false;
+  }
+
+  const response = await sendConnectForm(form.data.fullName, form.data.email, form.data.message);
 
   return response.ok;
 }
