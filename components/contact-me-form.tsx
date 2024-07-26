@@ -19,7 +19,7 @@ export default function ContactMeForm({ className, location, ...other }: Contact
 
   return (
     <div
-      className={cn("relative mb-12 w-full max-w-md self-center overflow-hidden", className)}
+      className={cn("relative mb-12 w-full max-w-md self-center overflow-hidden p-px", className)}
       {...other}
     >
       <form action={formAction}>
@@ -43,7 +43,7 @@ export default function ContactMeForm({ className, location, ...other }: Contact
         />
         <TextArea id="message" name="message" label="Message" placeholder="My wishes..." required />
         <TextField id="location" name="location" label="Location" type="hidden" value={location} />
-        <TextField id="phone" name="phone" label="Phone" type="hidden" />
+        <TextField className="form-text-field-phone" id="phone" name="phone" label="Phone" />
         <SubmitButton rightIcon={<Icons.Send className="size-5" />}>Send</SubmitButton>
         {state ? (
           <FormSubmitMessage

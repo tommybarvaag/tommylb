@@ -44,7 +44,7 @@ async function sendFormAction(prevState: any, formData: FormData): Promise<boole
   }
 
   if (form.data.phone) {
-    return false;
+    return true;
   }
 
   const response = await sendConnectForm(form.data.fullName, form.data.email, form.data.message);

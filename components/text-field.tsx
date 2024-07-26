@@ -14,14 +14,18 @@ type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
 };
 
 const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(function TextField(
-  { id, label, error, helperText = "Required", type = "text", ...other },
+  { className, id, label, error, helperText = "Required", type = "text", ...other },
   ref
 ) {
   return (
     <div
-      className={cn("mb-6 flex flex-col", {
-        hidden: type === "hidden"
-      })}
+      className={cn(
+        "mb-6 flex flex-col",
+        {
+          hidden: type === "hidden"
+        },
+        className
+      )}
     >
       <label className="block text-sm text-zinc-100">{label}</label>
       <input

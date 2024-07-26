@@ -111,3 +111,7 @@
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
   content: "";
 }
+
+.form-text-field-phone {
+  display: none;
+}
