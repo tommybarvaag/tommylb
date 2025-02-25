@@ -1,8 +1,14 @@
-import { ogImageSchema } from "@/lib/validations/og";
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
+import { z } from "zod";
 
 export const runtime = "edge";
+
+const ogImageSchema = z.object({
+  heading: z.string(),
+  type: z.string(),
+  mode: z.enum(["light", "dark"]).default("dark")
+});
 
 function getFontSize(heading: string) {
   switch (true) {

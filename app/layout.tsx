@@ -1,18 +1,11 @@
 import "@/app/global.css";
-import { VercelAnalytics } from "@/components/vercel-analytics";
-import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-
-export const viewport: Viewport = {
-  themeColor: "#18181b",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1
-};
+import { VercelAnalytics } from "./_components/vercel-analytics";
+import { cn } from "./_lib/utils";
 
 export const metadata: Metadata = {
   ...defaultMetadata
@@ -22,20 +15,13 @@ const interFont = Inter({
   subsets: ["latin"]
 });
 
-export default function RootLayout({
-  children,
-  modal
-}: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const name = "Tommy Lunde Barvåg";
 
   return (
     <html lang="en" className={cn("", interFont.className)}>
-      <body className="bg-zinc-900 text-zinc-50">
+      <body className="bg-zinc-50 text-zinc-950">
         {children}
-        {modal}
         <SpeedInsights />
         <VercelAnalytics />
       </body>

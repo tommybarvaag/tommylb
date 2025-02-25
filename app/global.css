@@ -1,117 +1,115 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: "Inter", sans-serif;
+}
 
 :root {
-  --sh-class: #fafafa;
-  --sh-identifier: #fafafa;
-  --sh-sign: #a1a1aa;
-  --sh-property: #a1a1aa;
-  --sh-entity: #a1a1aa;
-  --sh-jsxliterals: #a1a1aa;
-  --sh-string: #fafafa;
-  --sh-keyword: #a1a1aa;
-  --sh-comment: #71717a;
+  --sh-identifier: var(--color-zinc-950);
+  --sh-class: var(--color-zinc-800);
+  --sh-sign: var(--color-amber-800);
+  --sh-string: var(--color-emerald-800);
+  --sh-keyword: var(--color-zinc-900);
+  --sh-comment: var(--color-zinc-500);
+  --sh-jsxliterals: #005cc5;
+  --sh-property: var(--color-emerald-800);
+  --sh-entity: var(--color-amber-800);
 }
 
-::selection {
-  background-color: #47a3f3;
-  color: #fefefe;
-}
-
-.sticky-nav {
-  position: sticky;
-  z-index: 10;
-  top: 0;
-  backdrop-filter: saturate(180%) blur(20px);
-  transition: background-color 0.1 ease-in-out;
-}
-
-@supports not (backdrop-filter: none) {
-  .sticky-nav {
-    backdrop-filter: none;
-    @apply bg-opacity-100;
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --sh-class: #7aa2f7;
+    --sh-sign: #89ddff;
+    --sh-string: #9ece6a;
+    --sh-keyword: #bb9af7;
+    --sh-comment: #565f89;
+    --sh-jsxliterals: #7aa2f7;
+    --sh-property: #73daca;
+    --sh-entity: #e0af68;
   }
+} */
+
+html {
+  min-width: 360px;
+  scrollbar-gutter: stable;
 }
 
-@-webkit-keyframes enter {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes enter {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+body {
+  text-rendering: optimizeLegibility;
 }
 
-[data-animate] {
-  --stagger: 0;
-  --delay: 120ms;
-  --start: 0ms;
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  [data-animate] {
-    -webkit-animation: enter 1s both;
-    animation: enter 1s both;
-    -webkit-animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
-    animation-delay: calc(var(--stagger) * var(--delay) + var(--start));
-  }
+pre {
+  background-color: var(--color-zinc-100);
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  line-height: 1;
 }
 
-.auto-link-heading {
-  @apply -ml-[1em] pl-[1em] before:absolute before:-ml-[1em] before:text-zinc-100/0 before:content-['#'] group-hover:before:text-zinc-100/50;
-}
-
-.prose h2,
-.prose h3,
-.prose h4 {
-  @apply text-base font-normal tracking-tight !important;
-}
-
-.prose .anchor {
-  @apply invisible absolute no-underline;
-
-  margin-left: -1em;
-  padding-right: 0.5em;
-  width: 80%;
-  max-width: 700px;
-  cursor: pointer;
-}
-
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  @apply decoration-zinc-400 decoration-[0.1em] underline-offset-2 transition-all dark:decoration-zinc-600;
-}
-
-.prose .anchor:after {
-  @apply text-zinc-300 dark:text-zinc-700;
-  content: "#";
-}
-
-.prose *:hover > .anchor {
-  @apply visible;
-}
-
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before,
-.prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::after {
-  content: "";
-}
-
-.form-text-field-phone {
+pre::-webkit-scrollbar {
   display: none;
+}
+
+pre {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+code {
+  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-size: 14px;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3em;
+  background-color: var(--color-zinc-100);
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+code:not(pre code) span {
+  font-weight: 500;
+  color: black !important;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  code {
+    font-family: "Menlo", "Monaco", "Courier New", monospace;
+    font-size: 14px;
+    padding: 0.2em 0.4em;
+    border-radius: 0.3em;
+    background-color: var(--color-zinc-800);
+  }
+
+  code:not(pre code) span {
+    color: var(--color-zinc-100) !important;
+  }
+} */
+
+pre code span {
+  font-weight: 500;
+}
+
+hr {
+  color: var(--color-gray-200);
+}
+
+/* Remove Safari input shadow on mobile */
+input[type="text"],
+input[type="email"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }

@@ -1,19 +1,28 @@
-import Link from "@/components/link";
-import Text from "@/components/text";
-import { getActiveWorkYears } from "@/utils/date-utils";
+import { Text } from "@/app/_components/ui/text";
+import * as DateUtils from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
+import { cacheLife } from "next/dist/server/use-cache/cache-life";
+import Link from "next/link";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "About",
   "Tommy is an experienced and solution-oriented consultant with expertise in JavaScript/TypeScript and React. He has a systematic and analytical approach to developing custom solutions from concept to product.",
   "Curriculum Vitae — About",
-  `Over ${getActiveWorkYears()} of experience in web technology`
+  `Over ${DateUtils.getActiveWorkYears()} of experience in web technology`
 );
+
+async function getActiveWorkYears() {
+  "use cache";
+
+  cacheLife("weeks");
+
+  return DateUtils.getActiveWorkYears();
+}
 
 export default async function CvAboutPage() {
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <Text>
         Tommy is an experienced and solution-oriented senior consultant with expertise in
         JavaScript/TypeScript and React. He has a systematic and analytical approach to developing

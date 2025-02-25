@@ -1,5 +1,6 @@
-import { Heading } from "@/components/heading";
-import Text from "@/components/text";
+import { FormatDate } from "@/app/_components/ui/date";
+import { Heading } from "@/app/_components/ui/heading";
+import { Text } from "@/app/_components/ui/text";
 import { cvRecommendations } from "@/data/cv-key-points";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
@@ -14,32 +15,23 @@ export const metadata: Metadata = metadataWithCustomOgImage(
 export default async function Recommendation() {
   const recommendations = cvRecommendations
     .map(recommendation => ({
-      ...recommendation,
-      date: new Date(recommendation.date)
+      ...recommendation
     }))
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+    .sort((a, b) => b.id - a.id);
 
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <ol className="space-y-8">
         {recommendations.map((recommendation, index) => (
           <li key={`recommendation-${index}`}>
-            <Heading variant="h2" noMargin>
-              {recommendation.name}
-            </Heading>
-            <Heading className="text-sm text-zinc-400" variant="h3" noMargin>
+            <Heading noMargin>{recommendation.name}</Heading>
+            <Heading className="text-sm text-zinc-400" noMargin>
               {recommendation.title} at {recommendation.company} —{" "}
-              {recommendation.date.toLocaleDateString("en-US", {
-                month: "long",
-                day: "2-digit",
-                year: "numeric"
-              })}
+              <FormatDate date={recommendation.date} />
             </Heading>
-            {/* lh: 2.25rem */}
-            {/* ls: -.025em */}
             <blockquote className="mt-2 leading-relaxed tracking-tight">
               {recommendation.description.map((desc, index) => (
-                <Text className="text-[15px] [&:not(:first-child)]:mt-2" key={`desc-${index}`}>{`${
+                <Text className="text-[15px] not-first:mt-2" key={`desc-${index}`}>{`${
                   index === 0 ? "“" : ""
                 }${desc}${index === recommendation.description.length - 1 ? "”" : ""}`}</Text>
               ))}
