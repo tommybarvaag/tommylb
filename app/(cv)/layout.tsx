@@ -7,11 +7,13 @@ import {
   CardHeader,
   CardTitle
 } from "@/app/_components/ui/card";
+import { Link } from "@/app/_components/ui/link";
 import "@/app/global.css";
 import { cvKeySkills } from "@/data/cv-key-points";
 import * as DateUtils from "@/utils/date-utils";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
-import Link from "next/link";
+import { SiteAnchor } from "../_components/site-anchor";
+import { CvNavigation } from "./cv-navigation";
 
 async function getActiveWorkYearsAsNumber() {
   "use cache";
@@ -26,12 +28,17 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
     <>
       <main className="px-6">
         <div className="relative items-start gap-10 pb-44 lg:grid lg:grid-cols-3">
-          <div className="space-y-5 lg:col-span-2 lg:px-0">{children}</div>
+          <div className="space-y-5 lg:col-span-2 lg:px-0">
+            <CvNavigation />
+            {children}
+          </div>
           <div className="my-8 space-y-5 lg:sticky lg:top-8 lg:my-0 lg:px-0">
             <Card>
               <CardHeader className="flex flex-row gap-3">
                 <div>
-                  <CardTitle>Tommy Lunde Barvåg</CardTitle>
+                  <CardTitle>
+                    <SiteAnchor />
+                  </CardTitle>
                   <CardDescription>Senior front-end specialist</CardDescription>
                 </div>
               </CardHeader>

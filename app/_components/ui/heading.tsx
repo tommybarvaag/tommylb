@@ -1,6 +1,6 @@
 "use client";
 
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
 import { forwardRef } from "react";
 
 import { Heading as ReactAriaHeading } from "react-aria-components";
@@ -21,18 +21,10 @@ const headingVariants = cva("", {
       destructive: "text-destructive"
     },
     size: {
-      default: "text-base leading-snug",
-      sm: "text-sm leading-snug",
-      lg: "text-lg leading-snug",
-      xl: "text-xl leading-snug",
-      "2xl": "text-2xl leading-snug",
-      "3xl": "text-3xl leading-snug",
-      "4xl": "text-4xl leading-snug",
-      "5xl": "text-5xl leading-snug",
-      "6xl": "text-6xl leading-tight"
+      default: "text-base leading-snug"
     },
     font: {
-      default: "font-bold",
+      default: "font-medium",
       normal: "font-normal",
       semi: "font-semibold"
     },
@@ -61,18 +53,7 @@ const headingVariants = cva("", {
 export type HeadingProps = ComponentPropsWithoutRef<typeof ReactAriaHeading> &
   VariantProps<typeof headingVariants>;
 
-function getSizeByHeadingLevel(level: number): VariantProps<typeof headingVariants>["size"] {
-  switch (level) {
-    case 1:
-      return "2xl";
-    case 2:
-      return "lg";
-    default:
-      return "default";
-  }
-}
-
-const Heading = forwardRef<ElementRef<typeof ReactAriaHeading>, HeadingProps>(
+const Heading = forwardRef<ComponentRef<typeof ReactAriaHeading>, HeadingProps>(
   (
     {
       className,
@@ -93,7 +74,7 @@ const Heading = forwardRef<ElementRef<typeof ReactAriaHeading>, HeadingProps>(
         className={cn(
           headingVariants({
             variant,
-            size: size ?? getSizeByHeadingLevel(level),
+            size: size,
             prose,
             noMargin,
             uppercase,

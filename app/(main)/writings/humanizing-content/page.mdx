@@ -1,16 +1,17 @@
-import { ActiveWorkYears } from "./active-work-years.tsx";
+import { ActiveWorkYears } from "@/app/_components/active-work-years.tsx";
+import { generateWritingsMetadata } from "@/lib/metadata-utils";
 import { TimeAgo } from "./time-ago.tsx";
 
-export const metadata = {
+export const metadata = generateWritingsMetadata({
   title: "Humanize your content",
   description:
     "Explore the art of humanizing digital content to improve readability and engagement. Simple tweaks can make a significant impact on your audience's experience.",
-  alternates: {
-    canonical: "/writings/humanize-your-content"
-  }
-};
+  canonical: "/writings/humanize-your-content"
+});
 
 # Humanize your content
+
+<SiteAnchor />
 
 In a digital landscape brimming with information, the way content resonates with users can make all the difference. **Humanizing** our digital interactions through _natural language_ not only captures attention but fosters a connection that can transcend the screen.
 

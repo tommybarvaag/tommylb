@@ -1,26 +1,27 @@
----
-title: Azure AD Service Principal with long expiry
-description: How to create an Azure AD Service Principal with a long expiry.
-date: "2023-01-06"
-authors:
-  - tommy
----
+import { generateWritingsMetadata } from "@/lib/metadata-utils";
 
-<Callout>
-  I use MacOS, so the commands below are for MacOS. If you are using Windows, you can use the Azure
-  CLI in the Cloud Shell. Or follow instructions to [install the Azure CLI on
-  Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli).
-</Callout>
+export const metadata = generateWritingsMetadata({
+  title: "Azure AD Service Principal with long expiry",
+  description:
+    "Learn how to create a service principal with a long expiry in Azure AD using the Microsoft Graph API and the Azure CLI.",
+  canonical: "/writings/azure-ad-sp-secret-long-expiry"
+});
+
+# Azure AD Service Principal with long expiry
+
+<SiteAnchor />
+
+> I use MacOS, so the commands below are for MacOS. If you are using Windows, you can use the Azure
+> CLI in the Cloud Shell. Or follow instructions to [install the Azure CLI on
+> Windows](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli).
 
 As a developer working in Azure, you may often need to work with Azure AD Service Principals to authenticate to Azure resources or
 other services that use Azure AD as an identity provider. In this case, the goal is to create a client secret that will last for a
 long time and can be used for authentication with [NextAuth.js](https://next-auth.js.org/).
 
-<Callout type="warning">
-  It is generally recommended to use service principals with short expiries and to rotate secrets
-  regularly. However, this tutorial provides a workaround for creating a service principal with a
-  longer expiry for use in development and test environments.
-</Callout>
+> It is generally recommended to use service principals with short expiries and to rotate secrets
+> regularly. However, this tutorial provides a workaround for creating a service principal with a
+> longer expiry for use in development and test environments.
 
 By default, Azure only allows you to create service principals with a maximum expiry of 2 years. To create a service principal with a longer expiry, you can use the Microsoft Graph API and the Azure CLI.
 

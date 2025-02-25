@@ -9,45 +9,33 @@ type Platform = {
   isError: boolean;
 };
 
-export async function getPlatform(): Promise<Platform> {
-  try {
-    // Safely get headers using next/headers
-    const headersList = await headers();
-    const userAgent = headersList.get("user-agent") || "";
+async function getPlatform(): Promise<Platform> {
+  // Safely get headers using next/headers
+  const headersList = await headers();
+  const userAgent = headersList.get("user-agent") || "";
 
-    // Detect device types based on user-agent
-    const isMobile = /mobile/i.test(userAgent) && !/tablet/i.test(userAgent);
-    const isTablet = /tablet/i.test(userAgent);
-    // If not mobile or tablet, assume desktop
-    const isDesktop = !isMobile && !isTablet;
+  // Detect device types based on user-agent
+  const isMobile = /mobile/i.test(userAgent) && !/tablet/i.test(userAgent);
+  const isTablet = /tablet/i.test(userAgent);
+  // If not mobile or tablet, assume desktop
+  const isDesktop = !isMobile && !isTablet;
 
-    // Bot detection
-    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(userAgent);
+  // Bot detection
+  const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(userAgent);
 
-    // Touch detection - note that this can't be reliably determined from user-agent alone
-    // For server-side, we can make educated guesses based on device type
-    // For better support you can use a library like https://github.com/bowser-js/bowser
-    const isTouch = isMobile || isTablet;
+  // Touch detection - note that this can't be reliably determined from user-agent alone
+  // For server-side, we can make educated guesses based on device type
+  // For better support you can use a library like https://github.com/bowser-js/bowser
+  const isTouch = isMobile || isTablet;
 
-    return {
-      isMobile,
-      isTablet,
-      isDesktop,
-      isTouch,
-      isBot,
-      isError: false
-    };
-  } catch (error) {
-    console.error("Error detecting platform:", error);
-    return {
-      isMobile: false,
-      isTablet: false,
-      isDesktop: true, // Default to desktop on error
-      isTouch: false,
-      isBot: false,
-      isError: true
-    };
-  }
+  return {
+    isMobile,
+    isTablet,
+    isDesktop,
+    isTouch,
+    isBot,
+    isError: false
+  };
 }
 
 // Example usage in a Server Component

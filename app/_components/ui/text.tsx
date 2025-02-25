@@ -51,7 +51,7 @@ const textVariants = cva("font-sans", {
 export type TextProps = React.ComponentPropsWithoutRef<typeof ReactAriaText> &
   VariantProps<typeof textVariants>;
 
-const Text = React.forwardRef<React.ElementRef<typeof ReactAriaText>, TextProps>(
+const Text = React.forwardRef<React.ComponentRef<typeof ReactAriaText>, TextProps>(
   ({ elementType = "p", variant, size, leading, truncate, weight, className, ...other }, ref) => {
     return (
       <ReactAriaText

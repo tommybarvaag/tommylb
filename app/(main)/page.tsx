@@ -1,8 +1,11 @@
 import { Heading } from "@/app/_components/ui/heading";
+import { Link } from "@/app/_components/ui/link";
 import { Text } from "@/app/_components/ui/text";
 import * as WritingsService from "@/app/_lib/services/writings-service";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
+import { ActiveWorkYears } from "../_components/active-work-years";
+import { SiteAnchor } from "../_components/site-anchor";
 
 async function Writings() {
   "use cache";
@@ -15,42 +18,43 @@ async function Writings() {
   return (
     <>
       <Heading>Writings</Heading>
-      {writings.map(writing => (
-        <div key={writing.slug}>
-          <a href={writing.slug}>{writing.title}</a>
-        </div>
-      ))}
+      <ul className="list-disc space-y-1 pl-5">
+        {writings.map(writing => (
+          <li key={writing.slug}>
+            <Link href={writing.slug}>{writing.title}</Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
 
 export default async function Home() {
   return (
-    <>
-      <div className="mb-12 w-full">
-        <Heading>Tommy Lunde Barvåg</Heading>
-        <div>
-          <Text>{/* <ActiveWorkYears /> */}</Text>
-          <Text>
-            I&apos;m currently working as a senior system developer at{" "}
-            <a href="https://investor.elmeragroup.no/" target="_blank" rel="noopener noreferrer">
-              Elmera Group
-            </a>
-            .
-          </Text>
-        </div>
+    <div className="space-y-6">
+      <div className="space-y-6">
+        <SiteAnchor />
+        <ActiveWorkYears />
+        <Text>
+          I&apos;m currently working as a senior system developer at{" "}
+          <a href="https://investor.elmeragroup.no/" target="_blank" rel="noopener noreferrer">
+            Elmera Group
+          </a>
+          .
+        </Text>
       </div>
-      <div className="mb-12">
+      <div className="space-y-6">
         <Writings />
       </div>
-      <div className="mb-12">
+      <div className="space-y-6">
         <Heading>Current</Heading>
         <Text>
-          Developing skill through exploring and building, living for the bleeding edge. I&apos;m a
-          big fan of the web and all the possibilities it offers.
+          Passionate about exploring and building, I thrive on the bleeding edge of technology. The
+          web fascinates me with its endless possibilities, and I love creating intuitive,
+          high-performing websites and applications.
         </Text>
         <Text>
-          I love building websites and web applications. I excel at{" "}
+          My expertise lies in{" "}
           <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">
             TypeScript
           </a>
@@ -62,13 +66,13 @@ export default async function Home() {
           <a href="https://nextjs.org/" target="_blank" rel="noopener noreferrer">
             Next.js
           </a>{" "}
-          and other modern web technologies.
+          , and modern web technologies, where I excel at crafting seamless user experiences.
         </Text>
         <Text>
-          I spend my free time with my live-in girlfriend, daughter and son, coding hobby projects,
-          taking runs around Bergen, and enjoying time with friends.
+          Outside of work, I spend my time with my girlfriend, daughter, and son, working on hobby
+          projects, running through the streets of Bergen, and enjoying good times with friends.
         </Text>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,6 +1,9 @@
-import Link from "next/link";
-import { ComponentPropsWithoutRef } from "react";
+import { Link, linkVariants } from "@/app/_components/ui/link";
+import { ComponentPropsWithoutRef, Suspense } from "react";
 import { highlight } from "sugar-high";
+import { SiteAnchor } from "./app/_components/site-anchor";
+import { Heading } from "./app/_components/ui/heading";
+import { Text } from "./app/_components/ui/text";
 import { cn } from "./app/_lib/utils";
 
 type HeadingProps = ComponentPropsWithoutRef<"h1">;
@@ -11,11 +14,11 @@ type AnchorProps = ComponentPropsWithoutRef<"a">;
 type BlockquoteProps = ComponentPropsWithoutRef<"blockquote">;
 
 const components = {
-  h1: (props: HeadingProps) => <h1 className="mb-0 pt-12 font-medium" {...props} />,
-  h2: (props: HeadingProps) => <h2 className="mt-8 mb-3 font-medium" {...props} />,
-  h3: (props: HeadingProps) => <h3 className="mt-8 mb-3 font-medium" {...props} />,
-  h4: (props: HeadingProps) => <h4 className="font-medium" {...props} />,
-  p: (props: ParagraphProps) => <p className="leading-snug" {...props} />,
+  h1: (props: HeadingProps) => <Heading level={1} className="mb-0" {...props} />,
+  h2: (props: HeadingProps) => <Heading level={2} {...props} />,
+  h3: (props: HeadingProps) => <Heading level={3} {...props} />,
+  h4: (props: HeadingProps) => <Heading level={4} {...props} />,
+  p: (props: ParagraphProps) => <Text {...props} />,
   ol: (props: ListProps) => <ol className="list-decimal space-y-2 pl-5" {...props} />,
   ul: (props: ListProps) => <ul className="list-disc space-y-1 pl-5" {...props} />,
   li: (props: ListItemProps) => <li className="pl-1" {...props} />,
@@ -23,25 +26,31 @@ const components = {
   strong: (props: ComponentPropsWithoutRef<"strong">) => (
     <strong className="font-medium" {...props} />
   ),
-  a: ({ href, children, ...props }: AnchorProps) => {
-    const className =
-      "text-blue-500 hover:text-blue-700 dark:text-gray-400 hover:dark:text-gray-300 dark:underline dark:underline-offset-2 dark:decoration-gray-800";
+  a: ({ href, children, className, ...props }: AnchorProps) => {
     if (href?.startsWith("/")) {
       return (
-        <Link href={href} className={className} {...props}>
+        <Link href={href} {...props}>
           {children}
         </Link>
       );
     }
+
     if (href?.startsWith("#")) {
       return (
-        <a href={href} className={className} {...props}>
+        <a href={href} className={cn(linkVariants(), className)} {...props}>
           {children}
         </a>
       );
     }
+
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className} {...props}>
+      <a
+        href={href}
+        className={cn(linkVariants(), className)}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...props}
+      >
         {children}
       </a>
     );
@@ -78,11 +87,12 @@ const components = {
   ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 dark:border-zinc-600"
+      className="my-6 flex flex-col items-start rounded-lg border border-l-4 border-zinc-950 bg-zinc-100 p-4"
       {...props}
     />
   ),
-  Tweet: () => <div>TODO: Tweet</div>
+  Tweet: () => <Suspense>TODO: Tweet</Suspense>,
+  SiteAnchor
 };
 
 declare global {

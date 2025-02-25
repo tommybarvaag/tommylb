@@ -1,9 +1,9 @@
+import { Link } from "@/app/_components/ui/link";
 import { Text } from "@/app/_components/ui/text";
 import * as DateUtils from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 import { cacheLife } from "next/dist/server/use-cache/cache-life";
-import Link from "next/link";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "About",

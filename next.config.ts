@@ -24,12 +24,17 @@ const nextConfig = {
     return [
       {
         source: "/blog",
-        destination: "/post",
+        destination: "/writings",
         permanent: true
       },
       {
         source: "/blog/:slug",
-        destination: "/post/:slug",
+        destination: "/writings/:slug",
+        permanent: true
+      },
+      {
+        source: "/post/:slug",
+        destination: "/writings/:slug",
         permanent: true
       },
       {

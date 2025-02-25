@@ -1,19 +1,22 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
 
 @theme {
-  --font-family-sans: "Inter", sans-serif;
+  --font-sans: var(--geist-font), sans-serif;
+  --font-mono: var(--geist-mono-font), "Menlo", "Monaco", "Courier New", monospace;
 }
 
 :root {
-  --sh-identifier: var(--color-zinc-950);
-  --sh-class: var(--color-zinc-800);
-  --sh-sign: var(--color-amber-800);
-  --sh-string: var(--color-emerald-800);
-  --sh-keyword: var(--color-zinc-900);
-  --sh-comment: var(--color-zinc-500);
-  --sh-jsxliterals: #005cc5;
-  --sh-property: var(--color-emerald-800);
-  --sh-entity: var(--color-amber-800);
+  --sh-background: var(--color-zinc-100); /* Code background (light) */
+  --sh-identifier: var(--color-zinc-950); /* Variables, function names */
+  --sh-class: var(--color-zinc-900); /* Class names */
+  --sh-sign: var(--color-zinc-700); /* Operators (+, -, *, /, =) */
+  --sh-string: var(--color-emerald-600); /* Strings */
+  --sh-keyword: var(--color-indigo-700); /* Keywords (if, else, return) */
+  --sh-comment: var(--color-zinc-500); /* Comments */
+  --sh-jsxliterals: var(--color-rose-700); /* JSX tags */
+  --sh-property: var(--color-blue-700); /* Object properties */
+  --sh-entity: var(--color-cyan-700); /* Special entities */
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -47,7 +50,9 @@ h4 {
 
 pre {
   background-color: var(--color-zinc-100);
-  border-radius: 0.5rem;
+  border-color: var(--color-zinc-950);
+  border-width: 1px;
+  border-radius: 4px;
   overflow-x: auto;
   padding: 1rem;
   margin: 1.5rem 0;
@@ -64,8 +69,6 @@ pre {
 }
 
 code {
-  font-family: "Menlo", "Monaco", "Courier New", monospace;
-  font-size: 14px;
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
   background-color: var(--color-zinc-100);
@@ -75,7 +78,6 @@ pre code {
   background-color: transparent;
   padding: 0;
   border: none;
-  font-size: 14px;
   line-height: 1.5;
 }
 
@@ -112,4 +114,9 @@ input[type="email"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.site-anchor {
+  view-transition-name: site-anchor;
+  width: fit-content;
 }

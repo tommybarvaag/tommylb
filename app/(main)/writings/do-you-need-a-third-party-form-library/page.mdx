@@ -1,13 +1,15 @@
-export const metadata = {
+import { generateWritingsMetadata } from "@/lib/metadata-utils";
+
+export const metadata = generateWritingsMetadata({
   title: "Do you need a third-party form library?",
   description:
     "This article can help you decide if you need third-party form library or not. We will look at React Hook Form and a traditional HTML5 approach.",
-  alternates: {
-    canonical: "/writings/do-you-need-a-third-party-form-library"
-  }
-};
+  canonical: "/writings/do-you-need-a-third-party-form-library"
+});
 
 # Do you need a third-party form library?
+
+<SiteAnchor />
 
 Consider the following form:
 
