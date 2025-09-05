@@ -87,7 +87,7 @@ const components = {
   ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="my-6 flex flex-col items-start rounded-lg border border-l-4 border-zinc-950 bg-zinc-100 p-4"
+      className="my-6 flex flex-col items-start rounded-lg border border-l-4 !border-zinc-950 !border-l-zinc-950 bg-zinc-100 p-4"
       {...props}
     />
   ),
