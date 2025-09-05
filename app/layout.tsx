@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en" className={cn("", geistFont.variable, geistMonoFont.variable)}>
-      <body className="flex min-h-screen flex-col justify-between bg-zinc-50 tracking-tight text-zinc-950 antialiased">
+      <body className="flex min-h-screen flex-col justify-between bg-neutral-50 tracking-tight text-zinc-950 antialiased">
         {children}
         <SpeedInsights />
         <VercelAnalytics />
