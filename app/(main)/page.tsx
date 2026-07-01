@@ -2,20 +2,12 @@ import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { getPosts } from "@/lib/post";
+import { getLastPosts } from "@/lib/posts";
 
 export const revalidate = 60;
 
-function getLastPosts() {
-  const posts = getPosts()
-    .sort((a, b) => new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime())
-    .slice(0, 3);
-
-  return posts;
-}
-
 export default async function Home() {
-  const lastPosts = getLastPosts();
+  const lastPosts = await getLastPosts(3);
 
   return (
     <>
@@ -91,11 +83,11 @@ export default async function Home() {
               <li key={post.slug}>
                 <Link className="mb-1 block" href={`/post/${post.slug}`}>
                   <Heading variant="h3" noMargin>
-                    {post.metadata.title}
+                    {post.title}
                   </Heading>
                 </Link>
                 <Text variant="small" noMargin>
-                  {post.metadata.shortDescription ?? post.metadata.description}
+                  {post.shortDescription}
                 </Text>
               </li>
             ))}
