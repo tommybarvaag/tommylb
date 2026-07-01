@@ -1,11 +1,14 @@
----
-title: Conditional rendering with Server Components
-description: Exploring React Server Components for platform-specific content rendering and using the user-agent header to identify user platforms.
-shortDescription: Render different content based on the platform that the user is on.
-date: "2023-12-01"
-authors:
-  - tommy
----
+export const metadata = {
+  title: "Conditional rendering with Server Components",
+  description:
+    "Exploring React Server Components for platform-specific content rendering and using the user-agent header to identify user platforms."
+};
+
+export const meta = {
+  date: "2023-12-01",
+  shortDescription: "Render different content based on the platform that the user is on.",
+  authors: ["tommy"]
+};
 
 It's not often that I find myself wanting to render different content based on the platform that the user is on. But when I have done so in the past, I've found it to be a bit of a pain. I've written several different approaches to this problem, and none of them have been particularly satisfying always leaving me with some headaches like
 
