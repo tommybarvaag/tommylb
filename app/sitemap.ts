@@ -4,7 +4,7 @@ import { getPosts } from "@/lib/posts";
 export default async function sitemap() {
   const allPosts = await getPosts();
   const posts = allPosts.map(post => ({
-    url: `https://tommylb.com${post.slug}`,
+    url: `https://tommylb.com/post/${post.slug}`,
     lastModified: post.date.split("T")[0]
   }));
 
