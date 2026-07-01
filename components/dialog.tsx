@@ -60,7 +60,7 @@ const DialogContent = React.forwardRef<
       {children}
       <DialogPrimitive.Close
         asChild
-        className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:pointer-events-none data-[state=open]:bg-zinc-800"
+        className="absolute right-4 top-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 focus:ring-offset-zinc-900 disabled:pointer-events-none data-[state=open]:bg-zinc-800"
       >
         <Button className="absolute right-4 top-4" variant="ghost">
           <Icons.X className="size-4" />
