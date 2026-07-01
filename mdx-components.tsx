@@ -11,6 +11,7 @@ import { TwitterCard } from "@/components/twitter-card";
 import { cn } from "@/lib/utils";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import type { MDXComponents } from "mdx/types";
+import { cacheLife } from "next/cache";
 import React, { Suspense } from "react";
 import { getTweet } from "react-tweet/api";
 import {
@@ -20,6 +21,38 @@ import {
 import { codeToHtml, createCssVariablesTheme } from "shiki";
 
 const cssVariablesTheme = createCssVariablesTheme({});
+
+// Deterministic per (code, lang) → cache it so Shiki's internal Date.now() is prerendered,
+// not treated as uncached dynamic IO by Cache Components (which fails the build).
+async function highlightCode(code: string, lang: string) {
+  "use cache";
+  cacheLife("max");
+
+  return codeToHtml(code, {
+    lang,
+    theme: cssVariablesTheme,
+    transformers: [
+      {
+        pre(hast) {
+          if (hast.children.length !== 1) {
+            throw new Error("<pre>: Expected a single <code> child");
+          }
+
+          if (hast.children[0].type !== "element") {
+            throw new Error("<pre>: Expected a <code> child");
+          }
+
+          return hast.children[0];
+        },
+        postprocess(rawHtml) {
+          return rawHtml.replace(/^<code>|<\/code>$/g, "");
+        }
+      },
+      transformerNotationHighlight(),
+      transformerNotationWordHighlight()
+    ]
+  });
+}
 
 function slugify(str: string) {
   return str
@@ -77,30 +110,7 @@ async function CodeBlock(props: { children?: React.ReactNode; className?: string
   const languageClass = classNames.split(/[\s,]+/).find(c => c.startsWith("language-"));
 
   if (typeof props.children === "string" && languageClass) {
-    const html = await codeToHtml(props.children, {
-      lang: languageClass.replace("language-", ""),
-      theme: cssVariablesTheme,
-      transformers: [
-        {
-          pre(hast) {
-            if (hast.children.length !== 1) {
-              throw new Error("<pre>: Expected a single <code> child");
-            }
-
-            if (hast.children[0].type !== "element") {
-              throw new Error("<pre>: Expected a <code> child");
-            }
-
-            return hast.children[0];
-          },
-          postprocess(rawHtml) {
-            return rawHtml.replace(/^<code>|<\/code>$/g, "");
-          }
-        },
-        transformerNotationHighlight(),
-        transformerNotationWordHighlight()
-      ]
-    });
+    const html = await highlightCode(props.children, languageClass.replace("language-", ""));
 
     return (
       <code

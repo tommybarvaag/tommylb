@@ -1,4 +1,5 @@
 import { promises as fs } from "fs";
+import { cacheLife } from "next/cache";
 import path from "path";
 
 const postsDirectory = path.join(process.cwd(), "app", "(main)", "post", "_posts");
@@ -10,13 +11,22 @@ export type PostListItem = {
   shortDescription?: string;
 };
 
+// The post set is fixed per deployment — cache the filesystem read + local .mdx imports so
+// Cache Components treats them as prerendered data, not uncached runtime IO. cacheLife("max")
+// because the value only changes on a new build.
 export async function getPostSlugs(): Promise<string[]> {
+  "use cache";
+  cacheLife("max");
+
   const files = await fs.readdir(postsDirectory);
 
   return files.filter(file => file.endsWith(".mdx")).map(file => file.replace(/\.mdx$/, ""));
 }
 
 export async function getPosts(): Promise<PostListItem[]> {
+  "use cache";
+  cacheLife("max");
+
   const slugs = await getPostSlugs();
   const posts: PostListItem[] = [];
 
