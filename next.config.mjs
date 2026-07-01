@@ -1,7 +1,11 @@
+import createMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   turbopack: {},
+  transpilePackages: ["shiki"],
   images: {
     qualities: [75, 90],
     remotePatterns: [
@@ -12,6 +16,11 @@ const nextConfig = {
         hostname: "pbs.twimg.com"
       }
     ]
+  },
+  experimental: {
+    mdxRs: {
+      mdxType: "gfm"
+    }
   },
   async redirects() {
     return [
@@ -44,4 +53,6 @@ const nextConfig = {
   }
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);
