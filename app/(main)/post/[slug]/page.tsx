@@ -1,36 +1,41 @@
-import { Mdx } from "@/app/mdx/mdx";
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
-import Text from "@/components/text";
-import { getPosts } from "@/lib/post";
-import { getTweets } from "@/lib/twitter";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
+import { promises as fs } from "fs";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import path from "path";
+
+const postsDirectory = path.join(process.cwd(), "app", "(main)", "post", "_posts");
 
 interface PostPageProps {
-  params: Promise<{
-    slug: string[];
-  }>;
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const files = await fs.readdir(postsDirectory);
+
+  return files
+    .filter(name => name.endsWith(".mdx"))
+    .map(name => ({ slug: name.replace(/\.mdx$/, "") }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
-  const { slug: slugSegments } = await params;
-  const slug = slugSegments?.join("/");
-  const post = getPosts().find(post => post.slug === slug);
+  const { slug } = await params;
 
-  if (!post) {
+  let post: { metadata: Metadata };
+  try {
+    post = await import(`../_posts/${slug}.mdx`);
+  } catch {
     return {};
   }
 
-  const title = post.metadata.title;
-
+  const title = typeof post.metadata.title === "string" ? post.metadata.title : slug;
+  const description = post.metadata.description ?? undefined;
   const url = getAbsoluteUrl();
-
-  const description = post.metadata.description;
 
   const ogImageUrl = new URL(`${url}/api/og`);
   ogImageUrl.searchParams.set("heading", title);
@@ -47,17 +52,17 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title,
       description,
       card: "summary_large_image",
-      images: ogImageUrl
+      images: ogImageUrl.toString()
     },
     openGraph: {
       title,
       type: "website",
-      url: getAbsoluteUrl(),
+      url,
       siteName: title,
       description,
       images: [
         {
-          url: ogImageUrl,
+          url: ogImageUrl.toString(),
           width: 1200,
           height: 630,
           alt: "Tommy Lunde Barvåg."
@@ -67,30 +72,30 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   };
 }
 
-export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
-  return getPosts().map(post => ({
-    slug: post.slug.split("/")
-  }));
-}
-
 export default async function PostPage({ params }: PostPageProps) {
-  const { slug: slugSegments } = await params;
-  const slug = slugSegments?.join("/");
+  const { slug } = await params;
 
-  const post = getPosts().find(post => post.slug === slug);
+  let Post: (props: Record<string, never>) => React.ReactNode;
+  let meta: { date?: string; shortDescription?: string; authors?: string[] };
+  let metadata: Metadata;
 
-  if (!post) {
+  try {
+    const mod = await import(`../_posts/${slug}.mdx`);
+    Post = mod.default;
+    meta = mod.meta ?? {};
+    metadata = mod.metadata ?? {};
+  } catch {
     notFound();
   }
 
-  const tweets = await getTweets(post.tweetIds);
+  const title = typeof metadata.title === "string" ? metadata.title : slug;
 
   return (
     <article className="container prose prose-zinc prose-invert relative max-w-3xl">
       <HistoryBackLink href="/post">See all posts</HistoryBackLink>
       <div>
         <Heading variant="h1" className="mb-8">
-          {post.metadata.title}
+          {title}
         </Heading>
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div className="flex space-x-4 md:grow">
@@ -106,31 +111,27 @@ export default async function PostPage({ params }: PostPageProps) {
                 className="rounded-full"
               />
               <div className="flex-1 items-center">
-                <Text className="mb-0 text-sm font-medium text-zinc-100" noMargin>
-                  Tommy Lunde Barvåg
-                </Text>
-                <Text className="mb-0 text-[12px] text-zinc-400" noMargin>
-                  @tommybarvaag
-                </Text>
+                <p className="mb-0 text-sm font-medium text-foreground">Tommy Lunde Barvåg</p>
+                <p className="mb-0 text-[12px] text-muted-foreground">@tommybarvaag</p>
               </div>
             </Link>
           </div>
-          {post.metadata.date && (
+          {meta.date ? (
             <div className="flex flex-col md:items-end">
               <time
-                dateTime={post.metadata.date}
-                className="block shrink text-sm text-zinc-300 md:max-w-full"
+                dateTime={meta.date}
+                className="block shrink text-sm text-muted-foreground md:max-w-full"
               >
-                Published on {formatDate(post.metadata.date)}
+                Published on {formatDate(meta.date)}
               </time>
-              <span className="text-[12px] text-zinc-400">
-                {getHumanizedDateFromNow(new Date(post.metadata.date))} ago
+              <span className="text-[12px] text-muted-foreground">
+                {getHumanizedDateFromNow(new Date(meta.date))} ago
               </span>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
-      <Mdx source={post.content} tweets={tweets} />
+      <Post />
     </article>
   );
 }
