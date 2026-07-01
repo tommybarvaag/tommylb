@@ -6,7 +6,7 @@ import { VariantProps, cva } from "class-variance-authority";
 const cardVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-zinc-900 text-zinc-50 rounded-xl border border-zinc-700 shadow-zinc-700"
+      default: "bg-card text-card-foreground rounded-xl border border-border shadow-sm"
     }
   },
   defaultVariants: {
