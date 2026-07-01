@@ -15,7 +15,6 @@ export default async function sitemap() {
   const routes = [
     "",
     "/post",
-    "/strava",
     "/connect",
     "/timeline",
     "/cv/about",
