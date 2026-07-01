@@ -39,7 +39,7 @@ export default async function Recommendation() {
             {/* ls: -.025em */}
             <blockquote className="mt-2 leading-relaxed tracking-tight">
               {recommendation.description.map((desc, index) => (
-                <Text className="text-[15px] [&:not(:first-child)]:mt-2" key={`desc-${index}`}>{`${
+                <Text className="text-[15px] not-first:mt-2" key={`desc-${index}`}>{`${
                   index === 0 ? "“" : ""
                 }${desc}${index === recommendation.description.length - 1 ? "”" : ""}`}</Text>
               ))}

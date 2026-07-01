@@ -7,7 +7,7 @@ type TimelineSectionHeadingProps = {
 
 export default function TimelineSectionHeading({ children }: TimelineSectionHeadingProps) {
   return (
-    <Heading variant="h3" className="!mb-2">
+    <Heading variant="h3" className="mb-2!">
       {children}
     </Heading>
   );

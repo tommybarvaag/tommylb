@@ -42,7 +42,7 @@ export default async function PostPage() {
             .map(([year, posts]) => (
               <div
                 key={year}
-                className="mb-8 flex justify-between gap-6 border-b-border pb-8 lg:gap-12 [&:not(:last-child)]:border-b"
+                className="mb-8 flex justify-between gap-6 border-b-border pb-8 lg:gap-12 not-last:border-b"
               >
                 <Text className="mb-0 self-start py-2 text-sm leading-7 text-muted-foreground">
                   {year}
@@ -51,7 +51,7 @@ export default async function PostPage() {
                   {posts.map(post => (
                     <li
                       key={`post-page-${post.slug}`}
-                      className="border-b-border py-2 [&:not(:last-child)]:border-b"
+                      className="border-b-border py-2 not-last:border-b"
                     >
                       <Link
                         href={`/post/${post.slug}`}

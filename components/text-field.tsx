@@ -49,7 +49,7 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
           ease: "easeOut"
         }}
       >
-        <Text className="text-sm !text-red-700" noMargin>
+        <Text className="text-sm text-red-700!" noMargin>
           {error ? helperText : <>&nbsp;</>}
         </Text>
       </motion.div>
