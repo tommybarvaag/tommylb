@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
 const mainVariants = cva(
-  "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-zinc-900 px-8",
+  "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-background px-8",
   {
     variants: {
       size: {

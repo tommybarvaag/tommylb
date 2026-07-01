@@ -1,4 +1,5 @@
 import "@/app/global.css";
+import { ThemeProvider } from "@/components/theme-provider";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
@@ -8,7 +9,10 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 
 export const viewport: Viewport = {
-  themeColor: "#18181b",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#242424" }
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 1
@@ -32,10 +36,17 @@ export default function RootLayout({
   const name = "Tommy Lunde Barvåg";
 
   return (
-    <html lang="en" className={cn("", interFont.className)}>
-      <body className="bg-zinc-900 text-zinc-50">
-        {children}
-        {modal}
+    <html lang="en" suppressHydrationWarning className={cn("", interFont.className)}>
+      <body className="bg-background text-foreground">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          {modal}
+        </ThemeProvider>
         <SpeedInsights />
         <VercelAnalytics />
       </body>
