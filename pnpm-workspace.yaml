@@ -1,4 +1,2 @@
 allowBuilds:
-  es5-ext: false
-  esbuild: false
   unrs-resolver: false
