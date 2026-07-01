@@ -2,33 +2,9 @@ import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { db } from "@/db/db";
-import { stravaActivity } from "@/db/schema";
 import { getPosts } from "@/lib/post";
-import { getFormattedPostDate } from "@/utils/date-utils";
-import { desc } from "drizzle-orm";
 
 export const revalidate = 60;
-
-async function getLastStravaActivity() {
-  const activity = await db
-    .select({
-      id: stravaActivity.id,
-      name: stravaActivity.name,
-      type: stravaActivity.type,
-      calories: stravaActivity.calories,
-      hasHeartRate: stravaActivity.hasHeartRate,
-      averageHeartRate: stravaActivity.averageHeartRate,
-      startDateLocal: stravaActivity.startDateLocal,
-      distanceInKilometers: stravaActivity.distanceInKilometers,
-      formattedMovingTime: stravaActivity.formattedMovingTime
-    })
-    .from(stravaActivity)
-    .orderBy(desc(stravaActivity.startDateLocal))
-    .limit(3);
-
-  return activity;
-}
 
 function getLastPosts() {
   const posts = getPosts()
@@ -39,7 +15,6 @@ function getLastPosts() {
 }
 
 export default async function Home() {
-  const lastStravaActivity = await getLastStravaActivity();
   const lastPosts = getLastPosts();
 
   return (
@@ -70,7 +45,7 @@ export default async function Home() {
         </div>
       </div>
       <div
-        className="mb-12 grid w-full justify-between gap-8 sm:grid-cols-3"
+        className="mb-12 grid w-full justify-between gap-8 sm:grid-cols-2"
         data-animate
         style={{
           "--stagger": "3"
@@ -103,33 +78,6 @@ export default async function Home() {
                 Norwegian calendar with holidays and vacations.
               </Text>
             </li>
-          </ul>
-        </div>
-        <div>
-          <Heading className="mb-4 text-zinc-300">
-            <Link href="/strava" underline={false}>
-              Strava
-            </Link>
-          </Heading>
-          <ul className="flex flex-col gap-6">
-            {lastStravaActivity.map(activity => (
-              <li key={activity.id}>
-                <Link className="mb-1 block" href={`/strava/${activity.id}`}>
-                  <Heading variant="h3" noMargin>
-                    {getFormattedPostDate(new Date(activity.startDateLocal))}
-                  </Heading>
-                </Link>
-                <Text variant="small" noMargin>
-                  {`${
-                    activity.type === "Workout"
-                      ? `${activity.type} with ${activity.calories} calories burned and`
-                      : `${
-                          activity.distanceInKilometers
-                        } km ${activity.type?.toLocaleLowerCase()} in ${activity.formattedMovingTime} minutes, with`
-                  } an average heart rate of ${activity.averageHeartRate?.toString()}.`}
-                </Text>
-              </li>
-            ))}
           </ul>
         </div>
         <div>
