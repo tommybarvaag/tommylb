@@ -1,8 +1,6 @@
 import { Mdx } from "@/app/mdx/mdx";
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
-import { Icons } from "@/components/icons";
-import { PostViewCount } from "@/components/post";
 import Text from "@/components/text";
 import { getPosts } from "@/lib/post";
 import { getTweets } from "@/lib/twitter";
@@ -12,7 +10,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
 interface PostPageProps {
   params: {
@@ -132,10 +129,6 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </div>
       <Mdx source={post.content} tweets={tweets} />
-      <hr className="my-6 border-zinc-700" />
-      <Suspense fallback={<Icons.Spinner className="size-5" />}>
-        <PostViewCount slug={post.slug} />
-      </Suspense>
     </article>
   );
 }
