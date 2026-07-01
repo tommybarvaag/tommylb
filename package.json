@@ -8,9 +8,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm test:ci && next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "jest --watch",
     "test:ci": "jest --ci",
     "up": "pnpm dlx npm-check-updates --root --format group -i"
