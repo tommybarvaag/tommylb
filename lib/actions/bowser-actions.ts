@@ -6,7 +6,7 @@ import { headers as getHeaders } from "next/headers";
 
 async function getPlatform() {
   try {
-    const headers = getHeaders();
+    const headers = await getHeaders();
 
     const browser = Bowser.parse(headers.get("user-agent"));
 
