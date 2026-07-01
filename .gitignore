@@ -29,8 +29,3 @@ yarn-error.log*
 .vscode
 
 .ref
-
-# Phase 6 shadcn-init reconciliation backups (delete after Task 6.5)
-app/global.css.bak
-lib/utils.ts.bak
-scratchpad/preset-bIkeymG.decode.txt
