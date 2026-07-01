@@ -2,6 +2,7 @@
 
 import Text from "@/components/text";
 import { AnimatePresence, motion } from "framer-motion";
+import type { JSX } from "react";
 
 type FormSubmitMessageProps = {
   text: string;
