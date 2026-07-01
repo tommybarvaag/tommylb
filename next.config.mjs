@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  turbopack: {},
   images: {
+    qualities: [75, 90],
     remotePatterns: [
       {
         hostname: "images.unsplash.com"
@@ -10,9 +12,6 @@ const nextConfig = {
         hostname: "pbs.twimg.com"
       }
     ]
-  },
-  experimental: {
-    scrollRestoration: true
   },
   async redirects() {
     return [
