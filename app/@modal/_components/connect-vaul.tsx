@@ -14,18 +14,21 @@ export default function ConnectDialogVaul() {
   return (
     <Drawer
       open
+      swipeDirection="down"
       onOpenChange={open => {
         if (!open) {
           router.back();
         }
       }}
     >
-      <DrawerContent className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-zinc-900 px-4 py-6">
-        <DrawerClose asChild>
-          <Button className="absolute right-4 top-4" variant="ghost">
-            <Icons.X />
-          </Button>
-        </DrawerClose>
+      <DrawerContent className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-background px-4 py-6">
+        <DrawerClose
+          render={
+            <Button className="absolute right-4 top-4" variant="ghost">
+              <Icons.X />
+            </Button>
+          }
+        />
         <Heading noMargin>Connect</Heading>
         <Text>
           If you have any questions or would like to work with me, please fill out the form below.

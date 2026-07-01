@@ -38,6 +38,7 @@ function ProjectExperience({
   return (
     <Drawer
       open={open}
+      swipeDirection="down"
       onOpenChange={open => {
         setOpen(open);
 
@@ -53,15 +54,17 @@ function ProjectExperience({
       }}
     >
       <DrawerContent variant="scrollable">
-        <DrawerClose asChild>
-          <Button className="absolute right-3 top-3 z-40 size-10 rounded-full p-0">
-            <Icons.X className="size-6" />
-          </Button>
-        </DrawerClose>
+        <DrawerClose
+          render={
+            <Button className="absolute right-3 top-3 z-40 size-10 rounded-full p-0">
+              <Icons.X className="size-6" />
+            </Button>
+          }
+        />
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
           <Image
             className={cn(
-              "select-none rounded-t-[10px] border-x border-t border-zinc-900 object-cover object-center brightness-90",
+              "select-none rounded-t-[10px] border-x border-t border-border object-cover object-center brightness-90",
               {
                 "object-top": projectExperience.images?.[0]?.bannerObjectPosition === "top",
                 "object-center": projectExperience.images?.[0]?.bannerObjectPosition === "center",
@@ -75,25 +78,29 @@ function ProjectExperience({
             priority
           />
         </div>
-        <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
-          <DrawerTitle asChild>
-            <div>
-              <Heading className="mb-3 font-semibold" variant="h2" uppercase>
-                {projectExperience.clientName}
-              </Heading>
-              <Heading className="mb-4" variant="h1" prose>
-                {projectExperience.title}
-              </Heading>
-            </div>
-          </DrawerTitle>
+        <div className="space-y-8 border-x border-border px-8 pb-8 pt-12 md:px-12 lg:px-24">
+          <DrawerTitle
+            render={
+              <div>
+                <Heading className="mb-3 font-semibold" variant="h2" uppercase>
+                  {projectExperience.clientName}
+                </Heading>
+                <Heading className="mb-4" variant="h1" prose>
+                  {projectExperience.title}
+                </Heading>
+              </div>
+            }
+          />
           <CvTime fromDate={projectExperience.startDate} toDate={projectExperience.endDate} />
-          <DrawerDescription asChild>
-            <>
-              {projectExperience.description.map((desc, index) => (
-                <Text key={`desc-${index}`}>{desc}</Text>
-              ))}
-            </>
-          </DrawerDescription>
+          <DrawerDescription
+            render={
+              <div>
+                {projectExperience.description.map((desc, index) => (
+                  <Text key={`desc-${index}`}>{desc}</Text>
+                ))}
+              </div>
+            }
+          />
           <div>
             <Heading className="mb-4" variant="h3" prose>
               Roles
@@ -133,7 +140,7 @@ function ProjectExperience({
             </div>
           </section>
         </div>
-        <div className="mt-auto h-24 border-x border-t border-zinc-900 border-t-zinc-800 bg-zinc-900 p-4"></div>
+        <div className="mt-auto h-24 border-x border-t border-border bg-background p-4"></div>
       </DrawerContent>
     </Drawer>
   );

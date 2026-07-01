@@ -1,6 +1,7 @@
 import "@/app/global.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { VercelAnalytics } from "@/components/vercel-analytics";
+import { Drawer } from "@base-ui/react/drawer";
 import { cn } from "@/lib/utils";
 import { defaultMetadata } from "@/utils/metadata-utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -44,8 +45,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          {modal}
+          <Drawer.Provider>
+            <Drawer.IndentBackground />
+            <Drawer.Indent>
+              {children}
+              {modal}
+            </Drawer.Indent>
+          </Drawer.Provider>
         </ThemeProvider>
         <SpeedInsights />
         <VercelAnalytics />
