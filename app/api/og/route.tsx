@@ -1,8 +1,17 @@
 import { ogImageSchema } from "@/lib/validations/og";
 import { ImageResponse } from "@vercel/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { NextRequest } from "next/server";
 
-export const runtime = "edge";
+// Satori parses fonts with a DataView, which requires an ArrayBuffer — Node's readFile
+// returns a Buffer (a view over a possibly-larger pool), so slice out its exact bytes.
+function toArrayBuffer(buffer: Buffer): ArrayBuffer {
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength
+  ) as ArrayBuffer;
+}
 
 function getFontSize(heading: string) {
   switch (true) {
@@ -23,20 +32,18 @@ function getFontSize(heading: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const fontRegular = fetch(
-      new URL("../../../assets/fonts/Geist-Regular.otf", import.meta.url)
-    ).then(res => res.arrayBuffer());
+    // Node.js runtime (edge is unsupported under Cache Components): read bundled assets from
+    // the filesystem via fs.readFile. Node's fetch() cannot load file: URLs, so the previous
+    // fetch(new URL(..., import.meta.url)) pattern only worked on edge.
+    const [fontRegularBuffer, fontBoldBuffer, imageBuffer] = await Promise.all([
+      readFile(join(process.cwd(), "assets/fonts/Geist-Regular.otf")),
+      readFile(join(process.cwd(), "assets/fonts/Geist-Bold.otf")),
+      readFile(join(process.cwd(), "public/images/tommy-zoom-256.jpg"))
+    ]);
 
-    const fontBold = fetch(new URL("../../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
-      res => res.arrayBuffer()
-    );
-    const image = fetch(new URL("../../../public/images/tommy-zoom-256.jpg", import.meta.url)).then(
-      res => res.arrayBuffer()
-    );
-
-    const fontRegularData = await fontRegular;
-    const fontBoldData = await fontBold;
-    const imageData = await image;
+    const fontRegularData = toArrayBuffer(fontRegularBuffer);
+    const fontBoldData = toArrayBuffer(fontBoldBuffer);
+    const imageData = toArrayBuffer(imageBuffer);
 
     const values = ogImageSchema.parse(Object.fromEntries(request.nextUrl.searchParams));
     const heading =

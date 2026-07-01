@@ -6,8 +6,6 @@ import Text from "@/components/text";
 import { Metadata } from "next";
 import { Suspense } from "react";
 
-export const runtime = "edge";
-
 export const metadata: Metadata = {
   robots: {
     index: false,
