@@ -4,8 +4,6 @@ import Link from "@/components/link";
 import Text from "@/components/text";
 import { getLastPosts } from "@/lib/posts";
 
-export const revalidate = 60;
-
 export default async function Home() {
   const lastPosts = await getLastPosts(3);
 
