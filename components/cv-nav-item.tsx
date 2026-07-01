@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -13,15 +13,15 @@ function CvNavItem({ path, name }: { path: string; name: string }) {
     <Link
       key={path}
       href={path}
-      className={cn("flex align-middle transition-all hover:text-zinc-300", {
-        "text-zinc-400": !isActive
+      className={cn("flex align-middle transition-all hover:text-foreground", {
+        "text-muted-foreground": !isActive
       })}
     >
       <span className="relative p-1 lg:px-2">
         {name}
         {isActive ? (
           <motion.div
-            className="absolute inset-0 top-7 mx-1 h-px bg-zinc-400 lg:mx-2"
+            className="absolute inset-0 top-7 mx-1 h-px bg-foreground lg:mx-2"
             layoutId="sidebar"
             transition={{
               type: "spring",

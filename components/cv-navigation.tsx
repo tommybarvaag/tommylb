@@ -1,7 +1,7 @@
 "use client";
 
 import { CvNavItem } from "@/components/cv-nav-item";
-import { LayoutGroup } from "framer-motion";
+import { LayoutGroup } from "motion/react";
 import { Suspense } from "react";
 
 const navItems = {
