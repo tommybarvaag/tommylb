@@ -2,18 +2,19 @@ import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
 import { notFound } from "next/navigation";
 
-export const runtime = "experimental-edge";
+export const runtime = "edge";
 
 interface ProjectExperienceProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export default function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+export default async function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+  const { slug } = await params;
   const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === params.slug
+    projectExperienceItem => projectExperienceItem.slug === slug
   );
 
   if (!projectExperience) {

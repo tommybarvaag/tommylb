@@ -12,13 +12,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface PostPageProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
-export function generateMetadata({ params }: PostPageProps): Metadata {
-  const slug = params?.slug?.join("/");
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug: slugSegments } = await params;
+  const slug = slugSegments?.join("/");
   const post = getPosts().find(post => post.slug === slug);
 
   if (!post) {
@@ -66,14 +67,15 @@ export function generateMetadata({ params }: PostPageProps): Metadata {
   };
 }
 
-export async function generateStaticParams(): Promise<PostPageProps["params"][]> {
+export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   return getPosts().map(post => ({
     slug: post.slug.split("/")
   }));
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const slug = params?.slug?.join("/");
+  const { slug: slugSegments } = await params;
+  const slug = slugSegments?.join("/");
 
   const post = getPosts().find(post => post.slug === slug);
 

@@ -5,10 +5,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface ProjectExperienceProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateStaticParams() {
@@ -17,9 +17,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: ProjectExperienceProps): Metadata {
+export async function generateMetadata({ params }: ProjectExperienceProps): Promise<Metadata> {
+  const { slug } = await params;
   const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === params.slug
+    projectExperienceItem => projectExperienceItem.slug === slug
   );
 
   if (!projectExperience) {
@@ -37,8 +38,9 @@ export function generateMetadata({ params }: ProjectExperienceProps): Metadata {
 }
 
 export default async function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+  const { slug } = await params;
   const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === params.slug
+    projectExperienceItem => projectExperienceItem.slug === slug
   );
 
   if (!projectExperience) {
