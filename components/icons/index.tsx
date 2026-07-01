@@ -20,7 +20,6 @@ import {
   Flame,
   LogIn,
   Send,
-  Twitter,
   X
 } from "lucide-react";
 import { ComponentPropsWithoutRef, FC } from "react";
@@ -105,7 +104,6 @@ export type Icon = LucideIcon;
 
 export const Icons = {
   At,
-  Twitter,
   Check,
   Send,
   ArrowRight,
