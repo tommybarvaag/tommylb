@@ -10,17 +10,20 @@ export type PostListItem = {
   shortDescription?: string;
 };
 
-export async function getPosts(): Promise<PostListItem[]> {
+export async function getPostSlugs(): Promise<string[]> {
   const files = await fs.readdir(postsDirectory);
+
+  return files.filter(file => file.endsWith(".mdx")).map(file => file.replace(/\.mdx$/, ""));
+}
+
+export async function getPosts(): Promise<PostListItem[]> {
+  const slugs = await getPostSlugs();
   const posts: PostListItem[] = [];
 
-  for (const file of files) {
-    if (!file.endsWith(".mdx")) continue;
-
-    const slug = file.replace(/\.mdx$/, "");
+  for (const slug of slugs) {
     // Build-time read of a LOCAL module: mdxRs resolves this at compile time
     // (not uncached runtime IO). Path is relative to lib/posts.ts.
-    const mod = await import(`../app/(main)/post/_posts/${file}`);
+    const mod = await import(`../app/(main)/post/_posts/${slug}.mdx`);
     posts.push({
       slug,
       title: typeof mod.metadata?.title === "string" ? mod.metadata.title : slug,

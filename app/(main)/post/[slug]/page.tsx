@@ -1,26 +1,21 @@
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
+import { getPostSlugs } from "@/lib/posts";
 import { formatDate, getAbsoluteUrl } from "@/lib/utils";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
-import { promises as fs } from "fs";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import path from "path";
-
-const postsDirectory = path.join(process.cwd(), "app", "(main)", "post", "_posts");
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const files = await fs.readdir(postsDirectory);
+  const slugs = await getPostSlugs();
 
-  return files
-    .filter(name => name.endsWith(".mdx"))
-    .map(name => ({ slug: name.replace(/\.mdx$/, "") }));
+  return slugs.map(slug => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
