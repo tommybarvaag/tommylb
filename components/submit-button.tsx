@@ -1,5 +1,4 @@
 import { Button } from "@/components/button";
-import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import { useFormStatus } from "react-dom";
 
@@ -11,7 +10,7 @@ const SubmitButton = forwardRef<ElementRef<typeof Button>, SubmitButtonProps>(
 
     return (
       <Button
-        className={cn("", className)}
+        className={className}
         type="submit"
         disabled={pending}
         aria-disabled={pending}

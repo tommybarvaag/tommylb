@@ -1,6 +1,7 @@
 import Text from "@/components/text";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { Field } from "@base-ui/react/field";
+import { motion } from "motion/react";
 import * as React from "react";
 
 type TextAreaProps = React.ComponentPropsWithoutRef<"textarea"> & {
@@ -11,17 +12,22 @@ type TextAreaProps = React.ComponentPropsWithoutRef<"textarea"> & {
   placeholder?: string;
 };
 
-const TextArea = React.forwardRef<React.ElementRef<"textarea">, TextAreaProps>(function TextArea(
+const TextArea = React.forwardRef<React.ComponentRef<"textarea">, TextAreaProps>(function TextArea(
   { id, label, error, helperText = "Required", ...other }: TextAreaProps,
   ref
 ) {
   return (
-    <div className={cn("mb-6 flex flex-col")}>
-      <label className="block text-sm text-zinc-100">{label}</label>
-      <textarea
-        className="mb-2 mt-1 block w-full resize-none scroll-py-2 rounded-md border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
-        ref={ref}
-        {...other}
+    <Field.Root className={cn("mb-6 flex flex-col")}>
+      <Field.Label className="block text-sm text-foreground">{label}</Field.Label>
+      <Field.Control
+        render={props => (
+          <textarea
+            {...props}
+            {...other}
+            className="mb-2 mt-1 block w-full resize-none scroll-py-2 rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
+            ref={ref}
+          />
+        )}
       />
       <motion.div
         initial={error ? "open" : "collapsed"}
@@ -42,7 +48,7 @@ const TextArea = React.forwardRef<React.ElementRef<"textarea">, TextAreaProps>(f
           {error ? helperText : <>&nbsp;</>}
         </Text>
       </motion.div>
-    </div>
+    </Field.Root>
   );
 });
 
