@@ -1,7 +1,7 @@
 export default function CardSkeleton({ ...other }) {
   return (
-    <div className="mx-auto mt-8 min-w-1/2" {...other}>
-      <div className="min-w-1/2 p-4">
+    <div className="mx-auto mt-8 min-w-[50%]" {...other}>
+      <div className="min-w-[50%] p-4">
         <div className="h-full overflow-hidden rounded-lg border-2 border-zinc-200">
           <div className="w-full bg-zinc-400 object-cover object-center md:h-36 lg:h-48"></div>
           <div className="p-6">
