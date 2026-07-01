@@ -2,23 +2,29 @@ import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { getPosts } from "@/lib/post";
 import { formatMonthDay } from "@/lib/utils";
+import { getPosts, type PostListItem } from "@/lib/posts";
 
 export default async function PostPage() {
-  const yearPosts = getPosts()
-    .sort((a, b) => new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime())
+  const posts = await getPosts();
+
+  const yearPosts = posts
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .reduce(
       (accumulator, post) => {
-        const year = `${new Date(post.metadata.date).getFullYear()}`;
+        const year = `${new Date(post.date).getFullYear()}`;
+
         if (!accumulator[year]) {
           accumulator[year] = [];
         }
+
         accumulator[year].push(post);
+
         return accumulator;
       },
-      {} as Record<string, ReturnType<typeof getPosts>>
+      {} as Record<string, PostListItem[]>
     );
+
   return (
     <div className="container relative max-w-4xl">
       <HistoryBackLink href="/">Home</HistoryBackLink>
@@ -28,7 +34,7 @@ export default async function PostPage() {
           <Text>Thoughts, ideas, and stories.</Text>
         </div>
       </div>
-      <hr className="my-8 border-zinc-700" />
+      <hr className="my-8 border-border" />
       {Object.entries(yearPosts).length ? (
         <div className="group">
           {Object.entries(yearPosts)
@@ -36,14 +42,16 @@ export default async function PostPage() {
             .map(([year, posts]) => (
               <div
                 key={year}
-                className="mb-8 flex justify-between gap-6 border-b-zinc-700 pb-8 lg:gap-12 [&:not(:last-child)]:border-b"
+                className="mb-8 flex justify-between gap-6 border-b-border pb-8 lg:gap-12 [&:not(:last-child)]:border-b"
               >
-                <Text className="mb-0 self-start py-2 text-sm leading-7 text-zinc-500">{year}</Text>
+                <Text className="mb-0 self-start py-2 text-sm leading-7 text-muted-foreground">
+                  {year}
+                </Text>
                 <ul className="grow items-center">
                   {posts.map(post => (
                     <li
                       key={`post-page-${post.slug}`}
-                      className="border-b-zinc-700 py-2 [&:not(:last-child)]:border-b"
+                      className="border-b-border py-2 [&:not(:last-child)]:border-b"
                     >
                       <Link
                         href={`/post/${post.slug}`}
@@ -52,16 +60,16 @@ export default async function PostPage() {
                       >
                         <>
                           <Text
-                            className="peer mb-0 grow transition-colors duration-300 hover:!text-zinc-50 group-hover:text-zinc-500"
+                            className="peer mb-0 grow transition-colors duration-300 hover:!text-foreground group-hover:text-muted-foreground"
                             noMargin
                           >
-                            {post.metadata.title}
+                            {post.title}
                           </Text>
                           <Text
-                            className="my-0 min-w-[86px] text-right text-sm leading-7 text-zinc-500 transition-colors duration-300 peer-hover:!text-zinc-50"
+                            className="my-0 min-w-[86px] text-right text-sm leading-7 text-muted-foreground transition-colors duration-300 peer-hover:!text-foreground"
                             noMargin
                           >
-                            {formatMonthDay(post.metadata.date)}
+                            {formatMonthDay(post.date)}
                           </Text>
                         </>
                       </Link>
