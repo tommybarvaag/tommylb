@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { sendFormAction } from "@/lib/actions/resend-actions";
 
@@ -34,7 +34,7 @@ describe("sendFormAction", () => {
   });
 
   it("treats a filled honeypot as success without sending", async () => {
-    const fetchMock = jest.fn<typeof fetch>();
+    const fetchMock = vi.fn<typeof fetch>();
     global.fetch = fetchMock;
 
     const result = await sendFormAction(
@@ -47,7 +47,7 @@ describe("sendFormAction", () => {
   });
 
   it("returns error for an invalid email without sending", async () => {
-    const fetchMock = jest.fn<typeof fetch>();
+    const fetchMock = vi.fn<typeof fetch>();
     global.fetch = fetchMock;
 
     const result = await sendFormAction(
@@ -60,7 +60,7 @@ describe("sendFormAction", () => {
   });
 
   it("returns error for an over-long message without sending", async () => {
-    const fetchMock = jest.fn<typeof fetch>();
+    const fetchMock = vi.fn<typeof fetch>();
     global.fetch = fetchMock;
 
     const result = await sendFormAction(
@@ -73,9 +73,7 @@ describe("sendFormAction", () => {
   });
 
   it("sends plain text (no html) and returns success when the request succeeds", async () => {
-    const fetchMock = jest
-      .fn<typeof fetch>()
-      .mockResolvedValue({ ok: true } as unknown as Response);
+    const fetchMock = vi.fn<typeof fetch>().mockResolvedValue({ ok: true } as unknown as Response);
     global.fetch = fetchMock;
 
     const result = await sendFormAction({ status: "idle" }, buildFormData(validFields));
@@ -92,7 +90,7 @@ describe("sendFormAction", () => {
   });
 
   it("returns error when the request is not ok", async () => {
-    global.fetch = jest.fn<typeof fetch>().mockResolvedValue({ ok: false } as unknown as Response);
+    global.fetch = vi.fn<typeof fetch>().mockResolvedValue({ ok: false } as unknown as Response);
 
     const result = await sendFormAction({ status: "idle" }, buildFormData(validFields));
 
@@ -100,7 +98,7 @@ describe("sendFormAction", () => {
   });
 
   it("returns error when the request rejects", async () => {
-    global.fetch = jest.fn<typeof fetch>().mockRejectedValue(new Error("network"));
+    global.fetch = vi.fn<typeof fetch>().mockRejectedValue(new Error("network"));
 
     const result = await sendFormAction({ status: "idle" }, buildFormData(validFields));
 

@@ -31,14 +31,18 @@ Copy `.env.example` to `.env.local` and fill in the values before running.
 
 ## Scripts
 
-| Script         | Description                               |
-| -------------- | ----------------------------------------- |
-| `pnpm dev`     | Start the dev server (Turbopack)          |
-| `pnpm build`   | Production build (`next build`)           |
-| `pnpm start`   | Serve the production build                |
-| `pnpm lint`    | Lint with ESLint flat config (`eslint .`) |
-| `pnpm test`    | Run Jest in watch mode                    |
-| `pnpm test:ci` | Run Jest once (CI)                        |
+| Script              | Description                                |
+| ------------------- | ------------------------------------------ |
+| `pnpm dev`          | Start the dev server (Turbopack)           |
+| `pnpm build`        | Production build (`next build`)            |
+| `pnpm start`        | Serve the production build                 |
+| `pnpm lint`         | Lint with oxlint (zero warnings)           |
+| `pnpm test`         | Run Vitest in watch mode                   |
+| `pnpm test:ci`      | Run Vitest once (CI)                       |
+| `pnpm test:unit`    | Run unit tests once                        |
+| `pnpm test:browser` | Run browser tests once (headless Chromium) |
+
+Browser tests need a one-time `pnpm exec playwright install chromium`.
 
 ## Content
 
