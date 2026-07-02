@@ -2,13 +2,8 @@ import React, { Suspense } from "react";
 
 import { cacheLife } from "next/cache";
 
-import {
-  transformerNotationHighlight,
-  transformerNotationWordHighlight
-} from "@shikijs/transformers";
 import type { MDXComponents } from "mdx/types";
 import { getTweet } from "react-tweet/api";
-import { codeToHtml, createCssVariablesTheme } from "shiki";
 
 import { cn } from "@/lib/utils";
 
@@ -23,41 +18,8 @@ import { Callout } from "@/app/mdx/callout";
 import { Card } from "@/app/mdx/card";
 import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
 import { ComponentSource } from "@/app/mdx/component-source";
+import { highlightCode } from "@/app/mdx/highlight-code";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
-
-const cssVariablesTheme = createCssVariablesTheme({});
-
-// Deterministic per (code, lang) → cache it so Shiki's internal Date.now() is prerendered,
-// not treated as uncached dynamic IO by Cache Components (which fails the build).
-async function highlightCode(code: string, lang: string) {
-  "use cache";
-  cacheLife("max");
-
-  return codeToHtml(code, {
-    lang,
-    theme: cssVariablesTheme,
-    transformers: [
-      {
-        pre(hast) {
-          if (hast.children.length !== 1) {
-            throw new Error("<pre>: Expected a single <code> child");
-          }
-
-          if (hast.children[0].type !== "element") {
-            throw new Error("<pre>: Expected a <code> child");
-          }
-
-          return hast.children[0];
-        },
-        postprocess(rawHtml) {
-          return rawHtml.replace(/^<code>|<\/code>$/g, "");
-        }
-      },
-      transformerNotationHighlight(),
-      transformerNotationWordHighlight()
-    ]
-  });
-}
 
 function slugify(str: string) {
   return str
@@ -136,8 +98,16 @@ async function CodeBlock(props: { children?: React.ReactNode; className?: string
   );
 }
 
+// Embedded tweets are fixed content — fetch once at build, cache immutably.
+async function getCachedTweet(id: string) {
+  "use cache";
+  cacheLife("max");
+
+  return getTweet(id);
+}
+
 async function AsyncTweet({ id }: { id: string }) {
-  const tweet = await getTweet(id);
+  const tweet = await getCachedTweet(id);
 
   if (!tweet) {
     return null;

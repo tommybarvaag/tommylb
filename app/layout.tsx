@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 
 import { Drawer } from "@base-ui/react/drawer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -60,30 +59,32 @@ export default function RootLayout({
         </ThemeProvider>
         <SpeedInsights />
         <VercelAnalytics />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: name,
+              url: "https://tommylb.com",
+              jobTitle: "Senior system developer",
+              email: "tommy@barvaag.com",
+              telephone: "+4797777907",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Holtavegen 32",
+                addressRegion: "Rådal",
+                postalCode: "5239",
+                addressCountry: "Norway"
+              },
+              sameAs: [
+                "https://github.com/tommybarvaag",
+                "https://www.linkedin.com/in/tommybarvaag/"
+              ]
+            }).replace(/</g, "\\u003c")
+          }}
+        />
       </body>
-      <Script id="json-ld-data" type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: name,
-          legalName: name,
-          url: "https://tommylb.com",
-          logo: "https://tommylb.com/logo.png",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Holtavegen 32",
-            addressRegion: "Rådal",
-            postalCode: "5239",
-            addressCountry: "Norway"
-          },
-          contactPoint: {
-            "@type": "ContactPoint",
-            contactType: "Sales and support",
-            telephone: "+4797777907",
-            email: "tommy@barvaag.com"
-          }
-        })}
-      </Script>
     </html>
   );
 }

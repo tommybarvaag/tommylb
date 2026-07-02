@@ -1,6 +1,6 @@
+import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
-import { ImageResponse } from "@vercel/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
@@ -32,22 +32,42 @@ function getFontSize(heading: string) {
   }
 }
 
+// Read once per instance: the assets are immutable at runtime, and junk
+// requests must be rejected before touching the filesystem.
+// Node.js runtime (edge is unsupported under Cache Components): read bundled assets from
+// the filesystem via fs.readFile. Node's fetch() cannot load file: URLs, so the previous
+// fetch(new URL(..., import.meta.url)) pattern only worked on edge.
+let assetsPromise: Promise<{
+  fontRegularData: ArrayBuffer;
+  fontBoldData: ArrayBuffer;
+  imageData: ArrayBuffer;
+}> | null = null;
+
+function loadAssets() {
+  assetsPromise ??= Promise.all([
+    readFile(join(process.cwd(), "assets/fonts/Geist-Regular.otf")),
+    readFile(join(process.cwd(), "assets/fonts/Geist-Bold.otf")),
+    readFile(join(process.cwd(), "public/images/tommy-zoom-256.jpg"))
+  ]).then(([fontRegular, fontBold, image]) => ({
+    fontRegularData: toArrayBuffer(fontRegular),
+    fontBoldData: toArrayBuffer(fontBold),
+    imageData: toArrayBuffer(image)
+  }));
+
+  return assetsPromise;
+}
+
 export async function GET(request: NextRequest) {
+  const parsed = ogImageSchema.safeParse(Object.fromEntries(request.nextUrl.searchParams));
+
+  if (!parsed.success) {
+    return new Response("Invalid og image params", { status: 400 });
+  }
+
   try {
-    // Node.js runtime (edge is unsupported under Cache Components): read bundled assets from
-    // the filesystem via fs.readFile. Node's fetch() cannot load file: URLs, so the previous
-    // fetch(new URL(..., import.meta.url)) pattern only worked on edge.
-    const [fontRegularBuffer, fontBoldBuffer, imageBuffer] = await Promise.all([
-      readFile(join(process.cwd(), "assets/fonts/Geist-Regular.otf")),
-      readFile(join(process.cwd(), "assets/fonts/Geist-Bold.otf")),
-      readFile(join(process.cwd(), "public/images/tommy-zoom-256.jpg"))
-    ]);
+    const { fontRegularData, fontBoldData, imageData } = await loadAssets();
 
-    const fontRegularData = toArrayBuffer(fontRegularBuffer);
-    const fontBoldData = toArrayBuffer(fontBoldBuffer);
-    const imageData = toArrayBuffer(imageBuffer);
-
-    const values = ogImageSchema.parse(Object.fromEntries(request.nextUrl.searchParams));
+    const values = parsed.data;
     const heading =
       values.heading.length > 140 ? `${values.heading.substring(0, 140)}...` : values.heading;
 
@@ -92,7 +112,7 @@ export async function GET(request: NextRequest) {
               >
                 {/* oxlint-disable nextjs/no-img-element -- Satori JSX; next/image cannot render inside ImageResponse */}
                 {/* @ts-ignore */}
-                <img src={imageData} height="128" width="128" alt="WUT" />
+                <img src={imageData} height={128} width={128} alt="Tommy Lunde Barvåg" />
                 {/* oxlint-enable nextjs/no-img-element */}
               </div>
               <div tw="flex flex-col ml-8">
@@ -139,6 +159,14 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
+        // next/og defaults to max-age=0 must-revalidate; keep @vercel/og's
+        // immutable CDN caching, which this route relied on.
+        headers: {
+          "cache-control":
+            process.env.NODE_ENV === "development"
+              ? "no-cache, no-store"
+              : "public, immutable, no-transform, max-age=31536000"
+        },
         fonts: [
           {
             name: "Geist",
@@ -156,8 +184,8 @@ export async function GET(request: NextRequest) {
       }
     );
   } catch (error) {
-    return new Response(`Failed to generate image`, {
-      status: 500
-    });
+    console.error("/api/og render failed", error);
+
+    return new Response("Failed to generate image", { status: 500 });
   }
 }

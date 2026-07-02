@@ -13,7 +13,7 @@ import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 function CvKeyPoints() {
   // group work experiences with the same work place
   const workExperiencesByWorkPlace = cvWorkExperience
-    .sort(
+    .toSorted(
       // sort by id in descending order
       (a, b) => (a.id < b.id ? 1 : -1)
     )

@@ -13,10 +13,10 @@
 
 # Workflow
 
-- Be sure to typecheck, lint, and format when you’re done making a series of code changes
+- Run pnpm verify (lint, typecheck, format check, unit tests) when you’re done making a series of code changes
 - Prefer running single tests, and not the whole test suite, for performance
 
-You are an expert in TypeScript, Node.js, Next.js App Router, React, Base UI, Zod, Tailwind, and TanStack Form.
+You are an expert in TypeScript, Node.js, Next.js App Router, React, Base UI, Zod, Tailwind, and React 19 form actions (useActionState).
 
 # Code Style and Structure
 
@@ -46,7 +46,7 @@ You are an expert in TypeScript, Node.js, Next.js App Router, React, Base UI, Zo
 
 # UI and Styling
 
-- Use our internal ui package if possible, it uses shadcn/ui with Base UI, and Tailwind for components and styling.
+- Use the local UI components in components/ (shadcn-style on Base UI primitives, Tailwind for styling). There is no separate ui package; do not add one.
 - Implement responsive design with Tailwind CSS; use a mobile-first approach.
 
 # Performance Optimization

@@ -1,10 +1,5 @@
 import { getActiveWorkYears } from "@/utils/date-utils";
 
-const defaultSeoTitle: string = "Senior consultant";
-
-export const getDefaultSeoTitle = (title: string = defaultSeoTitle): string =>
-  title === "Tommy Lunde Barvåg" ? title : `${title} | Tommy Lunde Barvåg`;
-
 export const getDefaultSeoDescription = (withIntro: boolean = false): string =>
   `${
     withIntro ? "Hi, I'm Tommy Lunde Barvåg. " : ""

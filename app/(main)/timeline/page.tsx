@@ -29,7 +29,7 @@ export default function Timeline() {
     <>
       <div className="mb-12 w-full">
         <Heading variant="h1">This is my timeline from birth until now</Heading>
-        <Text>Read along this timeline to get to now me a little better.</Text>
+        <Text>Read along this timeline to get to know me a little better.</Text>
       </div>
       <TimelineFromBirthUntilNow showAll />
     </>

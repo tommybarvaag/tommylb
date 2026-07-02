@@ -7,7 +7,7 @@ import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "Experience",
-  `With over ${getActiveWorkYears()} years of experience, Tommy has developed a deep understanding of creating seamless user experiences.`,
+  `With over ${getActiveWorkYears()} of experience, Tommy has developed a deep understanding of creating seamless user experiences.`,
   "Curriculum Vitae — Experience",
   "An experienced and solution-oriented senior consultant"
 );

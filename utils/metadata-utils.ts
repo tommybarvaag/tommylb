@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { getAbsoluteUrl } from "@/lib/utils";
+import { ogImageSchema } from "@/lib/validations/og";
 
 import { getDefaultSeoDescription } from "@/utils/seo-utils";
 
@@ -83,41 +84,49 @@ const defaultMetadata: Metadata = {
   }
 };
 
+// Single source of truth for OG image URLs — validates params against the
+// schema so invalid types/lengths fail at build time, not at the OG route.
+function createOgImageUrl(heading: string, type: string, mode: "light" | "dark" = "dark"): URL {
+  const values = ogImageSchema.parse({ heading, type, mode });
+
+  const ogUrl = new URL(`${getAbsoluteUrl()}/api/og`);
+  ogUrl.searchParams.set("heading", values.heading);
+  ogUrl.searchParams.set("type", values.type);
+  ogUrl.searchParams.set("mode", values.mode);
+
+  return ogUrl;
+}
+
 const metadataWithCustomOgImage = (
-  title: string,
-  description: string,
+  pageTitle: string,
+  pageDescription: string,
   type: string,
   ogHeading?: string,
   mode: "light" | "dark" = "dark"
 ): Metadata => {
-  const url = getAbsoluteUrl();
-
-  const ogImageUrl = new URL(`${url}/api/og`);
-  ogImageUrl.searchParams.set("heading", ogHeading ?? title);
-  ogImageUrl.searchParams.set("type", type);
-  ogImageUrl.searchParams.set("mode", mode);
+  const ogUrl = createOgImageUrl(ogHeading ?? pageTitle, type, mode);
 
   return {
     title: {
-      default: title,
+      default: pageTitle,
       template: "%s | Tommy Lunde Barvåg"
     },
-    description,
+    description: pageDescription,
     twitter: {
-      title,
-      description,
+      title: pageTitle,
+      description: pageDescription,
       card: "summary_large_image",
-      images: ogImageUrl
+      images: ogUrl
     },
     openGraph: {
-      title,
+      title: pageTitle,
       type: "website",
       url: getAbsoluteUrl(),
-      siteName: title,
-      description,
+      siteName: "Tommy Lunde Barvåg",
+      description: pageDescription,
       images: [
         {
-          url: ogImageUrl,
+          url: ogUrl,
           width: 1200,
           height: 630,
           alt: "Tommy Lunde Barvåg."
@@ -127,4 +136,4 @@ const metadataWithCustomOgImage = (
   };
 };
 
-export { defaultMetadata, defaultOg, defaultTwitter, metadataWithCustomOgImage };
+export { createOgImageUrl, defaultMetadata, defaultOg, defaultTwitter, metadataWithCustomOgImage };

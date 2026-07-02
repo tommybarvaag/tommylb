@@ -10,6 +10,7 @@ import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
+import { createOgImageUrl } from "@/utils/metadata-utils";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -31,14 +32,11 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     return {};
   }
 
-  const title = typeof post.metadata.title === "string" ? post.metadata.title : slug;
-  const description = post.metadata.description ?? undefined;
+  const metadata = post.metadata ?? {};
+  const title = typeof metadata.title === "string" ? metadata.title : slug;
+  const description = metadata.description ?? undefined;
   const url = getAbsoluteUrl();
-
-  const ogImageUrl = new URL(`${url}/api/og`);
-  ogImageUrl.searchParams.set("heading", title);
-  ogImageUrl.searchParams.set("type", "post");
-  ogImageUrl.searchParams.set("mode", "dark");
+  const ogImageUrl = createOgImageUrl(title, "post", "dark");
 
   return {
     title: {
@@ -56,7 +54,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
       title,
       type: "website",
       url,
-      siteName: title,
+      siteName: "Tommy Lunde Barvåg",
       description,
       images: [
         {
