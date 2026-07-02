@@ -90,10 +90,10 @@ export async function GET(request: NextRequest) {
                 tw="flex h-[128px] w-[128px] border rounded-full overflow-hidden"
                 style={{ fontFamily: "Geist", fontWeight: "normal" }}
               >
-                {/* eslint-disable @next/next/no-img-element -- Satori JSX; next/image cannot render inside ImageResponse */}
+                {/* oxlint-disable nextjs/no-img-element -- Satori JSX; next/image cannot render inside ImageResponse */}
                 {/* @ts-ignore */}
                 <img src={imageData} height="128" width="128" alt="WUT" />
-                {/* eslint-enable @next/next/no-img-element */}
+                {/* oxlint-enable nextjs/no-img-element */}
               </div>
               <div tw="flex flex-col ml-8">
                 <div

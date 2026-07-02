@@ -22,11 +22,11 @@ export function useRouteModal({ animateIn = true, onClosed }: UseRouteModalOptio
 
   useEffect(() => {
     if (animateIn) {
-      // intentional entry-animation flip; runs once
+      // entry-animation flip: mount closed, open on the next effect tick so
+      // Base UI runs its entry transition
       setOpen(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once on mount
-  }, []);
+  }, [animateIn]);
 
   function onOpenChangeComplete(nextOpen: boolean) {
     if (nextOpen) {

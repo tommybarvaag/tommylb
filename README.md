@@ -37,10 +37,14 @@ Copy `.env.example` to `.env.local` and fill in the values before running.
 | `pnpm build`        | Production build (`next build`)            |
 | `pnpm start`        | Serve the production build                 |
 | `pnpm lint`         | Lint with oxlint (zero warnings)           |
+| `pnpm typecheck`    | Type-check with tsc (no emit)              |
+| `pnpm format`       | Format with oxfmt                          |
+| `pnpm format:check` | Check formatting (CI)                      |
 | `pnpm test`         | Run Vitest in watch mode                   |
 | `pnpm test:ci`      | Run Vitest once (CI)                       |
 | `pnpm test:unit`    | Run unit tests once                        |
 | `pnpm test:browser` | Run browser tests once (headless Chromium) |
+| `pnpm up`           | Interactive dependency updates (ncu)       |
 
 Browser tests need a one-time `pnpm exec playwright install chromium`.
 
