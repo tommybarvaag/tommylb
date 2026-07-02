@@ -8,7 +8,9 @@
 
 @theme {
   /* fontFamily.sans: ["Inter", ...defaultTheme.fontFamily.sans] */
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   /* zIndex: { 60: "60" } — used by components/drawer.tsx; see Step 6 note */
   --z-index-60: 60;
