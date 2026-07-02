@@ -1,9 +1,12 @@
 "use client";
 
-import { Icons } from "@/components/icons";
-import { cn } from "lib/utils";
-import Image from "next/image";
 import { useState } from "react";
+
+import Image from "next/image";
+
+import { cn } from "lib/utils";
+
+import { Icons } from "@/components/icons";
 
 export function GridTileImage({
   isInteractive = true,

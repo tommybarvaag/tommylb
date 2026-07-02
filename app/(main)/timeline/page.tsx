@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
 import { TimelineFromBirthUntilNow } from "@/components/timeline";
+
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Timeline",

@@ -2,8 +2,9 @@
 
 import * as React from "react";
 
-import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
 import { cn } from "@/lib/utils";
+
+import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
 
 interface ComponentSourceProps extends React.HTMLAttributes<HTMLDivElement> {
   src: string;

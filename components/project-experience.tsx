@@ -1,5 +1,10 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import {
@@ -19,11 +24,9 @@ import { Gallery } from "@/components/gallery";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
+
 import { type ProjectExperienceItem } from "@/data/project-experience-data";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouteModal } from "@/hooks/use-route-modal";
 
 function ProjectExperience({
   projectExperience,
@@ -32,26 +35,23 @@ function ProjectExperience({
   projectExperience: ProjectExperienceItem;
   isRouteIntercepted?: boolean;
 }) {
-  const [open, setOpen] = useState(true);
   const router = useRouter();
+  const { open, onOpenChange, onOpenChangeComplete } = useRouteModal({
+    animateIn: isRouteIntercepted,
+    onClosed: isRouteIntercepted
+      ? undefined
+      : () => {
+          router.push("/cv/project");
+          router.refresh();
+        }
+  });
 
   return (
     <Drawer
       open={open}
       swipeDirection="down"
-      onOpenChange={open => {
-        setOpen(open);
-
-        if (!open) {
-          if (isRouteIntercepted) {
-            router.back();
-            return;
-          }
-
-          router.push("/cv/project");
-          router.refresh();
-        }
-      }}
+      onOpenChange={onOpenChange}
+      onOpenChangeComplete={onOpenChangeComplete}
     >
       <DrawerContent variant="scrollable">
         <DrawerClose

@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
+
 import { projectExperienceData } from "@/data/project-experience-data";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   return projectExperienceData.map(projectExperienceItem => ({

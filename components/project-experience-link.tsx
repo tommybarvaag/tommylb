@@ -1,13 +1,16 @@
 "use client";
 
+import { ComponentPropsWithoutRef, useMemo } from "react";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
 import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ComponentPropsWithoutRef, useMemo } from "react";
 
 function ProjectExperienceLink({
   href,

@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const cardVariants = cva("", {
   variants: {
@@ -33,6 +34,7 @@ CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
+    // oxlint-disable-next-line jsx-a11y/heading-has-content -- children arrive via {...props}
     <h3
       ref={ref}
       className={cn("leading-none font-semibold tracking-tight", className)}

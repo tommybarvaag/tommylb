@@ -4,7 +4,8 @@ export type IconType = {
   className?: string;
 };
 
-import { cn } from "@/lib/utils";
+import { ComponentPropsWithoutRef, FC } from "react";
+
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowDown,
@@ -22,7 +23,8 @@ import {
   Send,
   X
 } from "lucide-react";
-import { ComponentPropsWithoutRef, FC } from "react";
+
+import { cn } from "@/lib/utils";
 
 const BackToHome: FC<ComponentPropsWithoutRef<typeof LogIn> & { className?: string }> = ({
   className,

@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import * as React from "react";
+
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import * as React from "react";
+
+import { cn } from "@/lib/utils";
 
 export default function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
@@ -12,7 +14,6 @@ export default function ThemeToggle({ className }: { className?: string }) {
   React.useEffect(() => {
     // Hydration gate: resolvedTheme is undefined on the server, so defer the
     // icon until the client mounts. Runs once; safe cascading render.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

@@ -1,12 +1,15 @@
-import { Heading } from "@/components/heading";
-import { HistoryBackLink } from "@/components/history-back-link";
-import { getPostSlugs } from "@/lib/posts";
-import { formatDate, getAbsoluteUrl } from "@/lib/utils";
-import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
+import { getPostSlugs } from "@/lib/posts";
+import { formatDate, getAbsoluteUrl } from "@/lib/utils";
+
+import { Heading } from "@/components/heading";
+import { HistoryBackLink } from "@/components/history-back-link";
+
+import { getHumanizedDateFromNow } from "@/utils/date-utils";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;

@@ -1,6 +1,8 @@
-import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
-import { query } from "@/lib/query";
 import { connection } from "next/server";
+
+import { query } from "@/lib/query";
+
+import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
 
 async function ParallelismLiveTestAllSettled() {
   // connection() opts this demo into request-time rendering so the timing reads below are

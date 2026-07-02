@@ -1,4 +1,3 @@
-import "@/app/global.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import { Badge } from "@/components/badge";
 import { buttonVariants } from "@/components/button";
@@ -15,8 +14,11 @@ import Footer from "@/components/footer";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Main from "@/components/main";
+
 import { cvKeySkills } from "@/data/cv-key-points";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
+
+import "@/app/global.css";
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (

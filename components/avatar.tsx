@@ -1,10 +1,12 @@
 "use client";
 
-import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import Image from "next/image";
+
+import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
+
+import { cn } from "@/lib/utils";
 
 const Avatar = React.forwardRef<
   React.ComponentRef<typeof AvatarPrimitive.Root>,

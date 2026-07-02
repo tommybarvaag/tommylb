@@ -1,11 +1,12 @@
+import { Suspense } from "react";
+
 import { ParallelismLiveTestAllSettled } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-all-settled";
 import { ParallelismLiveTestAsyncAwait } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-async-await";
-import { Suspense } from "react";
 
 const Skeleton = () => {
   return (
     <div>
-      <h2 className="mb-[2px] h-[22px] min-w-[137px] animate-pulse bg-muted"></h2>
+      <div className="mb-[2px] h-[22px] min-w-[137px] animate-pulse bg-muted"></div>
       <p className="mb-[2px] h-[22px] w-[225px] animate-pulse bg-muted"></p>
       <div className="">
         <div className="mb-[2px] h-[22px] w-[175px] animate-pulse bg-muted"></div>

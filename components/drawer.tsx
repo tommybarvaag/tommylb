@@ -1,12 +1,14 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
-import { VariantProps, cva } from "class-variance-authority";
 import { Fragment, ReactNode, forwardRef } from "react";
 
+import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
 const drawerContentVariants = cva(
-  "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[1080px] rounded-t-[10px] bg-background",
+  "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[1080px] rounded-t-[10px] bg-background transition-transform duration-300 ease-out data-ending-style:translate-y-full data-starting-style:translate-y-full data-swiping:transition-none",
   {
     variants: {
       variant: {
@@ -37,7 +39,7 @@ const DrawerContent = forwardRef<
     variant === "scrollable" ? DrawerContentScrollable : Fragment;
   return (
     <DrawerPrimitive.Portal>
-      <DrawerPrimitive.Backdrop className="fixed inset-0 z-40 bg-zinc-950/60" />
+      <DrawerPrimitive.Backdrop className="fixed inset-0 z-40 bg-zinc-950/60 transition-opacity duration-300 data-ending-style:opacity-0 data-starting-style:opacity-0" />
       <DrawerPrimitive.Viewport>
         <DrawerPrimitive.Popup
           ref={ref}

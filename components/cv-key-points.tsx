@@ -7,6 +7,7 @@ import {
 import { CvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
+
 import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 
 function CvKeyPoints() {

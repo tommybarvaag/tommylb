@@ -1,9 +1,10 @@
+import { getPosts, type PostListItem } from "@/lib/posts";
+import { formatMonthDay } from "@/lib/utils";
+
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { formatMonthDay } from "@/lib/utils";
-import { getPosts, type PostListItem } from "@/lib/posts";
 
 export default async function PostPage() {
   const posts = await getPosts();

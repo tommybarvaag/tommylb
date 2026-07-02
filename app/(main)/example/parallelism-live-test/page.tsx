@@ -1,10 +1,13 @@
-import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Suspense } from "react";
+
+import { Metadata } from "next";
+
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { Metadata } from "next";
-import { Suspense } from "react";
+
+import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
 
 export const metadata: Metadata = {
   robots: {

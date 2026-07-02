@@ -1,8 +1,10 @@
-import { ogImageSchema } from "@/lib/validations/og";
+import { NextRequest } from "next/server";
+
 import { ImageResponse } from "@vercel/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { NextRequest } from "next/server";
+
+import { ogImageSchema } from "@/lib/validations/og";
 
 // Satori parses fonts with a DataView, which requires an ArrayBuffer — Node's readFile
 // returns a Buffer (a view over a possibly-larger pool), so slice out its exact bytes.

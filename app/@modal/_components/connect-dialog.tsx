@@ -2,20 +2,14 @@
 
 import ContactMeForm from "@/components/contact-me-form";
 import { Dialog, DialogContent, DialogDescription, DialogHeader } from "@/components/dialog";
-import { useRouter } from "next/navigation";
+
+import { useRouteModal } from "@/hooks/use-route-modal";
 
 export default function ConnectDialog() {
-  const router = useRouter();
+  const { open, onOpenChange, onOpenChangeComplete } = useRouteModal();
 
   return (
-    <Dialog
-      open
-      onOpenChange={open => {
-        if (!open) {
-          router.back();
-        }
-      }}
-    >
+    <Dialog open={open} onOpenChange={onOpenChange} onOpenChangeComplete={onOpenChangeComplete}>
       <DialogContent className="flex min-h-[540px] flex-1 flex-col">
         <DialogHeader>Connect</DialogHeader>
         <DialogDescription>Connect with me</DialogDescription>

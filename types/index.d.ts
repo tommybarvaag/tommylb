@@ -1,5 +1,3 @@
-/// <reference types="react" />
-
 import "react";
 
 type AllowCSSVariables = { [key in `--${string}`]: string };

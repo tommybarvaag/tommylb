@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+
 import { Heading } from "@/components/heading";
 import Text from "@/components/text";
+
 import { cvRecommendations } from "@/data/cv-key-points";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "Project Experiences",

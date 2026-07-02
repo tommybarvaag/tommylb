@@ -1,8 +1,11 @@
-import Text from "@/components/text";
-import { cn } from "@/lib/utils";
+import * as React from "react";
+
 import { Field } from "@base-ui/react/field";
 import { motion } from "motion/react";
-import * as React from "react";
+
+import { cn } from "@/lib/utils";
+
+import Text from "@/components/text";
 
 type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
   id: string;

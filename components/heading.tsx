@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import { HtmlHTMLAttributes, forwardRef } from "react";
+
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const headingVariants = cva("mb-8 text-foreground", {
   variants: {

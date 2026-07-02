@@ -1,7 +1,8 @@
 "use server";
 
-import Bowser from "bowser";
 import { headers as getHeaders } from "next/headers";
+
+import Bowser from "bowser";
 
 async function getPlatform() {
   try {

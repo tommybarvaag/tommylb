@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+
 import Link from "@/components/link";
 import Text from "@/components/text";
+
 import { getActiveWorkYears } from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "About",

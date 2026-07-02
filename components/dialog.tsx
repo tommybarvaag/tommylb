@@ -1,9 +1,12 @@
 "use client";
+import * as React from "react";
+
+import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+
+import { cn } from "@/lib/utils";
+
 import { Button } from "@/components/button";
 import { Icons } from "@/components/icons";
-import { cn } from "@/lib/utils";
-import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import * as React from "react";
 
 const Dialog = DialogPrimitive.Root;
 

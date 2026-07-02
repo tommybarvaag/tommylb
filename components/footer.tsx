@@ -1,8 +1,11 @@
+import { HtmlHTMLAttributes } from "react";
+
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
 import Link from "@/components/link";
 import ThemeToggle from "@/components/theme-toggle";
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
-import { HtmlHTMLAttributes } from "react";
 
 const footerVariants = cva("border-t border-border px-6 py-4 text-sm", {
   variants: {

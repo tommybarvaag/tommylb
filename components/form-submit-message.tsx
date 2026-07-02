@@ -1,8 +1,10 @@
 "use client";
 
-import Text from "@/components/text";
-import { AnimatePresence, motion } from "motion/react";
 import type { JSX } from "react";
+
+import { AnimatePresence, motion } from "motion/react";
+
+import Text from "@/components/text";
 
 type FormSubmitMessageProps = {
   text: string;

@@ -1,8 +1,10 @@
 "use client";
 
-import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
-import { PlatformReturnType, getPlatform } from "@/lib/actions/bowser-actions";
 import { ReactNode, useEffect, useState } from "react";
+
+import { PlatformReturnType, getPlatform } from "@/lib/actions/bowser-actions";
+
+import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
 
 const initialState: PlatformReturnType = {
   isBot: false,

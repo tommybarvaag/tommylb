@@ -1,5 +1,6 @@
 import { ProjectExperienceLink } from "@/components/project-experience-link";
 import Text from "@/components/text";
+
 import { projectExperienceData } from "@/data/project-experience-data";
 import { getActiveWorkYears } from "@/utils/date-utils";
 

@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
-import { getFormattedToAndFromCvDate } from "@/utils/date-utils";
 import { HTMLAttributes, forwardRef } from "react";
+
+import { cn } from "@/lib/utils";
+
+import { getFormattedToAndFromCvDate } from "@/utils/date-utils";
 
 type CvTimeProps = HTMLAttributes<HTMLTimeElement> & {
   fromDate: string;

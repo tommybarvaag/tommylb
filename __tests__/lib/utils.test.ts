@@ -1,5 +1,6 @@
-import { getAbsoluteUrl } from "@/lib/utils";
 import { afterEach, beforeEach, describe, expect, it } from "@jest/globals";
+
+import { getAbsoluteUrl } from "@/lib/utils";
 
 const ENV_KEYS = ["NEXT_PUBLIC_APP_URL", "NEXT_PUBLIC_VERCEL_URL", "VERCEL_URL"] as const;
 

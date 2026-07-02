@@ -1,7 +1,8 @@
+import type { NextConfig } from "next";
+
 import createMDX from "@next/mdx";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactStrictMode: true,

@@ -1,8 +1,9 @@
+import { getLastPosts } from "@/lib/posts";
+
 import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { getLastPosts } from "@/lib/posts";
 
 export default async function Home() {
   const lastPosts = await getLastPosts(3);

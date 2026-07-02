@@ -1,13 +1,18 @@
-import "@/app/global.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { VercelAnalytics } from "@/components/vercel-analytics";
-import { cn } from "@/lib/utils";
-import { defaultMetadata } from "@/utils/metadata-utils";
-import { Drawer } from "@base-ui/react/drawer";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+
+import { Drawer } from "@base-ui/react/drawer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import { cn } from "@/lib/utils";
+
+import { ThemeProvider } from "@/components/theme-provider";
+import { VercelAnalytics } from "@/components/vercel-analytics";
+
+import { defaultMetadata } from "@/utils/metadata-utils";
+
+import "@/app/global.css";
 
 export const viewport: Viewport = {
   themeColor: [

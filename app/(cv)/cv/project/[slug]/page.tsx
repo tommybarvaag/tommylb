@@ -1,8 +1,10 @@
-import { ProjectExperience } from "@/components/project-experience";
-import { projectExperienceData } from "@/data/project-experience-data";
-import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+import { ProjectExperience } from "@/components/project-experience";
+
+import { projectExperienceData } from "@/data/project-experience-data";
+import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 interface ProjectExperienceProps {
   params: Promise<{

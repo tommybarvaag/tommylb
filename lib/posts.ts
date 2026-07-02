@@ -1,5 +1,6 @@
-import { promises as fs } from "fs";
 import { cacheLife } from "next/cache";
+
+import { promises as fs } from "fs";
 import path from "path";
 
 const postsDirectory = path.join(process.cwd(), "app", "(main)", "post", "_posts");

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { Button } from "@/components/button";
 import Timeline from "@/components/timeline/timeline";
 import TimelineHeading from "@/components/timeline/timeline-heading";
@@ -7,7 +9,6 @@ import TimelinePost from "@/components/timeline/timeline-post";
 import TimelineSection from "@/components/timeline/timeline-section";
 import TimelineSectionHeading from "@/components/timeline/timeline-section-heading";
 import TimelineText from "@/components/timeline/timeline-text";
-import { useState } from "react";
 
 type TimelineFromBirthUntilNowProps = {
   showAll?: boolean;

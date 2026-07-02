@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
+
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const textVariants = cva("not-first:mt-6", {
   variants: {

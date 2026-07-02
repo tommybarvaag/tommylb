@@ -1,5 +1,6 @@
-import { projectExperienceData } from "@/data/project-experience-data";
 import { getPosts } from "@/lib/posts";
+
+import { projectExperienceData } from "@/data/project-experience-data";
 
 export default async function sitemap() {
   const allPosts = await getPosts();

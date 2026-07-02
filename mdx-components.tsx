@@ -1,24 +1,29 @@
-import { Callout } from "@/app/mdx/callout";
-import { Card } from "@/app/mdx/card";
-import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
-import { ComponentSource } from "@/app/mdx/component-source";
-import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
-import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
-import { ActiveWorkYears as ActiveWorkYearsRoot } from "@/components/active-work-years";
-import Link from "@/components/link";
-import Text from "@/components/text";
-import { TwitterCard } from "@/components/twitter-card";
-import { cn } from "@/lib/utils";
-import { getHumanizedDateFromNow } from "@/utils/date-utils";
-import type { MDXComponents } from "mdx/types";
-import { cacheLife } from "next/cache";
 import React, { Suspense } from "react";
-import { getTweet } from "react-tweet/api";
+
+import { cacheLife } from "next/cache";
+
 import {
   transformerNotationHighlight,
   transformerNotationWordHighlight
 } from "@shikijs/transformers";
+import type { MDXComponents } from "mdx/types";
+import { getTweet } from "react-tweet/api";
 import { codeToHtml, createCssVariablesTheme } from "shiki";
+
+import { cn } from "@/lib/utils";
+
+import { ActiveWorkYears as ActiveWorkYearsRoot } from "@/components/active-work-years";
+import Link from "@/components/link";
+import Text from "@/components/text";
+import { TwitterCard } from "@/components/twitter-card";
+
+import { ShowPlatformClient } from "@/app/(cv)/cv/_components/show-platform-client";
+import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Callout } from "@/app/mdx/callout";
+import { Card } from "@/app/mdx/card";
+import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
+import { ComponentSource } from "@/app/mdx/component-source";
+import { getHumanizedDateFromNow } from "@/utils/date-utils";
 
 const cssVariablesTheme = createCssVariablesTheme({});
 
@@ -61,8 +66,8 @@ function slugify(str: string) {
     .trim()
     .replace(/\s+/g, "-")
     .replace(/&/g, "-and-")
-    .replace(/[^\w\-]+/g, "")
-    .replace(/\-\-+/g, "-");
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-");
 }
 
 function getNodeText(node: React.ReactNode): string {

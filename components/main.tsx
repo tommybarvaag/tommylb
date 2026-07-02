@@ -1,6 +1,8 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
+
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const mainVariants = cva(
   "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-background px-8",

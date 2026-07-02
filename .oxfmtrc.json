@@ -1,0 +1,41 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100,
+  "semi": true,
+  "singleQuote": false,
+  "arrowParens": "avoid",
+  "trailingComma": "none",
+  "sortTailwindcss": {
+    "stylesheet": "./app/global.css",
+    "functions": ["cn", "cva"]
+  },
+  "sortImports": {
+    "newlinesBetween": true,
+    "sortSideEffects": true,
+    "customGroups": [
+      { "groupName": "react", "elementNamePattern": ["react", "react/**"] },
+      { "groupName": "next", "elementNamePattern": ["next", "next/**"] },
+      { "groupName": "at-lib", "elementNamePattern": ["@/lib", "@/lib/**"] },
+      { "groupName": "at-components", "elementNamePattern": ["@/components", "@/components/**"] },
+      {
+        "groupName": "css-relative",
+        "elementNamePattern": ["./*.css", "./**/*.css", "../*.css", "../**/*.css"]
+      },
+      { "groupName": "css-non-relative", "elementNamePattern": ["*.css", "**/*.css"] }
+    ],
+    "groups": [
+      "react",
+      "next",
+      ["builtin", "external", "subpath"],
+      "at-lib",
+      "at-components",
+      "internal",
+      ["parent", "sibling", "index"],
+      "css-non-relative",
+      "css-relative",
+      "unknown"
+    ]
+  },
+  "sortPackageJson": false,
+  "ignorePatterns": ["plans", "pnpm-lock.yaml", "next-env.d.ts"]
+}

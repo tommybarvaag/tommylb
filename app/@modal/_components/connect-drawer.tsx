@@ -6,20 +6,18 @@ import { Drawer, DrawerClose, DrawerContent } from "@/components/drawer";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
-import { useRouter } from "next/navigation";
+
+import { useRouteModal } from "@/hooks/use-route-modal";
 
 export default function ConnectDrawer() {
-  const router = useRouter();
+  const { open, onOpenChange, onOpenChangeComplete } = useRouteModal();
 
   return (
     <Drawer
-      open
+      open={open}
       swipeDirection="down"
-      onOpenChange={open => {
-        if (!open) {
-          router.back();
-        }
-      }}
+      onOpenChange={onOpenChange}
+      onOpenChangeComplete={onOpenChangeComplete}
     >
       <DrawerContent className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-background px-4 py-6">
         <DrawerClose
