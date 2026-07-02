@@ -39,7 +39,7 @@ const DrawerContent = forwardRef<
     variant === "scrollable" ? DrawerContentScrollable : Fragment;
   return (
     <DrawerPrimitive.Portal>
-      <DrawerPrimitive.Backdrop className="fixed inset-0 z-40 bg-zinc-950/60 transition-opacity duration-300 data-ending-style:opacity-0 data-starting-style:opacity-0" />
+      <DrawerPrimitive.Backdrop className="fixed inset-0 z-40 bg-olive-950/60 transition-opacity duration-300 data-ending-style:opacity-0 data-starting-style:opacity-0" />
       <DrawerPrimitive.Viewport>
         <DrawerPrimitive.Popup
           ref={ref}

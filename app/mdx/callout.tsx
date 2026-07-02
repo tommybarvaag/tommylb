@@ -14,7 +14,7 @@ export function Callout({ children, icon, type = "default", ...props }: CalloutP
         "border-red-300 bg-red-100 dark:border-red-950 dark:bg-red-950/40": type === "danger",
         "border-amber-300 bg-amber-100 dark:border-amber-950 dark:bg-amber-950/40":
           type === "warning",
-        "border-slate-300 bg-slate-100 dark:border-slate-950 dark:bg-slate-800/60": type === "info"
+        "border-sky-300 bg-sky-100 dark:border-sky-950 dark:bg-sky-950/40": type === "info"
       })}
       {...props}
     >

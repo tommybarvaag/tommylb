@@ -52,7 +52,7 @@ export async function GET(request: NextRequest) {
       values.heading.length > 140 ? `${values.heading.substring(0, 140)}...` : values.heading;
 
     const { mode } = values;
-    const paint = mode === "dark" ? "#fafafa" : "#18181b";
+    const paint = mode === "dark" ? "#fbfbf9" : "#0c0c09";
 
     let fontSize = getFontSize(heading);
 
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
         tw="flex relative flex-col px-12 py-10 w-full h-full items-start"
         style={{
           color: paint,
-          background: mode === "dark" ? "#18181b" : "#fafafa"
+          background: mode === "dark" ? "#474739" : "#fbfbf9"
         }}
       >
         <div tw="flex flex-col flex-1 py-10">
@@ -103,8 +103,12 @@ export async function GET(request: NextRequest) {
                   Tommy Lunde Barvåg
                 </div>
                 <div
-                  tw="flex text-xl font-bold tracking-tight text-zinc-400"
-                  style={{ fontFamily: "Geist", fontWeight: "normal" }}
+                  tw="flex text-xl font-bold tracking-tight"
+                  style={{
+                    fontFamily: "Geist",
+                    fontWeight: "normal",
+                    color: mode === "dark" ? "#d8d8d0" : "#5b5b4b"
+                  }}
                 >
                   Senior front-end specialist
                 </div>
