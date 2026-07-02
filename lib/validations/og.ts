@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const ogImageSchema = z.object({
-  heading: z.string(),
-  type: z.string(),
+  heading: z.string().min(1).max(300),
+  type: z.string().min(1).max(40),
   mode: z.enum(["light", "dark"]).default("dark")
 });

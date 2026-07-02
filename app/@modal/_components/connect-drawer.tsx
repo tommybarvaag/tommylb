@@ -8,7 +8,7 @@ import { Icons } from "@/components/icons";
 import Text from "@/components/text";
 import { useRouter } from "next/navigation";
 
-export default function ConnectDialogVaul() {
+export default function ConnectDrawer() {
   const router = useRouter();
 
   return (
@@ -24,7 +24,7 @@ export default function ConnectDialogVaul() {
       <DrawerContent className="fixed inset-x-0 bottom-0 mx-auto mt-24 flex h-full max-h-[96%] max-w-[1080px] flex-col rounded-t-[10px] bg-background px-4 py-6">
         <DrawerClose
           render={
-            <Button className="absolute right-4 top-4" variant="ghost">
+            <Button className="absolute top-4 right-4" variant="ghost">
               <Icons.X />
             </Button>
           }

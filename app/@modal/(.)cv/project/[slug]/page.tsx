@@ -3,11 +3,7 @@ import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
 import { notFound } from "next/navigation";
 
-async function InterceptedProjectExperience({
-  params
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+async function InterceptedProjectExperience({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
   const projectExperience = projectExperienceData.find(
@@ -21,11 +17,7 @@ async function InterceptedProjectExperience({
   return <ProjectExperience projectExperience={projectExperience} isRouteIntercepted />;
 }
 
-export default function ProjectExperiencePage({
-  params
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default function ProjectExperiencePage({ params }: { params: Promise<{ slug: string }> }) {
   return (
     <Suspense fallback={null}>
       <InterceptedProjectExperience params={params} />

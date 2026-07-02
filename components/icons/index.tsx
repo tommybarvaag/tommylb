@@ -91,7 +91,7 @@ const XLogo: FC<ComponentPropsWithoutRef<typeof LogIn> & { className?: string }>
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className={cn("size-6 fill-zinc-50", className)}
+      className={cn("size-6 fill-foreground", className)}
       {...other}
     >
       <g>

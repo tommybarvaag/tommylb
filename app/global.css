@@ -1,5 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @plugin "@tailwindcss/typography";
 
@@ -9,8 +9,8 @@
 @theme {
   /* fontFamily.sans: ["Inter", ...defaultTheme.fontFamily.sans] */
   --font-sans:
-    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   /* zIndex: { 60: "60" } — used by components/drawer.tsx; see Step 6 note */
   --z-index-60: 60;
@@ -21,8 +21,13 @@
 }
 
 @keyframes background {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* --- bIkeymG preset: @theme inline color/radius mapping (shadcn init) --- */
@@ -174,7 +179,8 @@
   body {
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   html {
@@ -227,7 +233,7 @@
 }
 
 .auto-link-heading {
-  @apply ml-[-1em] pl-[1em] before:absolute before:ml-[-1em] before:text-zinc-100/0 before:content-['#'] group-hover:before:text-zinc-100/50;
+  @apply ml-[-1em] pl-[1em] before:absolute before:ml-[-1em] before:text-transparent before:content-['#'] group-hover:before:text-foreground/50;
 }
 
 .prose h2,

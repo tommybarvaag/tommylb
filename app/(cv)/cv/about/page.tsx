@@ -13,7 +13,7 @@ export const metadata: Metadata = metadataWithCustomOgImage(
 
 export default async function CvAboutPage() {
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <Text>
         Tommy is an experienced and solution-oriented senior consultant with expertise in
         JavaScript/TypeScript and React. He has a systematic and analytical approach to developing

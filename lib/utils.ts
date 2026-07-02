@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function formatDate(input: string): string {
@@ -23,12 +23,18 @@ export function formatMonthDay(input: string): string {
 }
 
 export function getAbsoluteUrl(path?: string) {
-  const base =
-    process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL ?? process.env.NEXT_PUBLIC_APP_URL;
+  // Canonical URL first; Vercel system vars are host-only fallbacks for previews.
+  const raw =
+    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.NEXT_PUBLIC_VERCEL_URL ??
+    process.env.VERCEL_URL ??
+    "http://localhost:3000";
+  const base = (
+    raw.startsWith("http://") || raw.startsWith("https://") ? raw : `https://${raw}`
+  ).replace(/\/+$/, "");
 
   if (path) {
-    // ensure no double slashes
-    return `${base}/${path}`.replace(/\/+/g, "/");
+    return `${base}/${path.replace(/^\/+/, "")}`;
   }
 
   return base;

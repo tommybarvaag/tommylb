@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default async function ParallelismLiveTest() {
   return (
-    <div className="container relative max-w-4xl">
+    <div className="relative container max-w-4xl">
       <HistoryBackLink href="/">Home</HistoryBackLink>
       <Heading variant="h1">Parallelism live test</Heading>
       <Text>

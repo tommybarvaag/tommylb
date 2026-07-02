@@ -31,14 +31,14 @@ Copy `.env.example` to `.env.local` and fill in the values before running.
 
 ## Scripts
 
-| Script          | Description                                  |
-| --------------- | -------------------------------------------- |
-| `pnpm dev`      | Start the dev server (Turbopack)             |
-| `pnpm build`    | Production build (`next build`)              |
-| `pnpm start`    | Serve the production build                   |
-| `pnpm lint`     | Lint with ESLint flat config (`eslint .`)    |
-| `pnpm test`     | Run Jest in watch mode                       |
-| `pnpm test:ci`  | Run Jest once (CI)                           |
+| Script         | Description                               |
+| -------------- | ----------------------------------------- |
+| `pnpm dev`     | Start the dev server (Turbopack)          |
+| `pnpm build`   | Production build (`next build`)           |
+| `pnpm start`   | Serve the production build                |
+| `pnpm lint`    | Lint with ESLint flat config (`eslint .`) |
+| `pnpm test`    | Run Jest in watch mode                    |
+| `pnpm test:ci` | Run Jest once (CI)                        |
 
 ## Content
 

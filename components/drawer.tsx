@@ -22,7 +22,7 @@ const drawerContentVariants = cva(
 
 const DrawerContentScrollable = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="relative z-10 flex-1 select-none overflow-y-auto rounded-t-[10px]">
+    <div className="relative z-10 flex-1 overflow-y-auto rounded-t-[10px] select-none">
       {children}
     </div>
   );
@@ -45,7 +45,7 @@ const DrawerContent = forwardRef<
           {...props}
         >
           <DrawerContentWrapper>
-            <div className="absolute left-1/2 top-3 z-60 h-2 w-[50px] -translate-x-1/2 rounded-full bg-muted" />
+            <div className="absolute top-3 left-1/2 z-60 h-2 w-[50px] -translate-x-1/2 rounded-full bg-muted" />
             {children}
           </DrawerContentWrapper>
         </DrawerPrimitive.Popup>

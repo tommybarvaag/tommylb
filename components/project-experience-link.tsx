@@ -29,36 +29,36 @@ function ProjectExperienceLink({
 
   return (
     <Link
-      className="group/link peer pointer-events-auto cursor-pointer lg:transition-colors lg:duration-500 lg:hover:text-zinc-50! lg:group-hover:text-zinc-500"
+      className="group/link peer pointer-events-auto cursor-pointer lg:transition-colors lg:duration-500 lg:group-hover:text-muted-foreground lg:hover:text-foreground!"
       href={href}
       {...other}
     >
       <div className="flex items-start justify-between">
         <div>
           <Heading
-            className="mb-1 text-inherit underline decoration-zinc-500 underline-offset-[2.5px] transition-[text-decoration] duration-500 group-hover/link:decoration-inherit"
+            className="mb-1 text-inherit underline decoration-muted-foreground underline-offset-[2.5px] transition-[text-decoration] duration-500 group-hover/link:decoration-inherit"
             variant="h3"
           >
             {title}
           </Heading>
           <Heading
-            className="text-sm text-zinc-400 lg:transition-colors lg:duration-500 lg:group-hover/link:text-zinc-400! lg:group-hover:text-zinc-500"
+            className="text-sm text-muted-foreground lg:transition-colors lg:duration-500 lg:group-hover:text-muted-foreground lg:group-hover/link:text-muted-foreground!"
             variant="h4"
             noMargin
           >
             {subtitle}
           </Heading>
           <CvTime
-            className="text-zinc-400 lg:transition-colors lg:duration-500 lg:group-hover/link:text-zinc-400! lg:group-hover:text-zinc-500"
+            className="text-muted-foreground lg:transition-colors lg:duration-500 lg:group-hover:text-muted-foreground lg:group-hover/link:text-muted-foreground!"
             fromDate={fromDate}
             toDate={toDate}
           />
         </div>
         <Icons.ArrowRight
           className={cn(
-            "size-5 text-zinc-400 transition-all group-hover/link:-rotate-90 group-hover/link:text-zinc-50",
+            "size-5 text-muted-foreground transition-all group-hover/link:-rotate-90 group-hover/link:text-foreground",
             {
-              "-rotate-90 text-zinc-50": isActive
+              "-rotate-90 text-foreground": isActive
             }
           )}
         />

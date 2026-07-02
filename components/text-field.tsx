@@ -32,7 +32,7 @@ const TextField = React.forwardRef<React.ComponentRef<"input">, TextFieldProps>(
       <Field.Control
         render={
           <input
-            className="mb-2 mt-1 block w-full rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
+            className="mt-1 mb-2 block w-full rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
             type={type}
             ref={ref}
           />

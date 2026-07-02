@@ -6,7 +6,8 @@ const eslintConfig = [
   ...tailwindcss.configs["flat/recommended"],
   {
     rules: {
-      "tailwindcss/no-custom-classname": "off"
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/classnames-order": "off"
     },
     settings: {
       tailwindcss: {

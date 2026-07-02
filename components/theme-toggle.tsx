@@ -24,12 +24,16 @@ export default function ThemeToggle({ className }: { className?: string }) {
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className={cn(
-        "inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
         className
       )}
     >
       {mounted ? (
-        isDark ? <Moon className="size-4" /> : <Sun className="size-4" />
+        isDark ? (
+          <Moon className="size-4" />
+        ) : (
+          <Sun className="size-4" />
+        )
       ) : (
         <span className="size-4" />
       )}

@@ -1,6 +1,6 @@
 import { ShowPlatform } from "@/app/(cv)/cv/_components/show-platform";
 import ConnectDialog from "@/app/@modal/_components/connect-dialog";
-import ConnectDialogVaul from "@/app/@modal/_components/connect-vaul";
+import ConnectDrawer from "@/app/@modal/_components/connect-drawer";
 import { Suspense } from "react";
 
 export default function ConnectDialogPage() {
@@ -9,7 +9,7 @@ export default function ConnectDialogPage() {
       <ShowPlatform
         platforms={{
           desktop: <ConnectDialog />,
-          touch: <ConnectDialogVaul />,
+          touch: <ConnectDrawer />,
           fallback: <ConnectDialog />
         }}
       />

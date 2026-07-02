@@ -8,8 +8,8 @@ export interface ListItemWithTimelineProps extends React.HTMLAttributes<HTMLData
 
 const ListItemWithTimeline = forwardRef<HTMLDivElement, ListItemWithTimelineProps>(
   ({ className, children, ...props }, ref) => (
-    <li className="relative mb-10 ml-6 pl-6 not-last:before:absolute not-last:before:left-[4px] not-last:before:top-8 not-last:before:h-full not-last:before:w-px not-last:before:bg-zinc-600">
-      <span className="absolute left-0 top-2 flex size-[8.75px] rounded-full bg-zinc-600" />
+    <li className="relative mb-10 ml-6 pl-6 not-last:before:absolute not-last:before:top-8 not-last:before:left-[4px] not-last:before:h-full not-last:before:w-px not-last:before:bg-border">
+      <span className="absolute top-2 left-0 flex size-[8.75px] rounded-full bg-border" />
       {children}
     </li>
   )

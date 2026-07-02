@@ -12,7 +12,7 @@ export const metadata: Metadata = metadataWithCustomOgImage(
 
 export default async function CurriculumVitae() {
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <CvKeyPoints />
     </div>
   );

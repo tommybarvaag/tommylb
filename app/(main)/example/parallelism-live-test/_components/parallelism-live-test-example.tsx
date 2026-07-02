@@ -5,12 +5,12 @@ import { Suspense } from "react";
 const Skeleton = () => {
   return (
     <div>
-      <h2 className="mb-[2px] h-[22px] min-w-[137px] animate-pulse bg-zinc-700"></h2>
-      <p className="mb-[2px] h-[22px] w-[225px] animate-pulse bg-zinc-700"></p>
+      <h2 className="mb-[2px] h-[22px] min-w-[137px] animate-pulse bg-muted"></h2>
+      <p className="mb-[2px] h-[22px] w-[225px] animate-pulse bg-muted"></p>
       <div className="">
-        <div className="mb-[2px] h-[22px] w-[175px] animate-pulse bg-zinc-700"></div>
-        <div className="mb-[2px] h-[22px] w-[190px] animate-pulse bg-zinc-700"></div>
-        <div className="mb-[2px] h-[22px] w-[180px] animate-pulse bg-zinc-700"></div>
+        <div className="mb-[2px] h-[22px] w-[175px] animate-pulse bg-muted"></div>
+        <div className="mb-[2px] h-[22px] w-[190px] animate-pulse bg-muted"></div>
+        <div className="mb-[2px] h-[22px] w-[180px] animate-pulse bg-muted"></div>
       </div>
     </div>
   );

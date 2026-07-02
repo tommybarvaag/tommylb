@@ -134,6 +134,10 @@ async function CodeBlock(props: { children?: React.ReactNode; className?: string
 async function AsyncTweet({ id }: { id: string }) {
   const tweet = await getTweet(id);
 
+  if (!tweet) {
+    return null;
+  }
+
   return <TwitterCard tweet={tweet} />;
 }
 
@@ -181,8 +185,8 @@ function ShowPlatformExample() {
           ),
           touch: (
             <Callout type="info">
-              Hi there! You&apos;re seeing this because you&apos;re on mobile right now. If you
-              load this page on desktop, you&apos;ll see a different callout.
+              Hi there! You&apos;re seeing this because you&apos;re on mobile right now. If you load
+              this page on desktop, you&apos;ll see a different callout.
             </Callout>
           ),
           bot: (
@@ -211,18 +215,11 @@ const components: MDXComponents = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  a: ({
-    className,
-    ...props
-  }: {
-    children: React.ReactNode;
-    className?: string;
-    href: string;
-  }) => (
+  a: ({ className, ...props }: { children: React.ReactNode; className?: string; href: string }) => (
     <Link className={cn("text-foreground underline underline-offset-4", className)} {...props} />
   ),
   p: ({ className, ...props }) => (
-    <Text className={cn("mb-0 mt-6 leading-7", className)} {...props} />
+    <Text className={cn("mt-6 mb-0 leading-7", className)} {...props} />
   ),
   ul: ({ className, ...props }) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
@@ -234,7 +231,7 @@ const components: MDXComponents = {
   blockquote: ({ className, ...props }) => (
     <blockquote
       className={cn(
-        "mt-6 border-l-2 border-border pl-6 italic text-muted-foreground [&>*]:text-muted-foreground",
+        "mt-6 border-l-2 border-border pl-6 text-muted-foreground italic [&>*]:text-muted-foreground",
         className
       )}
       {...props}
@@ -270,7 +267,7 @@ const components: MDXComponents = {
   pre: ({ className, ...props }) => (
     <pre
       className={cn(
-        "mb-4 mt-6 overflow-x-auto rounded-lg border border-border bg-muted p-4",
+        "mt-6 mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4",
         className
       )}
       {...props}
@@ -285,7 +282,7 @@ const components: MDXComponents = {
   ComponentSource: ({ src, ...other }: { src: string }) => <ComponentSource src={src} {...other} />,
   TimeAgo,
   ActiveWorkYears: ({ ...props }) => (
-    <Text className="mb-0 mt-6 leading-7" {...props}>
+    <Text className="mt-6 mb-0 leading-7" {...props}>
       <ActiveWorkYearsRoot />
     </Text>
   ),

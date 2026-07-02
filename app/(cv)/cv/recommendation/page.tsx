@@ -20,14 +20,14 @@ export default async function Recommendation() {
     .sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <ol className="space-y-8">
         {recommendations.map((recommendation, index) => (
           <li key={`recommendation-${index}`}>
             <Heading variant="h2" noMargin>
               {recommendation.name}
             </Heading>
-            <Heading className="text-sm text-zinc-400" variant="h3" noMargin>
+            <Heading className="text-sm text-muted-foreground" variant="h3" noMargin>
               {recommendation.title} at {recommendation.company} —{" "}
               {recommendation.date.toLocaleDateString("en-US", {
                 month: "long",

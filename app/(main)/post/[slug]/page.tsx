@@ -86,7 +86,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const title = typeof metadata.title === "string" ? metadata.title : slug;
 
   return (
-    <article className="container prose prose-zinc prose-invert relative max-w-3xl">
+    <article className="relative container prose max-w-3xl prose-zinc dark:prose-invert">
       <HistoryBackLink href="/post">See all posts</HistoryBackLink>
       <div>
         <Heading variant="h1" className="mb-8">

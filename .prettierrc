@@ -4,5 +4,7 @@
   "singleQuote": false,
   "arrowParens": "avoid",
   "trailingComma": "none",
+  "tailwindStylesheet": "./app/global.css",
+  "tailwindFunctions": ["cn", "cva"],
   "plugins": ["prettier-plugin-tailwindcss"]
 }

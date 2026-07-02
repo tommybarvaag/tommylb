@@ -42,7 +42,7 @@ export default async function Home() {
         }}
       >
         <div>
-          <Heading className="mb-4 text-zinc-300">Building</Heading>
+          <Heading className="mb-4 text-muted-foreground">Building</Heading>
           <ul className="flex flex-col gap-6">
             <li key="list-element-kxb-app">
               <Link className="mb-1" href="https://kxb.app/">
@@ -71,7 +71,7 @@ export default async function Home() {
           </ul>
         </div>
         <div>
-          <Heading className="mb-4 text-base text-zinc-300">
+          <Heading className="mb-4 text-base text-muted-foreground">
             <Link href="/post" underline={false}>
               Posts
             </Link>

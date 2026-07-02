@@ -9,7 +9,7 @@ type CvTimeProps = HTMLAttributes<HTMLTimeElement> & {
 
 const CvTime = forwardRef<HTMLTimeElement, CvTimeProps>(
   ({ className, fromDate, toDate, ...props }, ref) => (
-    <time className={cn("text-sm text-zinc-400", className)} {...props} ref={ref}>
+    <time className={cn("text-sm text-muted-foreground", className)} {...props} ref={ref}>
       {getFormattedToAndFromCvDate(new Date(fromDate), new Date(toDate))}
     </time>
   )

@@ -93,7 +93,7 @@ const metadataWithCustomOgImage = (
   const ogImageUrl = new URL(`${url}/api/og`);
   ogImageUrl.searchParams.set("heading", ogHeading ?? title);
   ogImageUrl.searchParams.set("type", type);
-  ogImageUrl.searchParams.set("mode", "dark");
+  ogImageUrl.searchParams.set("mode", mode);
 
   return {
     title: {

@@ -14,14 +14,12 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Popup>
 >(({ className, children, ...other }, ref) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Backdrop
-      className="fixed inset-0 z-50 bg-background/50 backdrop-blur-sm transition-all duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0"
-    />
+    <DialogPrimitive.Backdrop className="fixed inset-0 z-50 bg-background/50 backdrop-blur-sm transition-all duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0" />
     <div className="fixed inset-0 z-50 flex items-start justify-center sm:items-center">
       <DialogPrimitive.Popup
         ref={ref}
         className={cn(
-          "fixed top-0 z-50 grid w-full gap-4 rounded-b-lg border border-border bg-background p-6 transition-all duration-150 data-starting-style:opacity-0 data-ending-style:opacity-0 sm:max-w-lg sm:rounded-lg lg:top-auto",
+          "fixed top-0 z-50 grid w-full gap-4 rounded-b-lg border border-border bg-background p-6 transition-all duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 sm:max-w-lg sm:rounded-lg lg:top-auto",
           className
         )}
         {...other}
@@ -30,7 +28,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Close
           render={
             <Button
-              className="absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
+              className="absolute top-4 right-4 rounded-sm opacity-70 transition-opacity hover:opacity-100"
               variant="ghost"
             >
               <Icons.X className="size-4" />

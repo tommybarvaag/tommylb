@@ -24,7 +24,7 @@ const TextArea = React.forwardRef<React.ComponentRef<"textarea">, TextAreaProps>
           <textarea
             {...props}
             {...other}
-            className="mb-2 mt-1 block w-full resize-none scroll-py-2 rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
+            className="mt-1 mb-2 block w-full resize-none scroll-py-2 rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
             ref={ref}
           />
         )}

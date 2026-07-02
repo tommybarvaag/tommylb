@@ -56,7 +56,7 @@ function ProjectExperience({
       <DrawerContent variant="scrollable">
         <DrawerClose
           render={
-            <Button className="absolute right-3 top-3 z-40 size-10 rounded-full p-0">
+            <Button className="absolute top-3 right-3 z-40 size-10 rounded-full p-0">
               <Icons.X className="size-6" />
             </Button>
           }
@@ -64,7 +64,7 @@ function ProjectExperience({
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
           <Image
             className={cn(
-              "select-none rounded-t-[10px] border-x border-t border-border object-cover object-center brightness-90",
+              "rounded-t-[10px] border-x border-t border-border object-cover object-center brightness-90 select-none",
               {
                 "object-top": projectExperience.images?.[0]?.bannerObjectPosition === "top",
                 "object-center": projectExperience.images?.[0]?.bannerObjectPosition === "center",
@@ -78,7 +78,7 @@ function ProjectExperience({
             priority
           />
         </div>
-        <div className="space-y-8 border-x border-border px-8 pb-8 pt-12 md:px-12 lg:px-24">
+        <div className="space-y-8 border-x border-border px-8 pt-12 pb-8 md:px-12 lg:px-24">
           <DrawerTitle
             render={
               <div>

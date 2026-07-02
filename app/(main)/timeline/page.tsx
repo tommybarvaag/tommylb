@@ -29,7 +29,7 @@ export default function Timeline() {
         <Heading variant="h1">This is my timeline from birth until now</Heading>
         <Text>Read along this timeline to get to now me a little better.</Text>
       </div>
-      <TimelineFromBirthUntilNow showAll heading={null} />
+      <TimelineFromBirthUntilNow showAll />
     </>
   );
 }

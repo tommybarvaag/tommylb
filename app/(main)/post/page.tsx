@@ -26,7 +26,7 @@ export default async function PostPage() {
     );
 
   return (
-    <div className="container relative max-w-4xl">
+    <div className="relative container max-w-4xl">
       <HistoryBackLink href="/">Home</HistoryBackLink>
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
@@ -42,7 +42,7 @@ export default async function PostPage() {
             .map(([year, posts]) => (
               <div
                 key={year}
-                className="mb-8 flex justify-between gap-6 border-b-border pb-8 lg:gap-12 not-last:border-b"
+                className="mb-8 flex justify-between gap-6 border-b-border pb-8 not-last:border-b lg:gap-12"
               >
                 <Text className="mb-0 self-start py-2 text-sm leading-7 text-muted-foreground">
                   {year}
@@ -60,7 +60,7 @@ export default async function PostPage() {
                       >
                         <>
                           <Text
-                            className="peer mb-0 grow transition-colors duration-300 hover:!text-foreground group-hover:text-muted-foreground"
+                            className="peer mb-0 grow transition-colors duration-300 group-hover:text-muted-foreground hover:!text-foreground"
                             noMargin
                           >
                             {post.title}
