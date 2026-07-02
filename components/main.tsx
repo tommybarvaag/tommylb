@@ -1,14 +1,16 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
 const mainVariants = cva(
-  "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-zinc-900 px-8",
+  "mx-auto mb-16 flex w-full max-w-2xl grow flex-col items-start justify-start bg-background px-8",
   {
     variants: {
       size: {
-        default: "pt-14 sm:pt-32 max-w-2xl",
-        wide: "pt-14 sm:pt-24 max-w-4xl"
+        default: "max-w-2xl pt-14 sm:pt-32",
+        wide: "max-w-4xl pt-14 sm:pt-24"
       }
     },
     defaultVariants: {

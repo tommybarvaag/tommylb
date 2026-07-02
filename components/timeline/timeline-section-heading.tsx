@@ -1,5 +1,6 @@
-import { Heading } from "@/components/heading";
 import * as React from "react";
+
+import { Heading } from "@/components/heading";
 
 type TimelineSectionHeadingProps = {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ type TimelineSectionHeadingProps = {
 
 export default function TimelineSectionHeading({ children }: TimelineSectionHeadingProps) {
   return (
-    <Heading variant="h3" className="!mb-2">
+    <Heading variant="h3" className="mb-2!">
       {children}
     </Heading>
   );

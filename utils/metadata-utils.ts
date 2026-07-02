@@ -1,6 +1,8 @@
-import { getAbsoluteUrl } from "@/lib/utils";
-import { getDefaultSeoDescription } from "@/utils/seo-utils";
 import type { Metadata } from "next";
+
+import { getAbsoluteUrl } from "@/lib/utils";
+
+import { getDefaultSeoDescription } from "@/utils/seo-utils";
 
 const url = getAbsoluteUrl();
 
@@ -93,7 +95,7 @@ const metadataWithCustomOgImage = (
   const ogImageUrl = new URL(`${url}/api/og`);
   ogImageUrl.searchParams.set("heading", ogHeading ?? title);
   ogImageUrl.searchParams.set("type", type);
-  ogImageUrl.searchParams.set("mode", "dark");
+  ogImageUrl.searchParams.set("mode", mode);
 
   return {
     title: {

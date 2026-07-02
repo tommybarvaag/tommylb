@@ -1,9 +1,13 @@
-import Link from "@/components/link";
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import { HtmlHTMLAttributes } from "react";
 
-const footerVariants = cva("border-t border-zinc-700 px-6 py-4 text-sm", {
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
+import Link from "@/components/link";
+import ThemeToggle from "@/components/theme-toggle";
+
+const footerVariants = cva("border-t border-border px-6 py-4 text-sm", {
   variants: {
     size: {
       default: "",
@@ -31,7 +35,7 @@ export default function Footer({
         <Link href="/" underline={false}>
           Tommy Lunde Barvåg
         </Link>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
           <Link href="https://github.com/tommybarvaag" aria-label="View my code at GitHub">
             GitHub
           </Link>
@@ -47,6 +51,7 @@ export default function Footer({
           <Link href="/cv" aria-label="View my CV">
             CV
           </Link>
+          <ThemeToggle />
         </div>
       </div>
     </footer>

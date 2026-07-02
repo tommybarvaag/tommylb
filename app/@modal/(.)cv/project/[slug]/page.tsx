@@ -1,19 +1,16 @@
-import { ProjectExperience } from "@/components/project-experience";
-import { projectExperienceData } from "@/data/project-experience-data";
+import { Suspense } from "react";
+
 import { notFound } from "next/navigation";
 
-export const runtime = "experimental-edge";
+import { ProjectExperience } from "@/components/project-experience";
 
-interface ProjectExperienceProps {
-  params: {
-    slug: string;
-  };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
+import { projectExperienceData } from "@/data/project-experience-data";
 
-export default function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+async function InterceptedProjectExperience({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
   const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === params.slug
+    projectExperienceItem => projectExperienceItem.slug === slug
   );
 
   if (!projectExperience) {
@@ -21,4 +18,12 @@ export default function ProjectExperiencePage({ params }: ProjectExperienceProps
   }
 
   return <ProjectExperience projectExperience={projectExperience} isRouteIntercepted />;
+}
+
+export default function ProjectExperiencePage({ params }: { params: Promise<{ slug: string }> }) {
+  return (
+    <Suspense fallback={null}>
+      <InterceptedProjectExperience params={params} />
+    </Suspense>
+  );
 }

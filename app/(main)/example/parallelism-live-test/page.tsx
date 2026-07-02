@@ -1,12 +1,13 @@
-import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
+import { Suspense } from "react";
+
+import { Metadata } from "next";
+
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 import Link from "@/components/link";
 import Text from "@/components/text";
-import { Metadata } from "next";
-import { Suspense } from "react";
 
-export const runtime = "edge";
+import { ParallelismLiveTestExample } from "@/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-example";
 
 export const metadata: Metadata = {
   robots: {
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 
 export default async function ParallelismLiveTest() {
   return (
-    <div className="container relative max-w-4xl">
+    <div className="relative container max-w-4xl">
       <HistoryBackLink href="/">Home</HistoryBackLink>
       <Heading variant="h1">Parallelism live test</Heading>
       <Text>

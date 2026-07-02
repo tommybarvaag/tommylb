@@ -1,8 +1,19 @@
-import { ogImageSchema } from "@/lib/validations/og";
-import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 
-export const runtime = "edge";
+import { ImageResponse } from "@vercel/og";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
+import { ogImageSchema } from "@/lib/validations/og";
+
+// Satori parses fonts with a DataView, which requires an ArrayBuffer — Node's readFile
+// returns a Buffer (a view over a possibly-larger pool), so slice out its exact bytes.
+function toArrayBuffer(buffer: Buffer): ArrayBuffer {
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength
+  ) as ArrayBuffer;
+}
 
 function getFontSize(heading: string) {
   switch (true) {
@@ -23,109 +34,108 @@ function getFontSize(heading: string) {
 
 export async function GET(request: NextRequest) {
   try {
-    const fontRegular = fetch(
-      new URL("../../../assets/fonts/Geist-Regular.otf", import.meta.url)
-    ).then(res => res.arrayBuffer());
+    // Node.js runtime (edge is unsupported under Cache Components): read bundled assets from
+    // the filesystem via fs.readFile. Node's fetch() cannot load file: URLs, so the previous
+    // fetch(new URL(..., import.meta.url)) pattern only worked on edge.
+    const [fontRegularBuffer, fontBoldBuffer, imageBuffer] = await Promise.all([
+      readFile(join(process.cwd(), "assets/fonts/Geist-Regular.otf")),
+      readFile(join(process.cwd(), "assets/fonts/Geist-Bold.otf")),
+      readFile(join(process.cwd(), "public/images/tommy-zoom-256.jpg"))
+    ]);
 
-    const fontBold = fetch(new URL("../../../assets/fonts/Geist-Bold.otf", import.meta.url)).then(
-      res => res.arrayBuffer()
-    );
-    const image = fetch(new URL("../../../public/images/tommy-zoom-256.jpg", import.meta.url)).then(
-      res => res.arrayBuffer()
-    );
-
-    const fontRegularData = await fontRegular;
-    const fontBoldData = await fontBold;
-    const imageData = await image;
+    const fontRegularData = toArrayBuffer(fontRegularBuffer);
+    const fontBoldData = toArrayBuffer(fontBoldBuffer);
+    const imageData = toArrayBuffer(imageBuffer);
 
     const values = ogImageSchema.parse(Object.fromEntries(request.nextUrl.searchParams));
     const heading =
       values.heading.length > 140 ? `${values.heading.substring(0, 140)}...` : values.heading;
 
     const { mode } = values;
-    const paint = mode === "dark" ? "#fafafa" : "#18181b";
+    const paint = mode === "dark" ? "#fbfbf9" : "#0c0c09";
 
     let fontSize = getFontSize(heading);
 
     return new ImageResponse(
-      (
-        <div
-          tw="flex relative flex-col px-12 py-10 w-full h-full items-start"
-          style={{
-            color: paint,
-            background: mode === "dark" ? "#18181b" : "#fafafa"
-          }}
-        >
-          <div tw="flex flex-col flex-1 py-10">
-            <div
-              tw="flex text-2xl uppercase font-bold tracking-tight mb-4"
-              style={{ fontFamily: "Geist", fontWeight: "normal" }}
-            >
-              {values.type}
-            </div>
-            <div
-              tw="flex leading-[1.1] text-[80px] grow items-center font-bold tracking-tighter"
-              style={{
-                fontFamily: "Geist",
-                fontWeight: "bolder",
-                marginLeft: "-3px",
-                fontSize
-              }}
-            >
-              {heading}
-            </div>
+      <div
+        tw="flex relative flex-col px-12 py-10 w-full h-full items-start"
+        style={{
+          color: paint,
+          background: mode === "dark" ? "#474739" : "#fbfbf9"
+        }}
+      >
+        <div tw="flex flex-col flex-1 py-10">
+          <div
+            tw="flex text-2xl uppercase font-bold tracking-tight mb-4"
+            style={{ fontFamily: "Geist", fontWeight: "normal" }}
+          >
+            {values.type}
           </div>
-          <div tw="flex items-center w-full justify-between">
-            <div tw="flex" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
-              <div tw="flex items-center justify-between">
+          <div
+            tw="flex leading-[1.1] text-[80px] grow items-center font-bold tracking-tighter"
+            style={{
+              fontFamily: "Geist",
+              fontWeight: "bolder",
+              marginLeft: "-3px",
+              fontSize
+            }}
+          >
+            {heading}
+          </div>
+        </div>
+        <div tw="flex items-center w-full justify-between">
+          <div tw="flex" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
+            <div tw="flex items-center justify-between">
+              <div
+                tw="flex h-[128px] w-[128px] border rounded-full overflow-hidden"
+                style={{ fontFamily: "Geist", fontWeight: "normal" }}
+              >
+                {/* oxlint-disable nextjs/no-img-element -- Satori JSX; next/image cannot render inside ImageResponse */}
+                {/* @ts-ignore */}
+                <img src={imageData} height="128" width="128" alt="WUT" />
+                {/* oxlint-enable nextjs/no-img-element */}
+              </div>
+              <div tw="flex flex-col ml-8">
                 <div
-                  tw="flex h-[128px] w-[128px] border rounded-full overflow-hidden"
-                  style={{ fontFamily: "Geist", fontWeight: "normal" }}
+                  tw="flex text-2xl font-bold tracking-tight"
+                  style={{ fontFamily: "Geist", fontWeight: "bold" }}
                 >
-                  {/* @ts-ignore */}
-                  <img src={imageData} height="128" width="128" alt="WUT" />
+                  Tommy Lunde Barvåg
                 </div>
-                <div tw="flex flex-col ml-8">
-                  <div
-                    tw="flex text-2xl font-bold tracking-tight"
-                    style={{ fontFamily: "Geist", fontWeight: "bold" }}
-                  >
-                    Tommy Lunde Barvåg
-                  </div>
-                  <div
-                    tw="flex text-xl font-bold tracking-tight text-zinc-400"
-                    style={{ fontFamily: "Geist", fontWeight: "normal" }}
-                  >
-                    Senior front-end specialist
-                  </div>
+                <div
+                  tw="flex text-xl font-bold tracking-tight"
+                  style={{
+                    fontFamily: "Geist",
+                    fontWeight: "normal",
+                    color: mode === "dark" ? "#d8d8d0" : "#5b5b4b"
+                  }}
+                >
+                  Senior front-end specialist
                 </div>
               </div>
             </div>
-            <div
-              tw="flex items-center text-xl"
-              style={{ fontFamily: "Geist", fontWeight: "normal" }}
-            >
-              <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-                <path
-                  d="M30 44v-8a9.6 9.6 0 0 0-2-7c6 0 12-4 12-11 .16-2.5-.54-4.96-2-7 .56-2.3.56-4.7 0-7 0 0-2 0-6 3-5.28-1-10.72-1-16 0-4-3-6-3-6-3-.6 2.3-.6 4.7 0 7a10.806 10.806 0 0 0-2 7c0 7 6 11 12 11a9.43 9.43 0 0 0-1.7 3.3c-.34 1.2-.44 2.46-.3 3.7v8"
-                  stroke={paint}
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M18 36c-9.02 4-10-4-14-4"
-                  stroke={paint}
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <div tw="flex ml-2">https://github.com/tommybarvaag</div>
-            </div>
+          </div>
+          <div tw="flex items-center text-xl" style={{ fontFamily: "Geist", fontWeight: "normal" }}>
+            <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M30 44v-8a9.6 9.6 0 0 0-2-7c6 0 12-4 12-11 .16-2.5-.54-4.96-2-7 .56-2.3.56-4.7 0-7 0 0-2 0-6 3-5.28-1-10.72-1-16 0-4-3-6-3-6-3-.6 2.3-.6 4.7 0 7a10.806 10.806 0 0 0-2 7c0 7 6 11 12 11a9.43 9.43 0 0 0-1.7 3.3c-.34 1.2-.44 2.46-.3 3.7v8"
+                stroke={paint}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M18 36c-9.02 4-10-4-14-4"
+                stroke={paint}
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <div tw="flex ml-2">https://github.com/tommybarvaag</div>
           </div>
         </div>
-      ),
+      </div>,
       {
         width: 1200,
         height: 630,

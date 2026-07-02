@@ -1,17 +1,19 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import { Fragment, ReactNode, forwardRef } from "react";
-import { Drawer as DrawerPrimitive } from "vaul";
+
+import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const drawerContentVariants = cva(
-  "fixed inset-x-0 bottom-0 z-50 rounded-t-[10px] bg-zinc-900 mx-auto max-w-[1080px]",
+  "fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[1080px] rounded-t-[10px] bg-background transition-transform duration-300 ease-out data-ending-style:translate-y-full data-starting-style:translate-y-full data-swiping:transition-none",
   {
     variants: {
       variant: {
         default: "mt-24 h-[96%]",
-        scrollable: "flex h-full top-10 flex-col"
+        scrollable: "top-10 flex h-full flex-col"
       }
     },
     defaultVariants: {
@@ -22,32 +24,34 @@ const drawerContentVariants = cva(
 
 const DrawerContentScrollable = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="relative z-10 flex-1 select-none overflow-y-auto rounded-t-[10px]">
+    <div className="relative z-10 flex-1 overflow-y-auto rounded-t-[10px] select-none">
       {children}
     </div>
   );
 };
 
 const DrawerContent = forwardRef<
-  React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> &
+  React.ComponentRef<typeof DrawerPrimitive.Popup>,
+  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Popup> &
     VariantProps<typeof drawerContentVariants>
 >(({ className, children, variant = "default", ...props }, ref) => {
   const DrawerContentWrapper: React.ElementType =
     variant === "scrollable" ? DrawerContentScrollable : Fragment;
   return (
     <DrawerPrimitive.Portal>
-      <DrawerPrimitive.Overlay className="fixed inset-0 z-40 bg-zinc-950/60" />
-      <DrawerPrimitive.Content
-        ref={ref}
-        className={cn(drawerContentVariants({ variant }), className)}
-        {...props}
-      >
-        <DrawerContentWrapper>
-          <div className="absolute left-1/2 top-3 z-60 h-2 w-[50px] -translate-x-1/2 rounded-full bg-zinc-800" />
-          {children}
-        </DrawerContentWrapper>
-      </DrawerPrimitive.Content>
+      <DrawerPrimitive.Backdrop className="fixed inset-0 z-40 bg-olive-950/60 transition-opacity duration-300 data-ending-style:opacity-0 data-starting-style:opacity-0" />
+      <DrawerPrimitive.Viewport>
+        <DrawerPrimitive.Popup
+          ref={ref}
+          className={cn(drawerContentVariants({ variant }), className)}
+          {...props}
+        >
+          <DrawerContentWrapper>
+            <div className="absolute top-3 left-1/2 z-60 h-2 w-[50px] -translate-x-1/2 rounded-full bg-muted" />
+            {children}
+          </DrawerContentWrapper>
+        </DrawerPrimitive.Popup>
+      </DrawerPrimitive.Viewport>
     </DrawerPrimitive.Portal>
   );
 });

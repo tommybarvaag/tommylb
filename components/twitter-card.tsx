@@ -1,9 +1,12 @@
-import { Icons } from "@/components/icons";
-import Link from "@/components/link";
-import { getFormattedLongDate } from "@/utils/date-utils";
 import Image from "next/image";
+
 import { enrichTweet } from "react-tweet";
 import type { Tweet } from "react-tweet/api";
+
+import { Icons } from "@/components/icons";
+import Link from "@/components/link";
+
+import { getFormattedLongDate } from "@/utils/date-utils";
 
 const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
   if (!t) {
@@ -16,7 +19,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
 
   return (
     <div className="my-6 flex items-center justify-center">
-      <div className="max-w-xl rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-4">
+      <div className="max-w-xl rounded-lg border border-border bg-card px-6 py-4">
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
             <Image
@@ -37,14 +40,16 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
         </div>
         {/* If tweet has in reply to user, show username here */}
         {tweet.in_reply_to_screen_name && (
-          <div className="mt-2 flex items-center text-zinc-400">
-            <p className="ml-1 text-sm ">
+          <div className="mt-2 flex items-center text-muted-foreground">
+            <p className="ml-1 text-sm">
               In reply to{" "}
-              <Link href={tweet.in_reply_to_user_id_str}>@{tweet.in_reply_to_screen_name}</Link>
+              <Link href={tweet.in_reply_to_user_id_str ?? ""}>
+                @{tweet.in_reply_to_screen_name}
+              </Link>
             </p>
           </div>
         )}
-        <p className="mt-3 whitespace-pre-wrap leading-normal">{tweet.text}</p>
+        <p className="mt-3 leading-normal whitespace-pre-wrap">{tweet.text}</p>
         {tweet.photos && tweet.photos.length ? (
           <div
             className={
@@ -65,10 +70,12 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
             ))}
           </div>
         ) : null}
-        <p className="my-0.5 py-1 text-sm text-zinc-400">{getFormattedLongDate(createdAt)}</p>
-        <div className="my-1 border border-b-0 border-zinc-700"></div>
+        <p className="my-0.5 py-1 text-sm text-muted-foreground">
+          {getFormattedLongDate(createdAt)}
+        </p>
+        <div className="my-1 border border-b-0 border-border"></div>
         <div className="mt-3 flex">
-          <div className="mr-6 flex items-center text-sm text-zinc-500">
+          <div className="mr-6 flex items-center text-sm text-muted-foreground">
             <Link
               href={`https://twitter.com/intent/like?tweet_id=${tweet.id_str}`}
               underline={false}
@@ -82,7 +89,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
               <span className="ml-3">{tweet.favorite_count}</span>
             </Link>
           </div>
-          <div className="mr-6 flex items-center text-sm text-zinc-500">
+          <div className="mr-6 flex items-center text-sm text-muted-foreground">
             <Link
               href={`https://twitter.com/intent/tweet?in_reply_to=${tweet.id_str}`}
               underline={false}
@@ -96,7 +103,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
               <span className="ml-3">{tweet.conversation_count}</span>
             </Link>
           </div>
-          <div className="mr-6 flex items-center text-sm text-zinc-500">
+          <div className="mr-6 flex items-center text-sm text-muted-foreground">
             <Link
               href={`https://twitter.com/intent/retweet?tweet_id=${tweet.id_str}`}
               underline={false}

@@ -1,14 +1,14 @@
 "use server";
 
-import Bowser from "bowser";
-import { revalidatePath } from "next/cache";
 import { headers as getHeaders } from "next/headers";
+
+import Bowser from "bowser";
 
 async function getPlatform() {
   try {
-    const headers = getHeaders();
+    const headers = await getHeaders();
 
-    const browser = Bowser.parse(headers.get("user-agent"));
+    const browser = Bowser.parse(headers.get("user-agent") ?? "");
 
     const { isMobile, isTablet, isDesktop, isTouch, isBot, isError } = {
       isMobile: browser.platform.type === "mobile",
@@ -34,19 +34,5 @@ async function getPlatform() {
 
 type PlatformReturnType = Awaited<ReturnType<typeof getPlatform>>;
 
-async function shouldRevalidatePlatform(platform: PlatformReturnType) {
-  const up = await getPlatform();
-
-  const platformChanged =
-    platform.isMobile !== up.isMobile ||
-    platform.isTablet !== up.isTablet ||
-    platform.isDesktop !== up.isDesktop ||
-    platform.isTouch !== up.isTouch;
-
-  if (platformChanged) {
-    revalidatePath("/", "layout");
-  }
-}
-
-export { getPlatform, shouldRevalidatePlatform };
+export { getPlatform };
 export type { PlatformReturnType };

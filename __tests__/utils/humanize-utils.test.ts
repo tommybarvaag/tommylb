@@ -1,5 +1,6 @@
+import { describe, expect, it } from "vitest";
+
 import { numberToWords, simplePluralize } from "@/utils/humanize-utils";
-import { describe, expect, it } from "@jest/globals";
 
 describe("numberToWords", () => {
   it("should return an empty string for undefined", () => {

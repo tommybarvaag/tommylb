@@ -1,8 +1,11 @@
+import * as React from "react";
+
+import NextLink from "next/link";
+
+import { cn } from "@/lib/utils";
+
 import { Icons } from "@/components/icons";
 import { Show } from "@/components/show";
-import { cn } from "@/lib/utils";
-import NextLink from "next/link";
-import * as React from "react";
 
 type LinkElement = React.ElementRef<typeof NextLink>;
 type LinkProps = React.ComponentPropsWithoutRef<typeof NextLink> & {
@@ -39,7 +42,7 @@ const Link = React.forwardRef<LinkElement, LinkProps>(
         className={cn(
           "",
           {
-            "underline decoration-zinc-500 underline-offset-[2.5px] transition-colors duration-200 hover:decoration-zinc-300":
+            "underline decoration-muted-foreground underline-offset-[2.5px] transition-colors duration-200 hover:decoration-foreground":
               underline
           },
           { "inline-flex items-center gap-1": isHrefExternal },

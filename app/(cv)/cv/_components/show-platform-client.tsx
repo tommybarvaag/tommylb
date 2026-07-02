@@ -1,8 +1,10 @@
 "use client";
 
-import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
-import { PlatformReturnType, getPlatform } from "@/lib/actions/bowser-actions";
 import { ReactNode, useEffect, useState } from "react";
+
+import { PlatformReturnType, getPlatform } from "@/lib/actions/bowser-actions";
+
+import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
 
 const initialState: PlatformReturnType = {
   isBot: false,
@@ -27,17 +29,19 @@ export function ShowPlatformClient({
 }) {
   const [platform, setPlatform] = useState<PlatformReturnType>(initialState);
 
-  const get = getPlatform.bind(null);
-
   useEffect(() => {
-    async function checkPlatform() {
-      const platform = await get();
+    let isActive = true;
 
-      setPlatform(platform);
-    }
+    getPlatform().then(nextPlatform => {
+      if (isActive) {
+        setPlatform(nextPlatform);
+      }
+    });
 
-    void checkPlatform();
-  });
+    return () => {
+      isActive = false;
+    };
+  }, []);
 
   return (
     <ShowPlatformContent

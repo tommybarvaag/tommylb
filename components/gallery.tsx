@@ -1,9 +1,12 @@
 "use client";
 
-import { Icons } from "@/components/icons";
-import { cn } from "lib/utils";
-import Image from "next/image";
 import { useState } from "react";
+
+import Image from "next/image";
+
+import { cn } from "@/lib/utils";
+
+import { Icons } from "@/components/icons";
 
 export function GridTileImage({
   isInteractive = true,
@@ -16,15 +19,14 @@ export function GridTileImage({
   return (
     <div
       className={cn(
-        "group flex size-full items-center justify-center overflow-hidden rounded-lg border-2 bg-zinc-950 hover:border-blue-600",
+        "group flex size-full items-center justify-center overflow-hidden rounded-lg border-2 bg-muted hover:border-blue-600",
         {
           "border-2 border-blue-600": active,
-          "border-zinc-700": !active
+          "border-border": !active
         }
       )}
     >
       {props.src ? (
-        // eslint-disable-next-line jsx-a11y/alt-text -- `alt` is inherited from `props`, which is being enforced with TypeScript
         <Image
           className={cn("relative size-full object-contain", {
             "transition duration-300 ease-in-out group-hover:scale-105": isInteractive
@@ -40,14 +42,14 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
   const [imageIndex, setImageIndex] = useState(0);
 
   const buttonClassName =
-    "unset h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-white flex items-center justify-center";
+    "unset h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-foreground flex items-center justify-center";
 
   return (
     <>
       <div className="relative aspect-square size-full max-h-[450px] overflow-hidden">
         {images[imageIndex] && (
           <Image
-            className="size-full object-contain "
+            className="size-full object-contain"
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt={images[imageIndex]?.alt as string}
@@ -57,7 +59,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
         )}
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-zinc-950 bg-zinc-900/80 text-zinc-400 backdrop-blur">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-border bg-background/80 text-muted-foreground backdrop-blur">
               <button
                 aria-label="Previous product image"
                 className={buttonClassName}
@@ -65,7 +67,7 @@ export function Gallery({ images }: { images: { src: string; alt: string }[] }) 
               >
                 <Icons.ArrowLeft className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-zinc-500"></div>
+              <div className="mx-1 h-6 w-px bg-border"></div>
               <button
                 aria-label="Next product image"
                 className={buttonClassName}

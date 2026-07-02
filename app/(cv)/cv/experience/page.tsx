@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
+
 import { CvKeyPoints } from "@/components/cv-key-points";
+
 import { getActiveWorkYears } from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "Experience",
@@ -12,7 +14,7 @@ export const metadata: Metadata = metadataWithCustomOgImage(
 
 export default async function CurriculumVitae() {
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <CvKeyPoints />
     </div>
   );

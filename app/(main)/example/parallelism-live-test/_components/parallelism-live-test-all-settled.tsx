@@ -1,7 +1,13 @@
-import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
+import { connection } from "next/server";
+
 import { query } from "@/lib/query";
 
+import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
+
 async function ParallelismLiveTestAllSettled() {
+  // connection() opts this demo into request-time rendering so the timing reads below are
+  // legitimate runtime IO — not the unstable-value prerender error Cache Components raises.
+  await connection();
   const start = new Date().getTime();
 
   const results = await query([

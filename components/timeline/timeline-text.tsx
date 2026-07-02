@@ -5,5 +5,5 @@ type TimelineTextProps = {
 };
 
 export default function TimelineText({ children }: TimelineTextProps) {
-  return <div className="ml-16 text-zinc-200">{children}</div>;
+  return <div className="ml-16 text-foreground">{children}</div>;
 }

@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+__tests__/browser/__screenshots__/
 
 # vercel
 .vercel
@@ -14,6 +15,7 @@
 # next.js
 /.next/
 /out/
+*.tsbuildinfo
 
 # production
 /build
@@ -21,9 +23,12 @@
 # misc
 .DS_Store
 .env*
+!.env.example
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .vscode
+
+.ref

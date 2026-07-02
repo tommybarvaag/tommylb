@@ -1,14 +1,16 @@
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
 import { HtmlHTMLAttributes, forwardRef } from "react";
 
-const headingVariants = cva("text-zinc-50 mb-8", {
+import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
+const headingVariants = cva("mb-8 text-foreground", {
   variants: {
     variant: {
-      h1: "font-normal tracking-tight text-base",
-      h2: "font-normal tracking-tight text-base",
-      h3: "font-normal tracking-tight text-base",
-      h4: "font-normal tracking-tight text-base"
+      h1: "text-base font-normal tracking-tight",
+      h2: "text-base font-normal tracking-tight",
+      h3: "text-base font-normal tracking-tight",
+      h4: "text-base font-normal tracking-tight"
     },
     prose: {
       true: ""

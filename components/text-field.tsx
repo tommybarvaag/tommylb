@@ -1,7 +1,11 @@
-import Text from "@/components/text";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import * as React from "react";
+
+import { Field } from "@base-ui/react/field";
+import { motion } from "motion/react";
+
+import { cn } from "@/lib/utils";
+
+import Text from "@/components/text";
 
 type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
   id: string;
@@ -13,12 +17,12 @@ type TextFieldProps = React.ComponentPropsWithoutRef<"input"> & {
   value?: string;
 };
 
-const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(function TextField(
+const TextField = React.forwardRef<React.ComponentRef<"input">, TextFieldProps>(function TextField(
   { className, id, label, error, helperText = "Required", type = "text", ...other },
   ref
 ) {
   return (
-    <div
+    <Field.Root
       className={cn(
         "mb-6 flex flex-col",
         {
@@ -27,11 +31,15 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
         className
       )}
     >
-      <label className="block text-sm text-zinc-100">{label}</label>
-      <input
-        className="mb-2 mt-1 block w-full rounded-md border  border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-100 focus:border-blue-500 focus:ring-blue-500"
-        type={type}
-        ref={ref}
+      <Field.Label className="block text-sm text-foreground">{label}</Field.Label>
+      <Field.Control
+        render={
+          <input
+            className="mt-1 mb-2 block w-full rounded-md border border-border bg-background px-4 py-2 text-foreground focus:border-ring focus:ring-ring"
+            type={type}
+            ref={ref}
+          />
+        }
         {...other}
       />
       <motion.div
@@ -49,11 +57,11 @@ const TextField = React.forwardRef<React.ElementRef<"input">, TextFieldProps>(fu
           ease: "easeOut"
         }}
       >
-        <Text className="text-sm !text-red-700" noMargin>
+        <Text className="text-sm text-red-700!" noMargin>
           {error ? helperText : <>&nbsp;</>}
         </Text>
       </motion.div>
-    </div>
+    </Field.Root>
   );
 });
 

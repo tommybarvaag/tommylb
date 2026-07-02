@@ -1,12 +1,13 @@
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { VariantProps, cva } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
 
 const cardVariants = cva("", {
   variants: {
     variant: {
-      default: "bg-zinc-900 text-zinc-50 rounded-xl border border-zinc-700 shadow-zinc-700"
+      default: "rounded-xl border border-border bg-card text-card-foreground shadow-sm"
     }
   },
   defaultVariants: {
@@ -15,8 +16,7 @@ const cardVariants = cva("", {
 });
 
 export interface CardProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof cardVariants> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant, ...props }, ref) => (
@@ -34,9 +34,10 @@ CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
+    // oxlint-disable-next-line jsx-a11y/heading-has-content -- children arrive via {...props}
     <h3
       ref={ref}
-      className={cn("font-semibold leading-none tracking-tight", className)}
+      className={cn("leading-none font-semibold tracking-tight", className)}
       {...props}
     />
   )
@@ -47,7 +48,7 @@ const CardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p ref={ref} className={cn("text-muted-foreground text-sm", className)} {...props} />
+  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
 CardDescription.displayName = "CardDescription";
 

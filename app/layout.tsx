@@ -1,14 +1,24 @@
-import "@/app/global.css";
-import { VercelAnalytics } from "@/components/vercel-analytics";
-import { cn } from "@/lib/utils";
-import { defaultMetadata } from "@/utils/metadata-utils";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 
+import { Drawer } from "@base-ui/react/drawer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import { cn } from "@/lib/utils";
+
+import { ThemeProvider } from "@/components/theme-provider";
+import { VercelAnalytics } from "@/components/vercel-analytics";
+
+import { defaultMetadata } from "@/utils/metadata-utils";
+
+import "@/app/global.css";
+
 export const viewport: Viewport = {
-  themeColor: "#18181b",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfbf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#474739" }
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 1
@@ -32,10 +42,22 @@ export default function RootLayout({
   const name = "Tommy Lunde Barvåg";
 
   return (
-    <html lang="en" className={cn("", interFont.className)}>
-      <body className="bg-zinc-900 text-zinc-50">
-        {children}
-        {modal}
+    <html lang="en" suppressHydrationWarning className={cn("", interFont.className)}>
+      <body className="bg-background text-foreground">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Drawer.Provider>
+            <Drawer.IndentBackground />
+            <Drawer.Indent>
+              {children}
+              {modal}
+            </Drawer.Indent>
+          </Drawer.Provider>
+        </ThemeProvider>
         <SpeedInsights />
         <VercelAnalytics />
       </body>

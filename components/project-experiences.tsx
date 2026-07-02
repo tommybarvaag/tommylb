@@ -1,5 +1,6 @@
 import { ProjectExperienceLink } from "@/components/project-experience-link";
 import Text from "@/components/text";
+
 import { projectExperienceData } from "@/data/project-experience-data";
 import { getActiveWorkYears } from "@/utils/date-utils";
 
@@ -19,7 +20,7 @@ function ProjectExperiences() {
             return (
               <li
                 key={`${projectExperience.slug}-${index}`}
-                className="[&:not(:last-child)]:border-b [&:not(:last-child)]:border-b-zinc-700 [&:not(:last-child)]:pb-4"
+                className="not-last:border-b not-last:border-b-border not-last:pb-4"
               >
                 <ProjectExperienceLink
                   key={index}

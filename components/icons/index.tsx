@@ -4,7 +4,8 @@ export type IconType = {
   className?: string;
 };
 
-import { cn } from "@/lib/utils";
+import { ComponentPropsWithoutRef, FC } from "react";
+
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowDown,
@@ -20,10 +21,10 @@ import {
   Flame,
   LogIn,
   Send,
-  Twitter,
   X
 } from "lucide-react";
-import { ComponentPropsWithoutRef, FC } from "react";
+
+import { cn } from "@/lib/utils";
 
 const BackToHome: FC<ComponentPropsWithoutRef<typeof LogIn> & { className?: string }> = ({
   className,
@@ -92,7 +93,7 @@ const XLogo: FC<ComponentPropsWithoutRef<typeof LogIn> & { className?: string }>
     <svg
       viewBox="0 0 24 24"
       aria-hidden="true"
-      className={cn("size-6 fill-zinc-50", className)}
+      className={cn("size-6 fill-foreground", className)}
       {...other}
     >
       <g>
@@ -105,7 +106,6 @@ export type Icon = LucideIcon;
 
 export const Icons = {
   At,
-  Twitter,
   Check,
   Send,
   ArrowRight,

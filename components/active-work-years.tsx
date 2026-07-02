@@ -1,4 +1,5 @@
 import Link from "@/components/link";
+
 import { getActiveWorkYears } from "@/utils/date-utils";
 
 function ActiveWorkYears() {

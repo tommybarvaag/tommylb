@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
+
 import Link from "@/components/link";
 import Text from "@/components/text";
+
 import { getActiveWorkYears } from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
   "About",
@@ -13,7 +15,7 @@ export const metadata: Metadata = metadataWithCustomOgImage(
 
 export default async function CvAboutPage() {
   return (
-    <div className="duration-500 animate-in">
+    <div className="animate-in duration-500">
       <Text>
         Tommy is an experienced and solution-oriented senior consultant with expertise in
         JavaScript/TypeScript and React. He has a systematic and analytical approach to developing

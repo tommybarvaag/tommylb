@@ -1,4 +1,3 @@
-import "@/app/global.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/avatar";
 import { Badge } from "@/components/badge";
 import { buttonVariants } from "@/components/button";
@@ -15,17 +14,18 @@ import Footer from "@/components/footer";
 import { Icons } from "@/components/icons";
 import Link from "@/components/link";
 import Main from "@/components/main";
+
 import { cvKeySkills } from "@/data/cv-key-points";
 import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 
-export const revalidate = 60;
+import "@/app/global.css";
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Main className="px-6" size="wide">
         <div className="relative items-start gap-10 pb-44 lg:grid lg:grid-cols-3">
-          <div className="space-y-5  lg:col-span-2 lg:px-0">
+          <div className="space-y-5 lg:col-span-2 lg:px-0">
             <CvNavigation />
             {children}
           </div>
@@ -66,30 +66,30 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Location</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">Bergen</span>
+                  <span className="text-sm text-muted-foreground">Location</span>
+                  <span className="text-right text-sm font-medium text-foreground">Bergen</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Experience</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">
+                  <span className="text-sm text-muted-foreground">Experience</span>
+                  <span className="text-right text-sm font-medium text-foreground">
                     {`${getActiveWorkYearsAsNumber()}+ years`}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Relocation</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">No</span>
+                  <span className="text-sm text-muted-foreground">Relocation</span>
+                  <span className="text-right text-sm font-medium text-foreground">No</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Native language</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">Norwegian</span>
+                  <span className="text-sm text-muted-foreground">Native language</span>
+                  <span className="text-right text-sm font-medium text-foreground">Norwegian</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Other languages</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">English</span>
+                  <span className="text-sm text-muted-foreground">Other languages</span>
+                  <span className="text-right text-sm font-medium text-foreground">English</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-zinc-400">Hybrid</span>
-                  <span className="text-right text-sm font-medium text-zinc-200">Preferred</span>
+                  <span className="text-sm text-muted-foreground">Hybrid</span>
+                  <span className="text-right text-sm font-medium text-foreground">Preferred</span>
                 </div>
               </CardContent>
             </Card>

@@ -1,16 +1,9 @@
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      GITHUB_API_USERNAME: string;
-      GITHUB_API_RELEASE_PAT: string;
-      DATABASE_URL: string;
       NEXT_PUBLIC_APP_URL: string;
-      TLB_STRAVA_CLIENT_ID: string;
-      TLB_STRAVA_CLIENT_SECRET: string;
-      TLB_STRAVA_REFRESH_TOKEN: string;
       RESEND_EMAIL_SENDING_API_KEY: string;
       RESEND_EMAIL_RECIPIENT: string;
-      NOTIFICATIONS_NEXT_JS_RELEASE_RECIPIENTS: string;
     }
   }
 }

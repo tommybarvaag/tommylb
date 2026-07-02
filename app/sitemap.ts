@@ -1,10 +1,12 @@
+import { getPosts } from "@/lib/posts";
+
 import { projectExperienceData } from "@/data/project-experience-data";
-import { getPosts } from "@/lib/post";
 
 export default async function sitemap() {
-  const posts = getPosts().map(post => ({
-    url: `https://tommylb.com${post.slug}`,
-    lastModified: post.metadata.date.split("T")[0]
+  const allPosts = await getPosts();
+  const posts = allPosts.map(post => ({
+    url: `https://tommylb.com/post/${post.slug}`,
+    lastModified: post.date.split("T")[0]
   }));
 
   const projectExperience = projectExperienceData.map(project => ({
@@ -15,7 +17,6 @@ export default async function sitemap() {
   const routes = [
     "",
     "/post",
-    "/strava",
     "/connect",
     "/timeline",
     "/cv/about",

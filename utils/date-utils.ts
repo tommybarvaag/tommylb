@@ -55,12 +55,15 @@ export const intervalToDuration = (startDate: Date, endDate: Date) => {
   };
 };
 
+// Captured ONCE at module load (build/prerender time), NOT per render — a render-time
+// `new Date()` is uncached dynamic IO under Cache Components. Refreshes on each deploy.
+const NOW = new Date();
+
 export const isToday = (date: Date) => {
-  const today = new Date();
   return (
-    date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
+    date.getDate() === NOW.getDate() &&
+    date.getMonth() === NOW.getMonth() &&
+    date.getFullYear() === NOW.getFullYear()
   );
 };
 
@@ -87,10 +90,14 @@ export const getFormattedShortMonthAndYearDate = (date: Date) =>
 export const getFormattedPostDate = (date: Date) =>
   date.toLocaleString("en-US", { dateStyle: "long" });
 
-export const getActiveWorkYearsAsNumber = () => {
-  const { years } = intervalToDuration(new Date(2014, 0, 1), new Date());
-  return Math.min(years, RETIREMENT_YEAR);
-};
+// Computed ONCE at module load (build/prerender time), NOT per render — so it is not
+// render-time dynamic IO and does not trip Cache Components. Refreshes on each deploy.
+const ACTIVE_WORK_YEARS = Math.min(
+  intervalToDuration(new Date(2014, 0, 1), new Date()).years,
+  RETIREMENT_YEAR
+);
+
+export const getActiveWorkYearsAsNumber = () => ACTIVE_WORK_YEARS;
 
 export const getActiveWorkYears = (
   options = {
@@ -133,9 +140,7 @@ export const getFormattedToAndFromCvDate = (startDate: Date, endDate: Date): str
 };
 
 export const getHumanizedDateFromNow = (date: Date) => {
-  const now = new Date();
-
-  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, now);
+  const { days, hours, minutes, months, seconds, weeks, years } = intervalToDuration(date, NOW);
 
   if (years && years > 0) {
     return `${years} ${simplePluralize("year", years)}`;

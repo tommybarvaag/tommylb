@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
+
 import ContactMe from "@/components/contact-me";
 import { Heading } from "@/components/heading";
+
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
-import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Connect",

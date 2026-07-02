@@ -1,5 +1,10 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import { cn } from "@/lib/utils";
+
 import { Badge } from "@/components/badge";
 import { Button } from "@/components/button";
 import {
@@ -19,11 +24,9 @@ import { Gallery } from "@/components/gallery";
 import { Heading } from "@/components/heading";
 import { Icons } from "@/components/icons";
 import Text from "@/components/text";
+
 import { type ProjectExperienceItem } from "@/data/project-experience-data";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouteModal } from "@/hooks/use-route-modal";
 
 function ProjectExperience({
   projectExperience,
@@ -32,36 +35,36 @@ function ProjectExperience({
   projectExperience: ProjectExperienceItem;
   isRouteIntercepted?: boolean;
 }) {
-  const [open, setOpen] = useState(true);
   const router = useRouter();
+  const { open, onOpenChange, onOpenChangeComplete } = useRouteModal({
+    animateIn: isRouteIntercepted,
+    onClosed: isRouteIntercepted
+      ? undefined
+      : () => {
+          router.push("/cv/project");
+          router.refresh();
+        }
+  });
 
   return (
     <Drawer
       open={open}
-      onOpenChange={open => {
-        setOpen(open);
-
-        if (!open) {
-          if (isRouteIntercepted) {
-            router.back();
-            return;
-          }
-
-          router.push("/cv/project");
-          router.refresh();
-        }
-      }}
+      swipeDirection="down"
+      onOpenChange={onOpenChange}
+      onOpenChangeComplete={onOpenChangeComplete}
     >
       <DrawerContent variant="scrollable">
-        <DrawerClose asChild>
-          <Button className="absolute right-3 top-3 z-40 size-10 rounded-full p-0">
-            <Icons.X className="size-6" />
-          </Button>
-        </DrawerClose>
+        <DrawerClose
+          render={
+            <Button className="absolute top-3 right-3 z-40 size-10 rounded-full p-0">
+              <Icons.X className="size-6" />
+            </Button>
+          }
+        />
         <div className="relative h-[280px] w-full md:h-[480px] lg:h-[680px]">
           <Image
             className={cn(
-              "select-none rounded-t-[10px] border-x border-t border-zinc-900 object-cover object-center brightness-90",
+              "rounded-t-[10px] border-x border-t border-border object-cover object-center brightness-90 select-none",
               {
                 "object-top": projectExperience.images?.[0]?.bannerObjectPosition === "top",
                 "object-center": projectExperience.images?.[0]?.bannerObjectPosition === "center",
@@ -75,25 +78,29 @@ function ProjectExperience({
             priority
           />
         </div>
-        <div className="space-y-8 border-x border-zinc-900 px-8 pb-8 pt-12 md:px-12 lg:px-24">
-          <DrawerTitle asChild>
-            <div>
-              <Heading className="mb-3 font-semibold" variant="h2" uppercase>
-                {projectExperience.clientName}
-              </Heading>
-              <Heading className="mb-4" variant="h1" prose>
-                {projectExperience.title}
-              </Heading>
-            </div>
-          </DrawerTitle>
+        <div className="space-y-8 border-x border-border px-8 pt-12 pb-8 md:px-12 lg:px-24">
+          <DrawerTitle
+            render={
+              <div>
+                <Heading className="mb-3 font-semibold" variant="h2" uppercase>
+                  {projectExperience.clientName}
+                </Heading>
+                <Heading className="mb-4" variant="h1" prose>
+                  {projectExperience.title}
+                </Heading>
+              </div>
+            }
+          />
           <CvTime fromDate={projectExperience.startDate} toDate={projectExperience.endDate} />
-          <DrawerDescription asChild>
-            <>
-              {projectExperience.description.map((desc, index) => (
-                <Text key={`desc-${index}`}>{desc}</Text>
-              ))}
-            </>
-          </DrawerDescription>
+          <DrawerDescription
+            render={
+              <div>
+                {projectExperience.description.map((desc, index) => (
+                  <Text key={`desc-${index}`}>{desc}</Text>
+                ))}
+              </div>
+            }
+          />
           <div>
             <Heading className="mb-4" variant="h3" prose>
               Roles
@@ -133,7 +140,7 @@ function ProjectExperience({
             </div>
           </section>
         </div>
-        <div className="mt-auto h-24 border-x border-t border-zinc-900 border-t-zinc-800 bg-zinc-900 p-4"></div>
+        <div className="mt-auto h-24 border-x border-t border-border bg-background p-4"></div>
       </DrawerContent>
     </Drawer>
   );

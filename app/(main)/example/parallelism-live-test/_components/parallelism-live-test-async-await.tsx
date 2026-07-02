@@ -1,6 +1,11 @@
+import { connection } from "next/server";
+
 import { mockFetch } from "@/app/(main)/example/parallelism-live-test/_utils/mock-fetch";
 
 async function ParallelismLiveTestAsyncAwait() {
+  // connection() opts this demo into request-time rendering so the timing reads below are
+  // legitimate runtime IO — not the unstable-value prerender error Cache Components raises.
+  await connection();
   const start = new Date().getTime();
 
   // Fetch data from three APIs using React Server Components

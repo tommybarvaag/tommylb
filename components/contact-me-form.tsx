@@ -1,21 +1,22 @@
 "use client";
 
+import { ComponentPropsWithoutRef, useActionState } from "react";
+
+import { sendFormAction } from "@/lib/actions/resend-actions";
+import { cn } from "@/lib/utils";
+
 import FormSubmitMessage from "@/components/form-submit-message";
 import { Icons } from "@/components/icons";
 import { SubmitButton } from "@/components/submit-button";
 import TextArea from "@/components/text-area";
 import TextField from "@/components/text-field";
-import { sendFormAction } from "@/lib/actions/resend-actions";
-import { cn } from "@/lib/utils";
-import { ComponentPropsWithoutRef } from "react";
-import { useFormState } from "react-dom";
 
 type ContactMeFormProps = ComponentPropsWithoutRef<"div"> & {
   location: string;
 };
 
 export default function ContactMeForm({ className, location, ...other }: ContactMeFormProps) {
-  const [state, formAction] = useFormState(sendFormAction, false);
+  const [state, formAction] = useActionState(sendFormAction, { status: "idle" as const });
 
   return (
     <div
@@ -29,8 +30,8 @@ export default function ContactMeForm({ className, location, ...other }: Contact
           label="Full name"
           type="text"
           placeholder="Your name"
-          pattern="^[a-zA-Z ]+$"
-          title="Only letters and spaces are allowed"
+          pattern="^[\p{L} '\-]+$"
+          title="Only letters, spaces, apostrophes and hyphens"
           required
         />
         <TextField
@@ -45,10 +46,15 @@ export default function ContactMeForm({ className, location, ...other }: Contact
         <TextField id="location" name="location" label="Location" type="hidden" value={location} />
         <TextField className="form-text-field-phone" id="phone" name="phone" label="Phone" />
         <SubmitButton rightIcon={<Icons.Send className="size-5" />}>Send</SubmitButton>
-        {state ? (
+        {state.status === "success" ? (
           <FormSubmitMessage
-            text="I have recieved your inquiry and you'll hear from me soon."
+            text="I have received your inquiry and you'll hear from me soon."
             icon={<Icons.Check />}
+          />
+        ) : state.status === "error" ? (
+          <FormSubmitMessage
+            text="Something went wrong sending your message. Email me at tommy@barvaag.com instead."
+            icon={<Icons.X />}
           />
         ) : (
           <div className="h-[24px] w-full" />

@@ -1,5 +1,6 @@
-import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
 import { getPlatform } from "@/lib/actions/bowser-actions";
+
+import { ShowPlatformContent } from "@/app/(cv)/cv/_components/show-platform-content";
 import { ShowPlatformProps } from "@/types";
 
 async function ShowPlatform({
