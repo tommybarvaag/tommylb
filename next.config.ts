@@ -5,6 +5,11 @@ import createMDX from "@next/mdx";
 const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
+  // react-pdf is server-externalized; nft cannot trace its runtime fs font
+  // reads, so include the Geist files in the route's trace explicitly.
+  outputFileTracingIncludes: {
+    "/api/cv/pdf": ["./assets/fonts/*"]
+  },
   reactStrictMode: true,
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   turbopack: {},

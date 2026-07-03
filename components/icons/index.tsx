@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, FC } from "react";
 
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, LogIn, Send, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Download, LogIn, Send, X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -54,6 +54,7 @@ const XLogo: FC<ComponentPropsWithoutRef<typeof LogIn> & { className?: string }>
 export const Icons = {
   At,
   Check,
+  Download,
   Send,
   ArrowRight,
   X,

@@ -27,7 +27,9 @@ export const metadata: Metadata = {
 export default async function ConnectPage() {
   return (
     <>
-      <Heading variant="h1">Connect</Heading>
+      <Heading variant="h1" className="text-lg font-semibold">
+        Connect
+      </Heading>
       <ContactMeForm />
     </>
   );

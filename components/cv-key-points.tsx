@@ -1,106 +1,60 @@
-import {
-  ListItemWithTimeline,
-  ListItemWithTimelineDescription,
-  ListItemWithTimelineTime,
-  ListItemWithTimelineTitle
-} from "@/components/cv-list-item-with-timeline";
-import { CvTime } from "@/components/cv-time";
+import { CvDateRangeTime, StackedCvTime } from "@/components/cv-time";
 import { Heading } from "@/components/heading";
+import { SectionLabel } from "@/components/section-label";
 import Text from "@/components/text";
 
 import { cvEducation, cvWorkExperience } from "@/data/cv-key-points";
 
 function CvKeyPoints() {
-  // group work experiences with the same work place
-  const workExperiencesByWorkPlace = cvWorkExperience
-    .toSorted(
-      // sort by id in descending order
-      (a, b) => (a.id < b.id ? 1 : -1)
-    )
-    .reduce(
-      (acc, workExperience) => {
-        const workPlace = workExperience.workPlace;
-        if (!acc[workPlace]) {
-          acc[workPlace] = [];
-        }
-        acc[workPlace].push(workExperience);
-        return acc;
-      },
-      {} as Record<string, typeof cvWorkExperience>
-    );
+  const workExperiences = cvWorkExperience.toSorted((a, b) => b.id - a.id);
 
   return (
     <>
       <section>
-        <ol className="">
-          {Object.entries(workExperiencesByWorkPlace).map(([workPlace, workExperiences]) => {
-            if (workExperiences.length > 1) {
-              return (
-                <li key={workPlace} className="mb-8">
-                  <Heading className="mb-3 text-lg" variant="h2">
-                    {workPlace}
-                  </Heading>
-                  <ol className="relative">
-                    {workExperiences.map((workExperience, index) => {
-                      return (
-                        <ListItemWithTimeline key={`${workExperience.id}-${index}`}>
-                          <ListItemWithTimelineTitle>
-                            {workExperience.workPlaceTitle}
-                          </ListItemWithTimelineTitle>
-                          <ListItemWithTimelineTime
-                            fromDate={workExperience.fromDate}
-                            toDate={workExperience.toDate}
-                          />
-                          <ListItemWithTimelineDescription>
-                            {workExperience.summary}
-                          </ListItemWithTimelineDescription>
-                        </ListItemWithTimeline>
-                      );
-                    })}
-                  </ol>
-                </li>
-              );
-            }
-
-            return (
-              <li key={workPlace} className="mb-8">
-                <Heading className="mb-3 text-lg" variant="h2">
-                  {workPlace}
+        <ol>
+          {workExperiences.map(workExperience => (
+            <li
+              key={workExperience.id}
+              className="grid grid-cols-[8rem_1fr] gap-x-7 border-t border-border py-5 first:border-t-0 first:pt-0"
+            >
+              <StackedCvTime fromDate={workExperience.fromDate} toDate={workExperience.toDate} />
+              <div>
+                <Heading variant="h3" noMargin className="font-semibold">
+                  {workExperience.workPlaceTitle}
                 </Heading>
-                <ol className="">
-                  {workExperiences.map((workExperience, index) => {
-                    return (
-                      <li key={`${workExperience.id}-${index}`} className="">
-                        <Heading variant="h3" noMargin>
-                          {workExperience.workPlaceTitle}
-                        </Heading>
-                        <CvTime fromDate={workExperience.fromDate} toDate={workExperience.toDate} />
-                        <Text variant="small">{workExperience.summary}</Text>
-                      </li>
-                    );
-                  })}
-                </ol>
-              </li>
-            );
-          })}
+                <Text variant="small" noMargin className="pt-0.5 text-muted-foreground">
+                  {workExperience.workPlace}
+                </Text>
+                <Text variant="small" noMargin className="pt-2 text-olive-700 dark:text-olive-200">
+                  {workExperience.summary}
+                </Text>
+              </div>
+            </li>
+          ))}
         </ol>
       </section>
-      <section>
-        <Heading className="mb-3 text-lg" variant="h2">
-          Education
-        </Heading>
-        <ul className="">
-          {cvEducation.map((education, index) => {
-            return (
-              <li key={`${education.id}-${index}`} className="mb-8">
+      <section className="mt-8">
+        <SectionLabel className="mb-4">Education</SectionLabel>
+        <ul>
+          {cvEducation.map(education => (
+            <li key={education.id} className="grid grid-cols-[8rem_1fr] gap-x-7 py-1">
+              <CvDateRangeTime fromDate={education.fromDate} toDate={education.toDate} />
+              <div>
                 <Heading variant="h3" noMargin>
                   {education.title}
                 </Heading>
-                <CvTime fromDate={education.fromDate} toDate={education.toDate} />
-                <Text>{education.description}</Text>
-              </li>
-            );
-          })}
+                {education.description ? (
+                  <Text
+                    variant="small"
+                    noMargin
+                    className="pt-2 text-olive-700 dark:text-olive-200"
+                  >
+                    {education.description}
+                  </Text>
+                ) : null}
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
     </>

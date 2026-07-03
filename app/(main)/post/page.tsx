@@ -27,52 +27,56 @@ export default async function PostPage() {
     );
 
   return (
-    <div className="relative container max-w-4xl">
-      <HistoryBackLink href="/">Home</HistoryBackLink>
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <Heading variant="h1">Posts</Heading>
-          <Text>Thoughts, ideas, and stories.</Text>
-        </div>
+    <div className="relative w-full">
+      <div className="flex items-baseline justify-between gap-4">
+        <HistoryBackLink href="/" className="mb-0 xl:static xl:left-auto">
+          Home
+        </HistoryBackLink>
+        <Text noMargin className="text-sm text-olive-500 dark:text-olive-300">
+          {`${posts.length} ${posts.length === 1 ? "post" : "posts"}`}
+        </Text>
       </div>
-      <hr className="my-8 border-border" />
+      <div className="mt-8">
+        <Heading variant="h1" noMargin className="text-lg font-semibold">
+          Posts
+        </Heading>
+        <Text noMargin className="pt-1 text-sm text-muted-foreground">
+          Thoughts, ideas, and stories.
+        </Text>
+      </div>
+      <hr className="mt-7 mb-0 border-border" />
       {Object.entries(yearPosts).length ? (
-        <div className="group">
+        <div>
           {Object.entries(yearPosts)
             .reverse()
             .map(([year, postsInYear]) => (
               <div
                 key={year}
-                className="mb-8 flex justify-between gap-6 border-b-border pb-8 not-last:border-b lg:gap-12"
+                className="grid grid-cols-[4rem_1fr] gap-x-8 border-b border-border py-1"
               >
-                <Text className="mb-0 self-start py-2 text-sm leading-7 text-muted-foreground">
+                <Text
+                  noMargin
+                  className="pt-3 text-sm text-olive-500 tabular-nums dark:text-olive-300"
+                >
                   {year}
                 </Text>
-                <ul className="grow items-center">
+                <ul>
                   {postsInYear.map(post => (
                     <li
                       key={`post-page-${post.slug}`}
-                      className="border-b-border py-2 not-last:border-b"
+                      className="not-first:border-t not-first:border-muted"
                     >
                       <Link
                         href={`/post/${post.slug}`}
-                        className="flex w-full gap-3"
                         underline={false}
+                        className="flex w-full items-baseline justify-between gap-4 py-3"
                       >
-                        <>
-                          <Text
-                            className="peer mb-0 grow transition-colors duration-300 group-hover:text-muted-foreground hover:!text-foreground"
-                            noMargin
-                          >
-                            {post.title}
-                          </Text>
-                          <Text
-                            className="my-0 min-w-[86px] text-right text-sm leading-7 text-muted-foreground transition-colors duration-300 peer-hover:!text-foreground"
-                            noMargin
-                          >
-                            {formatMonthDay(post.date)}
-                          </Text>
-                        </>
+                        <span className="font-medium text-foreground hover:underline hover:decoration-olive-400 hover:underline-offset-[3px]">
+                          {post.title}
+                        </span>
+                        <span className="min-w-[86px] text-right text-sm text-olive-500 tabular-nums dark:text-olive-300">
+                          {formatMonthDay(post.date)}
+                        </span>
                       </Link>
                     </li>
                   ))}

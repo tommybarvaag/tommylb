@@ -28,8 +28,12 @@ export default function Timeline() {
   return (
     <>
       <div className="mb-12 w-full">
-        <Heading variant="h1">This is my timeline from birth until now</Heading>
-        <Text>Read along this timeline to get to know me a little better.</Text>
+        <Heading variant="h1" noMargin className="text-lg font-semibold">
+          This is my timeline from birth until now
+        </Heading>
+        <Text noMargin className="pt-1 text-sm text-muted-foreground">
+          Read along this timeline to get to know me a little better.
+        </Text>
       </div>
       <TimelineFromBirthUntilNow showAll />
     </>

@@ -80,6 +80,15 @@ export const getFormattedLongDate = (date: Date) =>
 export const getFormattedShortMonthAndYearDate = (date: Date) =>
   date.toLocaleString("en-US", { month: "short", year: "numeric" });
 
+// new Date("YYYY-MM-DD") anchors to UTC midnight, which shifts a calendar
+// day west of UTC. Parse date-only strings into local dates so every
+// downstream helper (formatting, durations, isToday) stays TZ-consistent.
+export const parseCvDate = (dateString: string): Date => {
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  return new Date(year, month - 1, day);
+};
+
 // Computed ONCE at module load (build/prerender time), NOT per render — so it is not
 // render-time dynamic IO and does not trip Cache Components. Refreshes on each deploy.
 const ACTIVE_WORK_YEARS = Math.min(

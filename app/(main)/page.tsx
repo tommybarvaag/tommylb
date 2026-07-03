@@ -2,7 +2,9 @@ import { getLastPosts } from "@/lib/posts";
 
 import { ActiveWorkYears } from "@/components/active-work-years";
 import { Heading } from "@/components/heading";
+import { IndexList, IndexListItem } from "@/components/index-list";
 import Link from "@/components/link";
+import { SectionLabel } from "@/components/section-label";
 import Text from "@/components/text";
 
 export default async function Home() {
@@ -10,9 +12,11 @@ export default async function Home() {
 
   return (
     <>
-      <div className="mb-12 w-full">
+      <div className="mb-10 w-full">
         <Heading
           variant="h1"
+          noMargin
+          className="text-2xl font-semibold"
           data-animate
           style={{
             "--stagger": "1"
@@ -26,81 +30,70 @@ export default async function Home() {
             "--stagger": "2"
           }}
         >
-          <Text>
-            <ActiveWorkYears />
+          <Text noMargin className="pt-2 text-sm text-muted-foreground">
+            Senior system developer at{" "}
+            <Link href="https://investor.elmeragroup.no/">Elmera Group</Link>
           </Text>
-          <Text>
-            I&apos;m currently working as a senior system developer at{" "}
-            <Link href="https://investor.elmeragroup.no/">Elmera Group</Link>.
+          <Text noMargin className="pt-5">
+            <ActiveWorkYears />
           </Text>
         </div>
       </div>
-      <div
-        className="mb-12 grid w-full justify-between gap-8 sm:grid-cols-2"
+      <section
+        className="mb-10 w-full"
         data-animate
         style={{
           "--stagger": "3"
         }}
       >
-        <div>
-          <Heading className="mb-4 text-muted-foreground">Building</Heading>
-          <ul className="flex flex-col gap-6">
-            <li key="list-element-kxb-app">
-              <Link className="mb-1" href="https://kxb.app/">
-                <Heading variant="h3" noMargin>
-                  kxb.app
-                </Heading>
-              </Link>
-              <Text variant="small" noMargin>
-                A project for internal use{" "}
-                <Link href="https://www.knowit.no/kontakt/selskap/knowit-experience-bergen-as/">
-                  knowit
-                </Link>
-                . Estimating salary and more.
-              </Text>
-            </li>
-            <li key="list-element-calendar-app">
-              <Link className="mb-1" href="https://dato.im">
-                <Heading variant="h3" noMargin>
-                  dato.im
-                </Heading>
-              </Link>
-              <Text variant="small" noMargin>
-                Norwegian calendar with holidays and vacations.
-              </Text>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <Heading className="mb-4 text-base text-muted-foreground">
-            <Link href="/post" underline={false}>
-              Posts
-            </Link>
-          </Heading>
-          <ul className="flex flex-col gap-6">
-            {lastPosts.map(post => (
-              <li key={post.slug}>
-                <Link className="mb-1 block" href={`/post/${post.slug}`}>
-                  <Heading variant="h3" noMargin>
-                    {post.title}
-                  </Heading>
-                </Link>
-                <Text variant="small" noMargin>
-                  {post.shortDescription}
-                </Text>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div
-        className="mb-12"
+        <SectionLabel>Building</SectionLabel>
+        <IndexList>
+          <IndexListItem
+            index={1}
+            title="kxb.app"
+            href="https://kxb.app/"
+            description="A project for internal use knowit. Estimating salary and more."
+          />
+          <IndexListItem
+            index={2}
+            title="dato.im"
+            href="https://dato.im"
+            description="Norwegian calendar with holidays and vacations."
+          />
+        </IndexList>
+      </section>
+      <section
+        className="mb-10 w-full"
         data-animate
         style={{
           "--stagger": "4"
         }}
       >
-        <Heading>Current</Heading>
+        <SectionLabel>
+          <Link href="/post" underline={false}>
+            Posts
+          </Link>
+        </SectionLabel>
+        <IndexList>
+          {lastPosts.map((post, index) => (
+            <IndexListItem
+              key={post.slug}
+              index={index + 1}
+              title={post.title}
+              href={`/post/${post.slug}`}
+              description={post.shortDescription}
+            />
+          ))}
+        </IndexList>
+      </section>
+      <div
+        className="mb-10 w-full"
+        data-animate
+        style={{
+          "--stagger": "5"
+        }}
+      >
+        <SectionLabel className="mb-5">Current</SectionLabel>
         <Text>
           Developing skill through exploring and building, living for the bleeding edge. I&apos;m a
           big fan of the web and all the possibilities it offers.
@@ -117,18 +110,18 @@ export default async function Home() {
         </Text>
       </div>
       <div
-        className="mb-12"
+        className="mb-10 w-full"
         data-animate
         style={{
-          "--stagger": "5"
+          "--stagger": "6"
         }}
       >
-        <Heading>Connect</Heading>
-        <Text>
-          Reach out via my <Link href="/connect">contact form</Link>, find me on{" "}
-          <Link href="https://www.linkedin.com/in/tommybarvaag/">LinkedIn</Link> or simply drop me
-          an email at <Link href="mailto:tommy@barvaag.com">tommy@barvaag.com</Link>.
-        </Text>
+        <SectionLabel className="mb-5">Connect</SectionLabel>
+        <div className="flex flex-wrap gap-5 text-sm">
+          <Link href="/connect">Contact form</Link>
+          <Link href="https://www.linkedin.com/in/tommybarvaag/">LinkedIn</Link>
+          <Link href="mailto:tommy@barvaag.com">tommy@barvaag.com</Link>
+        </div>
       </div>
     </>
   );

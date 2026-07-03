@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import Link from "@/components/link";
 import ThemeToggle from "@/components/theme-toggle";
 
-const footerVariants = cva("border-t border-border px-6 py-4 text-sm", {
+const footerVariants = cva("border-t border-border px-8 py-4 text-sm", {
   variants: {
     size: {
-      default: "",
-      wide: ""
+      default: "px-8",
+      wide: "px-6"
     }
   },
   defaultVariants: {
@@ -27,9 +27,9 @@ export default function Footer({
   return (
     <footer className={cn(footerVariants({ size }), className)} {...other}>
       <div
-        className={cn("mx-auto flex max-w-xl items-center justify-between", {
-          "max-w-xl": size === "default",
-          "max-w-3xl": size === "wide"
+        className={cn("mx-auto flex max-w-2xl items-center justify-between", {
+          "max-w-2xl": size === "default",
+          "max-w-4xl": size === "wide"
         })}
       >
         <Link href="/" underline={false}>

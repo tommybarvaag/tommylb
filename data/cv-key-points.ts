@@ -118,7 +118,9 @@ const cvWorkExperience: CvWorkExperience[] = [
     workPlaceTitle: "Senior system developer",
     area: "Bergen, Norway",
     fromDate: "2024-01-01",
-    toDate: new Date().toISOString().split("T")[0],
+    // Local (not UTC) date string: parseCvDate + isToday compare local
+    // calendar days, so the "now" label must be anchored the same way.
+    toDate: new Date().toLocaleDateString("en-CA"),
     description: [
       "Working with several web solutions serving external and internal sale channels. The solutions are built using React, Next.js, TypeScript, Tailwind CSS, Azure and Azure DevOps."
     ],

@@ -23,7 +23,7 @@ const navItems = {
 
 function CvNavigation() {
   return (
-    <div className="mb-6 ml-[-8px] tracking-tight">
+    <div className="-ml-2 tracking-tight">
       <div className="lg:sticky lg:top-20">
         <LayoutGroup>
           <nav

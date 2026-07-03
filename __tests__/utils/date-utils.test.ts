@@ -2,8 +2,10 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   getDurationAsYearsAndMonths,
+  getFormattedShortMonthAndYearDate,
   getFormattedToAndFromCvDate,
-  intervalToDuration
+  intervalToDuration,
+  parseCvDate
 } from "@/utils/date-utils";
 
 type DurationCase = {
@@ -190,6 +192,26 @@ describe("with a frozen module-load clock", () => {
 describe("getFormattedToAndFromCvDate with explicit past dates", () => {
   it("formats the CV range and duration", () => {
     expect(getFormattedToAndFromCvDate(new Date(2018, 8, 1), new Date(2019, 5, 1))).toBe(
+      "Sep 2018 - Jun 2019 • 9 months"
+    );
+  });
+});
+
+describe("parseCvDate", () => {
+  it("parses a date-only string into local calendar components", () => {
+    const date = parseCvDate("2024-01-01");
+
+    expect(date.getFullYear()).toBe(2024);
+    expect(date.getMonth()).toBe(0);
+    expect(date.getDate()).toBe(1);
+  });
+
+  it("round-trips through the short-month formatter in any timezone", () => {
+    expect(getFormattedShortMonthAndYearDate(parseCvDate("2024-01-01"))).toBe("Jan 2024");
+  });
+
+  it("string-parsed twin of the local-constructed CV range case", () => {
+    expect(getFormattedToAndFromCvDate(parseCvDate("2018-09-01"), parseCvDate("2019-06-01"))).toBe(
       "Sep 2018 - Jun 2019 • 9 months"
     );
   });
