@@ -20,6 +20,16 @@ import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 
 import "@/app/global.css";
 
+function getCvPdfHref() {
+  const version = process.env.VERCEL_GIT_COMMIT_SHA ?? process.env.NEXT_PUBLIC_COMMIT_SHA;
+
+  if (!version) {
+    return "/api/cv/pdf";
+  }
+
+  return `/api/cv/pdf?v=${encodeURIComponent(version)}`;
+}
+
 type InformationRowProps = {
   label: string;
   value: React.ReactNode;
@@ -35,6 +45,7 @@ function InformationRow({ label, value }: InformationRowProps) {
 }
 
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
+  const cvPdfHref = getCvPdfHref();
   const informationRows = [
     { label: "Location", value: "Bergen" },
     { label: "Experience", value: `${getActiveWorkYearsAsNumber()}+ years` },
@@ -88,7 +99,7 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                 </div>
               </CardHeader>
               <CardFooter className="flex-col items-stretch gap-2">
-                <a href="/api/cv/pdf" className={buttonVariants({ variant: "default" })}>
+                <a href={cvPdfHref} className={buttonVariants({ variant: "default" })}>
                   <Icons.Download className="mr-2 size-5" />
                   Download CV
                 </a>

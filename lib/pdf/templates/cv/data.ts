@@ -59,7 +59,7 @@ export function buildCvPdfData(): CvPdfData {
   return {
     name: "Tommy Lunde Barvåg",
     title: "Senior front-end specialist",
-    contact: ["tommy@barvaag.com", "tommylb.com", "linkedin.com/in/tommybarvaag", "Bergen, Norway"],
+    contact: ["tommy@barvaag.com", "https://tommylb.com", "Bergen, Norway"],
     summary:
       "Experienced and solution-oriented senior consultant with expertise in TypeScript and React. Systematic and analytical approach to developing custom solutions from concept to product. Broad experience as a tech lead, known for asking the right questions and digging deep to ensure the end product delivers the best possible results.",
     experience: [...cvWorkExperience].reverse().map(experience => ({
