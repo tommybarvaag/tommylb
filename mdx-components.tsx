@@ -19,6 +19,7 @@ import { Card } from "@/app/mdx/card";
 import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
 import { ComponentSource } from "@/app/mdx/component-source";
 import { highlightCode } from "@/app/mdx/highlight-code";
+import { HighlightedCode, highlightedPreClassName } from "@/app/mdx/highlighted-code";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
 
 function slugify(str: string) {
@@ -79,12 +80,7 @@ async function CodeBlock(props: { children?: React.ReactNode; className?: string
   if (typeof props.children === "string" && languageClass) {
     const html = await highlightCode(props.children, languageClass.replace("language-", ""));
 
-    return (
-      <code
-        className="shiki css-variables font-mono text-sm"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    );
+    return <HighlightedCode html={html} />;
   }
 
   return (
@@ -240,13 +236,7 @@ const components: MDXComponents = {
     />
   ),
   pre: ({ className, ...props }) => (
-    <pre
-      className={cn(
-        "mt-6 mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4",
-        className
-      )}
-      {...props}
-    />
+    <pre className={cn(highlightedPreClassName, className)} {...props} />
   ),
   code: CodeBlock,
   Callout,

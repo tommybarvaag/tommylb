@@ -7,19 +7,19 @@ import { getDefaultSeoDescription } from "@/utils/seo-utils";
 
 const url = getAbsoluteUrl();
 
-const title = "Tommy Lunde Barvåg";
+export const siteName = "Tommy Lunde Barvåg";
 const description = getDefaultSeoDescription(true);
 
 const ogImageUrl = `${url}/images/og.jpg`;
 
 const defaultOg: Pick<Metadata, "openGraph">["openGraph"] = {
   title: {
-    default: title,
+    default: siteName,
     template: "%s | Tommy Lunde Barvåg"
   },
   type: "website",
   url: getAbsoluteUrl(),
-  siteName: title,
+  siteName,
   description,
   images: [
     {
@@ -32,7 +32,7 @@ const defaultOg: Pick<Metadata, "openGraph">["openGraph"] = {
 };
 
 const defaultTwitter: Pick<Metadata, "twitter">["twitter"] = {
-  title,
+  title: siteName,
   description,
   card: "summary_large_image",
   images: ogImageUrl
@@ -41,7 +41,7 @@ const defaultTwitter: Pick<Metadata, "twitter">["twitter"] = {
 const defaultMetadata: Metadata = {
   metadataBase: new URL(getAbsoluteUrl()),
   title: {
-    default: title,
+    default: siteName,
     template: "%s | Tommy Lunde Barvåg"
   },
   description,
@@ -99,7 +99,7 @@ function createOgImageUrl(heading: string, type: string, mode: "light" | "dark" 
 
 const metadataWithCustomOgImage = (
   pageTitle: string,
-  pageDescription: string,
+  pageDescription: string | undefined,
   type: string,
   ogHeading?: string,
   mode: "light" | "dark" = "dark"
@@ -122,7 +122,7 @@ const metadataWithCustomOgImage = (
       title: pageTitle,
       type: "website",
       url: getAbsoluteUrl(),
-      siteName: "Tommy Lunde Barvåg",
+      siteName,
       description: pageDescription,
       images: [
         {

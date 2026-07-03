@@ -9,6 +9,7 @@ vi.mock("next/cache", () => ({ cacheLife: vi.fn() }));
 import { getPostSlugs } from "@/lib/posts";
 import { ogImageSchema } from "@/lib/validations/og";
 
+import { sourceFiles } from "@/app/mdx/component-source";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 const postsDirectory = path.join(process.cwd(), "app", "(main)", "post", "_posts");
@@ -85,12 +86,7 @@ describe("og image param contract", () => {
 
 describe("ComponentSource src ↔ allowlist contract", () => {
   it("every ComponentSource src in MDX exists in the sourceFiles allowlist", async () => {
-    const componentSourceCode = await fs.readFile(
-      path.join(process.cwd(), "app", "mdx", "component-source.tsx"),
-      "utf8"
-    );
-    const block = componentSourceCode.match(/const sourceFiles[^{]*\{([\s\S]*?)\};/)?.[1] ?? "";
-    const allowlistKeys = [...block.matchAll(/^\s*"([^"]+)":\s*$/gm)].map(m => m[1]);
+    const allowlistKeys = Object.keys(sourceFiles);
 
     const entries = await fs.readdir(postsDirectory);
     const mdxFiles = entries.filter(file => file.endsWith(".mdx"));

@@ -4,12 +4,12 @@ import { Inter } from "next/font/google";
 import { Drawer } from "@base-ui/react/drawer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import { cn } from "@/lib/utils";
+import { cn, getAbsoluteUrl } from "@/lib/utils";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { VercelAnalytics } from "@/components/vercel-analytics";
 
-import { defaultMetadata } from "@/utils/metadata-utils";
+import { defaultMetadata, siteName } from "@/utils/metadata-utils";
 
 import "@/app/global.css";
 
@@ -38,8 +38,6 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const name = "Tommy Lunde Barvåg";
-
   return (
     <html lang="en" suppressHydrationWarning className={cn("", interFont.className)}>
       <body className="bg-background text-foreground">
@@ -65,8 +63,8 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
-              name: name,
-              url: "https://tommylb.com",
+              name: siteName,
+              url: getAbsoluteUrl(),
               jobTitle: "Senior system developer",
               email: "tommy@barvaag.com",
               telephone: "+4797777907",

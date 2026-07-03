@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 import { CodeBlockWrapper } from "@/app/mdx/code-block-wrapper";
 import { highlightCode } from "@/app/mdx/highlight-code";
+import { HighlightedPre } from "@/app/mdx/highlighted-code";
 
 type ComponentSourceProps = {
   src: string;
@@ -17,7 +18,7 @@ type ComponentSourceProps = {
 // Next's output tracing only narrows on literal readFile paths — a dynamic
 // path drags the whole project into the server bundle. Displayable files are
 // enumerated here; add an entry to display a new file.
-const sourceFiles: Record<string, () => Promise<string>> = {
+export const sourceFiles: Record<string, () => Promise<string>> = {
   "/app/(main)/example/parallelism-live-test/_components/parallelism-live-test-all-settled.tsx":
     () =>
       fs.readFile(
@@ -69,12 +70,7 @@ export async function ComponentSource({
       className={cn("my-6 overflow-hidden rounded-md", className)}
       forceMount={forceMount}
     >
-      <pre className="mt-6 mb-4 overflow-x-auto rounded-lg border border-border bg-muted p-4">
-        <code
-          className="shiki css-variables font-mono text-sm"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      </pre>
+      <HighlightedPre html={html} />
     </CodeBlockWrapper>
   );
 }

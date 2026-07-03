@@ -37,22 +37,24 @@ function getFontSize(heading: string) {
 // Node.js runtime (edge is unsupported under Cache Components): read bundled assets from
 // the filesystem via fs.readFile. Node's fetch() cannot load file: URLs, so the previous
 // fetch(new URL(..., import.meta.url)) pattern only worked on edge.
-let assetsPromise: Promise<{
-  fontRegularData: ArrayBuffer;
-  fontBoldData: ArrayBuffer;
-  imageData: ArrayBuffer;
-}> | null = null;
-
-function loadAssets() {
-  assetsPromise ??= Promise.all([
+async function readAssets() {
+  const [fontRegular, fontBold, image] = await Promise.all([
     readFile(join(process.cwd(), "assets/fonts/Geist-Regular.otf")),
     readFile(join(process.cwd(), "assets/fonts/Geist-Bold.otf")),
     readFile(join(process.cwd(), "public/images/tommy-zoom-256.jpg"))
-  ]).then(([fontRegular, fontBold, image]) => ({
+  ]);
+
+  return {
     fontRegularData: toArrayBuffer(fontRegular),
     fontBoldData: toArrayBuffer(fontBold),
     imageData: toArrayBuffer(image)
-  }));
+  };
+}
+
+let assetsPromise: ReturnType<typeof readAssets> | null = null;
+
+function loadAssets() {
+  assetsPromise ??= readAssets();
 
   return assetsPromise;
 }
