@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ContactMe from "@/components/contact-me";
+import ContactMeForm from "@/components/contact-me-form";
 import { Heading } from "@/components/heading";
 
 import { defaultOg, defaultTwitter } from "@/utils/metadata-utils";
@@ -28,7 +28,7 @@ export default async function ConnectPage() {
   return (
     <>
       <Heading variant="h1">Connect</Heading>
-      <ContactMe />
+      <ContactMeForm />
     </>
   );
 }

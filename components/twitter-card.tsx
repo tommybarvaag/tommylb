@@ -32,7 +32,9 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
             <div className="ml-1.5 text-sm leading-tight">
               <span className="block font-bold">{tweet.user.name}</span>
               <span className="block font-normal">
-                <Link href={tweet.user.id_str}>@{tweet.user.screen_name}</Link>
+                <Link href={tweet.user.url} showExternalLinkIcon={false}>
+                  @{tweet.user.screen_name}
+                </Link>
               </span>
             </div>
           </div>
@@ -43,7 +45,7 @@ const TwitterCard = ({ tweet: t }: { tweet: Tweet }) => {
           <div className="mt-2 flex items-center text-muted-foreground">
             <p className="ml-1 text-sm">
               In reply to{" "}
-              <Link href={tweet.in_reply_to_user_id_str ?? ""}>
+              <Link href={tweet.in_reply_to_url ?? ""} showExternalLinkIcon={false}>
                 @{tweet.in_reply_to_screen_name}
               </Link>
             </p>

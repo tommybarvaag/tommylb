@@ -10,7 +10,7 @@ export default async function PostPage() {
   const posts = await getPosts();
 
   const yearPosts = posts
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .toSorted((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .reduce(
       (accumulator, post) => {
         const year = `${new Date(post.date).getFullYear()}`;
@@ -40,7 +40,7 @@ export default async function PostPage() {
         <div className="group">
           {Object.entries(yearPosts)
             .reverse()
-            .map(([year, posts]) => (
+            .map(([year, postsInYear]) => (
               <div
                 key={year}
                 className="mb-8 flex justify-between gap-6 border-b-border pb-8 not-last:border-b lg:gap-12"
@@ -49,7 +49,7 @@ export default async function PostPage() {
                   {year}
                 </Text>
                 <ul className="grow items-center">
-                  {posts.map(post => (
+                  {postsInYear.map(post => (
                     <li
                       key={`post-page-${post.slug}`}
                       className="border-b-border py-2 not-last:border-b"

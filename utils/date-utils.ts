@@ -8,44 +8,44 @@ export const intervalToDuration = (startDate: Date, endDate: Date) => {
     [startDate, endDate] = [endDate, startDate];
   }
 
-  // Extracting year, month, and day components from start and end dates
-  const startYear = startDate.getFullYear();
-  const endYear = endDate.getFullYear();
-  const startMonth = startDate.getMonth();
-  const endMonth = endDate.getMonth();
-  const startDay = startDate.getDate();
-  const endDay = endDate.getDate();
+  // Whole calendar months; a not-yet-reached end day-of-month means the last
+  // month is incomplete.
+  const wholeMonths =
+    (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+    (endDate.getMonth() - startDate.getMonth()) -
+    (endDate.getDate() < startDate.getDate() ? 1 : 0);
 
-  // Calculate total years difference
-  const years = endYear - startYear;
+  const years = Math.floor(wholeMonths / 12);
+  const months = wholeMonths % 12;
 
-  // Calculate months difference; adjust for negative difference
-  const monthsDiff = endMonth - startMonth;
-  let months = monthsDiff >= 0 ? monthsDiff : monthsDiff + 12;
-  let yearsAdjusted = monthsDiff >= 0 ? years : years - 1;
+  // Anchor = start advanced by wholeMonths, day clamped to the target
+  // month's length (Jan 31 + 1 month anchors at Feb 28/29, not Mar 2/3).
+  const anchorMonth = new Date(startDate.getFullYear(), startDate.getMonth() + wholeMonths, 1);
+  const lastDayOfAnchorMonth = new Date(
+    anchorMonth.getFullYear(),
+    anchorMonth.getMonth() + 1,
+    0
+  ).getDate();
+  const anchor = new Date(
+    anchorMonth.getFullYear(),
+    anchorMonth.getMonth(),
+    Math.min(startDate.getDate(), lastDayOfAnchorMonth)
+  );
 
-  // Calculate days difference; adjust for negative difference
-  // Using the last day of the previous month for accurate calculation
-  const daysDiff = endDay - startDay;
-  const lastDayOfPrevMonth = new Date(endYear, endMonth, 0).getDate();
-  let days = daysDiff >= 0 ? daysDiff : daysDiff + lastDayOfPrevMonth;
-  if (daysDiff < 0) months--;
+  // Day remainder on midnight-normalized dates; Math.round absorbs the ±1h
+  // a DST boundary introduces.
+  const endDay = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+  let days = Math.round((endDay.getTime() - anchor.getTime()) / 86400000);
+  const weeks = Math.floor(days / 7);
+  days -= weeks * 7;
 
-  // Calculate the total difference in seconds
   const totalDiffInSeconds = Math.floor((endDate.getTime() - startDate.getTime()) / 1000);
-
-  // Convert total seconds to weeks and remaining days
-  const daysFromSeconds = Math.floor(totalDiffInSeconds / (3600 * 24));
-  const weeks = Math.floor(daysFromSeconds / 7);
-  days -= weeks * 7; // Adjust days to remove the full weeks
-
-  // Convert remaining seconds to hours, minutes, and seconds
   const hours = Math.floor(totalDiffInSeconds / 3600) % 24;
   const minutes = Math.floor(totalDiffInSeconds / 60) % 60;
   const seconds = totalDiffInSeconds % 60;
 
   return {
-    years: yearsAdjusted,
+    years,
     months,
     weeks,
     days,
@@ -67,8 +67,6 @@ export const isToday = (date: Date) => {
   );
 };
 
-export const getDateYear = (date: Date) => date.getFullYear();
-
 export const getFormattedLongDate = (date: Date) =>
   `${new Intl.DateTimeFormat("en-US", {
     hour: "numeric",
@@ -79,16 +77,8 @@ export const getFormattedLongDate = (date: Date) =>
     year: "numeric"
   }).format(new Date(date))}`;
 
-export const getFormattedMonth = (date: Date) => date.toLocaleString("en-US", { month: "long" });
-
-export const getFormattedMonthAndYearDate = (date: Date) =>
-  date.toLocaleString("en-US", { month: "long", year: "numeric" });
-
 export const getFormattedShortMonthAndYearDate = (date: Date) =>
   date.toLocaleString("en-US", { month: "short", year: "numeric" });
-
-export const getFormattedPostDate = (date: Date) =>
-  date.toLocaleString("en-US", { dateStyle: "long" });
 
 // Computed ONCE at module load (build/prerender time), NOT per render — so it is not
 // render-time dynamic IO and does not trip Cache Components. Refreshes on each deploy.

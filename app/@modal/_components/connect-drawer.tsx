@@ -32,7 +32,7 @@ export default function ConnectDrawer() {
           If you have any questions or would like to work with me, please fill out the form below.
         </Text>
         <Text>I will get back to you as soon as possible. Thank you for your interest!</Text>
-        <ContactMeForm className="mt-4" location="connect-dialog" />
+        <ContactMeForm className="mt-4" />
       </DrawerContent>
     </Drawer>
   );

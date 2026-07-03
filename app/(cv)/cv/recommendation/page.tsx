@@ -7,8 +7,8 @@ import { cvRecommendations } from "@/data/cv-key-points";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 export const metadata: Metadata = metadataWithCustomOgImage(
-  "Project Experiences",
   "Recommendation",
+  "Recommendations from colleagues and clients I have worked with.",
   "Curriculum Vitae — Recommendation",
   "An experienced and solution-oriented senior consultant"
 );
@@ -19,7 +19,7 @@ export default async function Recommendation() {
       ...recommendation,
       date: new Date(recommendation.date)
     }))
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
+    .toSorted((a, b) => b.date.getTime() - a.date.getTime());
 
   return (
     <div className="animate-in duration-500">
@@ -40,10 +40,10 @@ export default async function Recommendation() {
             {/* lh: 2.25rem */}
             {/* ls: -.025em */}
             <blockquote className="mt-2 leading-relaxed tracking-tight">
-              {recommendation.description.map((desc, index) => (
-                <Text className="text-[15px] not-first:mt-2" key={`desc-${index}`}>{`${
-                  index === 0 ? "“" : ""
-                }${desc}${index === recommendation.description.length - 1 ? "”" : ""}`}</Text>
+              {recommendation.description.map((desc, descIndex) => (
+                <Text className="text-[15px] not-first:mt-2" key={`desc-${descIndex}`}>{`${
+                  descIndex === 0 ? "“" : ""
+                }${desc}${descIndex === recommendation.description.length - 1 ? "”" : ""}`}</Text>
               ))}
             </blockquote>
           </li>

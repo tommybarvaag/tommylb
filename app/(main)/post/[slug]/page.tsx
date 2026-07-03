@@ -4,12 +4,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { getPostSlugs } from "@/lib/posts";
-import { formatDate, getAbsoluteUrl } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 import { Heading } from "@/components/heading";
 import { HistoryBackLink } from "@/components/history-back-link";
 
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
+import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -31,43 +32,11 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     return {};
   }
 
-  const title = typeof post.metadata.title === "string" ? post.metadata.title : slug;
-  const description = post.metadata.description ?? undefined;
-  const url = getAbsoluteUrl();
+  const metadata = post.metadata ?? {};
+  const title = typeof metadata.title === "string" ? metadata.title : slug;
+  const description = metadata.description ?? undefined;
 
-  const ogImageUrl = new URL(`${url}/api/og`);
-  ogImageUrl.searchParams.set("heading", title);
-  ogImageUrl.searchParams.set("type", "post");
-  ogImageUrl.searchParams.set("mode", "dark");
-
-  return {
-    title: {
-      default: title,
-      template: "%s | Tommy Lunde Barvåg"
-    },
-    description,
-    twitter: {
-      title,
-      description,
-      card: "summary_large_image",
-      images: ogImageUrl.toString()
-    },
-    openGraph: {
-      title,
-      type: "website",
-      url,
-      siteName: title,
-      description,
-      images: [
-        {
-          url: ogImageUrl.toString(),
-          width: 1200,
-          height: 630,
-          alt: "Tommy Lunde Barvåg."
-        }
-      ]
-    }
-  };
+  return metadataWithCustomOgImage(title, description, "post");
 }
 
 export default async function PostPage({ params }: PostPageProps) {

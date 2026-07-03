@@ -15,7 +15,7 @@ function ProjectExperiences() {
       <Text className="mb-8">Click the project to expand further details.</Text>
       <ol className="group mb-12 space-y-4">
         {projectExperienceData
-          .sort((a, b) => b.id - a.id)
+          .toSorted((a, b) => b.id - a.id)
           .map((projectExperience, index) => {
             return (
               <li

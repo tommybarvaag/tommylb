@@ -11,11 +11,9 @@ import { SubmitButton } from "@/components/submit-button";
 import TextArea from "@/components/text-area";
 import TextField from "@/components/text-field";
 
-type ContactMeFormProps = ComponentPropsWithoutRef<"div"> & {
-  location: string;
-};
+type ContactMeFormProps = ComponentPropsWithoutRef<"div">;
 
-export default function ContactMeForm({ className, location, ...other }: ContactMeFormProps) {
+export default function ContactMeForm({ className, ...other }: ContactMeFormProps) {
   const [state, formAction] = useActionState(sendFormAction, { status: "idle" as const });
 
   return (
@@ -43,7 +41,6 @@ export default function ContactMeForm({ className, location, ...other }: Contact
           required
         />
         <TextArea id="message" name="message" label="Message" placeholder="My wishes..." required />
-        <TextField id="location" name="location" label="Location" type="hidden" value={location} />
         <TextField className="form-text-field-phone" id="phone" name="phone" label="Phone" />
         <SubmitButton rightIcon={<Icons.Send className="size-5" />}>Send</SubmitButton>
         {state.status === "success" ? (

@@ -18,6 +18,8 @@
         "caughtErrors": "none",
         "ignoreRestSiblings": true
       }
-    ]
+    ],
+    "no-shadow": "error",
+    "unicorn/no-array-sort": "error"
   }
 }

@@ -7,7 +7,7 @@ Personal website and blog built with the Next.js App Router.
 - [Next.js 16](https://nextjs.org) (App Router, Turbopack, Cache Components + Partial Prefetching)
 - [React 19](https://react.dev)
 - [Tailwind CSS v4](https://tailwindcss.com) (CSS-first `@theme`, `@tailwindcss/postcss`)
-- [shadcn](https://ui.shadcn.com) on [Base UI](https://base-ui.com) primitives (preset `bIkeymG`)
+- [shadcn](https://ui.shadcn.com) on [Base UI](https://base-ui.com) primitives (style `base-vega`, see components.json)
 - [next-themes](https://github.com/pacocoursey/next-themes) light/dark toggle (default dark)
 - MDX via [`@next/mdx`](https://nextjs.org/docs/app/building-your-application/configuring/mdx) (pure `mdxRs`)
 - Syntax highlighting with [Shiki](https://shiki.style) (light + dark variants)
@@ -44,6 +44,7 @@ Copy `.env.example` to `.env.local` and fill in the values before running.
 | `pnpm test:ci`      | Run Vitest once (CI)                       |
 | `pnpm test:unit`    | Run unit tests once                        |
 | `pnpm test:browser` | Run browser tests once (headless Chromium) |
+| `pnpm verify`       | Lint, typecheck, format check, unit tests  |
 | `pnpm up`           | Interactive dependency updates (ncu)       |
 
 Browser tests need a one-time `pnpm exec playwright install chromium`.

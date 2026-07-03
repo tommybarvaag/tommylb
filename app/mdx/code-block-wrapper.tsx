@@ -27,8 +27,8 @@ export function CodeBlockWrapper({
         <CollapsibleContent keepMounted className={cn("overflow-hidden", !isOpened && "max-h-32")}>
           <div
             className={cn(
-              "[&_pre]:max-h-[650px [&_pre]:my-0 [&_pre]:pb-[64px]",
-              !isOpened ? "[&_pre]:overflow-hidden" : "[&_pre]:overflow-auto]"
+              "[&_pre]:my-0 [&_pre]:max-h-[650px] [&_pre]:pb-[64px]",
+              !isOpened ? "[&_pre]:overflow-hidden" : "[&_pre]:overflow-auto"
             )}
           >
             {children}
