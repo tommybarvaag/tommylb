@@ -20,17 +20,58 @@ import { getActiveWorkYearsAsNumber } from "@/utils/date-utils";
 
 import "@/app/global.css";
 
+type InformationRowProps = {
+  label: string;
+  value: React.ReactNode;
+};
+
+function InformationRow({ label, value }: InformationRowProps) {
+  return (
+    <div className="flex justify-between border-t border-border py-2 first:border-t-0 first:pt-0 last:pb-0">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="text-right text-sm font-medium text-foreground">{value}</span>
+    </div>
+  );
+}
+
 export default function CurriculumVitaeLayout({ children }: { children: React.ReactNode }) {
+  const informationRows = [
+    { label: "Location", value: "Bergen" },
+    { label: "Experience", value: `${getActiveWorkYearsAsNumber()}+ years` },
+    { label: "Relocation", value: "No" },
+    { label: "Native language", value: "Norwegian" },
+    { label: "Other languages", value: "English" },
+    { label: "Hybrid", value: "Preferred" }
+  ];
+
   return (
     <>
       <Main className="px-6" size="wide">
         <div className="relative items-start gap-10 pb-44 lg:grid lg:grid-cols-3">
-          <div className="space-y-5 lg:col-span-2 lg:px-0">
-            <CvNavigation />
+          <div className="space-y-6 lg:col-span-2 lg:px-0">
+            <Link
+              href="/"
+              underline={false}
+              className="mt-1 flex items-center text-sm text-muted-foreground hover:text-foreground sm:hidden"
+            >
+              <Icons.ArrowLeft className="mr-1 size-4" />
+              Home
+            </Link>
+            <div className="flex items-start justify-between gap-4">
+              <CvNavigation />
+              <Link
+                href="/"
+                underline={false}
+                className="mt-1 hidden items-center text-sm text-muted-foreground hover:text-foreground sm:inline-flex"
+              >
+                <Icons.ArrowLeft className="mr-1 size-4" />
+                Home
+              </Link>
+            </div>
             {children}
           </div>
           <div className="my-8 space-y-5 lg:sticky lg:top-8 lg:my-0 lg:px-0">
-            <Card>
+            <Card variant="flat">
               <CardHeader className="flex flex-row gap-3">
                 <Avatar>
                   <AvatarImage
@@ -61,46 +102,25 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                 </Link>
               </CardFooter>
             </Card>
-            <Card>
+            <Card variant="flat">
               <CardHeader>
                 <CardTitle>Information</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Location</span>
-                  <span className="text-right text-sm font-medium text-foreground">Bergen</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Experience</span>
-                  <span className="text-right text-sm font-medium text-foreground">
-                    {`${getActiveWorkYearsAsNumber()}+ years`}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Relocation</span>
-                  <span className="text-right text-sm font-medium text-foreground">No</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Native language</span>
-                  <span className="text-right text-sm font-medium text-foreground">Norwegian</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Other languages</span>
-                  <span className="text-right text-sm font-medium text-foreground">English</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-muted-foreground">Hybrid</span>
-                  <span className="text-right text-sm font-medium text-foreground">Preferred</span>
-                </div>
+              <CardContent className="flex flex-col">
+                {informationRows.map(row => (
+                  <InformationRow key={row.label} label={row.label} value={row.value} />
+                ))}
               </CardContent>
             </Card>
-            <Card>
+            <Card variant="flat">
               <CardHeader>
                 <CardTitle>{cvKeySkills.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-row flex-wrap gap-1">
                 {cvKeySkills.skills.map((skill, index) => (
-                  <Badge key={index}>{skill.title}</Badge>
+                  <Badge variant="outline" key={index}>
+                    {skill.title}
+                  </Badge>
                 ))}
               </CardContent>
             </Card>

@@ -61,7 +61,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <article className="relative container prose max-w-3xl prose-zinc dark:prose-invert">
       <HistoryBackLink href="/post">See all posts</HistoryBackLink>
       <div>
-        <Heading variant="h1" className="mb-8">
+        <Heading variant="h1" className="mb-8 text-2xl font-semibold">
           {title}
         </Heading>
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">

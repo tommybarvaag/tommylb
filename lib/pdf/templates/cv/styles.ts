@@ -1,93 +1,132 @@
 import { StyleSheet } from "@react-pdf/renderer";
 
 export const theme = {
-  ink: "#0c0c09",
-  muted: "#5b5b4b",
-  border: "#e4e4dc",
-  paper: "#fbfbf9"
+  paper: "#FBFAF7",
+  ink: "#23201B",
+  body: "#3A362F",
+  muted: "#6B6459",
+  faint: "#8D8779",
+  rule: "#E4DFD5"
 } as const;
 
 export const styles = StyleSheet.create({
   page: {
-    paddingVertical: 40,
-    paddingHorizontal: 44,
+    paddingVertical: 48,
+    paddingHorizontal: 51,
     backgroundColor: theme.paper,
     color: theme.ink,
     fontFamily: "Geist",
-    fontSize: 9
+    fontSize: 9.75
   },
   name: {
-    fontSize: 20,
+    fontSize: 22.5,
     fontWeight: 700,
-    letterSpacing: -0.4,
-    lineHeight: 1.2,
-    marginBottom: 2
+    letterSpacing: -0.3,
+    lineHeight: 1.1
   },
   headerTitle: {
-    fontSize: 10,
-    color: theme.muted
+    fontSize: 10.5,
+    color: theme.muted,
+    marginTop: 5
   },
   contactLine: {
-    fontSize: 8,
-    color: theme.muted,
-    marginTop: 6
+    fontSize: 8.6,
+    color: theme.faint,
+    marginTop: 10.5
   },
   divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: theme.border,
-    marginVertical: 14
+    borderTopWidth: 1,
+    borderTopColor: theme.rule,
+    marginTop: 19.5
   },
   body: {
-    flexDirection: "row"
+    flexDirection: "row",
+    marginTop: 25.5
   },
   mainColumn: {
-    flex: 2,
-    paddingRight: 18
+    flex: 1
   },
   sidebar: {
-    flex: 1,
-    paddingLeft: 18,
-    borderLeftWidth: 1,
-    borderLeftColor: theme.border
+    width: 164,
+    marginLeft: 39
   },
-  sectionHeading: {
+  sectionLabel: {
     textTransform: "uppercase",
     fontSize: 7.5,
-    letterSpacing: 1.2,
-    color: theme.muted,
-    marginBottom: 6,
-    marginTop: 14
+    fontWeight: 700,
+    letterSpacing: 0.9,
+    color: theme.faint,
+    marginBottom: 9
   },
-  bodyText: {
-    fontSize: 9,
-    lineHeight: 1.45
+  sectionLabelExperience: {
+    textTransform: "uppercase",
+    fontSize: 7.5,
+    fontWeight: 700,
+    letterSpacing: 0.9,
+    color: theme.faint,
+    marginTop: 25.5,
+    marginBottom: 10.5
+  },
+  sidebarSection: {
+    marginTop: 24
+  },
+  profileText: {
+    fontSize: 10.1,
+    lineHeight: 1.6,
+    color: theme.body
   },
   experienceItem: {
-    marginBottom: 10
+    marginBottom: 21
   },
-  experienceRole: {
-    fontSize: 10,
-    fontWeight: 700
+  experienceItemLast: {
+    marginBottom: 0
   },
-  experiencePeriod: {
-    fontSize: 8,
+  roleLine: {
+    fontSize: 10.1,
+    lineHeight: 1.35
+  },
+  roleName: {
+    fontWeight: 700,
+    color: theme.ink
+  },
+  roleCompany: {
     color: theme.muted
   },
-  detailRow: {
+  dateLine: {
+    fontSize: 8.6,
+    color: theme.faint,
+    marginTop: 2.25
+  },
+  summaryText: {
+    fontSize: 9.75,
+    lineHeight: 1.55,
+    color: theme.body,
+    marginTop: 5.25
+  },
+  sidebarItem: {
+    fontSize: 9.75,
+    color: theme.body,
     marginBottom: 6
   },
-  detailLabel: {
-    fontSize: 8,
-    color: theme.muted
+  sidebarItemLast: {
+    marginBottom: 0
   },
-  detailValue: {
-    fontSize: 9
+  languageNote: {
+    color: theme.faint
   },
   educationTitle: {
-    fontSize: 9
+    fontSize: 9.75,
+    fontWeight: 700,
+    lineHeight: 1.5,
+    color: theme.ink
   },
   educationMeta: {
-    fontSize: 8,
-    color: theme.muted
+    fontSize: 8.6,
+    color: theme.faint,
+    marginTop: 3
+  },
+  workModeText: {
+    fontSize: 9.75,
+    color: theme.body
   }
 });

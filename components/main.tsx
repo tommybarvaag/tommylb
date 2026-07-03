@@ -9,8 +9,8 @@ const mainVariants = cva(
   {
     variants: {
       size: {
-        default: "max-w-2xl pt-14 sm:pt-32",
-        wide: "max-w-4xl pt-14 sm:pt-24"
+        default: "max-w-2xl pt-14 sm:pt-20",
+        wide: "max-w-4xl pt-14 sm:pt-20"
       }
     },
     defaultVariants: {

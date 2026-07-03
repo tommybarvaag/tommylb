@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { buildCvPdfData } from "@/lib/pdf/templates/cv/data";
 
-import { cvKeySkills, cvWorkExperience } from "@/data/cv-key-points";
+import { cvEducation, cvKeySkills, cvWorkExperience } from "@/data/cv-key-points";
 
 describe("buildCvPdfData", () => {
   it("orders experience newest first", () => {
@@ -24,10 +24,11 @@ describe("buildCvPdfData", () => {
     }
   });
 
-  it("formats the most recent period starting from Jan 2024", () => {
+  it("formats periods with en dashes and present", () => {
     const data = buildCvPdfData();
 
-    expect(data.experience[0].period.startsWith("Jan 2024 - ")).toBe(true);
+    expect(data.experience[0].period).toBe("Jan 2024 – present");
+    expect(data.experience[1].period).toBe("Feb 2020 – Jan 2024");
   });
 
   it("passes through key skills in order", () => {
@@ -36,11 +37,16 @@ describe("buildCvPdfData", () => {
     expect(data.skills).toEqual(cvKeySkills.skills.map(skill => skill.title));
   });
 
-  it("includes an Experience detail formatted as a year count", () => {
+  it("uses the redesigned sidebar contract", () => {
     const data = buildCvPdfData();
-    const experienceDetail = data.details.find(detail => detail.label === "Experience");
 
-    expect(experienceDetail?.value).toMatch(/^\d+\+ years$/);
+    expect(data.languages).toEqual([{ name: "Norwegian", note: "native" }, { name: "English" }]);
+    expect(data.workMode).toBe("Hybrid preferred");
+    expect(cvEducation).toHaveLength(1);
+    expect(data.education).toHaveLength(1);
+    expect(data.education[0].meta).toBe("Bergen, Norway · 2010 – 2013");
+    expect(data.education[0].title).toBe("B.S. Computer Engineering");
+    expect(data).not.toHaveProperty("details");
   });
 
   it("does not mutate the source cvWorkExperience array", () => {

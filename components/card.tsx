@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 const cardVariants = cva("", {
   variants: {
     variant: {
-      default: "rounded-xl border border-border bg-card text-card-foreground shadow-sm"
+      default: "rounded-xl border border-border bg-card text-card-foreground shadow-sm",
+      flat: "rounded-lg bg-card text-card-foreground"
     }
   },
   defaultVariants: {

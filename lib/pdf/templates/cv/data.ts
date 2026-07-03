@@ -1,9 +1,5 @@
 import { cvEducation, cvKeySkills, cvWorkExperience } from "@/data/cv-key-points";
-import {
-  getActiveWorkYearsAsNumber,
-  getFormattedToAndFromCvDate,
-  parseCvDate
-} from "@/utils/date-utils";
+import { getFormattedShortMonthAndYearDate, isToday, parseCvDate } from "@/utils/date-utils";
 
 type CvPdfExperience = {
   role: string;
@@ -14,13 +10,12 @@ type CvPdfExperience = {
 
 type CvPdfEducation = {
   title: string;
-  area: string;
-  period: string;
+  meta: string;
 };
 
-type CvPdfDetail = {
-  label: string;
-  value: string;
+type CvPdfLanguage = {
+  name: string;
+  note?: string;
 };
 
 type CvPdfData = {
@@ -29,10 +24,36 @@ type CvPdfData = {
   contact: string[];
   summary: string;
   experience: CvPdfExperience[];
-  education: CvPdfEducation[];
   skills: string[];
-  details: CvPdfDetail[];
+  languages: CvPdfLanguage[];
+  education: CvPdfEducation[];
+  workMode: string;
 };
+
+function formatPdfPeriod(fromDate: string, toDate: string): string {
+  const from = parseCvDate(fromDate);
+  const to = parseCvDate(toDate);
+  const end = isToday(to) ? "present" : getFormattedShortMonthAndYearDate(to);
+
+  return `${getFormattedShortMonthAndYearDate(from)} – ${end}`;
+}
+
+function buildPdfEducation(): CvPdfEducation[] {
+  if (cvEducation.length !== 1) {
+    throw new Error("CV PDF education short title must be updated for multiple entries.");
+  }
+
+  const [education] = cvEducation;
+  const from = parseCvDate(education.fromDate);
+  const to = parseCvDate(education.toDate);
+
+  return [
+    {
+      title: "B.S. Computer Engineering",
+      meta: `${education.area} · ${from.getFullYear()} – ${to.getFullYear()}`
+    }
+  ];
+}
 
 export function buildCvPdfData(): CvPdfData {
   return {
@@ -44,25 +65,13 @@ export function buildCvPdfData(): CvPdfData {
     experience: [...cvWorkExperience].reverse().map(experience => ({
       role: experience.workPlaceTitle,
       company: experience.workPlace,
-      period: getFormattedToAndFromCvDate(
-        parseCvDate(experience.fromDate),
-        parseCvDate(experience.toDate)
-      ),
+      period: formatPdfPeriod(experience.fromDate, experience.toDate),
       summary: experience.summary
     })),
-    education: cvEducation.map(education => ({
-      title: education.title,
-      area: education.area,
-      period: `${parseCvDate(education.fromDate).getFullYear()} - ${parseCvDate(education.toDate).getFullYear()}`
-    })),
     skills: cvKeySkills.skills.map(skill => skill.title),
-    details: [
-      { label: "Location", value: "Bergen, Norway" },
-      { label: "Experience", value: `${getActiveWorkYearsAsNumber()}+ years` },
-      { label: "Languages", value: "Norwegian (native), English" },
-      { label: "Relocation", value: "No" },
-      { label: "Work mode", value: "Hybrid preferred" }
-    ]
+    languages: [{ name: "Norwegian", note: "native" }, { name: "English" }],
+    education: buildPdfEducation(),
+    workMode: "Hybrid preferred"
   };
 }
 
