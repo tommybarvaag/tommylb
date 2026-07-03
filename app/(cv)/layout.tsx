@@ -46,7 +46,11 @@ export default function CurriculumVitaeLayout({ children }: { children: React.Re
                   <CardDescription>Senior front-end specialist</CardDescription>
                 </div>
               </CardHeader>
-              <CardFooter>
+              <CardFooter className="flex-col items-stretch gap-2">
+                <a href="/api/cv/pdf" className={buttonVariants({ variant: "default" })}>
+                  <Icons.Download className="mr-2 size-5" />
+                  Download CV
+                </a>
                 <Link
                   href="/connect"
                   className={buttonVariants({ variant: "subtle" })}
