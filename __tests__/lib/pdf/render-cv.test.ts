@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import { renderCvPdf } from "@/lib/pdf/server/render";
 
+function utf16be(text: string) {
+  return Buffer.from(text, "utf16le").swap16();
+}
+
 describe("renderCvPdf", () => {
   it("renders a single-page PDF buffer", async () => {
     const buffer = await renderCvPdf();
@@ -13,5 +17,6 @@ describe("renderCvPdf", () => {
 
     expect(pageCount).toBe(1);
     expect(buffer.length).toBeGreaterThan(10_000);
+    expect(buffer.includes(utf16be("Tommy Lunde Barvåg"))).toBe(true);
   });
 });
