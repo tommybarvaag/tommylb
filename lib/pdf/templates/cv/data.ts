@@ -1,5 +1,9 @@
 import { cvEducation, cvKeySkills, cvWorkExperience } from "@/data/cv-key-points";
-import { getActiveWorkYearsAsNumber, getFormattedToAndFromCvDate } from "@/utils/date-utils";
+import {
+  getActiveWorkYearsAsNumber,
+  getFormattedToAndFromCvDate,
+  parseCvDate
+} from "@/utils/date-utils";
 
 type CvPdfExperience = {
   role: string;
@@ -41,15 +45,15 @@ export function buildCvPdfData(): CvPdfData {
       role: experience.workPlaceTitle,
       company: experience.workPlace,
       period: getFormattedToAndFromCvDate(
-        new Date(experience.fromDate),
-        new Date(experience.toDate)
+        parseCvDate(experience.fromDate),
+        parseCvDate(experience.toDate)
       ),
       summary: experience.summary
     })),
     education: cvEducation.map(education => ({
       title: education.title,
       area: education.area,
-      period: `${new Date(education.fromDate).getFullYear()} - ${new Date(education.toDate).getFullYear()}`
+      period: `${parseCvDate(education.fromDate).getFullYear()} - ${parseCvDate(education.toDate).getFullYear()}`
     })),
     skills: cvKeySkills.skills.map(skill => skill.title),
     details: [
