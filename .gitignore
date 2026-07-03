@@ -15,7 +15,6 @@ __tests__/browser/__screenshots__/
 # next.js
 /.next/
 /out/
-*.tsbuildinfo
 
 # production
 /build
@@ -32,4 +31,10 @@ yarn-error.log*
 .vscode/*
 !.vscode/settings.json
 
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local refs
 .ref
+/.ref/
