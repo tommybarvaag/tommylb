@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,9 +14,9 @@ import { HistoryBackLink } from "@/components/history-back-link";
 import { getHumanizedDateFromNow } from "@/utils/date-utils";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
-interface PostPageProps {
+type PostPageProps = {
   params: Promise<{ slug: string }>;
-}
+};
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
@@ -39,7 +41,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   return metadataWithCustomOgImage(title, description, "post");
 }
 
-export default async function PostPage({ params }: PostPageProps) {
+async function PostContent({ params }: { params: PostPageProps["params"] }) {
   const { slug } = await params;
 
   let Post: (props: Record<string, never>) => React.ReactNode;
@@ -58,8 +60,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const title = typeof metadata.title === "string" ? metadata.title : slug;
 
   return (
-    <article className="relative container prose max-w-3xl prose-zinc dark:prose-invert">
-      <HistoryBackLink href="/post">See all posts</HistoryBackLink>
+    <>
       <div>
         <Heading variant="h1" className="mb-8 text-2xl font-semibold">
           {title}
@@ -99,6 +100,17 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
       </div>
       <Post />
+    </>
+  );
+}
+
+export default function PostPage({ params }: PostPageProps) {
+  return (
+    <article className="relative container prose max-w-3xl prose-zinc dark:prose-invert">
+      <HistoryBackLink href="/post">See all posts</HistoryBackLink>
+      <Suspense fallback={null}>
+        <PostContent params={params} />
+      </Suspense>
     </article>
   );
 }

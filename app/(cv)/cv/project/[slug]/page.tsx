@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -6,12 +8,12 @@ import { ProjectExperience } from "@/components/project-experience";
 import { projectExperienceData } from "@/data/project-experience-data";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
-interface ProjectExperienceProps {
+type ProjectExperienceProps = {
   params: Promise<{
     slug: string;
   }>;
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
 export async function generateStaticParams() {
   return projectExperienceData.map(projectExperienceItem => ({
@@ -39,7 +41,11 @@ export async function generateMetadata({ params }: ProjectExperienceProps): Prom
   );
 }
 
-export default async function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+async function ProjectExperienceContent({
+  params
+}: {
+  params: ProjectExperienceProps["params"];
+}) {
   const { slug } = await params;
   const projectExperience = projectExperienceData.find(
     projectExperienceItem => projectExperienceItem.slug === slug
@@ -50,4 +56,12 @@ export default async function ProjectExperiencePage({ params }: ProjectExperienc
   }
 
   return <ProjectExperience projectExperience={projectExperience} />;
+}
+
+export default function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+  return (
+    <Suspense fallback={null}>
+      <ProjectExperienceContent params={params} />
+    </Suspense>
+  );
 }
