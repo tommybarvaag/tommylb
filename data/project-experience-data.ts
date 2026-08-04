@@ -424,6 +424,10 @@ const projectExperienceData: ProjectExperienceItem[] = [
   }
 ];
 
+export function getProjectExperience(slug: string): ProjectExperienceItem | null {
+  return projectExperienceData.find(item => item.slug === slug) ?? null;
+}
+
 export { projectExperienceData };
 
 export type { ProjectExperienceItem };

@@ -5,14 +5,13 @@ import { notFound } from "next/navigation";
 
 import { ProjectExperience } from "@/components/project-experience";
 
-import { projectExperienceData } from "@/data/project-experience-data";
+import { getProjectExperience, projectExperienceData } from "@/data/project-experience-data";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
 type ProjectExperienceProps = {
   params: Promise<{
     slug: string;
   }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateStaticParams() {
@@ -23,9 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectExperienceProps): Promise<Metadata> {
   const { slug } = await params;
-  const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === slug
-  );
+  const projectExperience = getProjectExperience(slug);
 
   if (!projectExperience) {
     return {};
@@ -41,15 +38,9 @@ export async function generateMetadata({ params }: ProjectExperienceProps): Prom
   );
 }
 
-async function ProjectExperienceContent({
-  params
-}: {
-  params: ProjectExperienceProps["params"];
-}) {
+async function ProjectExperienceContent({ params }: Pick<ProjectExperienceProps, "params">) {
   const { slug } = await params;
-  const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === slug
-  );
+  const projectExperience = getProjectExperience(slug);
 
   if (!projectExperience) {
     return notFound();
@@ -60,7 +51,7 @@ async function ProjectExperienceContent({
 
 export default function ProjectExperiencePage({ params }: ProjectExperienceProps) {
   return (
-    <Suspense fallback={null}>
+    <Suspense>
       <ProjectExperienceContent params={params} />
     </Suspense>
   );

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { getPostSlugs } from "@/lib/posts";
+import { getPost, getPostSlugs } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
 import { Heading } from "@/components/heading";
@@ -26,38 +26,27 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
+  const post = await getPost(slug);
 
-  let post: { metadata: Metadata };
-  try {
-    post = await import(`../_posts/${slug}.mdx`);
-  } catch {
+  if (!post) {
     return {};
   }
 
-  const metadata = post.metadata ?? {};
-  const title = typeof metadata.title === "string" ? metadata.title : slug;
-  const description = metadata.description ?? undefined;
+  const description =
+    typeof post.metadata.description === "string" ? post.metadata.description : undefined;
 
-  return metadataWithCustomOgImage(title, description, "post");
+  return metadataWithCustomOgImage(post.title, description, "post");
 }
 
-async function PostContent({ params }: { params: PostPageProps["params"] }) {
+async function PostContent({ params }: Pick<PostPageProps, "params">) {
   const { slug } = await params;
+  const post = await getPost(slug);
 
-  let Post: (props: Record<string, never>) => React.ReactNode;
-  let meta: { date?: string; shortDescription?: string; authors?: string[] };
-  let metadata: Metadata;
-
-  try {
-    const mod = await import(`../_posts/${slug}.mdx`);
-    Post = mod.default;
-    meta = mod.meta ?? {};
-    metadata = mod.metadata ?? {};
-  } catch {
+  if (!post) {
     notFound();
   }
 
-  const title = typeof metadata.title === "string" ? metadata.title : slug;
+  const { Content, meta, title } = post;
 
   return (
     <>
@@ -99,7 +88,7 @@ async function PostContent({ params }: { params: PostPageProps["params"] }) {
           ) : null}
         </div>
       </div>
-      <Post />
+      <Content />
     </>
   );
 }
@@ -108,7 +97,7 @@ export default function PostPage({ params }: PostPageProps) {
   return (
     <article className="relative container prose max-w-3xl prose-zinc dark:prose-invert">
       <HistoryBackLink href="/post">See all posts</HistoryBackLink>
-      <Suspense fallback={null}>
+      <Suspense>
         <PostContent params={params} />
       </Suspense>
     </article>
