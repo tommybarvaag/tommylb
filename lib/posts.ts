@@ -1,3 +1,6 @@
+import { cache, type ReactNode } from "react";
+
+import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
 
 import { promises as fs } from "fs";
@@ -12,9 +15,37 @@ export type PostListItem = {
   shortDescription?: string;
 };
 
-// The post set is fixed per deployment — cache the filesystem read + local .mdx imports so
-// Cache Components treats them as prerendered data, not uncached runtime IO. cacheLife("max")
-// because the value only changes on a new build.
+export type PostMeta = {
+  date?: string;
+  shortDescription?: string;
+  authors?: string[];
+};
+
+export type PostModule = {
+  Content: () => ReactNode;
+  metadata: Metadata;
+  meta: PostMeta;
+  title: string;
+};
+
+// Do not use "use cache" here: that boundary requires serializable return values,
+// and Content is a function (MDX component). React.cache only dedupes per request.
+// Path is relative to lib/posts.ts; mdxRs resolves the import at compile time.
+export const getPost = cache(async (slug: string): Promise<PostModule | null> => {
+  try {
+    const mod = await import(`../app/(main)/post/_posts/${slug}.mdx`);
+
+    return {
+      Content: mod.default,
+      metadata: mod.metadata ?? {},
+      meta: mod.meta ?? {},
+      title: typeof mod.metadata?.title === "string" ? mod.metadata.title : slug
+    };
+  } catch {
+    return null;
+  }
+});
+
 export async function getPostSlugs(): Promise<string[]> {
   "use cache";
   cacheLife("max");
@@ -32,14 +63,17 @@ export async function getPosts(): Promise<PostListItem[]> {
   const posts: PostListItem[] = [];
 
   for (const slug of slugs) {
-    // Build-time read of a LOCAL module: mdxRs resolves this at compile time
-    // (not uncached runtime IO). Path is relative to lib/posts.ts.
-    const mod = await import(`../app/(main)/post/_posts/${slug}.mdx`);
+    const post = await getPost(slug);
+
+    if (!post) {
+      continue;
+    }
+
     posts.push({
       slug,
-      title: typeof mod.metadata?.title === "string" ? mod.metadata.title : slug,
-      date: mod.meta?.date ?? "",
-      shortDescription: mod.meta?.shortDescription ?? mod.metadata?.description ?? undefined
+      title: post.title,
+      date: post.meta.date ?? "",
+      shortDescription: post.meta.shortDescription ?? post.metadata.description ?? undefined
     });
   }
 

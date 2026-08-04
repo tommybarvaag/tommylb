@@ -1,17 +1,18 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProjectExperience } from "@/components/project-experience";
 
-import { projectExperienceData } from "@/data/project-experience-data";
+import { getProjectExperience, projectExperienceData } from "@/data/project-experience-data";
 import { metadataWithCustomOgImage } from "@/utils/metadata-utils";
 
-interface ProjectExperienceProps {
+type ProjectExperienceProps = {
   params: Promise<{
     slug: string;
   }>;
-  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
 export async function generateStaticParams() {
   return projectExperienceData.map(projectExperienceItem => ({
@@ -21,9 +22,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectExperienceProps): Promise<Metadata> {
   const { slug } = await params;
-  const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === slug
-  );
+  const projectExperience = getProjectExperience(slug);
 
   if (!projectExperience) {
     return {};
@@ -39,15 +38,21 @@ export async function generateMetadata({ params }: ProjectExperienceProps): Prom
   );
 }
 
-export default async function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+async function ProjectExperienceContent({ params }: Pick<ProjectExperienceProps, "params">) {
   const { slug } = await params;
-  const projectExperience = projectExperienceData.find(
-    projectExperienceItem => projectExperienceItem.slug === slug
-  );
+  const projectExperience = getProjectExperience(slug);
 
   if (!projectExperience) {
     return notFound();
   }
 
   return <ProjectExperience projectExperience={projectExperience} />;
+}
+
+export default function ProjectExperiencePage({ params }: ProjectExperienceProps) {
+  return (
+    <Suspense>
+      <ProjectExperienceContent params={params} />
+    </Suspense>
+  );
 }
