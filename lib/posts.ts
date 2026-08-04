@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { cache, type ReactNode } from "react";
 
 import type { Metadata } from "next";
 import { cacheLife } from "next/cache";
@@ -28,13 +28,10 @@ export type PostModule = {
   title: string;
 };
 
-// Build-time local MDX import: mdxRs resolves this at compile time (not uncached
-// runtime IO). Path is relative to lib/posts.ts. cacheLife("max") because the
-// value only changes on a new build.
-export async function getPost(slug: string): Promise<PostModule | null> {
-  "use cache";
-  cacheLife("max");
-
+// Do not use "use cache" here: that boundary requires serializable return values,
+// and Content is a function (MDX component). React.cache only dedupes per request.
+// Path is relative to lib/posts.ts; mdxRs resolves the import at compile time.
+export const getPost = cache(async (slug: string): Promise<PostModule | null> => {
   try {
     const mod = await import(`../app/(main)/post/_posts/${slug}.mdx`);
 
@@ -47,7 +44,7 @@ export async function getPost(slug: string): Promise<PostModule | null> {
   } catch {
     return null;
   }
-}
+});
 
 export async function getPostSlugs(): Promise<string[]> {
   "use cache";
